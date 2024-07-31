@@ -58,7 +58,8 @@ class DashBoardView extends GetView<DashBoardController> {
                   )),
           actions: [
             Padding(
-              padding:const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
               child: Stack(
                 alignment: Alignment.center,
                 children: [
@@ -79,7 +80,7 @@ class DashBoardView extends GetView<DashBoardController> {
                         alignment: Alignment.center,
                         height: 11.5,
                         width: 11.5,
-                        decoration:const BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: Color(0xFFFF3737), shape: BoxShape.circle),
                         child: const Text(
                           '12',
@@ -96,70 +97,11 @@ class DashBoardView extends GetView<DashBoardController> {
             ),
           ],
         ),
-        // appBar: AppBar(
-        //   toolbarHeight: 65,
-        //   backgroundColor: Color(0xFFEFF4FF),
-        //   leading: Padding(
-        //     padding: const EdgeInsets.only(left: 15.0),
-        //     child: SvgPicture.asset(
-        //       ProjectImages.list,
-        //       height: 26,
-        //       width: 24,
-        //     ),
-        //   ),
-        //   leadingWidth: 45,
-        //   title: Text(
-        //     'CFO DASHBOARD',
-        //     style: TextStyle(
-        //       fontSize: 16,
-        //       fontFamily: 'Urbanist',
-        //       fontWeight: FontWeight.w600,
-        //       color: Color(0xFF242424),
-        //     ),
-        //   ),
-        //   centerTitle: true,
-        //   actions: [
-        //     Padding(
-        //       padding:
-        //           const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
-        //       child: Stack(
-        //         alignment: Alignment.center,
-        //         children: [
-        //           Column(children: [
-        //             SizedBox(
-        //               height: 10,
-        //               width: 25,
-        //             ),
-        //             SvgPicture.asset(ProjectImages.notification)
-        //           ]),
-        //           Positioned(
-        //               top: 5,
-        //               right: 0,
-        //               child: Container(
-        //                 alignment: Alignment.center,
-        //                 height: 11.5,
-        //                 width: 11.5,
-        //                 decoration: BoxDecoration(
-        //                     color: Color(0xFFFF3737), shape: BoxShape.circle),
-        //                 child: Text(
-        //                   '12',
-        //                   textAlign: TextAlign.center,
-        //                   style: TextStyle(
-        //                       letterSpacing: 0.1,
-        //                       color: Colors.white,
-        //                       fontSize: 6,
-        //                       fontWeight: FontWeight.w900),
-        //                 ),
-        //               )),
-        //         ],
-        //       ),
-        //     ),
-        //   ],
-        // ),
         body: Obx(() => Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              color: const Color(0xFFF2F2F2),
+              // color: const Color(0xFFF2F2F2),
+              color: AppColor.backgroundColors,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: SingleChildScrollView(
@@ -167,7 +109,7 @@ class DashBoardView extends GetView<DashBoardController> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                     const SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       CarouselSlider.builder(
@@ -201,13 +143,14 @@ class DashBoardView extends GetView<DashBoardController> {
                           },
                         ),
                       ),
-                     const SizedBox(
+                      const SizedBox(
                         height: 8,
                       ),
                       Obx(() => Center(
                             child: SmoothPageIndicator(
                               controller: PageController(
-                                initialPage: dashBoardController.activeSlide.value,
+                                initialPage:
+                                    dashBoardController.activeSlide.value,
                                 // onAttach: (position) {
                                 //   dashBoardController.activeSlide.value;
                                 // },
@@ -221,7 +164,7 @@ class DashBoardView extends GetView<DashBoardController> {
                                   strokeWidth: 24),
                             ),
                           )),
-                     const SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Row(
@@ -229,7 +172,11 @@ class DashBoardView extends GetView<DashBoardController> {
                           const SizedBox(
                             width: 5,
                           ),
-                          SvgPicture.asset(ProjectImages.thunder,height: 22,width: 22,),
+                          SvgPicture.asset(
+                            ProjectImages.thunder,
+                            height: 22,
+                            width: 22,
+                          ),
                           const SizedBox(
                             width: 10,
                           ),
@@ -239,18 +186,19 @@ class DashBoardView extends GetView<DashBoardController> {
                           )
                         ],
                       ),
-                     const SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       GridView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: dashBoardController.ItemList.length,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 4,
-                            crossAxisSpacing: 12,
-                            childAspectRatio: 0.9,
-                            mainAxisSpacing: 12),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 4,
+                                crossAxisSpacing: 12,
+                                childAspectRatio: 0.9,
+                                mainAxisSpacing: 12),
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
@@ -287,7 +235,8 @@ class DashBoardView extends GetView<DashBoardController> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 10),
                                   height: 50,
                                   width: 50,
                                   decoration: BoxDecoration(
@@ -320,7 +269,7 @@ class DashBoardView extends GetView<DashBoardController> {
                           );
                         },
                       ),
-                     const SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Container(
@@ -339,8 +288,8 @@ class DashBoardView extends GetView<DashBoardController> {
                                   child: Container(
                                     width: 160,
                                     height: 50,
-                                    padding:
-                                        const EdgeInsets.symmetric(horizontal: 12),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 12),
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(5),
                                         color: dashBoardController
@@ -388,8 +337,8 @@ class DashBoardView extends GetView<DashBoardController> {
                                   child: Container(
                                     width: 160,
                                     height: 50,
-                                    padding:
-                                        const EdgeInsets.symmetric(horizontal: 12),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 12),
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(5),
                                         color: dashBoardController
@@ -433,17 +382,18 @@ class DashBoardView extends GetView<DashBoardController> {
                                 ),
                               ],
                             ),
-                           const SizedBox(
+                            const SizedBox(
                               height: 15,
                             ),
                             ListView.builder(
-                              itemCount: dashBoardController.Debitors$credtors.length,
+                              itemCount:
+                                  dashBoardController.Debitors$credtors.length,
                               shrinkWrap: true,
                               padding: EdgeInsets.zero,
                               physics: const NeverScrollableScrollPhysics(),
                               itemBuilder: (context, index) {
                                 return Padding(
-                                  padding:const EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       horizontal: 18.0, vertical: 16),
                                   child: Row(
                                     mainAxisAlignment:
@@ -470,7 +420,7 @@ class DashBoardView extends GetView<DashBoardController> {
                                 );
                               },
                             ),
-                           const SizedBox(
+                            const SizedBox(
                               height: 12,
                             ),
                             Align(
@@ -495,7 +445,7 @@ class DashBoardView extends GetView<DashBoardController> {
                           ],
                         ),
                       ),
-                    const  SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Row(
@@ -512,7 +462,7 @@ class DashBoardView extends GetView<DashBoardController> {
                           ),
                         ],
                       ),
-                     const SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Container(
@@ -600,7 +550,7 @@ class DashBoardView extends GetView<DashBoardController> {
                               CashFlowChart(),
                             ],
                           )),
-                     const SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Align(
@@ -609,13 +559,13 @@ class DashBoardView extends GetView<DashBoardController> {
                             "Cost Center Wise P & L",
                             style: TextHeader,
                           )),
-                     const SizedBox(
+                      const SizedBox(
                         height: 12,
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 12),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.white),
@@ -700,7 +650,7 @@ class DashBoardView extends GetView<DashBoardController> {
                           ],
                         ),
                       ),
-                     const SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Align(
@@ -709,7 +659,7 @@ class DashBoardView extends GetView<DashBoardController> {
                             "Summary",
                             style: TextHeader,
                           )),
-                     const SizedBox(
+                      const SizedBox(
                         height: 12,
                       ),
                       ListView.builder(
@@ -772,7 +722,7 @@ class DashBoardView extends GetView<DashBoardController> {
                                         const Text(
                                           "Change from last month",
                                           style: TextStyle(
-                                              color: Color(0xFFFFFFFF),
+                                              color: Colors.white,
                                               fontSize: 14,
                                               letterSpacing: 0.1,
                                               fontWeight: FontWeight.w400,
@@ -788,7 +738,7 @@ class DashBoardView extends GetView<DashBoardController> {
                                         const Text(
                                           "25.2%",
                                           style: TextStyle(
-                                              color: Color(0xFFFFFFFF),
+                                              color: Colors.white,
                                               fontSize: 14,
                                               letterSpacing: 0.1,
                                               fontWeight: FontWeight.w400,
@@ -844,11 +794,11 @@ class DashBoardView extends GetView<DashBoardController> {
                                   Container(
                                     height: 10,
                                     width: 10,
-                                    decoration: const  BoxDecoration(
+                                    decoration: const BoxDecoration(
                                         shape: BoxShape.circle,
                                         color: Color(0xFFED2828)),
                                   ),
-                                 const SizedBox(
+                                  const SizedBox(
                                     width: 8,
                                   ),
                                   Text(
@@ -861,7 +811,7 @@ class DashBoardView extends GetView<DashBoardController> {
                                   ),
                                 ],
                               ),
-                            const  SizedBox(
+                              const SizedBox(
                                 height: 15,
                               ),
                             ],
@@ -876,8 +826,9 @@ class DashBoardView extends GetView<DashBoardController> {
                                 minSpeed: 0,
                                 maxSpeed: 100,
                                 speed: speed,
-                                speedTextStyle: const  TextStyle(color: Colors.transparent),
-                                minMaxTextStyle:const TextStyle(
+                                speedTextStyle:
+                                    const TextStyle(color: Colors.transparent),
+                                minMaxTextStyle: const TextStyle(
                                   color: Colors.transparent,
                                 ),
                                 animate: true,
@@ -888,12 +839,12 @@ class DashBoardView extends GetView<DashBoardController> {
                                 activeGaugeColor: AppColor.primaryColor,
                                 divisionCircleColors: Colors.transparent,
                                 // innerCirclePadding: 20,
-                                child:  Stack(
+                                child: Stack(
                                   children: [
                                     Container(
                                       height: 140,
                                       width: 140,
-                                      margin: const  EdgeInsets.all(5),
+                                      margin: const EdgeInsets.all(5),
                                     ),
                                     Positioned(
                                       top: 18,
@@ -928,7 +879,8 @@ class DashBoardView extends GetView<DashBoardController> {
                                               top: 25,
                                               right: 20,
                                               child: SvgPicture.asset(
-                                                ProjectImages.point, // Replace with your pointer image
+                                                ProjectImages
+                                                    .point, // Replace with your pointer image
                                                 width: 10,
                                                 height: 20,
                                               ),
@@ -959,7 +911,7 @@ class DashBoardView extends GetView<DashBoardController> {
                           ),
                         ],
                       ),
-                     const SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
 

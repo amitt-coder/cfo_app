@@ -1,8 +1,6 @@
 import 'package:cfo_app/components/common_textformfield.dart';
 import 'package:cfo_app/utils/images.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import '../../../../components/common_button.dart';
@@ -45,20 +43,20 @@ class SignUpView extends GetView<SignUpController> {
                   height: MediaQuery.of(context).size.height * 0.04,
                 ),
                 Text("Create Your Account!".tr,
-                    textScaler: TextScaler.linear(1.0),
-                    style: TextStyle(
+                    textScaler: const TextScaler.linear(1.0),
+                    style: const TextStyle(
                       fontSize: 22,
                       fontFamily: 'Urbanist',
                       letterSpacing: 1,
                       fontWeight: FontWeight.w700,
                       color: Color(0xFF1D1E25),
                     )),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Text("Sign Up to your account".tr,
-                    textScaler: TextScaler.linear(1.0),
-                    style: TextStyle(
+                    textScaler: const TextScaler.linear(1.0),
+                    style: const TextStyle(
                       fontSize: 16,
                       letterSpacing: 0.1,
                       wordSpacing: 0.1,
@@ -66,7 +64,7 @@ class SignUpView extends GetView<SignUpController> {
                       fontWeight: FontWeight.w400,
                       color: Color(0xFF808D9E),
                     )),
-                SizedBox(
+                const SizedBox(
                   height: 18,
                 ),
                 CommonTextField(
@@ -75,7 +73,7 @@ class SignUpView extends GetView<SignUpController> {
                   keyboardTypes: TextInputType.text,
                   prefixIcon: ProjectImages.company,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 CommonTextField(
@@ -84,7 +82,7 @@ class SignUpView extends GetView<SignUpController> {
                   keyboardTypes: TextInputType.emailAddress,
                   prefixIcon: ProjectImages.user,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 CommonTextField(
@@ -93,62 +91,63 @@ class SignUpView extends GetView<SignUpController> {
                   keyboardTypes: TextInputType.number,
                   prefixIcon: ProjectImages.mobile,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       border: Border(
                           bottom:
                               BorderSide(color: Color(0xFFE9ECF2), width: 1))),
                   child: Obx(
                     () => TextFormField(
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 14,
                         fontFamily: 'Urbanist',
                         fontWeight: FontWeight.w700,
                         color: Color(0xFF191A26),
                       ),
                       keyboardType: TextInputType.visiblePassword,
-                      cursorColor: Color(0xFF242B42),
+                      cursorColor: const Color(0xFF242B42),
                       cursorWidth: 1.5,
                       controller: signUpController.passwordController,
                       obscureText: signUpController.isCheck.value,
                       decoration: InputDecoration(
                         labelText: "Enter your password",
-                        labelStyle: TextStyle(
+                        labelStyle: const TextStyle(
                           fontSize: 14,
                           fontFamily: 'Urbanist',
                           letterSpacing: 0.5,
                           fontWeight: FontWeight.w400,
                           color: Color(0xFF7E8CA0),
                         ),
-                        floatingLabelStyle: TextStyle(
+                        floatingLabelStyle: const TextStyle(
                           fontSize: 15,
                           fontFamily: 'Urbanist',
                           fontWeight: FontWeight.w400,
                           color: Color(0xFF7E8CA0),
                         ),
-                        hintStyle: TextStyle(
+                        hintStyle: const TextStyle(
                           fontSize: 14,
                           fontFamily: 'Urbanist',
                           fontWeight: FontWeight.w400,
                           color: Color(0xFF7E8CA0),
                         ),
-                        contentPadding: EdgeInsets.symmetric(vertical: 10),
+                        contentPadding:
+                            const EdgeInsets.symmetric(vertical: 10),
                         prefixIcon: Padding(
-                          padding: EdgeInsets.only(left: 10.0, right: 10),
+                          padding: const EdgeInsets.only(left: 10.0, right: 10),
                           child: SvgPicture.asset(
                             ProjectImages.lock,
                             height: 20,
                             width: 20,
                           ),
                         ),
-                        prefixIconConstraints: BoxConstraints(
+                        prefixIconConstraints: const BoxConstraints(
                           maxHeight: 20,
                         ),
                         suffixIcon: Padding(
-                          padding: EdgeInsets.only(left: 10.0, right: 10),
+                          padding: const EdgeInsets.only(left: 10.0, right: 10),
                           child: InkWell(
                             onTap: () {
                               signUpController.setIsCheck();
@@ -159,44 +158,46 @@ class SignUpView extends GetView<SignUpController> {
                                     height: 20,
                                     width: 20,
                                   )
-                                : Icon(
+                                : const Icon(
                                     Icons.remove_red_eye_outlined,
                                     color: Color(0xFF7E8CA0),
                                   ),
                           ),
                         ),
-                        suffixIconConstraints: BoxConstraints(
+                        suffixIconConstraints: const BoxConstraints(
                           maxHeight: 20,
                         ),
                         border: InputBorder.none,
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                               color: AppColor.primaryColor, width: 1),
-
                         ),
                         disabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color:AppColor.primaryColor,width: 1),
+                          borderSide: BorderSide(
+                              color: AppColor.primaryColor, width: 1),
                         ),
-                        errorBorder:  UnderlineInputBorder(
-                          borderSide: BorderSide(color:AppColor.primaryColor,width: 1),
+                        errorBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: AppColor.primaryColor, width: 1),
                         ),
-                        enabledBorder:  UnderlineInputBorder(
-                          borderSide: BorderSide(color:AppColor.txtSecondaryColor,width: 1),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: AppColor.txtSecondaryColor, width: 1),
                         ),
                       ),
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       border: Border(
                           bottom:
                               BorderSide(color: Color(0xFFE9ECF2), width: 1))),
                   child: TextFormField(
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 14,
                       fontFamily: 'Urbanist',
                       fontWeight: FontWeight.w700,
@@ -204,32 +205,32 @@ class SignUpView extends GetView<SignUpController> {
                     ),
                     controller: signUpController.countryController,
                     keyboardType: TextInputType.text,
-                    cursorColor: Color(0xFF242B42),
+                    cursorColor: const Color(0xFF242B42),
                     cursorWidth: 1.5,
                     decoration: InputDecoration(
                       labelText: "Country",
-                      labelStyle: TextStyle(
+                      labelStyle: const TextStyle(
                         fontSize: 14,
                         fontFamily: 'Urbanist',
                         letterSpacing: 0.5,
                         fontWeight: FontWeight.w400,
                         color: Color(0xFF7E8CA0),
                       ),
-                      floatingLabelStyle: TextStyle(
+                      floatingLabelStyle: const TextStyle(
                         fontSize: 15,
                         fontFamily: 'Urbanist',
                         fontWeight: FontWeight.w400,
                         color: Color(0xFF7E8CA0),
                       ),
-                      hintStyle: TextStyle(
+                      hintStyle: const TextStyle(
                         fontSize: 14,
                         fontFamily: 'Urbanist',
                         fontWeight: FontWeight.w400,
                         color: Color(0xFF7E8CA0),
                       ),
-                      contentPadding: EdgeInsets.symmetric(vertical: 10),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 10),
                       prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 10.0, right: 10),
+                        padding: const EdgeInsets.only(left: 10.0, right: 10),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(3),
                           child: SvgPicture.asset(
@@ -239,26 +240,30 @@ class SignUpView extends GetView<SignUpController> {
                           ),
                         ),
                       ),
-                      prefixIconConstraints: BoxConstraints(
+                      prefixIconConstraints: const BoxConstraints(
                         maxHeight: 20,
                       ),
                       border: InputBorder.none,
                       disabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color:AppColor.primaryColor,width: 1),
+                        borderSide:
+                            BorderSide(color: AppColor.primaryColor, width: 1),
                       ),
                       focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color:AppColor.primaryColor,width: 1),
+                        borderSide:
+                            BorderSide(color: AppColor.primaryColor, width: 1),
                       ),
-                      errorBorder:  UnderlineInputBorder(
-                        borderSide: BorderSide(color:AppColor.primaryColor,width: 1),
+                      errorBorder: UnderlineInputBorder(
+                        borderSide:
+                            BorderSide(color: AppColor.primaryColor, width: 1),
                       ),
-                      enabledBorder:  UnderlineInputBorder(
-                        borderSide: BorderSide(color:AppColor.txtSecondaryColor,width: 1),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                            color: AppColor.txtSecondaryColor, width: 1),
                       ),
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 CommonTextField(
@@ -267,7 +272,7 @@ class SignUpView extends GetView<SignUpController> {
                   keyboardTypes: TextInputType.text,
                   prefixIcon: ProjectImages.city,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 18,
                 ),
                 Obx(() => Row(
@@ -282,8 +287,8 @@ class SignUpView extends GetView<SignUpController> {
                             child: Checkbox(
                               materialTapTargetSize:
                                   MaterialTapTargetSize.padded,
-                              activeColor: Color(0xFF808D9E),
-                              side: BorderSide(
+                              activeColor: const Color(0xFF808D9E),
+                              side: const BorderSide(
                                   color: Color(0xFF808D9E), width: 1.2),
                               value: signUpController.isAgreed.value,
                               onChanged: (value) {
@@ -292,8 +297,8 @@ class SignUpView extends GetView<SignUpController> {
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10.0),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 10.0),
                           child: Text.rich(
                             textScaler: TextScaler.linear(1),
                             TextSpan(children: [
@@ -329,8 +334,8 @@ class SignUpView extends GetView<SignUpController> {
                         ),
                       ],
                     )),
-                Padding(
-                  padding: const EdgeInsets.only(left: 40.0),
+                const Padding(
+                  padding: EdgeInsets.only(left: 40.0),
                   child: Text("Privacy Policy",
                       style: TextStyle(
                           height: 0.9,
@@ -341,7 +346,7 @@ class SignUpView extends GetView<SignUpController> {
                           fontFamily: 'Urbanist',
                           color: Colors.black)),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 // Container(
@@ -371,10 +376,11 @@ class SignUpView extends GetView<SignUpController> {
                 CommonButton(
                   color: AppColor.primaryColor,
                   ontap: () {
-                    // signUpController.signUpApi();
-                    signUpController.isAgreed.value==false?
-                    ToastMessage.showToast('Agree to Terms and Policy'):
                     Get.offAllNamed(Routes.ACCOUNT_VERFIY);
+                    // signUpController.signUpApi();
+                    // signUpController.isAgreed.value==false?
+                    // ToastMessage.showToast('Agree to Terms and Policy'):
+                    // Get.offAllNamed(Routes.ACCOUNT_VERFIY);
                   },
                   height: 45,
                   width: double.infinity,
@@ -389,7 +395,7 @@ class SignUpView extends GetView<SignUpController> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text("Already have a account?".tr,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 14,
                           fontFamily: 'Urbanist',
                           letterSpacing: 0.5,
@@ -413,7 +419,7 @@ class SignUpView extends GetView<SignUpController> {
                     ),
                   ],
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
               ],
             ),
           ),

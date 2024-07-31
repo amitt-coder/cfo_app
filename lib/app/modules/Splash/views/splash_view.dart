@@ -12,7 +12,10 @@ class SplashView extends GetView<SplashController> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        child: Image.asset(ProjectImages.splash,fit: BoxFit.fill,),
+        child: Image.asset(
+          ProjectImages.splash,
+          fit: BoxFit.fill,
+        ),
       ),
     );
   }

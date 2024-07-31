@@ -16,7 +16,7 @@ class AllCreditorView extends StatefulWidget {
 class _AllCreditorViewState extends State<AllCreditorView> {
 
   AllCreditorController allCreditorController = Get.put(AllCreditorController());
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -129,7 +129,6 @@ class _AllCreditorViewState extends State<AllCreditorView> {
              const SizedBox(height: 10,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Image.asset(
                     ProjectImages.information_icon,
@@ -140,9 +139,11 @@ class _AllCreditorViewState extends State<AllCreditorView> {
                   DropDownField(
                     selectValue:allCreditorController.showCategory.value,
                     hintName: 'show',
-                    width: 150, height: 35,
+                    width: MediaQuery.of(context).size.width*0.35,
+                    height: 40,
                     selectPriceInstallment:allCreditorController.showCategoryList,
                     controller: allCreditorController.categoryController, showBorder: '1',),
+                  ///
                   // Text('Cateogory A',
                   // style: TextStyle(
                   //   fontWeight: FontWeight.w500,
@@ -157,13 +158,11 @@ class _AllCreditorViewState extends State<AllCreditorView> {
                   // )
                 ],
               ),
-
              const SizedBox(height: 20,),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
                 decoration: BoxDecoration(
-                    // color: const Color(0xFFEEEEEE),
-                    color:AppColor.boxblueColor,
+                   color:AppColor.boxblueColor,
                     borderRadius: BorderRadius.circular(5)
                 ),
                 child: Row(

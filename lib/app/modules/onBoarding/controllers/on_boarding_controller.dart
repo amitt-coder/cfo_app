@@ -1,23 +1,16 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class OnBoardingController extends GetxController {
-  //TODO: Implement OnBoardingController
 
 
-  var currentIndex = 0.obs;
 
-  void onPageChanged(int index) {
-    currentIndex.value = index;
-  }
+  RxInt currentIndex = 0.obs;
+  PageController pageController = PageController();
+  final count = 0.obs;
 
-  void onSkipPressed() {
-    // Get.off(SignInView());
-  }
-
-  void onNextPressed() {
-    // Get.off(SignInView());
-  }
   List OnBoardingData = [
     {
       "title": 'Empower Your\nMoney',
@@ -36,16 +29,37 @@ class OnBoardingController extends GetxController {
       "images":'assets/images/onboarding3.svg'
     },
   ];
-  // continueMethod(int index) {
-  //   currentindex.value=   index;
-  // }
-  PageController pageController = PageController();
 
-  final count = 0.obs;
+  void onPageChanged(int index) {
+    currentIndex.value = index;
+  }
+
+
   @override
   void onInit() {
     super.onInit();
+    _precacheImages();
   }
+
+  void _precacheImages() {
+    OnBoardingData.forEach((data) {
+      precachePicture(
+        ExactAssetPicture(SvgPicture.svgStringDecoder, data['images']!),
+        Get.context!,
+      );
+    });
+  }
+
+  void onSkipPressed() {
+    // Get.off(SignInView());
+  }
+
+  void onNextPressed() {
+    // Get.off(SignInView());
+  }
+
+
+
 
   @override
   void onReady() {

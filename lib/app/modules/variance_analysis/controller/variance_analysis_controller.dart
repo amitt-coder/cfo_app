@@ -9,7 +9,7 @@ class VarianceAnalysisController extends GetxController {
   RxList<String> dayList =
       ['Q1', 'Q2', 'Q3', 'Q4', 'rolling 3 months', 'rolling 6 months'].obs;
 
-  List<Map<String, dynamic>> varianceData = [
+  RxList<Map<String, dynamic>> varianceData = [
     {
       'account': 'Sales',
       'month1': '100,000',
@@ -24,7 +24,7 @@ class VarianceAnalysisController extends GetxController {
       'month3': '65,000',
       'average': '60,000',
     },
-  ];
+  ].obs;
 
   void updateVarianceData(String period) {
     // Update your data based on the selected period

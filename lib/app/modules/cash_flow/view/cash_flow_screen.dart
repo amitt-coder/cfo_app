@@ -29,19 +29,19 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
     Widget text;
     switch (value.toInt()) {
       case 10:
-        text = Text('Nov 10', style: style);
+        text = const Text('Nov 10', style: style);
         break;
       case 15:
-        text = Text('Nov 15', style: style);
+        text = const Text('Nov 15', style: style);
         break;
       case 20:
-        text = Text('Nov 20', style: style);
+        text = const Text('Nov 20', style: style);
         break;
       case 25:
-        text = Text('Nov 25', style: style);
+        text = const Text('Nov 25', style: style);
         break;
       case 30:
-        text = Text('Nov 30', style: style);
+        text = const Text('Nov 30', style: style);
         break;
       default:
         text = Container();
@@ -80,7 +80,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
       body: Obx(() => Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            padding:const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             color: AppColor.backgroundColors,
             child: SingleChildScrollView(
               child: Column(
@@ -169,19 +169,19 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                 const SizedBox(
                     height: 10,
                   ),
                   Text(
                     "Summary",
                     style: TextHeader,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Container(
                     // height: 125,
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+                    padding:  const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
                     width: double.infinity,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
@@ -224,18 +224,18 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Text(
                     "Inflow/Outflow",
                     style: TextHeader,
                   ),
-                  SizedBox(
+                 const  SizedBox(
                     height: 10,
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    padding:  const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         border:
@@ -245,7 +245,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                       children: [
                         Row(
                           children: [
-                            Icon(
+                          const  Icon(
                               Icons.arrow_downward_sharp,
                               size: 35,
                               color: Colors.green,
@@ -262,7 +262,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                                     color: AppColor.fontColor,
                                   ),
                                 ),
-                                Text(
+                                const Text(
                                   "₹15,000",
                                   style: TextStyle(
                                     fontSize: 17,
@@ -278,7 +278,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                         Container(
                           height: 40,
                           width: 1,
-                          child: VerticalDivider(
+                          child:const  VerticalDivider(
                             color: Color(0xffd1d1d1),
                             thickness: 1,
                             width: 1,
@@ -286,7 +286,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                         ),
                         Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.arrow_upward_sharp,
                               size: 35,
                               color: Colors.red,
@@ -303,7 +303,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                                     color: AppColor.fontColor,
                                   ),
                                 ),
-                                Text(
+                                const Text(
                                   "₹15,000",
                                   style: TextStyle(
                                     fontSize: 17,
@@ -319,7 +319,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                 const  SizedBox(
                     height: 10,
                   ),
                   Row(
@@ -331,7 +331,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                       ),
                       Container(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+                          const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
                         decoration: BoxDecoration(
                             // color: Color(0xFFEEEEEE),
                             color: AppColor.boxblueColor,
@@ -358,7 +358,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                       )
                     ],
                   ),
-                  SizedBox(
+                 const  SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -376,7 +376,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                               label: VerticalLineLabel(
                                 show: true,
                                 alignment: Alignment.topRight,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.green,
                                   fontSize: 12,
                                 ),
@@ -388,7 +388,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                           ],
                         ),
                         borderData: FlBorderData(show: false),
-                        gridData: FlGridData(show: false),
+                        gridData: const FlGridData(show: false),
                         titlesData: FlTitlesData(
                           bottomTitles: AxisTitles(
                             sideTitles: SideTitles(
@@ -398,30 +398,30 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                               getTitlesWidget: _buildBottomTitle,
                             ),
                           ),
-                          leftTitles: AxisTitles(
+                          leftTitles: const AxisTitles(
                             sideTitles: SideTitles(showTitles: false),
                           ),
-                          rightTitles: AxisTitles(
+                          rightTitles: const AxisTitles(
                             sideTitles: SideTitles(showTitles: false),
                           ),
-                          topTitles: AxisTitles(
+                          topTitles: const AxisTitles(
                             sideTitles: SideTitles(showTitles: false),
                           ),
                         ),
                         lineBarsData: [
                           LineChartBarData(
                             spots: [
-                              FlSpot(10, 3),
-                              FlSpot(15, 5),
-                              FlSpot(20, 3.5),
-                              FlSpot(25, 4),
-                              FlSpot(30, 3),
+                              const FlSpot(10, 3),
+                             const FlSpot(15, 5),
+                             const FlSpot(20, 3.5),
+                             const FlSpot(25, 4),
+                              const FlSpot(30, 3),
                             ],
                             isCurved: true,
                             color: Colors.green,
                             barWidth: 2,
                             isStrokeCapRound: true,
-                            dotData: FlDotData(show: false),
+                            dotData:const  FlDotData(show: false),
                             belowBarData: BarAreaData(
                               show: true,
                               color: Colors.green.withOpacity(0.3),
@@ -429,17 +429,17 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                           ),
                           LineChartBarData(
                             spots: [
-                              FlSpot(10, 2.5),
-                              FlSpot(15, 4),
-                              FlSpot(20, 3),
-                              FlSpot(25, 3.5),
-                              FlSpot(30, 2.5),
+                              const FlSpot(10, 2.5),
+                              const FlSpot(15, 4),
+                              const FlSpot(20, 3),
+                              const FlSpot(25, 3.5),
+                              const FlSpot(30, 2.5),
                             ],
                             isCurved: true,
                             color: Colors.red,
                             barWidth: 2,
                             isStrokeCapRound: true,
-                            dotData: FlDotData(show: false),
+                            dotData:const  FlDotData(show: false),
                             belowBarData: BarAreaData(
                               show: true,
                               color: Colors.green.withOpacity(0.3),
@@ -453,7 +453,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Text(
@@ -464,11 +464,11 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                         fontFamily: 'Urbanist',
                         color: AppColor.blackColor),
                   ),
-                  SizedBox(
+                 const  SizedBox(
                     height: 10,
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    padding: const  EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                     decoration: BoxDecoration(
                         color: AppColor.boxblueColor,
                         borderRadius: BorderRadius.circular(5)),
@@ -502,7 +502,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                 const  SizedBox(
                     height: 10,
                   ),
                   Row(
@@ -524,7 +524,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                             fontFamily: 'Urbanist',
                             color: AppColor.blackColor),
                       ),
-                      Text(
+                       const Text(
                         '₹15,0000      ',
                         style: TextStyle(
                             fontSize: 15,
@@ -534,7 +534,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                 const  SizedBox(
                     height: 20,
                   ),
                   Text(
@@ -545,10 +545,10 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                         fontFamily: 'Urbanist',
                         color: AppColor.blackColor),
                   ),
-                  SizedBox(
+                 const  SizedBox(
                     height: 10,
                   ),
-                  Text(
+                 const  Text(
                     "No of Days Receipt",
                     style: TextStyle(
                         fontSize: 16,
@@ -556,11 +556,11 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                         fontFamily: 'Urbanist',
                         color: Colors.grey),
                   ),
-                  Divider(
+                 const  Divider(
                     color: Color(0xffd1d1d1),
                     thickness: 1,
                   ),
-                  Text(
+                 const  Text(
                     "No of Days Payment",
                     style: TextStyle(
                         fontSize: 16,
@@ -568,12 +568,12 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                         fontFamily: 'Urbanist',
                         color: Colors.grey),
                   ),
-                  SizedBox(
+                 const  SizedBox(
                     height: 20,
                   ),
                   Container(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+                       const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.white),
@@ -597,7 +597,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                                   Container(
                                     height: 10,
                                     width: 10,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                         shape: BoxShape.circle,
                                         color: Color(0xFF48BD69)),
                                   ),
@@ -609,13 +609,13 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                                         fontWeight: FontWeight.w600,
                                         fontFamily: 'Urbanist'),
                                   ),
-                                  SizedBox(
+                                 const SizedBox(
                                     width: 10,
                                   ),
                                   Container(
                                     height: 10,
                                     width: 10,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                         shape: BoxShape.circle,
                                         color: Color(0xFF139939)),
                                   ),
@@ -627,13 +627,13 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                                         fontWeight: FontWeight.w600,
                                         fontFamily: 'Urbanist'),
                                   ),
-                                  SizedBox(
+                                 const SizedBox(
                                     width: 10,
                                   ),
                                   Container(
                                     height: 10,
                                     width: 10,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                         shape: BoxShape.circle,
                                         color: Color(0xFF008224)),
                                   ),
@@ -649,13 +649,13 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                               )
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           CashFlowChart(),
                         ],
                       )),
-                  SizedBox(
+                const SizedBox(
                     height: 20,
                   ),
                   Text(
@@ -666,7 +666,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                         fontFamily: 'Urbanist',
                         color: AppColor.blackColor),
                   ),
-                  SizedBox(
+                 const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -684,7 +684,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                               label: VerticalLineLabel(
                                 show: true,
                                 alignment: Alignment.topRight,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.green,
                                   fontSize: 12,
                                 ),
@@ -696,7 +696,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                           ],
                         ),
                         borderData: FlBorderData(show: false),
-                        gridData: FlGridData(show: false),
+                        gridData: const FlGridData(show: false),
                         titlesData: FlTitlesData(
                           bottomTitles: AxisTitles(
                             sideTitles: SideTitles(
@@ -706,30 +706,30 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                               getTitlesWidget: _buildBottomTitle,
                             ),
                           ),
-                          leftTitles: AxisTitles(
+                          leftTitles: const AxisTitles(
                             sideTitles: SideTitles(showTitles: false),
                           ),
-                          rightTitles: AxisTitles(
+                          rightTitles: const  AxisTitles(
                             sideTitles: SideTitles(showTitles: false),
                           ),
-                          topTitles: AxisTitles(
+                          topTitles:const  AxisTitles(
                             sideTitles: SideTitles(showTitles: false),
                           ),
                         ),
                         lineBarsData: [
                           LineChartBarData(
                             spots: [
-                              FlSpot(10, 3),
-                              FlSpot(15, 5),
-                              FlSpot(20, 3.5),
-                              FlSpot(25, 4),
-                              FlSpot(30, 3),
+                            const  FlSpot(10, 3),
+                            const  FlSpot(15, 5),
+                              const FlSpot(20, 3.5),
+                             const FlSpot(25, 4),
+                             const FlSpot(30, 3),
                             ],
                             isCurved: true,
                             color: Colors.green,
                             barWidth: 2,
                             isStrokeCapRound: true,
-                            dotData: FlDotData(show: false),
+                            dotData: const FlDotData(show: false),
                             belowBarData: BarAreaData(
                               show: true,
                               color: Colors.green.withOpacity(0.3),
@@ -737,17 +737,17 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                           ),
                           LineChartBarData(
                             spots: [
-                              FlSpot(10, 2.5),
-                              FlSpot(15, 4),
-                              FlSpot(20, 3),
-                              FlSpot(25, 3.5),
-                              FlSpot(30, 2.5),
+                              const FlSpot(10, 2.5),
+                             const  FlSpot(15, 4),
+                             const  FlSpot(20, 3),
+                             const  FlSpot(25, 3.5),
+                             const FlSpot(30, 2.5),
                             ],
                             isCurved: true,
                             color: Colors.red,
                             barWidth: 2,
                             isStrokeCapRound: true,
-                            dotData: FlDotData(show: false),
+                            dotData: const FlDotData(show: false),
                             belowBarData: BarAreaData(
                               show: true,
                               color: Colors.green.withOpacity(0.3),
@@ -761,7 +761,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                 const  SizedBox(
                     height: 20,
                   ),
                   Text(
@@ -772,7 +772,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                         fontFamily: 'Urbanist',
                         color: AppColor.blackColor),
                   ),
-                  SizedBox(
+                 const SizedBox(
                     height: 10,
                   ),
                   Row(
@@ -783,11 +783,11 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                           Container(
                             height: 40,
                             width: 40,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Color(0xffe1e9f8)),
                           ),
-                          SizedBox(
+                         const SizedBox(
                             width: 10,
                           ),
                           Text(
@@ -800,7 +800,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                           ),
                         ],
                       ),
-                      Text(
+                     const  Text(
                         '₹2,000/month',
                         style: TextStyle(
                             fontSize: 15,
@@ -810,7 +810,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                const SizedBox(
                     height: 10,
                   ),
                   Row(
@@ -821,11 +821,11 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                           Container(
                             height: 40,
                             width: 40,
-                            decoration: BoxDecoration(
+                            decoration:const BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Color(0xffe1e9f8)),
                           ),
-                          SizedBox(
+                         const SizedBox(
                             width: 10,
                           ),
                           Text(
@@ -838,7 +838,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                           ),
                         ],
                       ),
-                      Text(
+                    const Text(
                         '₹5,000/month',
                         style: TextStyle(
                             fontSize: 15,
@@ -848,7 +848,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                 const  SizedBox(
                     height: 10,
                   ),
                   Row(
@@ -859,11 +859,11 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                           Container(
                             height: 40,
                             width: 40,
-                            decoration: BoxDecoration(
+                            decoration:const BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Color(0xffe1e9f8)),
                           ),
-                          SizedBox(
+                         const  SizedBox(
                             width: 10,
                           ),
                           Text(
@@ -876,7 +876,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                           ),
                         ],
                       ),
-                      Text(
+                     const Text(
                         '₹5,00/month',
                         style: TextStyle(
                             fontSize: 15,
@@ -886,7 +886,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
@@ -897,11 +897,11 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                           Container(
                             height: 40,
                             width: 40,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Color(0xffe1e9f8)),
                           ),
-                          SizedBox(
+                         const  SizedBox(
                             width: 10,
                           ),
                           Text(
@@ -914,7 +914,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                           ),
                         ],
                       ),
-                      Text(
+                     const Text(
                         '₹2,00/month',
                         style: TextStyle(
                             fontSize: 15,
@@ -924,11 +924,8 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                 const  SizedBox(
                     height: 20,
-                  ),
-                  SizedBox(
-                    height: 50,
                   ),
                 ],
               ),

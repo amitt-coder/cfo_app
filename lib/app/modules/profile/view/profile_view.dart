@@ -80,8 +80,8 @@ class _ProfileViewState extends State<ProfileView> {
                           },
                           child: Container(
                             padding: const EdgeInsets.all(5),
-                            decoration: const BoxDecoration(
-                                color: Colors.blue, shape: BoxShape.circle),
+                            decoration:  BoxDecoration(
+                                color: AppColor.primaryColor, shape: BoxShape.circle),
                             child: const Icon(
                               Icons.camera_alt,
                               size: 25,

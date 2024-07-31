@@ -154,7 +154,7 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                     fontFamily: 'Urbanist',
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Container(

@@ -34,6 +34,7 @@ class _DropDownFieldState extends State<DropDownField> {
     return Container(
       width: widget.width,
       height: widget.height,
+      padding: EdgeInsets.zero,
       child: DropdownButtonFormField<String>(
         padding: EdgeInsets.zero,
         icon: Icon(Icons.arrow_drop_down_sharp,),

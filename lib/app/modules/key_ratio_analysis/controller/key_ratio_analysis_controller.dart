@@ -27,7 +27,7 @@ class KeyRatioAnalsisController extends GetxController{
       case 'Optimal':
         return Colors.green;
       case 'Adequate':
-        return Colors.black;
+        return Colors.yellowAccent;
       default:
         return Colors.red;
     }

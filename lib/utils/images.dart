@@ -8,7 +8,7 @@ class ProjectImages{
   static const String point1="assets/images/point.png";
   static const String arrow_left="assets/images/arrow-left.png";
   static const String rupee_cash_flow="assets/images/rupee_cash_flow.png";
-  static const String information_icon="assets/images/information-button.png";
+  static const String information_icon="assets/images/information_icon.png";
   static const String round="assets/images/round.png";
   static const String circle_grey="assets/images/circle.png";
   static const String add="assets/images/add.png";
