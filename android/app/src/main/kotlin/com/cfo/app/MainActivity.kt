@@ -1,4 +1,4 @@
-package com.cfo_app.cfo_app
+package com.cfo.app
 
 import io.flutter.embedding.android.FlutterActivity
 

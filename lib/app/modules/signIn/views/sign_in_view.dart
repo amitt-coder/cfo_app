@@ -61,7 +61,7 @@ class SignInView extends GetView<SignInController> {
                 ),
                 InkWell(
                   onTap: () {
-                    // signInController.signInWithGoogle();
+                    signInController.signInWithGoogle();
                   },
                   child: Container(
                     height: 50,

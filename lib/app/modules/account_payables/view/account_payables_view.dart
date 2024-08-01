@@ -1,7 +1,6 @@
 import 'package:cfo_app/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../../../components/common_app_bar.dart';
 import '../../../../utils/images.dart';
 
@@ -13,7 +12,6 @@ class AccountPayablesView extends StatefulWidget {
 }
 
 class _AccountPayablesViewState extends State<AccountPayablesView> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +32,7 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        padding:const  EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         color: AppColor.backgroundColors,
         child: SingleChildScrollView(
           child: Column(
@@ -58,7 +56,8 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(
                             width: 1, color: AppColor.txtSecondaryColor)),
-                    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -81,7 +80,7 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                   )
                 ],
               ),
-            const  SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Text(
@@ -93,11 +92,12 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                   fontFamily: 'Urbanist',
                 ),
               ),
-            const  SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Container(
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(5)),
@@ -124,7 +124,7 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                         ),
                       ],
                     ),
-                  const  SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Row(
@@ -150,7 +150,7 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                   ],
                 ),
               ),
-             const SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Text(
@@ -162,11 +162,12 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                   fontFamily: 'Urbanist',
                 ),
               ),
-             const SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 decoration: BoxDecoration(
                     color: const Color(0xFFE3F2FD),
                     borderRadius: BorderRadius.circular(5)),
@@ -216,14 +217,14 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                   itemBuilder: (context, index) {
                     return Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
-                      decoration: const  BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
                               bottomRight: Radius.circular(5),
                               bottomLeft: Radius.circular(5))),
                       child: Column(
                         children: [
-                         const SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Row(
@@ -271,7 +272,7 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                       ),
                     );
                   }),
-            const  SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Text(
@@ -283,9 +284,12 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                   fontFamily: 'Urbanist',
                 ),
               ),
-             const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               Container(
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(5)),
@@ -312,7 +316,7 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                         ),
                       ],
                     ),
-                   const SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Row(
@@ -335,7 +339,7 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                         ),
                       ],
                     ),
-                  const  SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Row(
@@ -358,7 +362,7 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                         ),
                       ],
                     ),
-                   const SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Row(
@@ -381,7 +385,7 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                         ),
                       ],
                     ),
-                   const SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Text(
@@ -440,7 +444,7 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                           fontWeight: FontWeight.w400,
                           fontFamily: 'Urbanist'),
                     ),
-                  const  SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                   ],

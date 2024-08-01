@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "1047205530970",
+    "project_id": "cfoapp-1793e",
+    "storage_bucket": "cfoapp-1793e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1047205530970:android:3dc7f69ee748e57ce93763",
+        "android_client_info": {
+          "package_name": "com.cfo.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1047205530970-lfb8ro715etfenend7uc7qo3uthvqcjb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cfo.app",
+            "certificate_hash": "dcb828d925680f453f192d98077ed7a6e1f7caea"
+          }
+        },
+        {
+          "client_id": "1047205530970-rcp7cdcjiraqsc9j6iemo5ma5rhsrqv9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKTuoLjhRY1Lq_RVLkFcHxNrhI3gCW_Sc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1047205530970-rcp7cdcjiraqsc9j6iemo5ma5rhsrqv9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1047205530970-cvhmk2qt5c60icpc1agc5qsnvg5e08h8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.cfo.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

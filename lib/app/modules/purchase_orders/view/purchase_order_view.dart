@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 import '../../../../components/common_app_bar.dart';
 import '../../../../utils/colors.dart';
 import '../../../../utils/images.dart';
@@ -35,7 +33,7 @@ class _PurchaseOrderViewState extends State<PurchaseOrderView> {
         color: AppColor.backgroundColors,
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -47,7 +45,7 @@ class _PurchaseOrderViewState extends State<PurchaseOrderView> {
                   fontWeight: FontWeight.w500,
                   fontSize: 17),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Container(
@@ -103,7 +101,7 @@ class _PurchaseOrderViewState extends State<PurchaseOrderView> {
                       )
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Row(
@@ -129,11 +127,11 @@ class _PurchaseOrderViewState extends State<PurchaseOrderView> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              padding:const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(5)),
               child: Row(
@@ -157,7 +155,7 @@ class _PurchaseOrderViewState extends State<PurchaseOrderView> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Text(
@@ -168,11 +166,11 @@ class _PurchaseOrderViewState extends State<PurchaseOrderView> {
                   fontWeight: FontWeight.w500,
                   fontSize: 17),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(5)),
               child: Column(

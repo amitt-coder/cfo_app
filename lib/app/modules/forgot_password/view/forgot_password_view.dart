@@ -2,8 +2,6 @@ import 'package:cfo_app/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 import '../../../../components/common_button.dart';
 import '../../../../components/common_textformfield.dart';
 import '../../../../utils/colors.dart';
@@ -27,7 +25,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -48,8 +46,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
               height: MediaQuery.of(context).size.height * 0.04,
             ),
             Text("Reset Password".tr,
-                textScaler: TextScaler.linear(1.0),
-                style: TextStyle(
+                textScaler: const TextScaler.linear(1.0),
+                style: const TextStyle(
                   fontSize: 22,
                   fontFamily: 'Urbanist',
                   letterSpacing: 1,

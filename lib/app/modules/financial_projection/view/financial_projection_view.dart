@@ -1,12 +1,8 @@
 import 'dart:math';
-
 import 'package:cfo_app/app/routes/app_pages.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import '../../../../components/common_app_bar.dart';
 import '../../../../components/common_button.dart';
 import '../../../../components/common_textformfield.dart';
@@ -35,7 +31,7 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
         leading: GestureDetector(
           onTap: () {
             Get.back();
-            },
+          },
           child: Image.asset(
             ProjectImages.arrow_left,
             height: 25,
@@ -594,7 +590,7 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                           ),
                                         ],
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 5,
                                       ),
                                       Row(
@@ -657,14 +653,14 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                     ],
                                   ),
                                 ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CommonButton(
-                            color: Color(0xffd9d9d9),
+                            color: const Color(0xffd9d9d9),
                             ontap: () {
                               Get.back();
                             },
@@ -739,7 +735,7 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
                         Text(
@@ -750,7 +746,7 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                               fontWeight: FontWeight.w600,
                               fontFamily: 'Urbanist'),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
                         Row(
@@ -775,7 +771,7 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
                         Text(
@@ -786,7 +782,7 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                               fontWeight: FontWeight.w600,
                               fontFamily: 'Urbanist'),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         ),
                         Text(
@@ -797,7 +793,7 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                               fontWeight: FontWeight.w500,
                               fontFamily: 'Urbanist'),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 15,
                         ),
                         Column(
@@ -822,7 +818,7 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Container(
@@ -877,7 +873,8 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                               ),
                               CustomPaint(
                                 painter: DottedLinePainter(
-                                    Offset(120, 120), Offset(100, 80)),
+                                    const Offset(120, 120),
+                                    const Offset(100, 80)),
                                 child: Container(),
                               ),
                               Positioned(
@@ -888,7 +885,8 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                               ),
                               CustomPaint(
                                 painter: DottedLinePainter(
-                                    Offset(180, 290), Offset(180, 350)),
+                                    const Offset(180, 290),
+                                    const Offset(180, 350)),
                                 child: Container(),
                               ),
                               Positioned(
@@ -899,7 +897,8 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                               ),
                               CustomPaint(
                                 painter: DottedLinePainter(
-                                    Offset(230, 130), Offset(290, 100)),
+                                    const Offset(230, 130),
+                                    const Offset(290, 100)),
                                 child: Container(),
                               ),
                               Positioned(
@@ -966,14 +965,14 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                         // Indicator(color: Colors.green, text: '60% Cost Projection'),
                         // Indicator(color: Colors.blue, text: '20% Revenue Projection'),
                         // Indicator(color: Colors.red, text: '20% Asset Depreciation'),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             CommonButton(
-                              color: Color(0xffd9d9d9),
+                              color: const Color(0xffd9d9d9),
                               ontap: () {
                                 Get.back();
                               },
@@ -1018,7 +1017,7 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
         ),
         Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w400,
               fontFamily: 'Urbanist'),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../../components/common_app_bar.dart';
 import '../../../../components/common_button.dart';
 import '../../../../utils/colors.dart';
@@ -42,10 +44,12 @@ class _AccountReclassificationViewState
           color: AppColor.backgroundColors,
         ),
         child: SingleChildScrollView(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -63,9 +67,9 @@ class _AccountReclassificationViewState
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(
-                            width: 1,
-                            color: AppColor.txtSecondaryColor)),
-                    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+                            width: 1, color: AppColor.txtSecondaryColor)),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -339,7 +343,7 @@ class _AccountReclassificationViewState
               Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                         bottomRight: Radius.circular(5),
@@ -367,7 +371,7 @@ class _AccountReclassificationViewState
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Row(
@@ -390,7 +394,7 @@ class _AccountReclassificationViewState
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Row(
@@ -413,7 +417,7 @@ class _AccountReclassificationViewState
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
                     Row(
@@ -436,14 +440,14 @@ class _AccountReclassificationViewState
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         InkWell(
-                          onTap: (){},
+                          onTap: () {},
                           child: Container(
                             height: 40,
                             width: 80,
@@ -466,14 +470,15 @@ class _AccountReclassificationViewState
                           ),
                         ),
                         InkWell(
-                          onTap: (){},
+                          onTap: () {},
                           child: Container(
                             height: 40,
                             width: 100,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5),
                                 border: Border.all(
-                                    width: 1, color: AppColor.txtSecondaryColor)),
+                                    width: 1,
+                                    color: AppColor.txtSecondaryColor)),
                             child: Center(
                               child: Text(
                                 'Save Draft',
@@ -497,7 +502,7 @@ class _AccountReclassificationViewState
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                   ],

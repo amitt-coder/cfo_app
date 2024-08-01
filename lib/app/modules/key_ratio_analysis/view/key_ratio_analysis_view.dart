@@ -205,13 +205,13 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                   const TextStyle(color: Colors.transparent),
                               animate: false,
                               gaugeWidth: 5,
-                              duration: Duration(seconds: 3),
+                              duration: const Duration(seconds: 3),
                               unitOfMeasurement: "",
                               alertColorArray: [
                                 AppColor.primaryColor,
                                 Colors.yellow
                               ],
-                              alertSpeedArray: [30, 35],
+                              alertSpeedArray: const [30, 35],
                               subDivisionCircleColors: Colors.transparent,
                               activeGaugeColor: AppColor.primaryColor,
                               divisionCircleColors: Colors.transparent,
@@ -672,17 +672,17 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                             lineBarsData: [
                               LineChartBarData(
                                 spots: [
-                                  FlSpot(10, 3),
-                                  FlSpot(15, 5),
-                                  FlSpot(20, 3.5),
-                                  FlSpot(25, 4),
-                                  FlSpot(30, 3),
+                                  const FlSpot(10, 3),
+                                  const FlSpot(15, 5),
+                                  const FlSpot(20, 3.5),
+                                  const FlSpot(25, 4),
+                                  const FlSpot(30, 3),
                                 ],
                                 isCurved: true,
                                 color: Colors.green,
                                 barWidth: 2,
                                 isStrokeCapRound: true,
-                                dotData: FlDotData(show: false),
+                                dotData: const FlDotData(show: false),
                                 belowBarData: BarAreaData(
                                   show: true,
                                   color: Colors.green.withOpacity(0.3),
@@ -690,17 +690,17 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                               ),
                               LineChartBarData(
                                 spots: [
-                                  FlSpot(10, 2.5),
-                                  FlSpot(15, 4),
-                                  FlSpot(20, 3),
-                                  FlSpot(25, 3.5),
-                                  FlSpot(30, 2.5),
+                                  const FlSpot(10, 2.5),
+                                  const FlSpot(15, 4),
+                                  const FlSpot(20, 3),
+                                  const FlSpot(25, 3.5),
+                                  const FlSpot(30, 2.5),
                                 ],
                                 isCurved: true,
                                 color: Colors.red,
                                 barWidth: 2,
                                 isStrokeCapRound: true,
-                                dotData: FlDotData(show: false),
+                                dotData: const FlDotData(show: false),
                                 belowBarData: BarAreaData(
                                   show: true,
                                   color: Colors.green.withOpacity(0.3),

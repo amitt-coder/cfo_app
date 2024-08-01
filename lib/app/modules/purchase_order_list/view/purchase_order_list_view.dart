@@ -34,15 +34,16 @@ class _PurchaseOrderListViewState extends State<PurchaseOrderListView> {
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-        padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+        height: MediaQuery.of(context).size.height,
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         color: AppColor.backgroundColors,
         child: Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Vendor List',
+                Text(
+                  'Vendor List',
                   style: TextStyle(
                     color: AppColor.blackColor,
                     fontWeight: FontWeight.w500,
@@ -52,15 +53,17 @@ class _PurchaseOrderListViewState extends State<PurchaseOrderListView> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    // color: Colors.white,
+                      // color: Colors.white,
                       borderRadius: BorderRadius.circular(5),
-                      border: Border.all(width: 1,color: AppColor.txtSecondaryColor)
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 5,vertical: 3),
+                      border: Border.all(
+                          width: 1, color: AppColor.txtSecondaryColor)),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('This Month',
+                      Text(
+                        'This Month',
                         style: TextStyle(
                           color: AppColor.txtSecondaryColor,
                           fontWeight: FontWeight.w500,
@@ -68,128 +71,147 @@ class _PurchaseOrderListViewState extends State<PurchaseOrderListView> {
                           fontFamily: 'Urbanist',
                         ),
                       ),
-                      Icon(Icons.arrow_drop_down_sharp,
-                        size: 30,color:AppColor.txtSecondaryColor,
+                      Icon(
+                        Icons.arrow_drop_down_sharp,
+                        size: 30,
+                        color: AppColor.txtSecondaryColor,
                       )
                     ],
                   ),
                 )
               ],
             ),
-            SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
             ListView.builder(
                 itemCount: 2,
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 padding: EdgeInsets.zero,
-                itemBuilder:(context,index){
-              return Container(
-                margin: EdgeInsets.only(top: 10),
-                padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                decoration: BoxDecoration(
-                    color:AppColor.boxblueColor,
-                    borderRadius: BorderRadius.circular(10)
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: const EdgeInsets.only(top: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
+                    decoration: BoxDecoration(
+                        color: AppColor.boxblueColor,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Saajh Debnath',
-                          style: TextStyle(
-                              color: AppColor.blackColor,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'Urbanist'
-                          ),
-                        ),
-                        Text('',),
-                        Row(
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Image.asset(ProjectImages.mail_list,
-                              height: 20,width: 20,
-                            ),
-                            SizedBox(width: 5,),
-                            Text('sulagnadebnath@gmail.com',
+                            Text(
+                              'Saajh Debnath',
                               style: TextStyle(
                                   color: AppColor.blackColor,
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: 'Urbanist'
-                              ),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: 'Urbanist'),
                             ),
-                          ],
-                        ),
-                        SizedBox(height: 5,),
-                        Row(
-                          children: [
-                            Image.asset(ProjectImages.telephone,
-                              height: 20,width: 20,
+                            const Text(
+                              '',
                             ),
-                            SizedBox(width: 5,),
-                            Text('+91 1567609304',
-                              style: TextStyle(
-                                  color: AppColor.blackColor,
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: 'Urbanist'
-                              ),
-                            ),
-                          ],
-                        ),
-
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Saajh Debnath',
-                          style: TextStyle(
-                              color: Colors.transparent,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
-                              fontFamily: 'Urbanist'
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            Row(
                               children: [
-                                Text('App',
-                                  style: TextStyle(
-                                      color: AppColor.primaryColor,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: 'Urbanist'
-                                  ),
+                                Image.asset(
+                                  ProjectImages.mail_list,
+                                  height: 20,
+                                  width: 20,
                                 ),
-                                Text('₹2,000',
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  'sulagnadebnath@gmail.com',
                                   style: TextStyle(
-                                      color: AppColor.primaryColor,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: 'Urbanist'
-                                  ),
+                                      color: AppColor.blackColor,
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.w400,
+                                      fontFamily: 'Urbanist'),
                                 ),
                               ],
                             ),
-                            Icon(Icons.arrow_right,
-                              size: 30,color: AppColor.primaryColor,
-                            )
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              children: [
+                                Image.asset(
+                                  ProjectImages.telephone,
+                                  height: 20,
+                                  width: 20,
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                Text(
+                                  '+91 1567609304',
+                                  style: TextStyle(
+                                      color: AppColor.blackColor,
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.w400,
+                                      fontFamily: 'Urbanist'),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
-                        SizedBox(height: 5,),
-
-
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Saajh Debnath',
+                              style: TextStyle(
+                                  color: Colors.transparent,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: 'Urbanist'),
+                            ),
+                            Row(
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'App',
+                                      style: TextStyle(
+                                          color: AppColor.primaryColor,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: 'Urbanist'),
+                                    ),
+                                    Text(
+                                      '₹2,000',
+                                      style: TextStyle(
+                                          color: AppColor.primaryColor,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: 'Urbanist'),
+                                    ),
+                                  ],
+                                ),
+                                Icon(
+                                  Icons.arrow_right,
+                                  size: 30,
+                                  color: AppColor.primaryColor,
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                          ],
+                        ),
                       ],
                     ),
-                  ],
-                ),
-              );
-            }),
-            SizedBox(height: 20,),
+                  );
+                }),
+            const SizedBox(
+              height: 20,
+            ),
             Center(
               child: Container(
                 height: 200, // Adjusted height for PieChart container
@@ -206,8 +228,7 @@ class _PurchaseOrderListViewState extends State<PurchaseOrderListView> {
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
-                            fontFamily: 'Urbanist'
-                        ),
+                            fontFamily: 'Urbanist'),
                       ),
                       PieChartSectionData(
                         color: Colors.yellow,
@@ -218,15 +239,16 @@ class _PurchaseOrderListViewState extends State<PurchaseOrderListView> {
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
-                            fontFamily: 'Urbanist'
-                        ),
+                            fontFamily: 'Urbanist'),
                       ),
                     ],
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
             Indicator(color: Colors.green, text: '50% GRN booked'),
             Indicator(color: Colors.yellow, text: '50% GRN not booked'),
             // Container(
@@ -306,6 +328,7 @@ class _PurchaseOrderListViewState extends State<PurchaseOrderListView> {
     );
   }
 }
+
 class Indicator extends StatelessWidget {
   final Color color;
   final String text;
@@ -321,12 +344,13 @@ class Indicator extends StatelessWidget {
           height: 20,
           color: color,
         ),
-        SizedBox(width: 8),
-        Text(text, style: TextStyle(fontSize: 16,
-          fontFamily: 'Urbanist',
-          fontWeight: FontWeight.w500,
-          color: AppColor.blackColor
-        )),
+        const SizedBox(width: 8),
+        Text(text,
+            style: TextStyle(
+                fontSize: 16,
+                fontFamily: 'Urbanist',
+                fontWeight: FontWeight.w500,
+                color: AppColor.blackColor)),
       ],
     );
   }

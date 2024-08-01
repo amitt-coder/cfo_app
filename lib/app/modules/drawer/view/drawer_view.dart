@@ -16,7 +16,7 @@ class _DrawerViewState extends State<DrawerView> {
 
   List<DrawerList> drawerList = [
     DrawerList(image: ProjectImages.user_drawer, name: 'Profile  '),
-    DrawerList( image: ProjectImages.account_reclassify, name: 'Accounts Reclassifying'),
+    DrawerList( image: ProjectImages.account_reclassify, name: 'Account Regrouping'),
     DrawerList(image: ProjectImages.variance, name: 'Variance Analysis'),
     DrawerList(image: ProjectImages.tds, name: 'TDS Compliance'),
     DrawerList(image: ProjectImages.power_off, name: 'Logout '),
