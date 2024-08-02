@@ -3,9 +3,10 @@ import 'package:get/get.dart';
 import '../../../../components/common_app_bar.dart';
 import '../../../../utils/colors.dart';
 import '../../../../utils/images.dart';
+import '../controller/ar_with_credit_balance_controller.dart';
 
 class ArWithCreditBalanceView extends StatefulWidget {
-  const ArWithCreditBalanceView({super.key});
+  ArWithCreditBalanceView({super.key});
 
   @override
   State<ArWithCreditBalanceView> createState() =>
@@ -13,6 +14,10 @@ class ArWithCreditBalanceView extends StatefulWidget {
 }
 
 class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
+
+  ArWithCreditBalanceController arWithCreditBalanceController = Get.put(ArWithCreditBalanceController());
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,9 +61,9 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(5),
                         border: Border.all(
-                            width: 1,
-                            color: AppColor.txtSecondaryColor)),
-                    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+                            width: 1, color: AppColor.txtSecondaryColor)),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -176,6 +181,14 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
+                      'Cat.',
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'Urbanist',
+                          color: AppColor.blackColor),
+                    ),
+                    Text(
                       'Name',
                       style: TextStyle(
                           fontSize: 14,
@@ -210,69 +223,200 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                   ],
                 ),
               ),
-              ListView.builder(
-                  itemCount: 5,
-                  shrinkWrap: true,
-                  padding: EdgeInsets.zero,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(5),
-                              bottomLeft: Radius.circular(5))),
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Debtor 1',
-                                style: TextStyle(
-                                    color: AppColor.blackColor,
-                                    fontFamily: 'Urbanist',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15),
-                              ),
-                              Text(
-                                '₹50,000',
-                                style: TextStyle(
-                                    color: AppColor.blackColor,
-                                    fontFamily: 'Urbanist',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15),
-                              ),
-                              Text(
-                                '01-01-2024',
-                                style: TextStyle(
-                                    color: AppColor.blackColor,
-                                    fontFamily: 'Urbanist',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15),
-                              ),
-                              Text(
-                                '123-4..',
-                                style: TextStyle(
-                                    color: AppColor.blackColor,
-                                    fontFamily: 'Urbanist',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15),
-                              ),
-                            ],
-                          ),
-                          Divider(
-                            color: AppColor.txtSecondaryColor,
-                            thickness: 1,
-                          )
-                        ],
+              Obx(() =>
+              Container(
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(5),
+                        bottomLeft: Radius.circular(5))),
+                child: Column(
+                  children: [
+                    ListView.builder(
+                        itemCount: arWithCreditBalanceController.ItemList.length,
+                        shrinkWrap: true,
+                        padding: EdgeInsets.zero,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Column(
+                              children: [
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    // if(index==0)
+                                    //   Image.asset(ProjectImages.a_category,
+                                    //     height: 25,width: 25,
+                                    //   ),
+                                    // if(index==1)
+                                    //   Image.asset(ProjectImages.b_category,
+                                    //     height: 25,width: 25,
+                                    //   ),
+                                    // if(index==2)
+                                    //   Image.asset(ProjectImages.c_category,
+                                    //     height: 25,width: 25,
+                                    //   ),
+                                    // if(index==3 || index==4)
+                                    Image.asset(arWithCreditBalanceController.ItemList[index].image,
+                                      height: 25,width: 25,
+                                    ),
+                                    Text(
+                                      arWithCreditBalanceController.ItemList[index].Name,
+                                      style: TextStyle(
+                                          color: AppColor.blackColor,
+                                          fontFamily: 'Urbanist',
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 15),
+                                    ),
+                                    Text(
+                                      arWithCreditBalanceController.ItemList[index].Db,
+                                      style: TextStyle(
+                                          color: AppColor.blackColor,
+                                          fontFamily: 'Urbanist',
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 15),
+                                    ),
+                                    Text(
+                                      arWithCreditBalanceController.ItemList[index].LP,
+                                      style: TextStyle(
+                                          color: AppColor.blackColor,
+                                          fontFamily: 'Urbanist',
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 15),
+                                    ),
+                                    Text(
+                                      arWithCreditBalanceController.ItemList[index].CINFO,
+                                      style: TextStyle(
+                                          color: AppColor.blackColor,
+                                          fontFamily: 'Urbanist',
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 15),
+                                    ),
+                                  ],
+                                ),
+                                Divider(
+                                  color: AppColor.txtSecondaryColor,
+                                  thickness: 1,
+                                ),
+
+                              ],
+                            ),
+                          );
+                        }),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: InkWell(
+                        onTap: () {},
+                        child: const Text(
+                          "View All",
+                          style: TextStyle(
+                              color: Color(0xFF7E8CA0),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'Urbanist'),
+                        ),
                       ),
-                    );
-                  }),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    )
+                  ],
+                ),
+              )),
+              // ListView.builder(
+              //     itemCount: 5,
+              //     shrinkWrap: true,
+              //     padding: EdgeInsets.zero,
+              //     physics: const NeverScrollableScrollPhysics(),
+              //     itemBuilder: (context, index) {
+              //       return Container(
+              //         padding: const EdgeInsets.symmetric(horizontal: 10),
+              //         decoration: const BoxDecoration(
+              //             color: Colors.white,
+              //             borderRadius: BorderRadius.only(
+              //                 bottomRight: Radius.circular(5),
+              //                 bottomLeft: Radius.circular(5))),
+              //         child: Column(
+              //           children: [
+              //             const SizedBox(
+              //               height: 5,
+              //             ),
+              //             Row(
+              //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //               children: [
+              //                 if (index == 0)
+              //                   Image.asset(
+              //                     ProjectImages.a_category,
+              //                     height: 25,
+              //                     width: 25,
+              //                   ),
+              //                 if (index == 1)
+              //                   Image.asset(
+              //                     ProjectImages.b_category,
+              //                     height: 25,
+              //                     width: 25,
+              //                   ),
+              //                 if (index == 2)
+              //                   Image.asset(
+              //                     ProjectImages.c_category,
+              //                     height: 25,
+              //                     width: 25,
+              //                   ),
+              //                 if (index == 3 || index == 4)
+              //                   Image.asset(
+              //                     ProjectImages.a_category,
+              //                     height: 25,
+              //                     width: 25,
+              //                   ),
+              //                 Text(
+              //                   'Debtor 1',
+              //                   style: TextStyle(
+              //                       color: AppColor.blackColor,
+              //                       fontFamily: 'Urbanist',
+              //                       fontWeight: FontWeight.w500,
+              //                       fontSize: 15),
+              //                 ),
+              //                 Text(
+              //                   '₹50,000',
+              //                   style: TextStyle(
+              //                       color: AppColor.blackColor,
+              //                       fontFamily: 'Urbanist',
+              //                       fontWeight: FontWeight.w500,
+              //                       fontSize: 15),
+              //                 ),
+              //                 Text(
+              //                   '01-01-2024',
+              //                   style: TextStyle(
+              //                       color: AppColor.blackColor,
+              //                       fontFamily: 'Urbanist',
+              //                       fontWeight: FontWeight.w500,
+              //                       fontSize: 15),
+              //                 ),
+              //                 Text(
+              //                   '123-4..',
+              //                   style: TextStyle(
+              //                       color: AppColor.blackColor,
+              //                       fontFamily: 'Urbanist',
+              //                       fontWeight: FontWeight.w500,
+              //                       fontSize: 15),
+              //                 ),
+              //               ],
+              //             ),
+              //             Divider(
+              //               color: AppColor.txtSecondaryColor,
+              //               thickness: 1,
+              //             )
+              //           ],
+              //         ),
+              //       );
+              //     }),
               const SizedBox(
                 height: 15,
               ),
@@ -285,7 +429,9 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                   fontFamily: 'Urbanist',
                 ),
               ),
-              SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               Container(
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 10),

@@ -1,7 +1,9 @@
+import 'package:cfo_app/app/modules/account_payables/controller/account_payables_controller.dart';
 import 'package:cfo_app/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../components/common_app_bar.dart';
+import '../../../../components/common_textformfield.dart';
 import '../../../../utils/images.dart';
 
 class AccountPayablesView extends StatefulWidget {
@@ -12,6 +14,9 @@ class AccountPayablesView extends StatefulWidget {
 }
 
 class _AccountPayablesViewState extends State<AccountPayablesView> {
+
+  AccountPayablesController accountPayablesController = Get.put(AccountPayablesController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +47,7 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Account Receivables',
+                    'Account Payables',
                     style: TextStyle(
                       color: AppColor.blackColor,
                       fontWeight: FontWeight.w500,
@@ -153,14 +158,35 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
               const SizedBox(
                 height: 15,
               ),
-              Text(
-                'Creditors List',
-                style: TextStyle(
-                  color: AppColor.blackColor,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
-                  fontFamily: 'Urbanist',
-                ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Creditors List',
+                    style: TextStyle(
+                      color: AppColor.blackColor,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      fontFamily: 'Urbanist',
+                    ),
+                  ),
+                  InkWell(
+                    onTap: (){
+                      print('amit');
+                      accountPayablesController.calendarOpen(context);
+                    },
+                    child: CommonTextField(
+                      preShow: 'Not',
+                      width: MediaQuery.of(context).size.width*0.40,
+                      lableText: 'Select Date',
+                      controllers:
+                      accountPayablesController.dateController,
+                      keyboardTypes: TextInputType.name,
+                      prefixIcon: ProjectImages.mail,
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(
                 height: 10,
@@ -174,6 +200,14 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    Text(
+                      'Cat.',
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'Urbanist',
+                          color: AppColor.blackColor),
+                    ),
                     Text(
                       'Name',
                       style: TextStyle(
@@ -209,69 +243,112 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                   ],
                 ),
               ),
-              ListView.builder(
-                  itemCount: 5,
-                  shrinkWrap: true,
-                  padding: EdgeInsets.zero,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(5),
-                              bottomLeft: Radius.circular(5))),
-                      child: Column(
-                        children: [
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Creditor 1',
-                                style: TextStyle(
-                                    color: AppColor.blackColor,
-                                    fontFamily: 'Urbanist',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15),
-                              ),
-                              Text(
-                                '₹6,000',
-                                style: TextStyle(
-                                    color: AppColor.blackColor,
-                                    fontFamily: 'Urbanist',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15),
-                              ),
-                              Text(
-                                '01-01-2024',
-                                style: TextStyle(
-                                    color: AppColor.blackColor,
-                                    fontFamily: 'Urbanist',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15),
-                              ),
-                              Text(
-                                '123-4..',
-                                style: TextStyle(
-                                    color: AppColor.blackColor,
-                                    fontFamily: 'Urbanist',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15),
-                              ),
-                            ],
-                          ),
-                          Divider(
-                            color: AppColor.txtSecondaryColor,
-                            thickness: 1,
-                          )
-                        ],
+              Container(
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(5),
+                        bottomLeft: Radius.circular(5))),
+                child: Column(
+                  children: [
+                    ListView.builder(
+                        itemCount: accountPayablesController.ItemList.length,
+                        shrinkWrap: true,
+                        padding: EdgeInsets.zero,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Column(
+                              children: [
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    // if(index==0)
+                                    //   Image.asset(ProjectImages.a_category,
+                                    //     height: 25,width: 25,
+                                    //   ),
+                                    // if(index==1)
+                                    //   Image.asset(ProjectImages.b_category,
+                                    //     height: 25,width: 25,
+                                    //   ),
+                                    // if(index==2)
+                                    //   Image.asset(ProjectImages.c_category,
+                                    //     height: 25,width: 25,
+                                    //   ),
+                                    // if(index==3 || index==4)
+                                      Image.asset(accountPayablesController.ItemList[index].image,
+                                        height: 25,width: 25,
+                                      ),
+                                    Text(
+                                      accountPayablesController.ItemList[index].Name,
+                                      style: TextStyle(
+                                          color: AppColor.blackColor,
+                                          fontFamily: 'Urbanist',
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 15),
+                                    ),
+                                    Text(
+                                      accountPayablesController.ItemList[index].Db,
+                                      style: TextStyle(
+                                          color: AppColor.blackColor,
+                                          fontFamily: 'Urbanist',
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 15),
+                                    ),
+                                    Text(
+                                      accountPayablesController.ItemList[index].LP,
+                                      style: TextStyle(
+                                          color: AppColor.blackColor,
+                                          fontFamily: 'Urbanist',
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 15),
+                                    ),
+                                    Text(
+                                      accountPayablesController.ItemList[index].CINFO,
+                                      style: TextStyle(
+                                          color: AppColor.blackColor,
+                                          fontFamily: 'Urbanist',
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 15),
+                                    ),
+                                  ],
+                                ),
+                                Divider(
+                                  color: AppColor.txtSecondaryColor,
+                                  thickness: 1,
+                                ),
+
+                              ],
+                            ),
+                          );
+                        }),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: InkWell(
+                        onTap: () {},
+                        child: const Text(
+                          "View All",
+                          style: TextStyle(
+                              color: Color(0xFF7E8CA0),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'Urbanist'),
+                        ),
                       ),
-                    );
-                  }),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    )
+                  ],
+                ),
+              ),
               const SizedBox(
                 height: 15,
               ),

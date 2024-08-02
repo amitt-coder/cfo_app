@@ -21,7 +21,7 @@ class _AllCreditorViewState extends State<AllCreditorView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppBar(
-        title: 'All Creditors',
+        title: 'All Debitors',
         automaticallyImplyLeading: false,
         leading: Padding(
           padding: const EdgeInsets.only(left: 15.0),

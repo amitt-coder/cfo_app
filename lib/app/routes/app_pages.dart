@@ -1,6 +1,5 @@
 import 'package:cfo_app/app/modules/account_payables/binding/account_payables_binding.dart';
 import 'package:cfo_app/app/modules/account_payables/view/account_payables_view.dart';
-import 'package:cfo_app/app/modules/account_reclassification/binding/account_reclassification_binding.dart';
 import 'package:cfo_app/app/modules/all_creditors/binding/all_creditor_binding.dart';
 import 'package:cfo_app/app/modules/all_creditors/view/all_creditor_view.dart';
 import 'package:cfo_app/app/modules/ar_with_credit_balance/binding/ar_with_credit_balance_binding.dart';
@@ -32,6 +31,8 @@ import '../modules/Splash/bindings/splash_binding.dart';
 import '../modules/Splash/views/splash_view.dart';
 import '../modules/accountVerfiy/bindings/account_verfiy_binding.dart';
 import '../modules/accountVerfiy/views/account_verfiy_view.dart';
+
+import '../modules/account_reclassification/binding/account_reclassification_binding.dart';
 import '../modules/account_reclassification/view/account_reclassification_view.dart';
 import '../modules/dashBoard/bindings/dash_board_binding.dart';
 import '../modules/dashBoard/views/dash_board_view.dart';

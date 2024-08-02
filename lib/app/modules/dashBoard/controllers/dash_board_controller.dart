@@ -16,13 +16,13 @@ class DashBoardController extends GetxController
   ];
 
   List Debitors$credtors = [
-    "1.Aadtiya Kolasani",
-    "2.Aarika Singh",
-    "3.Abel Binnis George",
-    "4.Abrar Hussain"
+    "Aadtiya Kolasani",
+    "Aarika Singh    ",
+    "Abel Binnis George",
+    "Abrar Hussain     "
   ];
   List summary = [
-    "EDITA",
+    "EBITDA",
     "EBIT",
     "Burn Rate",
   ];

@@ -100,7 +100,6 @@ class DashBoardView extends GetView<DashBoardController> {
         body: Obx(() => Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              // color: const Color(0xFFF2F2F2),
               color: AppColor.backgroundColors,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -117,7 +116,7 @@ class DashBoardView extends GetView<DashBoardController> {
                         itemBuilder: (context, index, realIndex) {
                           return Container(
                             width: MediaQuery.of(context).size.width,
-                            margin: const EdgeInsets.symmetric(
+                            margin: const  EdgeInsets.symmetric(
                                 horizontal: 5.0, vertical: 5),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
@@ -206,7 +205,7 @@ class DashBoardView extends GetView<DashBoardController> {
                                 Get.toNamed(Routes.ALL_CREDITOR);
                               }
                               if (index == 2) {
-                                Get.toNamed(Routes.ACCOUNT_PAYABLES);
+                                // Get.toNamed(Routes.ACCOUNT_PAYABLES);
                               }
                               if (index == 3) {
                                 Get.toNamed(Routes.KEY_RATIO_ANALYSIS);
@@ -215,7 +214,8 @@ class DashBoardView extends GetView<DashBoardController> {
                                 Get.toNamed(Routes.AR_WITH_CREDIT_BALANCE);
                               }
                               if (index == 5) {
-                                Get.toNamed(Routes.TOP_DEBTORS_CREDITORS);
+                                Get.toNamed(Routes.ACCOUNT_PAYABLES);
+                                // Get.toNamed(Routes.TOP_DEBTORS_CREDITORS);
                               }
                               if (index == 6) {
                                 Get.toNamed(Routes.FINACIAL_PROJECTION);
@@ -385,9 +385,9 @@ class DashBoardView extends GetView<DashBoardController> {
                             const SizedBox(
                               height: 15,
                             ),
+
                             ListView.builder(
-                              itemCount:
-                                  dashBoardController.Debitors$credtors.length,
+                              itemCount: dashBoardController.Debitors$credtors.length,
                               shrinkWrap: true,
                               padding: EdgeInsets.zero,
                               physics: const NeverScrollableScrollPhysics(),
@@ -396,9 +396,24 @@ class DashBoardView extends GetView<DashBoardController> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 18.0, vertical: 16),
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
+                                      if(index==0)
+                                        Image.asset(ProjectImages.a_category,
+                                          height: 25,width: 25,
+                                        ),
+                                      if(index==1)
+                                        Image.asset(ProjectImages.b_category,
+                                          height: 25,width: 25,
+                                        ),
+                                      if(index==2)
+                                        Image.asset(ProjectImages.c_category,
+                                          height: 25,width: 25,
+                                        ),
+                                      if(index==3)
+                                        Image.asset(ProjectImages.a_category,
+                                          height: 25,width: 25,
+                                        ),
                                       Text(
                                         "${dashBoardController.Debitors$credtors[index]}",
                                         style: TextStyle(
