@@ -116,7 +116,7 @@ class DashBoardView extends GetView<DashBoardController> {
                         itemBuilder: (context, index, realIndex) {
                           return Container(
                             width: MediaQuery.of(context).size.width,
-                            margin: const  EdgeInsets.symmetric(
+                            margin: const EdgeInsets.symmetric(
                                 horizontal: 5.0, vertical: 5),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
@@ -188,6 +188,190 @@ class DashBoardView extends GetView<DashBoardController> {
                       const SizedBox(
                         height: 20,
                       ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //     Column(
+                      //       crossAxisAlignment: CrossAxisAlignment.center,
+                      //       mainAxisAlignment: MainAxisAlignment.start,
+                      //       children: [
+                      //         InkWell(
+                      //           onTap: () {
+                      //             Get.toNamed(Routes.AR_WITH_CREDIT_BALANCE);
+                      //           },
+                      //           child: Container(
+                      //             margin: const EdgeInsets.symmetric(
+                      //                 horizontal: 10),
+                      //             height: 130,
+                      //             width: 130,
+                      //             decoration: BoxDecoration(
+                      //               color: Colors.white,
+                      //               borderRadius: BorderRadius.circular(5),
+                      //             ),
+                      //             child: Container(
+                      //               height: 50,
+                      //               width: 50,
+                      //               decoration: BoxDecoration(
+                      //                   color: Colors.white,
+                      //                   boxShadow: const [
+                      //                     BoxShadow(
+                      //                         color: Colors.black12,
+                      //                         offset: Offset(5, 3),
+                      //                         blurRadius: 7)
+                      //                   ],
+                      //                   borderRadius: BorderRadius.circular(5)),
+                      //               // margin: EdgeInsets.only(top: 2),
+                      //               padding: const EdgeInsets.all(15),
+                      //               child: SvgPicture.asset(
+                      //                 ProjectImages.ar,
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //         const SizedBox(
+                      //           height: 5,
+                      //         ),
+                      //         Text('AR',
+                      //             textAlign: TextAlign.center,
+                      //             style: TextStyle(
+                      //                 fontSize: 22,
+                      //                 fontFamily: 'Urbanist',
+                      //                 fontWeight: FontWeight.w600,
+                      //                 color: AppColor.fontColor,
+                      //                 letterSpacing: 0.1)),
+                      //       ],
+                      //     ),
+                      //     Column(
+                      //       crossAxisAlignment: CrossAxisAlignment.center,
+                      //       mainAxisAlignment: MainAxisAlignment.start,
+                      //       children: [
+                      //         InkWell(
+                      //           onTap: () {
+                      //             Get.toNamed(Routes.ACCOUNT_PAYABLES);
+                      //           },
+                      //           child: Container(
+                      //             margin: const EdgeInsets.symmetric(
+                      //                 horizontal: 10),
+                      //             height: 130,
+                      //             width: 130,
+                      //             decoration: BoxDecoration(
+                      //               color: Colors.white,
+                      //               borderRadius: BorderRadius.circular(5),
+                      //             ),
+                      //             child: Container(
+                      //               height: 50,
+                      //               width: 50,
+                      //               decoration: BoxDecoration(
+                      //                   color: Colors.white,
+                      //                   boxShadow: const [
+                      //                     BoxShadow(
+                      //                         color: Colors.black12,
+                      //                         offset: Offset(5, 3),
+                      //                         blurRadius: 7)
+                      //                   ],
+                      //                   borderRadius: BorderRadius.circular(5)),
+                      //               padding: const EdgeInsets.all(15),
+                      //               child: SvgPicture.asset(
+                      //                 ProjectImages.ap,
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //         const SizedBox(
+                      //           height: 5,
+                      //         ),
+                      //         Text('AP',
+                      //             textAlign: TextAlign.center,
+                      //             style: TextStyle(
+                      //                 fontSize: 22,
+                      //                 fontFamily: 'Urbanist',
+                      //                 fontWeight: FontWeight.w600,
+                      //                 color: AppColor.fontColor,
+                      //                 letterSpacing: 0.1)),
+                      //       ],
+                      //     ),
+                      //   ],
+                      // ),
+                      InkWell(
+                        onTap: () {
+                          Get.toNamed(Routes.AR_WITH_CREDIT_BALANCE);
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 15),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: const [
+                                BoxShadow(
+                                    color: Colors.black12,
+                                    offset: Offset(5, 3),
+                                    blurRadius: 7)
+                              ],
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('AR with Debit Balance',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontFamily: 'Urbanist',
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColor.fontColor,
+                                      letterSpacing: 0.1)),
+                              SvgPicture.asset(
+                                ProjectImages.ar,
+                                height: 30,
+                                width: 30,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Get.toNamed(Routes.ACCOUNT_PAYABLES);
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 15),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: const [
+                                BoxShadow(
+                                    color: Colors.black12,
+                                    offset: Offset(5, 3),
+                                    blurRadius: 7)
+                              ],
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('AP with Credit Balance',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontFamily: 'Urbanist',
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColor.fontColor,
+                                      letterSpacing: 0.1)),
+                              SvgPicture.asset(
+                                ProjectImages.ap,
+                                height: 30,
+                                width: 30,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+
+                      ///
                       GridView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
@@ -385,9 +569,9 @@ class DashBoardView extends GetView<DashBoardController> {
                             const SizedBox(
                               height: 15,
                             ),
-
                             ListView.builder(
-                              itemCount: dashBoardController.Debitors$credtors.length,
+                              itemCount:
+                                  dashBoardController.Debitors$credtors.length,
                               shrinkWrap: true,
                               padding: EdgeInsets.zero,
                               physics: const NeverScrollableScrollPhysics(),
@@ -396,23 +580,32 @@ class DashBoardView extends GetView<DashBoardController> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 18.0, vertical: 16),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      if(index==0)
-                                        Image.asset(ProjectImages.a_category,
-                                          height: 25,width: 25,
+                                      if (index == 0)
+                                        Image.asset(
+                                          ProjectImages.a_category,
+                                          height: 25,
+                                          width: 25,
                                         ),
-                                      if(index==1)
-                                        Image.asset(ProjectImages.b_category,
-                                          height: 25,width: 25,
+                                      if (index == 1)
+                                        Image.asset(
+                                          ProjectImages.b_category,
+                                          height: 25,
+                                          width: 25,
                                         ),
-                                      if(index==2)
-                                        Image.asset(ProjectImages.c_category,
-                                          height: 25,width: 25,
+                                      if (index == 2)
+                                        Image.asset(
+                                          ProjectImages.c_category,
+                                          height: 25,
+                                          width: 25,
                                         ),
-                                      if(index==3)
-                                        Image.asset(ProjectImages.a_category,
-                                          height: 25,width: 25,
+                                      if (index == 3)
+                                        Image.asset(
+                                          ProjectImages.a_category,
+                                          height: 25,
+                                          width: 25,
                                         ),
                                       Text(
                                         "${dashBoardController.Debitors$credtors[index]}",

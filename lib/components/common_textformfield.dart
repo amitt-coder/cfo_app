@@ -11,6 +11,7 @@ class CommonTextField extends StatelessWidget {
   TextInputType keyboardTypes;
   double? width;
   final preShow;
+  Function()? ontap;
 
    CommonTextField({
     super.key,required this.lableText,
@@ -19,6 +20,7 @@ class CommonTextField extends StatelessWidget {
      required this.prefixIcon,
       this.width,
       this.preShow,
+      this.ontap,
   });
 
   @override
@@ -34,11 +36,13 @@ class CommonTextField extends StatelessWidget {
           )
       ),
       child:TextFormField(
+        onTap:ontap,
         style: TextStyle(fontSize: 14,
           fontFamily:'Urbanist' ,
           fontWeight: FontWeight.w700,
           color: Color(0xFF191A26),
         ),
+        textInputAction: TextInputAction.done,
         controller: controllers,
         keyboardType:keyboardTypes,
         cursorColor:Color(0xFF242B42),

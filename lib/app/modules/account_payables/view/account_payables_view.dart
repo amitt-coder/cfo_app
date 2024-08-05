@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../components/common_app_bar.dart';
 import '../../../../components/common_textformfield.dart';
+import '../../../../components/dropdown_field.dart';
 import '../../../../utils/images.dart';
+import '../../../routes/app_pages.dart';
 
 class AccountPayablesView extends StatefulWidget {
   const AccountPayablesView({super.key});
@@ -55,41 +57,53 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                       fontFamily: 'Urbanist',
                     ),
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                            width: 1, color: AppColor.txtSecondaryColor)),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Last 30 Days',
-                          style: TextStyle(
-                            color: AppColor.txtSecondaryColor,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
-                            fontFamily: 'Urbanist',
-                          ),
-                        ),
-                        Icon(
-                          Icons.arrow_drop_down_sharp,
-                          size: 30,
-                          color: AppColor.txtSecondaryColor,
-                        )
-                      ],
-                    ),
-                  )
+                  DropDownField(
+                    onChanged: (String? newValue) {
+                      accountPayablesController.showday.value = newValue!;
+                    },
+                    selectValue: accountPayablesController.showday.value,
+                    hintName: 'show',
+                    width: MediaQuery.of(context).size.width*0.40,
+                    height: 45,
+                    selectPriceInstallment: accountPayablesController.dayList,
+                    controller: accountPayablesController.daysController,
+                    showBorder: '0',
+                  ),
+                  // Container(
+                  //   decoration: BoxDecoration(
+                  //       color: Colors.white,
+                  //       borderRadius: BorderRadius.circular(5),
+                  //       border: Border.all(
+                  //           width: 1, color: AppColor.txtSecondaryColor)),
+                  //   padding:
+                  //       const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.center,
+                  //     children: [
+                  //       Text(
+                  //         'Last 30 Days',
+                  //         style: TextStyle(
+                  //           color: AppColor.txtSecondaryColor,
+                  //           fontWeight: FontWeight.w500,
+                  //           fontSize: 16,
+                  //           fontFamily: 'Urbanist',
+                  //         ),
+                  //       ),
+                  //       Icon(
+                  //         Icons.arrow_drop_down_sharp,
+                  //         size: 30,
+                  //         color: AppColor.txtSecondaryColor,
+                  //       )
+                  //     ],
+                  //   ),
+                  // )
                 ],
               ),
               const SizedBox(
                 height: 15,
               ),
               Text(
-                'AR Summary',
+                'AP Summary',
                 style: TextStyle(
                   color: AppColor.blackColor,
                   fontWeight: FontWeight.w500,
@@ -112,7 +126,7 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                     Row(
                       children: [
                         Text(
-                          'Total Debit Balance: ',
+                          'Total Credit Balance: ',
                           style: TextStyle(
                               color: AppColor.primaryColor,
                               fontSize: 15,
@@ -171,25 +185,22 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                       fontFamily: 'Urbanist',
                     ),
                   ),
-                  InkWell(
-                    onTap: (){
-                      print('amit');
+                  CommonTextField(
+                    ontap: (){
                       accountPayablesController.calendarOpen(context);
                     },
-                    child: CommonTextField(
-                      preShow: 'Not',
-                      width: MediaQuery.of(context).size.width*0.40,
-                      lableText: 'Select Date',
-                      controllers:
-                      accountPayablesController.dateController,
-                      keyboardTypes: TextInputType.name,
-                      prefixIcon: ProjectImages.mail,
-                    ),
+                    preShow: 'Not',
+                    width: MediaQuery.of(context).size.width*0.40,
+                    lableText: 'Select Date',
+                    controllers:
+                    accountPayablesController.dateController,
+                    keyboardTypes: TextInputType.name,
+                    prefixIcon: ProjectImages.mail,
                   ),
                 ],
               ),
               const SizedBox(
-                height: 10,
+                height: 20,
               ),
               Container(
                 padding:
@@ -264,58 +275,63 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                                 const SizedBox(
                                   height: 5,
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    // if(index==0)
-                                    //   Image.asset(ProjectImages.a_category,
-                                    //     height: 25,width: 25,
-                                    //   ),
-                                    // if(index==1)
-                                    //   Image.asset(ProjectImages.b_category,
-                                    //     height: 25,width: 25,
-                                    //   ),
-                                    // if(index==2)
-                                    //   Image.asset(ProjectImages.c_category,
-                                    //     height: 25,width: 25,
-                                    //   ),
-                                    // if(index==3 || index==4)
-                                      Image.asset(accountPayablesController.ItemList[index].image,
-                                        height: 25,width: 25,
+                                InkWell(
+                                  onTap: () {
+                                    accountPayablesController.debitor();
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      // if(index==0)
+                                      //   Image.asset(ProjectImages.a_category,
+                                      //     height: 25,width: 25,
+                                      //   ),
+                                      // if(index==1)
+                                      //   Image.asset(ProjectImages.b_category,
+                                      //     height: 25,width: 25,
+                                      //   ),
+                                      // if(index==2)
+                                      //   Image.asset(ProjectImages.c_category,
+                                      //     height: 25,width: 25,
+                                      //   ),
+                                      // if(index==3 || index==4)
+                                        Image.asset(accountPayablesController.ItemList[index].image,
+                                          height: 25,width: 25,
+                                        ),
+                                      Text(
+                                        accountPayablesController.ItemList[index].Name,
+                                        style: TextStyle(
+                                            color: AppColor.blackColor,
+                                            fontFamily: 'Urbanist',
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 15),
                                       ),
-                                    Text(
-                                      accountPayablesController.ItemList[index].Name,
-                                      style: TextStyle(
-                                          color: AppColor.blackColor,
-                                          fontFamily: 'Urbanist',
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 15),
-                                    ),
-                                    Text(
-                                      accountPayablesController.ItemList[index].Db,
-                                      style: TextStyle(
-                                          color: AppColor.blackColor,
-                                          fontFamily: 'Urbanist',
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 15),
-                                    ),
-                                    Text(
-                                      accountPayablesController.ItemList[index].LP,
-                                      style: TextStyle(
-                                          color: AppColor.blackColor,
-                                          fontFamily: 'Urbanist',
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 15),
-                                    ),
-                                    Text(
-                                      accountPayablesController.ItemList[index].CINFO,
-                                      style: TextStyle(
-                                          color: AppColor.blackColor,
-                                          fontFamily: 'Urbanist',
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 15),
-                                    ),
-                                  ],
+                                      Text(
+                                        accountPayablesController.ItemList[index].Db,
+                                        style: TextStyle(
+                                            color: AppColor.blackColor,
+                                            fontFamily: 'Urbanist',
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 15),
+                                      ),
+                                      Text(
+                                        accountPayablesController.ItemList[index].LP,
+                                        style: TextStyle(
+                                            color: AppColor.blackColor,
+                                            fontFamily: 'Urbanist',
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 15),
+                                      ),
+                                      Text(
+                                        accountPayablesController.ItemList[index].CINFO,
+                                        style: TextStyle(
+                                            color: AppColor.blackColor,
+                                            fontFamily: 'Urbanist',
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 15),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 Divider(
                                   color: AppColor.txtSecondaryColor,
@@ -332,7 +348,9 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Get.toNamed(Routes.ALL_CREDITOR, arguments: {'whichUser': 'All Creditors'});
+                        },
                         child: const Text(
                           "View All",
                           style: TextStyle(
@@ -352,181 +370,189 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
               const SizedBox(
                 height: 15,
               ),
-              Text(
-                'Creditor Detail',
-                style: TextStyle(
-                  color: AppColor.blackColor,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
-                  fontFamily: 'Urbanist',
+              Obx(() =>
+              Visibility(
+                visible: accountPayablesController.creditorShow.value,
+                child: Text(
+                  'Creditor Detail',
+                  style: TextStyle(
+                    color: AppColor.blackColor,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                    fontFamily: 'Urbanist',
+                  ),
                 ),
-              ),
+              )),
               const SizedBox(
                 height: 10,
               ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(5)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          'Name: ',
-                          style: TextStyle(
-                              color: AppColor.primaryColor,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: 'Urbanist'),
-                        ),
-                        Text(
-                          'Debtor 1',
-                          style: TextStyle(
-                              color: AppColor.blackColor,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'Urbanist'),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          'Total Debit Balance: ',
-                          style: TextStyle(
-                              color: AppColor.primaryColor,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: 'Urbanist'),
-                        ),
-                        Text(
-                          '₹5,000',
-                          style: TextStyle(
-                              color: AppColor.blackColor,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'Urbanist'),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          'Last Payment Date: ',
-                          style: TextStyle(
-                              color: AppColor.primaryColor,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: 'Urbanist'),
-                        ),
-                        Text(
-                          '01-01-2024',
-                          style: TextStyle(
-                              color: AppColor.blackColor,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'Urbanist'),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          'Due Date: ',
-                          style: TextStyle(
-                              color: AppColor.primaryColor,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: 'Urbanist'),
-                        ),
-                        Text(
-                          '01-01-2024',
-                          style: TextStyle(
-                              color: AppColor.blackColor,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'Urbanist'),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      'Outstanding Invoices: ',
-                      style: TextStyle(
-                          color: AppColor.primaryColor,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'Urbanist'),
-                    ),
-                    Text(
-                      '- Invoice #12345: is ₹2,000',
-                      style: TextStyle(
-                          color: AppColor.blackColor,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'Urbanist'),
-                    ),
-                    Text(
-                      '- Due: 01-10-2024',
-                      style: TextStyle(
-                          color: AppColor.blackColor,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'Urbanist'),
-                    ),
-                    Text(
-                      '- Invoice #123456: ₹3,000',
-                      style: TextStyle(
-                          color: AppColor.blackColor,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'Urbanist'),
-                    ),
-                    Text(
-                      '- Due: 01-20-2024',
-                      style: TextStyle(
-                          color: AppColor.blackColor,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'Urbanist'),
-                    ),
-                    Text(
-                      '- Contact info: 123-456-7890',
-                      style: TextStyle(
-                          color: AppColor.blackColor,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'Urbanist'),
-                    ),
-                    Text(
-                      '- creditor1@gmail.com',
-                      style: TextStyle(
-                          color: AppColor.blackColor,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'Urbanist'),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                  ],
+              Obx(() =>
+              Visibility(
+                visible: accountPayablesController.creditorShow.value,
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            'Name: ',
+                            style: TextStyle(
+                                color: AppColor.primaryColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'Urbanist'),
+                          ),
+                          Text(
+                            'Mohit',
+                            style: TextStyle(
+                                color: AppColor.blackColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: 'Urbanist'),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Total Debit Balance: ',
+                            style: TextStyle(
+                                color: AppColor.primaryColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'Urbanist'),
+                          ),
+                          Text(
+                            '₹5,000',
+                            style: TextStyle(
+                                color: AppColor.blackColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: 'Urbanist'),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Last Payment Date: ',
+                            style: TextStyle(
+                                color: AppColor.primaryColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'Urbanist'),
+                          ),
+                          Text(
+                            '01-01-2024',
+                            style: TextStyle(
+                                color: AppColor.blackColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: 'Urbanist'),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Due Date: ',
+                            style: TextStyle(
+                                color: AppColor.primaryColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'Urbanist'),
+                          ),
+                          Text(
+                            '01-01-2024',
+                            style: TextStyle(
+                                color: AppColor.blackColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: 'Urbanist'),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        'Outstanding Invoices: ',
+                        style: TextStyle(
+                            color: AppColor.primaryColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'Urbanist'),
+                      ),
+                      Text(
+                        '- Invoice #12345: is ₹2,000',
+                        style: TextStyle(
+                            color: AppColor.blackColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'Urbanist'),
+                      ),
+                      Text(
+                        '- Due: 01-10-2024',
+                        style: TextStyle(
+                            color: AppColor.blackColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'Urbanist'),
+                      ),
+                      Text(
+                        '- Invoice #123456: ₹3,000',
+                        style: TextStyle(
+                            color: AppColor.blackColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'Urbanist'),
+                      ),
+                      Text(
+                        '- Due: 01-20-2024',
+                        style: TextStyle(
+                            color: AppColor.blackColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'Urbanist'),
+                      ),
+                      Text(
+                        '- Contact info: 123-456-7890',
+                        style: TextStyle(
+                            color: AppColor.blackColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'Urbanist'),
+                      ),
+                      Text(
+                        '- creditor1@gmail.com',
+                        style: TextStyle(
+                            color: AppColor.blackColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'Urbanist'),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                    ],
+                  ),
                 ),
-              )
+              ))
             ],
           ),
         ),
