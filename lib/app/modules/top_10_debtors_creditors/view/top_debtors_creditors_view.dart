@@ -53,7 +53,7 @@ class _TopDebtorsCreditorsViewState extends State<TopDebtorsCreditorsView> {
                       child: Container(
                         width: 160,
                         height: 50,
-                        padding: EdgeInsets.symmetric(horizontal: 12),
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                             border: Border.all(
@@ -101,7 +101,7 @@ class _TopDebtorsCreditorsViewState extends State<TopDebtorsCreditorsView> {
                       child: Container(
                         width: 160,
                         height: 50,
-                        padding: EdgeInsets.symmetric(horizontal: 12),
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
                             border: Border.all(
@@ -141,7 +141,7 @@ class _TopDebtorsCreditorsViewState extends State<TopDebtorsCreditorsView> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               // Obx(
@@ -306,9 +306,9 @@ class _TopDebtorsCreditorsViewState extends State<TopDebtorsCreditorsView> {
               //   ),
               // ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 decoration: BoxDecoration(
-                    color: Color(0xFFE3F2FD),
+                    color: const Color(0xFFE3F2FD),
                     borderRadius: BorderRadius.circular(5)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -367,10 +367,10 @@ class _TopDebtorsCreditorsViewState extends State<TopDebtorsCreditorsView> {
                 child: Column(
                   children: [
                     ListView.builder(
-                        itemCount: 5,
+                        itemCount: topDebtorsCreditorsController.ItemList.length,
                         shrinkWrap: true,
                         padding: EdgeInsets.zero,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
                           return
                             Container(
@@ -383,49 +383,37 @@ class _TopDebtorsCreditorsViewState extends State<TopDebtorsCreditorsView> {
                                     mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                     children: [
-                                        if(index==0)
-                                      Image.asset(ProjectImages.a_category,
-                                        height: 25,width: 25,
-                                      ),
-                                      if(index==1)
-                                      Image.asset(ProjectImages.b_category,
-                                        height: 25,width: 25,
-                                      ),
-                                      if(index==2)
-                                      Image.asset(ProjectImages.c_category,
-                                        height: 25,width: 25,
-                                      ),
-                                      if(index==3 || index==4)
-                                      Image.asset(ProjectImages.a_category,
+
+                                      Image.asset(topDebtorsCreditorsController.ItemList[index].image,
                                         height: 25,width: 25,
                                       ),
                                       Text(
-                                        'Aadtiya',
+                                          topDebtorsCreditorsController.ItemList[index].Name,
                                         style: TextStyle(
                                             color: AppColor.blackColor,
                                             fontFamily: 'Urbanist',
                                             fontWeight: FontWeight.w500,
                                             fontSize: 15),
                                       ),
-                                      const Text(
-                                        '₹10,00',
-                                        style: TextStyle(
+                                       Text(
+                                          topDebtorsCreditorsController.ItemList[index].weekly,
+                                        style: const TextStyle(
                                             color: Color(0xFF43A047),
                                             fontFamily: 'Urbanist',
                                             fontWeight: FontWeight.w500,
                                             fontSize: 15),
                                       ),
-                                      const Text(
-                                        '₹12,00',
-                                        style: TextStyle(
+                                       Text(
+                                           topDebtorsCreditorsController.ItemList[index].monthly,
+                                        style: const TextStyle(
                                             color: Color(0xFF43A047),
                                             fontFamily: 'Urbanist',
                                             fontWeight: FontWeight.w500,
                                             fontSize: 15),
                                       ),
-                                      const Text(
-                                        '₹18,00',
-                                        style: TextStyle(
+                                       Text(
+                                           topDebtorsCreditorsController.ItemList[index].quarterly,
+                                        style: const TextStyle(
                                             color: Color(0xFF43A047),
                                             fontFamily: 'Urbanist',
                                             fontWeight: FontWeight.w500,
@@ -512,7 +500,7 @@ class _TopDebtorsCreditorsViewState extends State<TopDebtorsCreditorsView> {
                     fontWeight: FontWeight.w500,
                     fontSize: 16),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Column(

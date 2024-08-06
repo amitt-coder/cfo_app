@@ -21,6 +21,12 @@ class DashBoardController extends GetxController
     "Abel Binnis George",
     "Abrar Hussain     "
   ];
+  List DebitorscredtorsAmount = [
+    "+3600.00",
+    "-3000.00",
+    "-5000.00",
+    "+8000.00",
+  ];
   List summary = [
     "EBITDA",
     "EBIT",

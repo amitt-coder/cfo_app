@@ -382,7 +382,9 @@ class _AllCreditorViewState extends State<AllCreditorView> {
                         decoration: BoxDecoration(
                             color: AppColor.primaryColor,
                             borderRadius: BorderRadius.circular(10)),
-                        child: Tab(text: 'Customer')),
+                        child: Tab(text:
+                        allCreditorController.whichUser.value=='All Debitors'?
+                        'Customer':'Vendor')),
                     Container(
                         height: 40,
                         width: 120,
@@ -391,7 +393,9 @@ class _AllCreditorViewState extends State<AllCreditorView> {
                             borderRadius: BorderRadius.circular(10)),
                         // decoration: Themes.tabDecoration,
                         child: Tab(
-                          text: 'Debtor',
+                          text:
+                          allCreditorController.whichUser.value=='All Debitors'?
+                          'Debtor':'Creditor',
                         )),
                   ],
                 ),

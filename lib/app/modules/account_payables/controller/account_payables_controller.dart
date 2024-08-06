@@ -11,44 +11,43 @@ class AccountPayablesController extends GetxController {
   TextEditingController daysController = TextEditingController();
   RxBool creditorShow = false.obs;
   RxString showday = 'Last 30 days'.obs;
-  RxList<String> dayList = ['Last 30 days', 'Last 60 days', 'Last 90 days'].obs;
+  RxList<String> dayList = ['Last 30 days', 'Last 60 days','Last 90 days','Last 120 days'].obs;
 
   List<Items> ItemList = [
     Items(
         Name: "Mohit",
         image: ProjectImages.a_category,
-        Db: '6000',
+        Db: '-6000',
         LP: '01-06-2024',
         CINFO: '123-4'),
     Items(
         Name: "Amit.",
         image: ProjectImages.b_category,
-        Db: '5000',
+        Db: '+5000',
         LP: '10-05-2024',
         CINFO: '123-4'),
     Items(
         Name: "Divy.",
         image: ProjectImages.c_category,
-        Db: '7000',
+        Db: '+7000',
         LP: '11-07-2024',
         CINFO: '123-4'),
     Items(
         Name: "Ashok.",
         image: ProjectImages.a_category,
-        Db: '8000',
+        Db: '-8000',
         LP: '14-09-2024',
         CINFO: '123-4'),
     Items(
         Name: "Aman.",
         image: ProjectImages.b_category,
-        Db: '4000',
+        Db: '+4000',
         LP: '05-06-2024',
         CINFO: '123-4'),
   ];
 
   void debitor() {
     creditorShow.value = !creditorShow.value;
-
     print('creditorShow ${creditorShow.value}');
     update();
   }

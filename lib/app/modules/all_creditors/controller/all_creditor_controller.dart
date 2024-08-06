@@ -7,7 +7,11 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'dart:io';
 
-class AllCreditorController extends GetxController with GetSingleTickerProviderStateMixin{
+import '../../customers/customer_screen.dart';
+
+class AllCreditorController extends GetxController
+    with GetSingleTickerProviderStateMixin {
+
   RxInt buttonSelect = 1.obs;
   RxString showCategory = 'Cateogory A'.obs;
   RxList<String> showCategoryList =
@@ -25,24 +29,29 @@ class AllCreditorController extends GetxController with GetSingleTickerProviderS
   RxString whichUser = ''.obs;
   late TabController tabController;
 
-
   List<Widget> listingScreens = [
-    Container(),
-    Container(),
+    CustomerScreen(
+      whichUser:Get.arguments['whichUser'] ?? '', //
+    ),
+    CustomerScreen(
+      whichUser: Get.arguments['whichUser'] ?? '',
+    ),
   ];
-
-
 
   @override
   void onClose() {
     tabController.dispose();
     super.onClose();
   }
+
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    tabController = TabController(length: 2, vsync: this,);
+    tabController = TabController(
+      length: 2,
+      vsync: this,
+    );
     final args = Get.arguments as Map<String, dynamic>?;
     whichUser.value = args?['whichUser'] ?? 'DefaultUser';
   }

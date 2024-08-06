@@ -311,7 +311,7 @@ class DashBoardView extends GetView<DashBoardController> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('AR with Debit Balance',
+                              Text('AR Exception',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 18,
@@ -350,7 +350,7 @@ class DashBoardView extends GetView<DashBoardController> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text('AP with Credit Balance',
+                              Text('AP Exception',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 18,
@@ -385,32 +385,32 @@ class DashBoardView extends GetView<DashBoardController> {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
-                              if (index == 1) {
-                                Get.toNamed(Routes.ALL_CREDITOR);
-                              }
-                              if (index == 2) {
-                                // Get.toNamed(Routes.ACCOUNT_PAYABLES);
-                              }
-                              if (index == 3) {
-                                Get.toNamed(Routes.KEY_RATIO_ANALYSIS);
-                              }
-                              if (index == 4) {
-                                Get.toNamed(Routes.AR_WITH_CREDIT_BALANCE);
-                              }
-                              if (index == 5) {
-                                Get.toNamed(Routes.ACCOUNT_PAYABLES);
-                                // Get.toNamed(Routes.TOP_DEBTORS_CREDITORS);
-                              }
-                              if (index == 6) {
+                              // if (index == 1) {
+                              //   Get.toNamed(Routes.ALL_CREDITOR);
+                              // }
+                              // if (index == 2) {
+                              //   // Get.toNamed(Routes.ACCOUNT_PAYABLES);
+                              // }
+                              // if (index == 3) {
+                              //   Get.toNamed(Routes.KEY_RATIO_ANALYSIS);
+                              // }
+                              // if (index == 4) {
+                              //   Get.toNamed(Routes.AR_WITH_CREDIT_BALANCE);
+                              // }
+                              // if (index == 5) {
+                              //   Get.toNamed(Routes.ACCOUNT_PAYABLES);
+                              //   // Get.toNamed(Routes.TOP_DEBTORS_CREDITORS);
+                              // }
+                              if (index == 0) {
                                 Get.toNamed(Routes.FINACIAL_PROJECTION);
                               }
-                              if (index == 7) {
+                              if (index == 1) {
                                 Get.toNamed(Routes.CASH_FLOW);
                               }
-                              if (index == 8) {
+                              if (index == 2) {
                                 Get.toNamed(Routes.PURCHASE_ORDER);
                               }
-                              if (index == 9) {
+                              if (index == 3) {
                                 Get.toNamed(Routes.PURCHASE_ORDER_LIST);
                               }
                             },
@@ -615,8 +615,8 @@ class DashBoardView extends GetView<DashBoardController> {
                                             fontWeight: FontWeight.w400,
                                             fontFamily: 'Urbanist'),
                                       ),
-                                      const Text(
-                                        "₹3600.00",
+                                      Text(
+                                        "${dashBoardController.DebitorscredtorsAmount[index]}",
                                         style: TextStyle(
                                             color: Color(0xFF48BD69),
                                             fontSize: 16,
