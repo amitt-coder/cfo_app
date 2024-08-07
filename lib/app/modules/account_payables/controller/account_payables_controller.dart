@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-
 import '../../../../utils/images.dart';
 
 class AccountPayablesController extends GetxController {
@@ -62,7 +60,7 @@ class AccountPayablesController extends GetxController {
     if (picked != null) {
       selectedDate.value = picked;
       String formattedDate =
-          DateFormat('yyyy-MM-dd').format(selectedDate.value);
+          DateFormat('dd-MM-yyyy').format(selectedDate.value);
       dateController.text = formattedDate;
       print('selectedDate.value ${dateController.text}');
     }

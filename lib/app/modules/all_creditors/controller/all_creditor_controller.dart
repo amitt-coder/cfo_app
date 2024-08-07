@@ -75,65 +75,66 @@ class AllCreditorController extends GetxController
     }
   }
 
-  Future<void> requestPermissions() async {
-    final status = await Permission.storage.request();
-    if (!status.isGranted) {
-      // Handle the case where permission is not granted
-      print('Storage permission denied');
-    }
-  }
-
-  Future<void> savePdfToSdCard(String filename) async {
-    // Request permissions
-    await requestPermissions();
-
-    // Generate PDF
-    final pdf = pw.Document();
-    pdf.addPage(
-      pw.Page(
-        build: (pw.Context context) => pw.Center(
-          child: pw.Text('Hello World', style: pw.TextStyle(fontSize: 40)),
-        ),
-      ),
-    );
-
-    // Path to SD card's Download folder
-    final sdCardPath = await getSdCardDownloadPath();
-    final filePath = '$sdCardPath/$filename.pdf';
-    final file = File(filePath);
-
-    // Save PDF to SD card
-    await file.writeAsBytes(await pdf.save());
-
-    print('PDF saved at: $filePath');
-  }
-
-  Future<String> getSdCardDownloadPath() async {
-    // For Android devices, external storage paths are device-specific
-    // Try to access standard external directories
-    if (Platform.isAndroid) {
-      final directory = Directory('/storage/emulated/0/Download');
-      if (await directory.exists()) {
-        return directory.path;
-      }
-
-      // Check other potential paths if necessary
-      // Example path for SD card might be something like '/storage/sdcard1/Download'
-      final sdCardDirectory = Directory('/storage/sdcard1/Download');
-      if (await sdCardDirectory.exists()) {
-        return sdCardDirectory.path;
-      }
-    }
-
-    // Fallback to application documents directory if not found
-    final directory = await getApplicationDocumentsDirectory();
-    final fallbackPath = '${directory.path}/Downloads';
-    final dir = Directory(fallbackPath);
-
-    if (!await dir.exists()) {
-      await dir.create(recursive: true);
-    }
-
-    return fallbackPath;
-  }
+  // Future<void> requestPermissions() async {
+  //   final status = await Permission.storage.request();
+  //   if (!status.isGranted) {
+  //     // Handle the case where permission is not granted
+  //     print('Storage permission denied');
+  //   }
+  // }
+  //
+  // Future<void> savePdfToSdCard(String filename) async {
+  //   // Request permissions
+  //   await requestPermissions();
+  //
+  //   // Generate PDF
+  //   final pdf = pw.Document();
+  //   pdf.addPage(
+  //     pw.Page(
+  //       build: (pw.Context context) => pw.Center(
+  //         child: pw.Text('Hello World', style: pw.TextStyle(fontSize: 40)),
+  //       ),
+  //     ),
+  //   );
+  //
+  //   // Path to SD card's Download folder
+  //   final sdCardPath = await getSdCardDownloadPath();
+  //   final filePath = '$sdCardPath/$filename.pdf';
+  //   final file = File(filePath);
+  //
+  //   // Save PDF to SD card
+  //   await file.writeAsBytes(await pdf.save());
+  //
+  //   print('PDF saved at: $filePath');
+  // }
+  //
+  // Future<String> getSdCardDownloadPath() async {
+  //   // For Android devices, external storage paths are device-specific
+  //   // Try to access standard external directories
+  //   if (Platform.isAndroid) {
+  //     final directory = Directory('/storage/emulated/0/Download');
+  //     if (await directory.exists()) {
+  //       return directory.path;
+  //     }
+  //
+  //     // Check other potential paths if necessary
+  //     // Example path for SD card might be something like '/storage/sdcard1/Download'
+  //     final sdCardDirectory = Directory('/storage/sdcard1/Download');
+  //     if (await sdCardDirectory.exists()) {
+  //       return sdCardDirectory.path;
+  //     }
+  //   }
+  //
+  //   // Fallback to application documents directory if not found
+  //   final directory = await getApplicationDocumentsDirectory();
+  //   final fallbackPath = '${directory.path}/Downloads';
+  //   final dir = Directory(fallbackPath);
+  //
+  //   if (!await dir.exists()) {
+  //     await dir.create(recursive: true);
+  //   }
+  //
+  //   return fallbackPath;
+  // }
 }
+

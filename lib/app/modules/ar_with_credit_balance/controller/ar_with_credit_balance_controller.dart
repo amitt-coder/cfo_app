@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../utils/images.dart';
 
@@ -7,6 +9,13 @@ class ArWithCreditBalanceController extends GetxController{
 
 
   RxBool debitorShow = false.obs;
+
+  TextEditingController daysController = TextEditingController();
+  RxString showday = 'Last 30 days'.obs;
+  RxList<String> dayList = ['Last 30 days', 'Last 60 days', 'Last 90 days','Last 120 days'].obs;
+  final selectedDate = DateTime.now().obs;
+  TextEditingController dateController = TextEditingController();
+
 
   RxList<Items> ItemList = [
     Items(Name: "Vishal", image: ProjectImages.a_category,Db:'+2000',LP:'01-06-2024',CINFO: '123-4'),
@@ -19,13 +28,26 @@ class ArWithCreditBalanceController extends GetxController{
 
   void debitor(){
     debitorShow.value = !debitorShow.value;
-
     print('debitorShow ${debitorShow.value}');
     update();
   }
-  TextEditingController daysController = TextEditingController();
-  RxString showday = 'Last 30 days'.obs;
-  RxList<String> dayList = ['Last 30 days', 'Last 60 days', 'Last 90 days','Last 120 days'].obs;
+
+
+  Future<void> calendarOpen(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate.value,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2050),
+    );
+    if (picked != null) {
+      selectedDate.value = picked;
+      String formattedDate =
+      DateFormat('dd-MM-yyyy').format(selectedDate.value);
+      dateController.text = formattedDate;
+      print('selectedDate.value ${dateController.text}');
+    }
+  }
 
 }
 

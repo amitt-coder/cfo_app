@@ -13,8 +13,8 @@ class CustomerScreen extends StatefulWidget {
 }
 
 class _CustomerScreenState extends State<CustomerScreen> {
-  CustomerController customerController = Get.put(CustomerController());
 
+  CustomerController customerController = Get.put(CustomerController());
 
   @override
   Widget build(BuildContext context) {
@@ -125,19 +125,6 @@ class _CustomerScreenState extends State<CustomerScreen> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      // if(index==0)
-                                      //   Image.asset(ProjectImages.a_category,
-                                      //     height: 25,width: 25,
-                                      //   ),
-                                      // if(index==1)
-                                      //   Image.asset(ProjectImages.b_category,
-                                      //     height: 25,width: 25,
-                                      //   ),
-                                      // if(index==2)
-                                      //   Image.asset(ProjectImages.c_category,
-                                      //     height: 25,width: 25,
-                                      //   ),
-                                      // if(index==3 || index==4)
                                       widget.whichUser == 'All Creditors'
                                           ? Image.asset(
                                               customerController

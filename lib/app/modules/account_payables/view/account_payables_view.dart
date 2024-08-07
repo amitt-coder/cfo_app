@@ -603,7 +603,7 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               Row(
@@ -626,7 +626,7 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               Row(
@@ -649,7 +649,7 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               Row(
@@ -672,7 +672,7 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
             ],
@@ -682,7 +682,7 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Close'),
+              child: const Text('Close'),
             ),
           ],
         );

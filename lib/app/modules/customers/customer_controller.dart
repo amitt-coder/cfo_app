@@ -1,20 +1,17 @@
 import 'dart:convert';
-import 'dart:typed_data';
-
-import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 import 'package:permission_handler/permission_handler.dart';
-import '../../../utils/colors.dart';
 import '../../../utils/images.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'dart:io';
 
 class CustomerController extends GetxController {
+
+
   RxList<Items> ItemList = [
     Items(
         Name: "Vishal",
@@ -148,7 +145,7 @@ class CustomerController extends GetxController {
     final pdf = pw.Document();
 
     // Request permissions if necessary (not implemented here)
-    // await requestPermissions();
+    await requestPermissions();
 // Preload all images
     final images = await Future.wait(
       ItemList2.map((item) async {
@@ -173,9 +170,9 @@ class CustomerController extends GetxController {
             ),
             pw.SizedBox(height: 20),
             pw.Container(
-              padding: pw.EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              padding:const  pw.EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               decoration: pw.BoxDecoration(
-                color: PdfColor.fromInt(0xFFE3F2FD),
+                color:const  PdfColor.fromInt(0xFFE3F2FD),
                 borderRadius: pw.BorderRadius.circular(5),
               ),
               child: pw.Row(
@@ -213,7 +210,7 @@ class CustomerController extends GetxController {
               itemCount: ItemList2.length,
               itemBuilder: (pw.Context context, int index) {
                 return pw.Container(
-                  padding: pw.EdgeInsets.symmetric(horizontal: 10),
+                  padding: const pw.EdgeInsets.symmetric(horizontal: 10),
                   child: pw.Column(
                     children: [
                       pw.SizedBox(height: 5),
@@ -256,7 +253,7 @@ class CustomerController extends GetxController {
                         ],
                       ),
                       pw.Divider(
-                        color: PdfColor.fromInt(0xff808D9D),
+                        color: const PdfColor.fromInt(0xff808D9D),
                         thickness: 1,
                       ),
                     ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../components/common_app_bar.dart';
+import '../../../../components/common_textformfield.dart';
 import '../../../../components/dropdown_field.dart';
 import '../../../../utils/colors.dart';
 import '../../../../utils/images.dart';
@@ -172,14 +173,30 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
               const SizedBox(
                 height: 15,
               ),
-              Text(
-                'Debtors List',
-                style: TextStyle(
-                  color: AppColor.blackColor,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
-                  fontFamily: 'Urbanist',
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Debtors List',
+                    style: TextStyle(
+                      color: AppColor.blackColor,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      fontFamily: 'Urbanist',
+                    ),
+                  ),
+                  CommonTextField(
+                    ontap: () {
+                      arWithCreditBalanceController.calendarOpen(context);
+                    },
+                    preShow: 'Not',
+                    width: MediaQuery.of(context).size.width * 0.40,
+                    lableText: 'Select Date',
+                    controllers: arWithCreditBalanceController.dateController,
+                    keyboardTypes: TextInputType.name,
+                    prefixIcon: ProjectImages.mail,
+                  ),
+                ],
               ),
               const SizedBox(
                 height: 10,
