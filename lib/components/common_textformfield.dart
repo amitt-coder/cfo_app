@@ -11,6 +11,7 @@ class CommonTextField extends StatelessWidget {
   TextInputType keyboardTypes;
   double? width;
   final preShow;
+  final linesShow;
   Function()? ontap;
 
    CommonTextField({
@@ -21,6 +22,7 @@ class CommonTextField extends StatelessWidget {
       this.width,
       this.preShow,
       this.ontap,
+      this.linesShow,
   });
 
   @override
@@ -36,6 +38,7 @@ class CommonTextField extends StatelessWidget {
           )
       ),
       child:TextFormField(
+        maxLines: linesShow,
         onTap:ontap,
         style: TextStyle(fontSize: 14,
           fontFamily:'Urbanist' ,

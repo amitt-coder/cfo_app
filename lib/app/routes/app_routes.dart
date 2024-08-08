@@ -26,6 +26,7 @@ abstract class Routes {
   static const ACCOUNT_RECLASSIFICATION = _Paths.ACCOUNT_RECLASSIFICATION;
   static const VARIANCE_ANALYSIS = _Paths.VARIANCE_ANALYSIS;
   static const TDS_CHECK = _Paths.TDS_CHECK;
+  static const INVOICE_DETAILS = _Paths.INVOICE_DETAILS;
 }
 
 abstract class _Paths {
@@ -53,4 +54,5 @@ abstract class _Paths {
   static const ACCOUNT_RECLASSIFICATION = '/account-reclassification';
   static const VARIANCE_ANALYSIS = '/variance-analysis';
   static const TDS_CHECK = '/tds-check';
+  static const INVOICE_DETAILS = '/invoice-details';
 }

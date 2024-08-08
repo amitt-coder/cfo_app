@@ -276,11 +276,22 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    accountPayablesController.debitor();
+                                    // accountPayablesController.debitor();
                                     // _showDetailsDialog(
                                     //     context,
                                     //     accountPayablesController
                                     //         .ItemList[index]);
+                                    Get.toNamed(Routes.INVOICE_DETAILS,
+                                        arguments: {
+                                          'userName': accountPayablesController
+                                              .ItemList[index].Name,
+                                          'crBalance': accountPayablesController
+                                              .ItemList[index].Db,
+                                          'paymentDate':
+                                              accountPayablesController
+                                                  .ItemList[index].LP,
+                                          'whichDetail': 'Creditor Details',
+                                        });
                                   },
                                   child: Row(
                                     mainAxisAlignment:

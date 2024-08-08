@@ -57,6 +57,7 @@ class DashBoardView extends GetView<DashBoardController> {
                     ),
                   )),
           actions: [
+
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),

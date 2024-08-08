@@ -15,31 +15,31 @@ class AccountPayablesController extends GetxController {
     Items(
         Name: "Mohit",
         image: ProjectImages.a_category,
-        Db: '-6000',
+        Db: '-40,000',
         LP: '01-06-2024',
         CINFO: '123-4'),
     Items(
         Name: "Amit.",
         image: ProjectImages.b_category,
-        Db: '+5000',
+        Db: '+40,000',
         LP: '10-05-2024',
         CINFO: '123-4'),
     Items(
         Name: "Divy.",
         image: ProjectImages.c_category,
-        Db: '+7000',
+        Db: '+40,000',
         LP: '11-07-2024',
         CINFO: '123-4'),
     Items(
         Name: "Ashok.",
         image: ProjectImages.a_category,
-        Db: '-8000',
+        Db: '-40,000',
         LP: '14-09-2024',
         CINFO: '123-4'),
     Items(
         Name: "Aman.",
         image: ProjectImages.b_category,
-        Db: '+4000',
+        Db: '+40,000',
         LP: '05-06-2024',
         CINFO: '123-4'),
   ];

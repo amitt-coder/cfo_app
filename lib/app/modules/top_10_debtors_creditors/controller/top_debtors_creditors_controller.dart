@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-
 import '../../../../utils/images.dart';
 
 class TopDebtorsCreditorsController extends GetxController{
@@ -45,6 +44,36 @@ class TopDebtorsCreditorsController extends GetxController{
         weekly: '₹3,000',
         monthly: '₹4,000',
         quarterly: '₹5,000'),
+    Items(
+        Name: "Akshay.",
+        image: ProjectImages.c_category,
+        weekly: '₹6,000',
+        monthly: '₹7,000',
+        quarterly: '₹8,000'),
+    Items(
+        Name: "Tarun.",
+        image: ProjectImages.a_category,
+        weekly: '₹2,000',
+        monthly: '₹35,000',
+        quarterly: '₹5,000'),
+    Items(
+        Name: "Chandra.",
+        image: ProjectImages.b_category,
+        weekly: '₹3,000',
+        monthly: '₹35,00',
+        quarterly: '₹45,00'),
+    Items(
+        Name: "Pankaj.",
+        image: ProjectImages.c_category,
+        weekly: '₹4,000',
+        monthly: '₹55,00',
+        quarterly: '₹65,00'),
+    Items(
+        Name: "Vishal.",
+        image: ProjectImages.a_category,
+        weekly: '₹4,000',
+        monthly: '₹5,000',
+        quarterly: '₹6,000'),
   ];
 
 }

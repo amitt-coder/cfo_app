@@ -135,7 +135,7 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                               fontFamily: 'Urbanist'),
                         ),
                         Text(
-                          '₹60,000',
+                          '₹50,000',
                           style: TextStyle(
                               color: AppColor.blackColor,
                               fontSize: 15,
@@ -278,7 +278,15 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                                     ),
                                     InkWell(
                                       onTap: () {
-                                        arWithCreditBalanceController.debitor();
+                                        // arWithCreditBalanceController.debitor();
+                                        // Get.toNamed(Routes.INVOICE_DETAILS);
+                                        Get.toNamed(Routes.INVOICE_DETAILS,
+                                            arguments: {
+                                          'userName': arWithCreditBalanceController.ItemList[index].Name,
+                                          'crBalance': arWithCreditBalanceController.ItemList[index].Db,
+                                          'paymentDate': arWithCreditBalanceController.ItemList[index].LP,
+                                          'whichDetail': 'Debtor Details',
+                                            });
                                       },
                                       child: Row(
                                         mainAxisAlignment:

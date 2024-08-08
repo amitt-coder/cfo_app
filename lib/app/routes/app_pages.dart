@@ -10,6 +10,8 @@ import 'package:cfo_app/app/modules/financial_projection/binding/financial_proje
 import 'package:cfo_app/app/modules/financial_projection/view/financial_projection_view.dart';
 import 'package:cfo_app/app/modules/financial_projection_summary/view/financial_projection_summary.dart';
 import 'package:cfo_app/app/modules/forgot_password/binding/forgot_password_binding.dart';
+import 'package:cfo_app/app/modules/invoice_details/binding/invoice_detail_binding.dart';
+import 'package:cfo_app/app/modules/invoice_details/view/invoice_detail_view.dart';
 import 'package:cfo_app/app/modules/key_ratio_analysis/binding/key_ratio_analysis_binding.dart';
 import 'package:cfo_app/app/modules/key_ratio_analysis/view/key_ratio_analysis_view.dart';
 import 'package:cfo_app/app/modules/notification/binding/notification_binding.dart';
@@ -170,6 +172,11 @@ class AppPages {
       name: _Paths.TDS_CHECK,
       page: () => TdsCheckView(),
       binding: TdsCheckBinding(),
+    ),
+    GetPage(
+      name: _Paths.INVOICE_DETAILS,
+      page: () => InvoiceDetailView(),
+      binding: InvoiceDetailBinding(),
     ),
   ];
 }
