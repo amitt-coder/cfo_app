@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../components/common_button.dart';
 import '../../../utils/colors.dart';
+import '../../routes/app_pages.dart';
 import 'customer_controller.dart';
 
 class CustomerScreen extends StatefulWidget {
@@ -13,7 +14,6 @@ class CustomerScreen extends StatefulWidget {
 }
 
 class _CustomerScreenState extends State<CustomerScreen> {
-
   CustomerController customerController = Get.put(CustomerController());
 
   @override
@@ -121,102 +121,127 @@ class _CustomerScreenState extends State<CustomerScreen> {
                                   const SizedBox(
                                     height: 5,
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      widget.whichUser == 'All Creditors'
-                                          ? Image.asset(
-                                              customerController
-                                                  .ItemList2[index].image,
-                                              height: 25,
-                                              width: 25,
-                                            )
-                                          : Image.asset(
-                                              customerController
-                                                  .ItemList[index].image,
-                                              height: 25,
-                                              width: 25,
-                                            ),
-
-                                      widget.whichUser == 'All Creditors'
-                                          ? Text(
-                                              customerController
-                                                  .ItemList2[index].Name,
-                                              style: TextStyle(
-                                                  color: AppColor.blackColor,
-                                                  fontFamily: 'Urbanist',
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 15),
-                                            )
-                                          : Text(
-                                              customerController
-                                                  .ItemList[index].Name,
-                                              style: TextStyle(
-                                                  color: AppColor.blackColor,
-                                                  fontFamily: 'Urbanist',
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 15),
-                                            ),
-                                      widget.whichUser == 'All Creditors'
-                                          ? Text(
-                                              customerController
-                                                  .ItemList2[index].Db,
-                                              style: TextStyle(
-                                                  color: AppColor.blackColor,
-                                                  fontFamily: 'Urbanist',
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 15),
-                                            )
-                                          : Text(
-                                              customerController
-                                                  .ItemList[index].Db,
-                                              style: TextStyle(
-                                                  color: AppColor.blackColor,
-                                                  fontFamily: 'Urbanist',
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 15),
-                                            ),
-                                      widget.whichUser == 'All Creditors'
-                                          ? Text(
-                                              customerController
-                                                  .ItemList2[index].LP,
-                                              style: TextStyle(
-                                                  color: AppColor.blackColor,
-                                                  fontFamily: 'Urbanist',
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 15),
-                                            )
-                                          : Text(
-                                              customerController
-                                                  .ItemList[index].LP,
-                                              style: TextStyle(
-                                                  color: AppColor.blackColor,
-                                                  fontFamily: 'Urbanist',
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 15),
-                                            ),
-
-                                      widget.whichUser == 'All Creditors'
-                                          ? Text(
-                                              customerController
-                                                  .ItemList2[index].CINFO,
-                                              style: TextStyle(
-                                                  color: AppColor.blackColor,
-                                                  fontFamily: 'Urbanist',
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 15),
-                                            )
-                                          : Text(
-                                              customerController
-                                                  .ItemList[index].CINFO,
-                                              style: TextStyle(
-                                                  color: AppColor.blackColor,
-                                                  fontFamily: 'Urbanist',
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 15),
-                                            ),
-                                    ],
+                                  InkWell(
+                                    onTap: (){
+                                      // widget.whichUser == 'All Creditors'?
+                                      // Get.toNamed(Routes.INVOICE_DETAILS,
+                                      //     arguments: {
+                                      //       'userName': customerController
+                                      //           .ItemList2[index].Name,
+                                      //       'crBalance': customerController
+                                      //           .ItemList2[index].Db,
+                                      //       'paymentDate':
+                                      //       customerController
+                                      //           .ItemList2[index].LP,
+                                      //       'whichDetail': 'Creditor Details',
+                                      //     }):
+                                      // Get.toNamed(Routes.INVOICE_DETAILS,
+                                      //     arguments: {
+                                      //       'userName': customerController
+                                      //           .ItemList[index].Name,
+                                      //       'crBalance': customerController
+                                      //           .ItemList[index].Db,
+                                      //       'paymentDate':
+                                      //       customerController
+                                      //           .ItemList[index].LP,
+                                      //       'whichDetail': 'Debtor Details',
+                                      //     });
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        widget.whichUser == 'All Creditors'
+                                            ? Image.asset(
+                                                customerController
+                                                    .ItemList2[index].image,
+                                                height: 25,
+                                                width: 25,
+                                              )
+                                            : Image.asset(
+                                                customerController
+                                                    .ItemList[index].image,
+                                                height: 25,
+                                                width: 25,
+                                              ),
+                                        widget.whichUser == 'All Creditors'
+                                            ? Text(
+                                                customerController
+                                                    .ItemList2[index].Name,
+                                                style: TextStyle(
+                                                    color: AppColor.blackColor,
+                                                    fontFamily: 'Urbanist',
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 15),
+                                              )
+                                            : Text(
+                                                customerController
+                                                    .ItemList[index].Name,
+                                                style: TextStyle(
+                                                    color: AppColor.blackColor,
+                                                    fontFamily: 'Urbanist',
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 15),
+                                              ),
+                                        widget.whichUser == 'All Creditors'
+                                            ? Text(
+                                                customerController
+                                                    .ItemList2[index].Db,
+                                                style: TextStyle(
+                                                    color: AppColor.blackColor,
+                                                    fontFamily: 'Urbanist',
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 15),
+                                              )
+                                            : Text(
+                                                customerController
+                                                    .ItemList[index].Db,
+                                                style: TextStyle(
+                                                    color: AppColor.blackColor,
+                                                    fontFamily: 'Urbanist',
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 15),
+                                              ),
+                                        widget.whichUser == 'All Creditors'
+                                            ? Text(
+                                                customerController
+                                                    .ItemList2[index].LP,
+                                                style: TextStyle(
+                                                    color: AppColor.blackColor,
+                                                    fontFamily: 'Urbanist',
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 15),
+                                              )
+                                            : Text(
+                                                customerController
+                                                    .ItemList[index].LP,
+                                                style: TextStyle(
+                                                    color: AppColor.blackColor,
+                                                    fontFamily: 'Urbanist',
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 15),
+                                              ),
+                                        widget.whichUser == 'All Creditors'
+                                            ? Text(
+                                                customerController
+                                                    .ItemList2[index].CINFO,
+                                                style: TextStyle(
+                                                    color: AppColor.blackColor,
+                                                    fontFamily: 'Urbanist',
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 15),
+                                              )
+                                            : Text(
+                                                customerController
+                                                    .ItemList[index].CINFO,
+                                                style: TextStyle(
+                                                    color: AppColor.blackColor,
+                                                    fontFamily: 'Urbanist',
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 15),
+                                              ),
+                                      ],
+                                    ),
                                   ),
                                   Divider(
                                     color: AppColor.txtSecondaryColor,

@@ -15,15 +15,17 @@ class OnBoardingView extends GetView<OnBoardingController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Stack(
+      body:
+      Stack(
         alignment: Alignment.bottomCenter,
         children: [
+          Obx(() =>
           PageView.builder(
             itemCount: onBoardingController.OnBoardingData.length,
             onPageChanged: onBoardingController.onPageChanged,
             itemBuilder: (BuildContext context, int index) {
-              Map<String, String> page =
-                  onBoardingController.OnBoardingData[index];
+              // Map<String, String> page = onBoardingController.OnBoardingData[index];
+              final page = onBoardingController.OnBoardingData[index];
               return Stack(
                 children: [
                   Column(
@@ -93,7 +95,7 @@ class OnBoardingView extends GetView<OnBoardingController> {
                 ],
               );
             },
-          ),
+          )),
           Positioned(
               left: 20,
               bottom: MediaQuery.of(context).size.height * 0.08,

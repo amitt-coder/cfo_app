@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:cfo_app/utils/colors.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
@@ -8,6 +10,12 @@ import 'package:permission_handler/permission_handler.dart';
 import '../../../utils/images.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'dart:io';
+import 'dart:io';
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:path_provider/path_provider.dart';
 
 class CustomerController extends GetxController {
 
@@ -146,7 +154,7 @@ class CustomerController extends GetxController {
 
     // Request permissions if necessary (not implemented here)
     await requestPermissions();
-// Preload all images
+    // Preload all images
     final images = await Future.wait(
       ItemList2.map((item) async {
         final imageData = await loadImage(item.image);
@@ -266,15 +274,36 @@ class CustomerController extends GetxController {
       ),
     );
 
-    // Save PDF to SD card
-    final sdCardPath = await getSdCardDownloadPath();
-    final filePath = '$sdCardPath/$filename.pdf';
-    final file = File(filePath);
+    /// Save PDF to SD card
+    try{
+      final sdCardPath = await getSdCardDownloadPath();
+      final filePath = '$sdCardPath/$filename.pdf';
+      final file = File(filePath);
 
-    await file.writeAsBytes(await pdf.save());
+      await file.writeAsBytes(await pdf.save());
 
-    print('PDF saved at: $filePath');
-  }
+      print('PDF saved at: $filePath');
+      Get.snackbar(
+        "Download",
+        "$filePath",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: AppColor.primaryColor,
+        colorText: Colors.white,
+        duration: Duration(seconds: 3),
+      );
+    }catch(e){
+      Get.snackbar(
+        "Not Download",
+        "$e",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor:Colors.red,
+        colorText: Colors.white,
+        duration: Duration(seconds: 3),
+      );
+      print('Not Download: ${e}');
+    }
+
+    }
 
   Future<String> getSdCardDownloadPath() async {
     // For Android devices, external storage paths are device-specific
@@ -304,6 +333,9 @@ class CustomerController extends GetxController {
 
     return fallbackPath;
   }
+
+
+
 }
 
 class Items {
@@ -320,3 +352,6 @@ class Items {
     required this.CINFO,
   });
 }
+
+
+

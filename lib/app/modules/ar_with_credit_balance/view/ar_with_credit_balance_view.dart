@@ -9,7 +9,7 @@ import '../../../routes/app_pages.dart';
 import '../controller/ar_with_credit_balance_controller.dart';
 
 class ArWithCreditBalanceView extends StatefulWidget {
-  ArWithCreditBalanceView({super.key});
+  const ArWithCreditBalanceView({super.key});
 
   @override
   State<ArWithCreditBalanceView> createState() =>
@@ -24,7 +24,8 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppBar(
-        title: 'AR with Debitor Balance',
+        // title: 'AR with Debitor Balance',
+        title: 'AR',
         automaticallyImplyLeading: false,
         leading: GestureDetector(
           onTap: () {
