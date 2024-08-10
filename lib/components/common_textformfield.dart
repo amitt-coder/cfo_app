@@ -13,6 +13,7 @@ class CommonTextField extends StatelessWidget {
   final preShow;
   final linesShow;
   Function()? ontap;
+   Function(String)? onFieldSubmit;
 
    CommonTextField({
     super.key,required this.lableText,
@@ -23,6 +24,7 @@ class CommonTextField extends StatelessWidget {
       this.preShow,
       this.ontap,
       this.linesShow,
+      this.onFieldSubmit,
   });
 
   @override
@@ -38,6 +40,7 @@ class CommonTextField extends StatelessWidget {
           )
       ),
       child:TextFormField(
+        onFieldSubmitted: onFieldSubmit,
         maxLines: linesShow,
         onTap:ontap,
         style: TextStyle(fontSize: 14,

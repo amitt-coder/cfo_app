@@ -10,12 +10,6 @@ import 'package:permission_handler/permission_handler.dart';
 import '../../../utils/images.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'dart:io';
-import 'dart:io';
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:path_provider/path_provider.dart';
 
 class CustomerController extends GetxController {
 
@@ -292,14 +286,14 @@ class CustomerController extends GetxController {
         duration: Duration(seconds: 3),
       );
     }catch(e){
-      Get.snackbar(
-        "Not Download",
-        "$e",
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor:Colors.red,
-        colorText: Colors.white,
-        duration: Duration(seconds: 3),
-      );
+      // Get.snackbar(
+      //   "Not Download",
+      //   "$e",
+      //   snackPosition: SnackPosition.BOTTOM,
+      //   backgroundColor:Colors.red,
+      //   colorText: Colors.white,
+      //   duration: Duration(seconds: 3),
+      // );
       print('Not Download: ${e}');
     }
 

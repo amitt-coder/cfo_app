@@ -4,14 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../../../components/common_app_bar.dart';
+import '../../../../components/common_button.dart';
+import '../../../../components/common_textformfield.dart';
 import '../../../../utils/images.dart';
+import '../../../routes/app_pages.dart';
 
 class InvoiceDetailView extends StatefulWidget {
   String userName = '';
   String crBalance = '';
   String paymentDate = '';
   String whichDetail = '';
-  InvoiceDetailView({
+  InvoiceDetailView({super.key,
     this.userName = '',
     this.crBalance = '',
     this.paymentDate = '',
@@ -23,7 +26,6 @@ class InvoiceDetailView extends StatefulWidget {
 }
 
 class _InvoiceDetailViewState extends State<InvoiceDetailView> {
-
   InvoiceDetailController invoiceDetailController =
       Get.put(InvoiceDetailController());
 
@@ -47,7 +49,7 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        padding:const  EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         color: AppColor.backgroundColors,
         child: SingleChildScrollView(
           child: Column(
@@ -271,6 +273,14 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
               //     ],
               //   ),
               // ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(''),
+
+                ],
+              ),
+              const SizedBox(height: 15,),
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
@@ -324,16 +334,147 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
                   ],
                 ),
               ),
-            const SizedBox(
+              const SizedBox(
                 height: 15,
               ),
+
               Text(
-                'Description',
+                'Discount',
                 style: TextStyle(
                   fontSize: 16,
                   fontFamily: 'Urbanist',
-                  fontWeight: FontWeight.w700,
-                  color: AppColor.txtSecondaryColor,
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.blackColor,
+                ),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(color: Colors.grey.shade300, blurRadius: 5)
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Discount Offer',
+                          style: TextStyle(
+                            color: AppColor.primaryColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'Urbanist',
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            CommonTextField(
+                              onFieldSubmit: (value) {
+                                invoiceDetailController.calculateRemainingPrice();
+                              },
+                              preShow: 'Not',
+                              width: MediaQuery.of(context).size.width * 0.20,
+                              lableText: 'Offer',
+                              controllers:
+                                  invoiceDetailController.offerController,
+                              keyboardTypes: TextInputType.name,
+                              prefixIcon: ProjectImages.mail,
+                            ),
+                            Text(
+                              '%',
+                              style: TextStyle(
+                                color: AppColor.txtSecondaryColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'Urbanist',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Total Due',
+                          style: TextStyle(
+                            color: AppColor.primaryColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'Urbanist',
+                          ),
+                        ),
+                        invoiceDetailController.amountShow.value == ''
+                            ? Text(
+                                invoiceDetailController.crBalance.value,
+                                style: TextStyle(
+                                  color: AppColor.blackColor,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: 'Urbanist',
+                                ),
+                              )
+                            : Text(
+                                invoiceDetailController.amountShow.value,
+                                style: TextStyle(
+                                  color: AppColor.blackColor,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: 'Urbanist',
+                                ),
+                              ),
+                      ],
+                    ),
+                    // buildDetailRow('Total Due:', "1,000"),
+                    const SizedBox(height: 10),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Due Date',
+                          style: TextStyle(
+                            color: AppColor.primaryColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'Urbanist',
+                          ),
+                        ),
+                        CommonTextField(
+                          ontap: () {
+                            invoiceDetailController.calendarOpen(context);
+                          },
+                          preShow: 'Not',
+                          width: MediaQuery.of(context).size.width * 0.40,
+                          lableText: 'Select Date',
+                          controllers: invoiceDetailController.dateController,
+                          keyboardTypes: TextInputType.name,
+                          prefixIcon: ProjectImages.mail,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Text(
+                'Comment',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontFamily: 'Urbanist',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.blackColor,
                 ),
               ),
               const SizedBox(
@@ -353,7 +494,7 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
                 cursorColor: const Color(0xFF242B42),
                 cursorWidth: 1.5,
                 decoration: InputDecoration(
-                  hintText: 'Description...',
+                  hintText: 'Comment...',
                   hintStyle: const TextStyle(
                     fontSize: 14,
                     fontFamily: 'Urbanist',
@@ -384,6 +525,30 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
                   ),
                 ),
               ),
+             const SizedBox(
+                height: 30,
+              ),
+              CommonButton(
+                color: AppColor.primaryColor,
+                ontap: () {
+                  Get.offAllNamed(Routes.DASH_BOARD);
+                },
+                height: 45,
+                width: double.infinity,
+                textcolor: AppColor.whiteColor,
+                text: 'Submit',
+              ),
+              SizedBox(height: 15,),
+              CommonButton(
+                  text: 'Download Invoice',
+                  color:Colors.white,
+                  textcolor: AppColor.primaryColor,
+                  ontap: () {
+                    invoiceDetailController.savePdfToSdCard('Invoice Details');
+                  },
+                  height: 45,
+                  width: MediaQuery.of(context).size.width),
+              const SizedBox(height: 15,),
             ],
           ),
         ),
@@ -419,7 +584,6 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
   }
 
   Widget buildInvoiceList() {
-
     final invoices = invoiceDetailController.crBalance.value == '-40,000' ||
             invoiceDetailController.crBalance.value == '+40,000'
         ? [
