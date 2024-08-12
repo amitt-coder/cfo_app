@@ -382,9 +382,8 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
                               preShow: 'Not',
                               width: MediaQuery.of(context).size.width * 0.20,
                               lableText: 'Offer',
-                              controllers:
-                                  invoiceDetailController.offerController,
-                              keyboardTypes: TextInputType.name,
+                              controllers: invoiceDetailController.offerController,
+                              keyboardTypes: TextInputType.number,
                               prefixIcon: ProjectImages.mail,
                             ),
                             Text(
