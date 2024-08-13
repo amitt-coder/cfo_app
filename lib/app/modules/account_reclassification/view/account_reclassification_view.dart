@@ -260,7 +260,7 @@ class _AccountReclassificationViewState
                           color: AppColor.blackColor),
                     ),
                     Text(
-                      'New Managem',
+                      'New Management',
                       style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w600,

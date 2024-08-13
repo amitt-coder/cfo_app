@@ -57,7 +57,6 @@ class DashBoardView extends GetView<DashBoardController> {
                     ),
                   )),
           actions: [
-
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
@@ -329,7 +328,7 @@ class DashBoardView extends GetView<DashBoardController> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       InkWell(
@@ -337,7 +336,7 @@ class DashBoardView extends GetView<DashBoardController> {
                           Get.toNamed(Routes.ACCOUNT_PAYABLES);
                         },
                         child: Container(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 15),
                           decoration: BoxDecoration(
                               color: Colors.white,
@@ -381,8 +380,9 @@ class DashBoardView extends GetView<DashBoardController> {
                             const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 4,
                                 crossAxisSpacing: 12,
-                                childAspectRatio: 0.9,
-                                mainAxisSpacing: 12),
+                                // childAspectRatio: 0.9,
+                                childAspectRatio: 0.7,
+                                mainAxisSpacing: 0),
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
@@ -413,6 +413,15 @@ class DashBoardView extends GetView<DashBoardController> {
                               }
                               if (index == 3) {
                                 Get.toNamed(Routes.PURCHASE_ORDER_LIST);
+                              }
+                              if (index == 4) {
+                                Get.toNamed(Routes.ACCOUNT_RECLASSIFICATION);
+                              }
+                              if (index == 5) {
+                                Get.toNamed(Routes.VARIANCE_ANALYSIS);
+                              }
+                              if (index == 6) {
+                                Get.toNamed(Routes.TDS_CHECK);
                               }
                             },
                             child: Column(
@@ -618,7 +627,7 @@ class DashBoardView extends GetView<DashBoardController> {
                                       ),
                                       Text(
                                         "${dashBoardController.DebitorscredtorsAmount[index]}",
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: Color(0xFF48BD69),
                                             fontSize: 16,
                                             fontWeight: FontWeight.w600,

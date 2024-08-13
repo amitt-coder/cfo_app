@@ -71,16 +71,21 @@ class DashBoardController extends GetxController
 
   // Sample months data
   List<Items> ItemList = [
+    ///old design grid
     // Items(title: "Customers", image: ProjectImages.customers),
     // Items(title: "Invoices", image: ProjectImages.invoices),
     // Items(title: "Bills", image: ProjectImages.bills),
     // Items(title: "Expenses", image: ProjectImages.expenses),
     // Items(title: "AR", image: ProjectImages.ar),
     // Items(title: "AP", image: ProjectImages.ap),
+    ///new grid
     Items(title: "Projection", image: ProjectImages.projection),
     Items(title: "Cashflow", image: ProjectImages.cashOverFlow),
     Items(title: "MIS", image: ProjectImages.mis),
     Items(title: "Compliances", image: ProjectImages.complainces),
+    Items(title: "Account Regrouping", image: ProjectImages.account_reclassify_svg),
+    Items(title: "Variance Analysis", image: ProjectImages.variance_svg),
+    Items(title: "TDS Compliance", image: ProjectImages.tds_svg),
   ];
 
   @override

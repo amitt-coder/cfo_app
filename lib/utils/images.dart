@@ -65,4 +65,7 @@ class ProjectImages{
   static const String circle="assets/images/circle.svg";
   static const String zero="assets/images/zero.svg";
   static const String profile="assets/images/profile.png";
+  static const String account_reclassify_svg="assets/images/account_reclassify.svg";
+  static const String variance_svg="assets/images/variance_svg.svg";
+  static const String tds_svg="assets/images/tds_svg.svg";
 }

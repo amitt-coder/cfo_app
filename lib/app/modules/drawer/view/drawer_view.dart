@@ -16,9 +16,9 @@ class _DrawerViewState extends State<DrawerView> {
 
   List<DrawerList> drawerList = [
     DrawerList(image: ProjectImages.user_drawer, name: 'Profile  '),
-    DrawerList( image: ProjectImages.account_reclassify, name: 'Account Regrouping'),
-    DrawerList(image: ProjectImages.variance, name: 'Variance Analysis'),
-    DrawerList(image: ProjectImages.tds, name: 'TDS Compliance'),
+    // DrawerList( image: ProjectImages.account_reclassify, name: 'Account Regrouping'),
+    // DrawerList(image: ProjectImages.variance, name: 'Variance Analysis'),
+    // DrawerList(image: ProjectImages.tds, name: 'TDS Compliance'),
     DrawerList(image: ProjectImages.power_off, name: 'Logout '),
   ];
 
@@ -58,19 +58,25 @@ class _DrawerViewState extends State<DrawerView> {
                       children: [
                         InkWell(
                           onTap: () {
+                            // if (index == 0) {
+                            //   Get.toNamed(Routes.PROFILE);
+                            // }
+                            // if (index == 1) {
+                            //   Get.toNamed(Routes.ACCOUNT_RECLASSIFICATION);
+                            // }
+                            // if (index == 2) {
+                            //   Get.toNamed(Routes.VARIANCE_ANALYSIS);
+                            // }
+                            // if (index == 3) {
+                            //   Get.toNamed(Routes.TDS_CHECK);
+                            // }
+                            // if (index == 4) {
+                            //   Get.offAllNamed(Routes.SIGN_IN);
+                            // }
                             if (index == 0) {
                               Get.toNamed(Routes.PROFILE);
                             }
                             if (index == 1) {
-                              Get.toNamed(Routes.ACCOUNT_RECLASSIFICATION);
-                            }
-                            if (index == 2) {
-                              Get.toNamed(Routes.VARIANCE_ANALYSIS);
-                            }
-                            if (index == 3) {
-                              Get.toNamed(Routes.TDS_CHECK);
-                            }
-                            if (index == 4) {
                               Get.offAllNamed(Routes.SIGN_IN);
                             }
                           },
