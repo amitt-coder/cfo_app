@@ -68,4 +68,6 @@ class ProjectImages{
   static const String account_reclassify_svg="assets/images/account_reclassify.svg";
   static const String variance_svg="assets/images/variance_svg.svg";
   static const String tds_svg="assets/images/tds_svg.svg";
+  static const String exception_report="assets/images/exception_report.svg";
+  static const String trends="assets/images/trends.svg";
 }

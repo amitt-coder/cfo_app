@@ -65,9 +65,10 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                     },
                     selectValue: arWithCreditBalanceController.showday.value,
                     hintName: 'show',
-                    width: MediaQuery.of(context).size.width*0.40,
+                    width: MediaQuery.of(context).size.width * 0.40,
                     height: 45,
-                    selectPriceInstallment: arWithCreditBalanceController.dayList,
+                    selectPriceInstallment:
+                        arWithCreditBalanceController.dayList,
                     controller: arWithCreditBalanceController.daysController,
                     showBorder: '0',
                   ),
@@ -178,7 +179,7 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Debtors List',
+                    'Debtors List as Offer',
                     style: TextStyle(
                       color: AppColor.blackColor,
                       fontWeight: FontWeight.w500,
@@ -196,6 +197,33 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                     controllers: arWithCreditBalanceController.dateController,
                     keyboardTypes: TextInputType.name,
                     prefixIcon: ProjectImages.mail,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Row(
+                children: [
+                  Image.asset(
+                    ProjectImages.information_icon,
+                    height: 24,
+                    width: 24,
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  DropDownField(
+                    selectValue:
+                        arWithCreditBalanceController.showCategory.value,
+                    hintName: 'show',
+                    width: MediaQuery.of(context).size.width * 0.35,
+                    height: 40,
+                    selectPriceInstallment:
+                        arWithCreditBalanceController.showCategoryList,
+                    controller:
+                        arWithCreditBalanceController.categoryController,
+                    showBorder: '1',
                   ),
                 ],
               ),
@@ -283,10 +311,16 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                                         // Get.toNamed(Routes.INVOICE_DETAILS);
                                         Get.toNamed(Routes.INVOICE_DETAILS,
                                             arguments: {
-                                          'userName': arWithCreditBalanceController.ItemList[index].Name,
-                                          'crBalance': arWithCreditBalanceController.ItemList[index].Db,
-                                          'paymentDate': arWithCreditBalanceController.ItemList[index].LP,
-                                          'whichDetail': 'Debtor Details',
+                                              'userName':
+                                                  arWithCreditBalanceController
+                                                      .ItemList[index].Name,
+                                              'crBalance':
+                                                  arWithCreditBalanceController
+                                                      .ItemList[index].Db,
+                                              'paymentDate':
+                                                  arWithCreditBalanceController
+                                                      .ItemList[index].LP,
+                                              'whichDetail': 'Debtor Details',
                                             });
                                       },
                                       child: Row(
@@ -367,7 +401,8 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                           child: InkWell(
                             onTap: () {
                               // Get.toNamed(Routes.ALL_CREDITOR);
-                              Get.toNamed(Routes.ALL_CREDITOR, arguments: {'whichUser': 'All Debitors'});
+                              Get.toNamed(Routes.ALL_CREDITOR,
+                                  arguments: {'whichUser': 'All Debitors'});
                             },
                             child: const Text(
                               "View All",

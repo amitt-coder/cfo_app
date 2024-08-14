@@ -68,6 +68,15 @@ class SignUpView extends GetView<SignUpController> {
                   height: 18,
                 ),
                 CommonTextField(
+                  lableText: 'User Name',
+                  controllers: signUpController.usernameController,
+                  keyboardTypes: TextInputType.text,
+                  prefixIcon: ProjectImages.company,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                CommonTextField(
                   lableText: 'Company Name',
                   controllers: signUpController.companynameController,
                   keyboardTypes: TextInputType.text,
@@ -376,11 +385,11 @@ class SignUpView extends GetView<SignUpController> {
                 CommonButton(
                   color: AppColor.primaryColor,
                   ontap: () {
-                    Get.offAllNamed(Routes.ACCOUNT_VERFIY);
-                    // signUpController.signUpApi();
-                    // signUpController.isAgreed.value==false?
-                    // ToastMessage.showToast('Agree to Terms and Policy'):
                     // Get.offAllNamed(Routes.ACCOUNT_VERFIY);
+
+                    signUpController.isAgreed.value==false?
+                    ToastMessage.showToast('Agree to Terms and Policy'):
+                    signUpController.signUpApi();
                   },
                   height: 45,
                   width: double.infinity,

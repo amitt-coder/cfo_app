@@ -399,7 +399,7 @@ class _FinancialProjectionSummaryState extends State<FinancialProjectionSummary>
                 height: 45,
                 width: MediaQuery.of(context).size.width,
                 textcolor: AppColor.whiteColor,
-                text: 'Next',
+                text: 'Done',
               ),
             ),
           ],

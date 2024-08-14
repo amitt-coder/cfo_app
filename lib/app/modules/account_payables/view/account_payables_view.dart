@@ -177,7 +177,7 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Creditors List',
+                    'Creditors List as Offer',
                     style: TextStyle(
                       color: AppColor.blackColor,
                       fontWeight: FontWeight.w500,
@@ -195,6 +195,33 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                     controllers: accountPayablesController.dateController,
                     keyboardTypes: TextInputType.name,
                     prefixIcon: ProjectImages.mail,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  Image.asset(
+                    ProjectImages.information_icon,
+                    height: 24,
+                    width: 24,
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  DropDownField(
+                    selectValue:
+                    accountPayablesController.showCategory.value,
+                    hintName: 'show',
+                    width: MediaQuery.of(context).size.width * 0.35,
+                    height: 40,
+                    selectPriceInstallment:
+                    accountPayablesController.showCategoryList,
+                    controller:
+                    accountPayablesController.categoryController,
+                    showBorder: '1',
                   ),
                 ],
               ),

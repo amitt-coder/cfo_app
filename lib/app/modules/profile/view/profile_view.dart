@@ -95,6 +95,15 @@ class _ProfileViewState extends State<ProfileView> {
                   height: 30,
                 ),
                 CommonTextField(
+                  lableText: 'User Name',
+                  controllers: profileController.usernameController,
+                  keyboardTypes: TextInputType.text,
+                  prefixIcon: ProjectImages.company,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                CommonTextField(
                   lableText: 'Company Name',
                   controllers: profileController.companynameController,
                   keyboardTypes: TextInputType.text,
@@ -207,7 +216,7 @@ class _ProfileViewState extends State<ProfileView> {
                     color: AppColor.primaryColor,
                     ontap: () {
                       Get.offAllNamed(Routes.DASH_BOARD);
-                      // profileController.profileApi();
+                      profileController.editProfile(profileController.selectedImagePath.value);
                     },
                     height: 45,
                     width: MediaQuery.of(context).size.width,

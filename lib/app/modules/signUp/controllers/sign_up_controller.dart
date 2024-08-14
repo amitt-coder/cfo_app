@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 class SignUpController extends GetxController {
 
   final companynameController = TextEditingController();
+  final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final numberController = TextEditingController();
   final passwordController = TextEditingController();
@@ -47,24 +48,29 @@ class SignUpController extends GetxController {
 
 
   void signUpApi(){
-    print('-----signUpApi------');
 
+
+    print('-----SignUpApi------');
+
+    body['username'] = usernameController.text.trim();
+    body['password'] = passwordController.text.trim();
     body['company_name'] = companynameController.text.trim();
     body['email'] = emailController.text.trim();
-    body['mobile_number'] = numberController.text.trim();
-    body['password'] = passwordController.text.trim();
+    body['contact_no'] = numberController.text.trim();
     body['country'] = countryController.text.trim();
+    body['user_role'] = 'staff';
     body['city'] = cityController.text.trim();
 
     print('data added to body $body');
 
 
-    // ApiHelper.postApi(
-    //     url:Api.login,
-    //     body: body,
-    //     onSuccess:(){
-    //     Get.offAllNamed(Routes.ACCOUNT_VERFIY);
-    // });
+    ApiHelper.postApi(
+        requiresToken: false,
+        url:Api.register,
+        body: body,
+        onSuccess:(){
+        Get.offAllNamed(Routes.ACCOUNT_VERFIY);
+    });
 
 
 

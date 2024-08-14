@@ -69,8 +69,8 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
             CommonButton(
               color: AppColor.primaryColor,
               ontap: (){
-                // forgotPasswordController.forgotPasswordApi();
-                Get.offAllNamed(Routes.SIGN_IN);
+                forgotPasswordController.forgotPasswordApi();
+                // Get.offAllNamed(Routes.SIGN_IN);
               },
               height: 45,
               width: double.infinity,

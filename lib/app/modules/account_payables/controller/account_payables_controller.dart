@@ -8,9 +8,12 @@ class AccountPayablesController extends GetxController {
   TextEditingController dateController = TextEditingController();
   TextEditingController daysController = TextEditingController();
   RxBool creditorShow = false.obs;
-  RxString showday = 'Last 30 days'.obs;
-  RxList<String> dayList = ['Last 30 days', 'Last 60 days','Last 90 days','Last 120 days'].obs;
-
+  RxString showday = 'Above 30 days'.obs;
+  RxList<String> dayList = ['Above 30 days', 'Above 60 days','Above 90 days','Above 120 days'].obs;
+  TextEditingController categoryController = TextEditingController();
+  RxString showCategory = 'Cateogory A'.obs;
+  RxList<String> showCategoryList =
+      ['Cateogory A', 'Cateogory B', 'Cateogory C'].obs;
   List<Items> ItemList = [
     Items(
         Name: "Mohit",

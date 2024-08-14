@@ -15,12 +15,37 @@ class SignInController extends GetxController {
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
+  final formkey = GlobalKey<FormState>();
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   Map<String, dynamic> body = {};
+
+
+
+  final RegExp emailRegExp = RegExp(
+    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+  );
+
+  String? validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter an email';
+    } else if (!emailRegExp.hasMatch(value)) {
+      return 'Please enter a valid email';
+    }
+    return null;
+  }
+
+  String? validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a password';
+    } else if (value.length < 4) {
+      return 'Password must be at least 4 characters';
+    }
+    return null;
+  }
+
 
   void setIsCheck(){
     isCheck.value=!isCheck.value;
@@ -53,9 +78,10 @@ class SignInController extends GetxController {
     body['email'] = emailController.text.trim();
     body['password']=passwordController.text.trim();
 
-    print('body data add $body');
+
 
     ApiHelper.postApi(
+        requiresToken: false,
         url: Api.login,
         body:body,
         onSuccess: (){

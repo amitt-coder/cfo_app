@@ -188,188 +188,84 @@ class DashBoardView extends GetView<DashBoardController> {
                       const SizedBox(
                         height: 20,
                       ),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //   children: [
-                      //     Column(
-                      //       crossAxisAlignment: CrossAxisAlignment.center,
-                      //       mainAxisAlignment: MainAxisAlignment.start,
+                      // InkWell(
+                      //   onTap: () {
+                      //     Get.toNamed(Routes.AR_WITH_CREDIT_BALANCE);
+                      //   },
+                      //   child: Container(
+                      //     padding: const EdgeInsets.symmetric(
+                      //         horizontal: 20, vertical: 15),
+                      //     decoration: BoxDecoration(
+                      //         color: Colors.white,
+                      //         boxShadow: const [
+                      //           BoxShadow(
+                      //               color: Colors.black12,
+                      //               offset: Offset(5, 3),
+                      //               blurRadius: 7)
+                      //         ],
+                      //         borderRadius: BorderRadius.circular(5)),
+                      //     child: Row(
+                      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       //       children: [
-                      //         InkWell(
-                      //           onTap: () {
-                      //             Get.toNamed(Routes.AR_WITH_CREDIT_BALANCE);
-                      //           },
-                      //           child: Container(
-                      //             margin: const EdgeInsets.symmetric(
-                      //                 horizontal: 10),
-                      //             height: 130,
-                      //             width: 130,
-                      //             decoration: BoxDecoration(
-                      //               color: Colors.white,
-                      //               borderRadius: BorderRadius.circular(5),
-                      //             ),
-                      //             child: Container(
-                      //               height: 50,
-                      //               width: 50,
-                      //               decoration: BoxDecoration(
-                      //                   color: Colors.white,
-                      //                   boxShadow: const [
-                      //                     BoxShadow(
-                      //                         color: Colors.black12,
-                      //                         offset: Offset(5, 3),
-                      //                         blurRadius: 7)
-                      //                   ],
-                      //                   borderRadius: BorderRadius.circular(5)),
-                      //               // margin: EdgeInsets.only(top: 2),
-                      //               padding: const EdgeInsets.all(15),
-                      //               child: SvgPicture.asset(
-                      //                 ProjectImages.ar,
-                      //               ),
-                      //             ),
-                      //           ),
-                      //         ),
-                      //         const SizedBox(
-                      //           height: 5,
-                      //         ),
-                      //         Text('AR',
+                      //         Text('AR Exception',
                       //             textAlign: TextAlign.center,
                       //             style: TextStyle(
-                      //                 fontSize: 22,
+                      //                 fontSize: 18,
                       //                 fontFamily: 'Urbanist',
-                      //                 fontWeight: FontWeight.w600,
+                      //                 fontWeight: FontWeight.w500,
                       //                 color: AppColor.fontColor,
                       //                 letterSpacing: 0.1)),
+                      //         SvgPicture.asset(
+                      //           ProjectImages.ar,
+                      //           height: 30,
+                      //           width: 30,
+                      //         ),
                       //       ],
                       //     ),
-                      //     Column(
-                      //       crossAxisAlignment: CrossAxisAlignment.center,
-                      //       mainAxisAlignment: MainAxisAlignment.start,
-                      //       children: [
-                      //         InkWell(
-                      //           onTap: () {
-                      //             Get.toNamed(Routes.ACCOUNT_PAYABLES);
-                      //           },
-                      //           child: Container(
-                      //             margin: const EdgeInsets.symmetric(
-                      //                 horizontal: 10),
-                      //             height: 130,
-                      //             width: 130,
-                      //             decoration: BoxDecoration(
-                      //               color: Colors.white,
-                      //               borderRadius: BorderRadius.circular(5),
-                      //             ),
-                      //             child: Container(
-                      //               height: 50,
-                      //               width: 50,
-                      //               decoration: BoxDecoration(
-                      //                   color: Colors.white,
-                      //                   boxShadow: const [
-                      //                     BoxShadow(
-                      //                         color: Colors.black12,
-                      //                         offset: Offset(5, 3),
-                      //                         blurRadius: 7)
-                      //                   ],
-                      //                   borderRadius: BorderRadius.circular(5)),
-                      //               padding: const EdgeInsets.all(15),
-                      //               child: SvgPicture.asset(
-                      //                 ProjectImages.ap,
-                      //               ),
-                      //             ),
-                      //           ),
-                      //         ),
-                      //         const SizedBox(
-                      //           height: 5,
-                      //         ),
-                      //         Text('AP',
-                      //             textAlign: TextAlign.center,
-                      //             style: TextStyle(
-                      //                 fontSize: 22,
-                      //                 fontFamily: 'Urbanist',
-                      //                 fontWeight: FontWeight.w600,
-                      //                 color: AppColor.fontColor,
-                      //                 letterSpacing: 0.1)),
-                      //       ],
-                      //     ),
-                      //   ],
+                      //   ),
                       // ),
-                      InkWell(
-                        onTap: () {
-                          Get.toNamed(Routes.AR_WITH_CREDIT_BALANCE);
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 15),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: const [
-                                BoxShadow(
-                                    color: Colors.black12,
-                                    offset: Offset(5, 3),
-                                    blurRadius: 7)
-                              ],
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('AR Exception',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontFamily: 'Urbanist',
-                                      fontWeight: FontWeight.w500,
-                                      color: AppColor.fontColor,
-                                      letterSpacing: 0.1)),
-                              SvgPicture.asset(
-                                ProjectImages.ar,
-                                height: 30,
-                                width: 30,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Get.toNamed(Routes.ACCOUNT_PAYABLES);
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 15),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: const [
-                                BoxShadow(
-                                    color: Colors.black12,
-                                    offset: Offset(5, 3),
-                                    blurRadius: 7)
-                              ],
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('AP Exception',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontFamily: 'Urbanist',
-                                      fontWeight: FontWeight.w500,
-                                      color: AppColor.fontColor,
-                                      letterSpacing: 0.1)),
-                              SvgPicture.asset(
-                                ProjectImages.ap,
-                                height: 30,
-                                width: 30,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
+                      // const SizedBox(
+                      //   height: 20,
+                      // ),
+                      // InkWell(
+                      //   onTap: () {
+                      //     Get.toNamed(Routes.ACCOUNT_PAYABLES);
+                      //   },
+                      //   child: Container(
+                      //     padding: const EdgeInsets.symmetric(
+                      //         horizontal: 20, vertical: 15),
+                      //     decoration: BoxDecoration(
+                      //         color: Colors.white,
+                      //         boxShadow: const [
+                      //           BoxShadow(
+                      //               color: Colors.black12,
+                      //               offset: Offset(5, 3),
+                      //               blurRadius: 7)
+                      //         ],
+                      //         borderRadius: BorderRadius.circular(5)),
+                      //     child: Row(
+                      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //       children: [
+                      //         Text('AP Exception',
+                      //             textAlign: TextAlign.center,
+                      //             style: TextStyle(
+                      //                 fontSize: 18,
+                      //                 fontFamily: 'Urbanist',
+                      //                 fontWeight: FontWeight.w500,
+                      //                 color: AppColor.fontColor,
+                      //                 letterSpacing: 0.1)),
+                      //         SvgPicture.asset(
+                      //           ProjectImages.ap,
+                      //           height: 30,
+                      //           width: 30,
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+                      // const SizedBox(
+                      //   height: 15,
+                      // ),
 
                       ///
                       GridView.builder(
@@ -403,24 +299,27 @@ class DashBoardView extends GetView<DashBoardController> {
                               //   // Get.toNamed(Routes.TOP_DEBTORS_CREDITORS);
                               // }
                               if (index == 0) {
-                                Get.toNamed(Routes.FINACIAL_PROJECTION);
+                                Get.toNamed(Routes.EXCEPTION_REPORT);
                               }
                               if (index == 1) {
-                                Get.toNamed(Routes.CASH_FLOW);
+                                Get.toNamed(Routes.FINACIAL_PROJECTION);
                               }
                               if (index == 2) {
-                                Get.toNamed(Routes.PURCHASE_ORDER);
+                                Get.toNamed(Routes.CASH_FLOW);
                               }
                               if (index == 3) {
-                                Get.toNamed(Routes.PURCHASE_ORDER_LIST);
+                                Get.toNamed(Routes.PURCHASE_ORDER);
                               }
                               if (index == 4) {
-                                Get.toNamed(Routes.ACCOUNT_RECLASSIFICATION);
+                                Get.toNamed(Routes.PURCHASE_ORDER_LIST);
                               }
                               if (index == 5) {
-                                Get.toNamed(Routes.VARIANCE_ANALYSIS);
+                                Get.toNamed(Routes.ACCOUNT_RECLASSIFICATION);
                               }
                               if (index == 6) {
+                                Get.toNamed(Routes.VARIANCE_ANALYSIS);
+                              }
+                              if (index == 7) {
                                 Get.toNamed(Routes.TDS_CHECK);
                               }
                             },

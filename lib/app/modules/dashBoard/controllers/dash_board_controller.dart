@@ -79,6 +79,7 @@ class DashBoardController extends GetxController
     // Items(title: "AR", image: ProjectImages.ar),
     // Items(title: "AP", image: ProjectImages.ap),
     ///new grid
+    Items(title: "Exception Report", image: ProjectImages.exception_report),
     Items(title: "Projection", image: ProjectImages.projection),
     Items(title: "Cashflow", image: ProjectImages.cashOverFlow),
     Items(title: "MIS", image: ProjectImages.mis),

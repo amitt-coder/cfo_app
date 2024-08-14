@@ -14,7 +14,7 @@ class CommonTextField extends StatelessWidget {
   final linesShow;
   Function()? ontap;
    Function(String)? onFieldSubmit;
-
+  final String? Function(String?)? validator;
    CommonTextField({
     super.key,required this.lableText,
      required this.controllers,
@@ -25,22 +25,24 @@ class CommonTextField extends StatelessWidget {
       this.ontap,
       this.linesShow,
       this.onFieldSubmit,
+      this.validator,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      decoration: BoxDecoration(
-          border: Border(
-              bottom: BorderSide(
-                  color: Color(0xFFE9ECF2),
-                  width: 1
-              )
-          )
-      ),
+      // decoration: BoxDecoration(
+      //     border: Border(
+      //         bottom: BorderSide(
+      //             color: Color(0xFFE9ECF2),
+      //             width: 1
+      //         )
+      //     )
+      // ),
       child:TextFormField(
         onFieldSubmitted: onFieldSubmit,
+        validator: validator,
         maxLines: linesShow,
         onTap:ontap,
         style: TextStyle(fontSize: 14,
@@ -89,6 +91,10 @@ class CommonTextField extends StatelessWidget {
           ):
           BoxConstraints(),
           border: InputBorder.none,
+          focusedErrorBorder:UnderlineInputBorder(
+            borderSide:
+            BorderSide(color: AppColor.txtSecondaryColor, width: 1),
+          ),
           disabledBorder: UnderlineInputBorder(
         borderSide: BorderSide(color:AppColor.primaryColor,width: 1),
          ),
@@ -101,6 +107,7 @@ class CommonTextField extends StatelessWidget {
           enabledBorder:  UnderlineInputBorder(
             borderSide: BorderSide(color:AppColor.txtSecondaryColor,width: 1),
           ),
+
         ),
       ),
     );

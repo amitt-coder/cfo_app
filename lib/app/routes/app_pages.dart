@@ -6,6 +6,8 @@ import 'package:cfo_app/app/modules/ar_with_credit_balance/binding/ar_with_credi
 import 'package:cfo_app/app/modules/ar_with_credit_balance/view/ar_with_credit_balance_view.dart';
 import 'package:cfo_app/app/modules/cash_flow/bindings/cash_flow_binding.dart';
 import 'package:cfo_app/app/modules/cash_flow/view/cash_flow_screen.dart';
+import 'package:cfo_app/app/modules/exception_report/binding/exception_report_binding.dart';
+import 'package:cfo_app/app/modules/exception_report/view/exception_report_view.dart';
 import 'package:cfo_app/app/modules/financial_projection/binding/financial_projection_binding.dart';
 import 'package:cfo_app/app/modules/financial_projection/view/financial_projection_view.dart';
 import 'package:cfo_app/app/modules/financial_projection_summary/view/financial_projection_summary.dart';
@@ -177,6 +179,11 @@ class AppPages {
       name: _Paths.INVOICE_DETAILS,
       page: () => InvoiceDetailView(),
       binding: InvoiceDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.EXCEPTION_REPORT,
+      page: () => ExceptionReportView(),
+      binding: ExceptionReportBinding(),
     ),
   ];
 }

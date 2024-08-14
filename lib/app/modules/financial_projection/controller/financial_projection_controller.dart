@@ -8,6 +8,8 @@ class FinancialProjectionController extends GetxController {
 
   TextEditingController discountRate = TextEditingController();
   TextEditingController growthRate = TextEditingController();
+  TextEditingController itemNameController = TextEditingController();
+  TextEditingController itemPriceController = TextEditingController();
 
   void checkCondition() {
     print('checkCondition ${firstCheck.value}');

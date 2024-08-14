@@ -1,15 +1,19 @@
+import 'dart:convert';
+
 import 'package:cfo_app/app/data/api.dart';
-import 'package:cfo_app/app/data/api_helper.dart';
 import 'package:cfo_app/app/routes/app_pages.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class ProfileController extends GetxController{
 
+  final storage = GetStorage();
 
   TextEditingController companynameController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController numberController = TextEditingController();
   TextEditingController countryController = TextEditingController();
@@ -18,7 +22,17 @@ class ProfileController extends GetxController{
   final picker = ImagePicker();
   var selectedImagePath = ''.obs;
   var printLogoImagePath = ''.obs;
- Map<String, dynamic> body = {};
+  Map<String, dynamic> body = {};
+  var profileData = {}.obs;
+
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    getProfile();
+  }
+
 
   void showPicker(context,) {
     showModalBottomSheet(
@@ -60,32 +74,94 @@ class ProfileController extends GetxController{
     }
   }
 
-  void profileApi(){
+  Future<void> editProfile(String imagePath,) async {
+    try {
 
-    print('------profileApi-------');
+      String token = await storage.read('accessToken') ?? '';
+      String userId = await storage.read('USER_ID') ?? '';
 
+      var request = http.MultipartRequest(
+          'POST',
+          Uri.parse(
+            // "${url}${userId}/",
+            Api.user_data,
+          ));
 
-    body['company_name'] = companynameController.text.trim();
-    body['email'] = emailController.text.trim();
-    body['mobile_number'] = numberController.text.trim();
-    body['country'] = countryController.text.trim();
-    body['city'] = cityController.text.trim();
+      request.headers['Authorization'] = 'Bearer $token';
+      // request.fields['user'] = userId;
+      request.fields['username'] = usernameController.text;
+      request.fields['company_name'] = companynameController.text;
+      request.fields['email'] = emailController.text;
+      request.fields['contact_no'] = numberController.text;
+      request.fields['country'] = countryController.text;
+      request.fields['city'] = cityController.text;
 
+      print('Request successful-----${request.fields}');
+      print('Request successful-----${request.headers}');
 
-    print('data added $body');
+      request.files.add(await http.MultipartFile.fromPath('profile_picture', imagePath));
 
-    ApiHelper.postApi(
-        url:Api.login ,
-        body: body,
-        onSuccess:(){
-          Get.offAllNamed(Routes.DASH_BOARD);
-        });
+      http.StreamedResponse response = await request.send();
 
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        print('Request successful');
+
+        Get.offAllNamed(Routes.DASH_BOARD);
+      } else {
+        print('Request failed with status: ${response.statusCode}');
+        // print('Request failed with status: ${response.stream.val('msg')}');
+      }
+    } catch (e) {
+      // Handle any exceptions
+      print('Error: $e');
+    }
   }
 
+  Future<dynamic> getProfile() async {
 
+    print('----getProfile----');
 
+    String userId = await storage.read('USER_ID') ?? '';
+    Map<String, dynamic>? _profileData;
+    var request = http.Request('GET', Uri.parse("${Api.user_data}${userId}"), );
 
+    http.StreamedResponse response = await request.send();
+    var res = await response.stream.bytesToString();
+
+      print("===>>> response ${res}");
+
+    if (response.statusCode == 200|| response.statusCode == 201) {
+      print('successfully Run');
+
+      profileData.value = json.decode(res);
+      print('profileData.value   ${profileData}');
+
+      usernameController.text = profileData['username'];
+      companynameController.text = profileData['company_name'];
+      emailController.text = profileData['email'];
+      numberController.text = profileData['contact_no'];
+      countryController.text = profileData['country'];
+      cityController.text = profileData['city'];
+
+      return json.decode(res);
+    } else if (response.statusCode == 404) {
+      print('Error: Not Found');
+      // throw "Error: Not Found";
+      // Handle 404 status code
+    } else if (response.statusCode == 500) {
+      print('Error: Internal Server Error');
+      // throw "Error: Internal Server Error";
+      // Handle 500 status code
+    } else if (response.statusCode == 429) {
+      print('Error: Too Many Requests');
+      // throw "Error: Too Many Requests";`
+      // Handle 429 status code
+    } else {
+      print('Error: ${response.statusCode}');
+      // throw "Error: ${response.statusCode}";
+      // Handle other status codes
+    }
+  }
 
 
 }

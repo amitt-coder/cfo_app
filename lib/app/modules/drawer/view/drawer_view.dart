@@ -3,6 +3,7 @@ import 'package:cfo_app/utils/images.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../routes/app_pages.dart';
+import '../controller/drawer_controller.dart';
 
 class DrawerView extends StatefulWidget {
   const DrawerView({super.key});
@@ -13,6 +14,7 @@ class DrawerView extends StatefulWidget {
 
 class _DrawerViewState extends State<DrawerView> {
 
+  DrawerControllerr drawerController = Get.put(DrawerControllerr());
 
   List<DrawerList> drawerList = [
     DrawerList(image: ProjectImages.user_drawer, name: 'Profile  '),
@@ -77,7 +79,8 @@ class _DrawerViewState extends State<DrawerView> {
                               Get.toNamed(Routes.PROFILE);
                             }
                             if (index == 1) {
-                              Get.offAllNamed(Routes.SIGN_IN);
+                              // Get.offAllNamed(Routes.SIGN_IN);
+                              drawerController.logOutApi();
                             }
                           },
                           child: Row(

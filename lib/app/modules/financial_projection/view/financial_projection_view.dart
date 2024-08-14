@@ -45,384 +45,173 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             color: AppColor.backgroundColors,
             child: financialProjectionController.thirdCheck.value == false
-                ? Column(
-                    children: [
-                      financialProjectionController.firstCheck.value == false
-                          ? Row(
-                              children: [
-                                Image.asset(
-                                  ProjectImages.round,
-                                  height: 25,
-                                  width: 25,
-                                ),
-                                Container(
-                                    height: 11,
-                                    width: 50,
-                                    child: Divider(
-                                      color: AppColor.txtSecondaryColor,
-                                      thickness: 1,
-                                      height: 5,
-                                    )),
-                                Image.asset(
-                                  ProjectImages.circle_grey,
-                                  height: 25,
-                                  width: 25,
-                                ),
-                                Container(
-                                    height: 11,
-                                    width: 50,
-                                    child: Divider(
-                                      color: AppColor.txtSecondaryColor,
-                                      thickness: 1,
-                                      height: 5,
-                                    )),
-                                Image.asset(
-                                  ProjectImages.circle_grey,
-                                  height: 25,
-                                  width: 25,
-                                ),
-                                Container(
-                                    height: 11,
-                                    width: 50,
-                                    child: Divider(
-                                      color: AppColor.txtSecondaryColor,
-                                      thickness: 1,
-                                      height: 5,
-                                    )),
-                              ],
-                            )
-                          : financialProjectionController.secondCheck.value ==
-                                  true
-                              ? Row(
-                                  children: [
-                                    Image.asset(
-                                      ProjectImages.checklist,
-                                      height: 25,
-                                      width: 25,
-                                    ),
-                                    Container(
-                                        height: 11,
-                                        width: 50,
-                                        child: Divider(
-                                          color: AppColor.txtSecondaryColor,
-                                          thickness: 1,
-                                          height: 5,
-                                        )),
-                                    Image.asset(
-                                      ProjectImages.checklist,
-                                      height: 25,
-                                      width: 25,
-                                    ),
-                                    Container(
-                                        height: 11,
-                                        width: 50,
-                                        child: Divider(
-                                          color: AppColor.txtSecondaryColor,
-                                          thickness: 1,
-                                          height: 5,
-                                        )),
-                                    Image.asset(
-                                      ProjectImages.round,
-                                      height: 25,
-                                      width: 25,
-                                    ),
-                                    Container(
-                                        height: 11,
-                                        width: 50,
-                                        child: Divider(
-                                          color: AppColor.txtSecondaryColor,
-                                          thickness: 1,
-                                          height: 5,
-                                        )),
-                                  ],
-                                )
-                              : Row(
-                                  children: [
-                                    Image.asset(
-                                      ProjectImages.checklist,
-                                      height: 25,
-                                      width: 25,
-                                    ),
-                                    Container(
-                                        height: 11,
-                                        width: 50,
-                                        child: Divider(
-                                          color: AppColor.txtSecondaryColor,
-                                          thickness: 1,
-                                          height: 5,
-                                        )),
-                                    Image.asset(
-                                      ProjectImages.round,
-                                      height: 25,
-                                      width: 25,
-                                    ),
-                                    Container(
-                                        height: 11,
-                                        width: 50,
-                                        child: Divider(
-                                          color: AppColor.txtSecondaryColor,
-                                          thickness: 1,
-                                          height: 5,
-                                        )),
-                                    Image.asset(
-                                      ProjectImages.circle_grey,
-                                      height: 25,
-                                      width: 25,
-                                    ),
-                                    Container(
-                                        height: 11,
-                                        width: 50,
-                                        child: Divider(
-                                          color: AppColor.txtSecondaryColor,
-                                          thickness: 1,
-                                          height: 5,
-                                        )),
-                                  ],
-                                ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          financialProjectionController.firstCheck.value ==
-                                  false
-                              ? Text(
-                                  'Fixed Cost',
-                                  style: TextStyle(
-                                    color: AppColor.blackColor,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16,
-                                    fontFamily: 'Urbanist',
+                ?
+
+                SingleChildScrollView(
+                  child: Column(
+                      children: [
+                        financialProjectionController.firstCheck.value == false
+                            ? Row(
+                                children: [
+                                  Image.asset(
+                                    ProjectImages.round,
+                                    height: 25,
+                                    width: 25,
                                   ),
-                                )
-                              : financialProjectionController
-                                          .secondCheck.value ==
-                                      true
-                                  ? Text(
-                                      'Fixed Assest Schedule',
-                                      style: TextStyle(
-                                        color: AppColor.blackColor,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 16,
-                                        fontFamily: 'Urbanist',
-                                      ),
-                                    )
-                                  : Text(
-                                      'Variable Cost',
-                                      style: TextStyle(
-                                        color: AppColor.blackColor,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 16,
-                                        fontFamily: 'Urbanist',
-                                      ),
-                                    ),
-                          financialProjectionController.firstCheck.value ==
-                                  false
-                              ? Container(
-                                  decoration: BoxDecoration(
-                                      // color: Colors.white,
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(
-                                          width: 1,
-                                          color: AppColor.txtSecondaryColor)),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 5, vertical: 3),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                  Container(
+                                      height: 11,
+                                      width: 50,
+                                      child: Divider(
+                                        color: AppColor.txtSecondaryColor,
+                                        thickness: 1,
+                                        height: 5,
+                                      )),
+                                  Image.asset(
+                                    ProjectImages.circle_grey,
+                                    height: 25,
+                                    width: 25,
+                                  ),
+                                  Container(
+                                      height: 11,
+                                      width: 50,
+                                      child: Divider(
+                                        color: AppColor.txtSecondaryColor,
+                                        thickness: 1,
+                                        height: 5,
+                                      )),
+                                  Image.asset(
+                                    ProjectImages.circle_grey,
+                                    height: 25,
+                                    width: 25,
+                                  ),
+                                  Container(
+                                      height: 11,
+                                      width: 50,
+                                      child: Divider(
+                                        color: AppColor.txtSecondaryColor,
+                                        thickness: 1,
+                                        height: 5,
+                                      )),
+                                ],
+                              )
+                            : financialProjectionController.secondCheck.value == true
+                                ? Row(
                                     children: [
-                                      Text(
-                                        'Next Year',
+                                      Image.asset(
+                                        ProjectImages.checklist,
+                                        height: 25,
+                                        width: 25,
+                                      ),
+                                      Container(
+                                          height: 11,
+                                          width: 50,
+                                          child: Divider(
+                                            color: AppColor.txtSecondaryColor,
+                                            thickness: 1,
+                                            height: 5,
+                                          )),
+                                      Image.asset(
+                                        ProjectImages.checklist,
+                                        height: 25,
+                                        width: 25,
+                                      ),
+                                      Container(
+                                          height: 11,
+                                          width: 50,
+                                          child: Divider(
+                                            color: AppColor.txtSecondaryColor,
+                                            thickness: 1,
+                                            height: 5,
+                                          )),
+                                      Image.asset(
+                                        ProjectImages.round,
+                                        height: 25,
+                                        width: 25,
+                                      ),
+                                      Container(
+                                          height: 11,
+                                          width: 50,
+                                          child: Divider(
+                                            color: AppColor.txtSecondaryColor,
+                                            thickness: 1,
+                                            height: 5,
+                                          )),
+                                    ],
+                                  )
+                                : Row(
+                                    children: [
+                                      Image.asset(
+                                        ProjectImages.checklist,
+                                        height: 25,
+                                        width: 25,
+                                      ),
+                                      Container(
+                                          height: 11,
+                                          width: 50,
+                                          child: Divider(
+                                            color: AppColor.txtSecondaryColor,
+                                            thickness: 1,
+                                            height: 5,
+                                          )),
+                                      Image.asset(
+                                        ProjectImages.round,
+                                        height: 25,
+                                        width: 25,
+                                      ),
+                                      Container(
+                                          height: 11,
+                                          width: 50,
+                                          child: Divider(
+                                            color: AppColor.txtSecondaryColor,
+                                            thickness: 1,
+                                            height: 5,
+                                          )),
+                                      Image.asset(
+                                        ProjectImages.circle_grey,
+                                        height: 25,
+                                        width: 25,
+                                      ),
+                                      Container(
+                                          height: 11,
+                                          width: 50,
+                                          child: Divider(
+                                            color: AppColor.txtSecondaryColor,
+                                            thickness: 1,
+                                            height: 5,
+                                          )),
+                                    ],
+                                  ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            financialProjectionController.firstCheck.value ==
+                                    false
+                                ? Text(
+                                    'Fixed Cost',
+                                    style: TextStyle(
+                                      color: AppColor.blackColor,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16,
+                                      fontFamily: 'Urbanist',
+                                    ),
+                                  )
+                                : financialProjectionController
+                                            .secondCheck.value ==
+                                        true
+                                    ? Text(
+                                        'Fixed Assest Schedule',
                                         style: TextStyle(
-                                          color: AppColor.txtSecondaryColor,
+                                          color: AppColor.blackColor,
                                           fontWeight: FontWeight.w500,
                                           fontSize: 16,
                                           fontFamily: 'Urbanist',
                                         ),
-                                      ),
-                                      Icon(
-                                        Icons.arrow_drop_down_sharp,
-                                        size: 30,
-                                        color: AppColor.txtSecondaryColor,
                                       )
-                                    ],
-                                  ),
-                                )
-                              : const Text('')
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      financialProjectionController.secondCheck.value == true
-                          ? Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
-                              decoration: BoxDecoration(
-                                  color: AppColor.boxblueColor,
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Assets',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: 'Urbanist',
-                                        color: AppColor.blackColor),
-                                  ),
-                                  Text(
-                                    'P.Date',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: 'Urbanist',
-                                        color: AppColor.blackColor),
-                                  ),
-                                  Text(
-                                    'Cost',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: 'Urbanist',
-                                        color: AppColor.blackColor),
-                                  ),
-                                  Text(
-                                    'D/R',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: 'Urbanist',
-                                        color: AppColor.blackColor),
-                                  ),
-                                ],
-                              ),
-                            )
-                          : Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
-                              decoration: BoxDecoration(
-                                  color: AppColor.boxblueColor,
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Item',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: 'Urbanist',
-                                        color: AppColor.blackColor),
-                                  ),
-                                  Text(
-                                    'Amount',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: 'Urbanist',
-                                        color: AppColor.blackColor),
-                                  ),
-                                ],
-                              ),
-                            ),
-                      financialProjectionController.firstCheck.value == false
-                          ? Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 7, vertical: 10),
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.only(
-                                      bottomRight: Radius.circular(5),
-                                      bottomLeft: Radius.circular(5))),
-                              child: Column(
-                                children: [
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        'Rent',
-                                        style: TextStyle(
-                                            color: AppColor.blackColor,
-                                            fontFamily: 'Urbanist',
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 15),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            '₹2,000/month',
-                                            style: TextStyle(
-                                                color: AppColor.blackColor,
-                                                fontFamily: 'Urbanist',
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 15),
-                                          ),
-                                          Icon(
-                                            Icons.more_vert,
-                                            size: 25,
-                                            color: AppColor.txtSecondaryColor,
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        'Salaries',
-                                        style: TextStyle(
-                                            color: AppColor.blackColor,
-                                            fontFamily: 'Urbanist',
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 15),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            '₹10,000/month',
-                                            style: TextStyle(
-                                                color: AppColor.blackColor,
-                                                fontFamily: 'Urbanist',
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 15),
-                                          ),
-                                          Icon(
-                                            Icons.more_vert,
-                                            size: 25,
-                                            color: AppColor.txtSecondaryColor,
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        ProjectImages.add,
-                                        height: 25,
-                                        width: 25,
-                                        fit: BoxFit.fill,
-                                      ),
-                                      const SizedBox(width: 10),
-                                      Text(
-                                        'Add Item',
+                                    : Text(
+                                        'Variable Cost',
                                         style: TextStyle(
                                           color: AppColor.blackColor,
                                           fontWeight: FontWeight.w500,
@@ -430,207 +219,206 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                           fontFamily: 'Urbanist',
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ],
+                            financialProjectionController.firstCheck.value ==
+                                    false
+                                ? Container(
+                                    decoration: BoxDecoration(
+                                        // color: Colors.white,
+                                        borderRadius: BorderRadius.circular(5),
+                                        border: Border.all(
+                                            width: 1,
+                                            color: AppColor.txtSecondaryColor)),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 5, vertical: 3),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Next Year',
+                                          style: TextStyle(
+                                            color: AppColor.txtSecondaryColor,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 16,
+                                            fontFamily: 'Urbanist',
+                                          ),
+                                        ),
+                                        Icon(
+                                          Icons.arrow_drop_down_sharp,
+                                          size: 30,
+                                          color: AppColor.txtSecondaryColor,
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                : const Text('')
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        financialProjectionController.secondCheck.value == true
+                            ? Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 10),
+                                decoration: BoxDecoration(
+                                    color: AppColor.boxblueColor,
+                                    borderRadius: BorderRadius.circular(5)),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Assets',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: 'Urbanist',
+                                          color: AppColor.blackColor),
+                                    ),
+                                    Text(
+                                      'P.Date',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: 'Urbanist',
+                                          color: AppColor.blackColor),
+                                    ),
+                                    Text(
+                                      'Cost',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: 'Urbanist',
+                                          color: AppColor.blackColor),
+                                    ),
+                                    Text(
+                                      'D/R',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: 'Urbanist',
+                                          color: AppColor.blackColor),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 10),
+                                decoration: BoxDecoration(
+                                    color: AppColor.boxblueColor,
+                                    borderRadius: BorderRadius.circular(5)),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Item',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: 'Urbanist',
+                                          color: AppColor.blackColor),
+                                    ),
+                                    Text(
+                                      'Amount',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: 'Urbanist',
+                                          color: AppColor.blackColor),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            )
-                          : financialProjectionController.secondCheck.value ==
-                                  true
-                              ? Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 7, vertical: 10),
-                                  decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.only(
-                                          bottomRight: Radius.circular(5),
-                                          bottomLeft: Radius.circular(5))),
-                                  child: Column(
-                                    children: [
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'Equipment',
-                                            style: TextStyle(
-                                                color: AppColor.blackColor,
-                                                fontFamily: 'Urbanist',
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 15),
-                                          ),
-                                          Text(
-                                            '01-01-2024',
-                                            style: TextStyle(
-                                                color: AppColor.blackColor,
-                                                fontFamily: 'Urbanist',
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 15),
-                                          ),
-                                          Text(
-                                            '₹50,000',
-                                            style: TextStyle(
-                                                color: AppColor.blackColor,
-                                                fontFamily: 'Urbanist',
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 15),
-                                          ),
-                                          Text(
-                                            '10%',
-                                            style: TextStyle(
-                                                color: AppColor.blackColor,
-                                                fontFamily: 'Urbanist',
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 15),
-                                          ),
-                                          Icon(
-                                            Icons.more_vert,
-                                            size: 20,
-                                            color: AppColor.txtSecondaryColor,
-                                          )
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'Vehicle      ',
-                                            style: TextStyle(
-                                                color: AppColor.blackColor,
-                                                fontFamily: 'Urbanist',
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 15),
-                                          ),
-                                          Text(
-                                            '01-02-2024',
-                                            style: TextStyle(
-                                                color: AppColor.blackColor,
-                                                fontFamily: 'Urbanist',
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 15),
-                                          ),
-                                          Text(
-                                            '₹20,000',
-                                            style: TextStyle(
-                                                color: AppColor.blackColor,
-                                                fontFamily: 'Urbanist',
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 15),
-                                          ),
-                                          Text(
-                                            '15%',
-                                            style: TextStyle(
-                                                color: AppColor.blackColor,
-                                                fontFamily: 'Urbanist',
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 15),
-                                          ),
-                                          Icon(
-                                            Icons.more_vert,
-                                            size: 20,
-                                            color: AppColor.txtSecondaryColor,
-                                          )
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              : Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 7, vertical: 10),
-                                  decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.only(
-                                          bottomRight: Radius.circular(5),
-                                          bottomLeft: Radius.circular(5))),
-                                  child: Column(
-                                    children: [
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'Materials',
-                                            style: TextStyle(
-                                                color: AppColor.blackColor,
-                                                fontFamily: 'Urbanist',
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 15),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                '₹5,000/month',
-                                                style: TextStyle(
-                                                    color: AppColor.blackColor,
-                                                    fontFamily: 'Urbanist',
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: 15),
-                                              ),
-                                              Icon(
-                                                Icons.more_vert,
-                                                size: 25,
-                                                color:
-                                                    AppColor.txtSecondaryColor,
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'Utilities',
-                                            style: TextStyle(
-                                                color: AppColor.blackColor,
-                                                fontFamily: 'Urbanist',
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 15),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                '4,000/month',
-                                                style: TextStyle(
-                                                    color: AppColor.blackColor,
-                                                    fontFamily: 'Urbanist',
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: 15),
-                                              ),
-                                              Icon(
-                                                Icons.more_vert,
-                                                size: 25,
-                                                color:
-                                                    AppColor.txtSecondaryColor,
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                        financialProjectionController.firstCheck.value == false
+                            ? Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 7, vertical: 10),
+                                decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.only(
+                                        bottomRight: Radius.circular(5),
+                                        bottomLeft: Radius.circular(5))),
+                                child: Column(
+                                  children: [
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Rent',
+                                          style: TextStyle(
+                                              color: AppColor.blackColor,
+                                              fontFamily: 'Urbanist',
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 15),
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              '₹2,000/month',
+                                              style: TextStyle(
+                                                  color: AppColor.blackColor,
+                                                  fontFamily: 'Urbanist',
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 15),
+                                            ),
+                                            Icon(
+                                              Icons.more_vert,
+                                              size: 25,
+                                              color: AppColor.txtSecondaryColor,
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Salaries',
+                                          style: TextStyle(
+                                              color: AppColor.blackColor,
+                                              fontFamily: 'Urbanist',
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 15),
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              '₹10,000/month',
+                                              style: TextStyle(
+                                                  color: AppColor.blackColor,
+                                                  fontFamily: 'Urbanist',
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 15),
+                                            ),
+                                            Icon(
+                                              Icons.more_vert,
+                                              size: 25,
+                                              color: AppColor.txtSecondaryColor,
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    InkWell(
+                                      onTap: (){
+                                        print('txtformfield add');
+                                      },
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           Image.asset(
                                             ProjectImages.add,
@@ -650,39 +438,281 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                           ),
                                         ],
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        CommonTextField(
+                                          ontap: () {},
+                                          preShow: 'Not',
+                                          width: MediaQuery.of(context).size.width * 0.40,
+                                          lableText: 'Name',
+                                          controllers: financialProjectionController.itemNameController,
+                                          keyboardTypes: TextInputType.name,
+                                          prefixIcon: ProjectImages.mail,
+                                        ),
+                                        CommonTextField(
+                                          ontap: () {},
+                                          preShow: 'Not',
+                                          width: MediaQuery.of(context).size.width * 0.40,
+                                          lableText: 'Amount',
+                                          controllers: financialProjectionController.itemPriceController,
+                                          keyboardTypes: TextInputType.name,
+                                          prefixIcon: ProjectImages.mail,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CommonButton(
-                            color: const Color(0xffd9d9d9),
-                            ontap: () {
-                              Get.back();
-                            },
-                            height: 45,
-                            width: 150,
-                            textcolor: AppColor.whiteColor,
-                            text: 'Back',
-                          ),
-                          CommonButton(
-                            color: AppColor.primaryColor,
-                            ontap: () {
-                              financialProjectionController.checkCondition();
-                            },
-                            height: 45,
-                            width: 150,
-                            textcolor: AppColor.whiteColor,
-                            text: 'Next',
-                          ),
-                        ],
-                      )
-                    ],
-                  )
+                              )
+                            : financialProjectionController.secondCheck.value == true
+                                ? Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 7, vertical: 10),
+                                    decoration: const BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.only(
+                                            bottomRight: Radius.circular(5),
+                                            bottomLeft: Radius.circular(5))),
+                                    child: Column(
+                                      children: [
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              'Equipment',
+                                              style: TextStyle(
+                                                  color: AppColor.blackColor,
+                                                  fontFamily: 'Urbanist',
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 15),
+                                            ),
+                                            Text(
+                                              '01-01-2024',
+                                              style: TextStyle(
+                                                  color: AppColor.blackColor,
+                                                  fontFamily: 'Urbanist',
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 15),
+                                            ),
+                                            Text(
+                                              '₹50,000',
+                                              style: TextStyle(
+                                                  color: AppColor.blackColor,
+                                                  fontFamily: 'Urbanist',
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 15),
+                                            ),
+                                            Text(
+                                              '10%',
+                                              style: TextStyle(
+                                                  color: AppColor.blackColor,
+                                                  fontFamily: 'Urbanist',
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 15),
+                                            ),
+                                            Icon(
+                                              Icons.more_vert,
+                                              size: 20,
+                                              color: AppColor.txtSecondaryColor,
+                                            )
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              'Vehicle      ',
+                                              style: TextStyle(
+                                                  color: AppColor.blackColor,
+                                                  fontFamily: 'Urbanist',
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 15),
+                                            ),
+                                            Text(
+                                              '01-02-2024',
+                                              style: TextStyle(
+                                                  color: AppColor.blackColor,
+                                                  fontFamily: 'Urbanist',
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 15),
+                                            ),
+                                            Text(
+                                              '₹20,000',
+                                              style: TextStyle(
+                                                  color: AppColor.blackColor,
+                                                  fontFamily: 'Urbanist',
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 15),
+                                            ),
+                                            Text(
+                                              '15%',
+                                              style: TextStyle(
+                                                  color: AppColor.blackColor,
+                                                  fontFamily: 'Urbanist',
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 15),
+                                            ),
+                                            Icon(
+                                              Icons.more_vert,
+                                              size: 20,
+                                              color: AppColor.txtSecondaryColor,
+                                            )
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                : Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 7, vertical: 10),
+                                    decoration: const BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.only(
+                                            bottomRight: Radius.circular(5),
+                                            bottomLeft: Radius.circular(5))),
+                                    child: Column(
+                                      children: [
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              'Materials',
+                                              style: TextStyle(
+                                                  color: AppColor.blackColor,
+                                                  fontFamily: 'Urbanist',
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 15),
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  '₹5,000/month',
+                                                  style: TextStyle(
+                                                      color: AppColor.blackColor,
+                                                      fontFamily: 'Urbanist',
+                                                      fontWeight: FontWeight.w600,
+                                                      fontSize: 15),
+                                                ),
+                                                Icon(
+                                                  Icons.more_vert,
+                                                  size: 25,
+                                                  color:
+                                                      AppColor.txtSecondaryColor,
+                                                )
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              'Utilities',
+                                              style: TextStyle(
+                                                  color: AppColor.blackColor,
+                                                  fontFamily: 'Urbanist',
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 15),
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  '4,000/month',
+                                                  style: TextStyle(
+                                                      color: AppColor.blackColor,
+                                                      fontFamily: 'Urbanist',
+                                                      fontWeight: FontWeight.w600,
+                                                      fontSize: 15),
+                                                ),
+                                                Icon(
+                                                  Icons.more_vert,
+                                                  size: 25,
+                                                  color:
+                                                      AppColor.txtSecondaryColor,
+                                                )
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Image.asset(
+                                              ProjectImages.add,
+                                              height: 25,
+                                              width: 25,
+                                              fit: BoxFit.fill,
+                                            ),
+                                            const SizedBox(width: 10),
+                                            Text(
+                                              'Add Item',
+                                              style: TextStyle(
+                                                color: AppColor.blackColor,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 16,
+                                                fontFamily: 'Urbanist',
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CommonButton(
+                              color: const Color(0xffd9d9d9),
+                              ontap: () {
+                                Get.back();
+                              },
+                              height: 45,
+                              width: 150,
+                              textcolor: AppColor.whiteColor,
+                              text: 'Back',
+                            ),
+                            CommonButton(
+                              color: AppColor.primaryColor,
+                              ontap: () {
+                                financialProjectionController.checkCondition();
+                              },
+                              height: 45,
+                              width: 150,
+                              textcolor: AppColor.whiteColor,
+                              text: 'Next',
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                )
                 : SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
