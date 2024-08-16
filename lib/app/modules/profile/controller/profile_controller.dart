@@ -122,7 +122,7 @@ class ProfileController extends GetxController{
     print('----getProfile----');
 
     String userId = await storage.read('USER_ID') ?? '';
-    Map<String, dynamic>? _profileData;
+
     var request = http.Request('GET', Uri.parse("${Api.user_data}${userId}"), );
 
     http.StreamedResponse response = await request.send();
@@ -145,7 +145,7 @@ class ProfileController extends GetxController{
 
       return json.decode(res);
     } else if (response.statusCode == 404) {
-      print('Error: Not Found');
+      print('Error: Not Found ${response.statusCode}');
       // throw "Error: Not Found";
       // Handle 404 status code
     } else if (response.statusCode == 500) {
