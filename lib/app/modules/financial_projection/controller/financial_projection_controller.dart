@@ -346,5 +346,8 @@ class FinancialProjectionController extends GetxController {
       };
     }
   }
+  void deleteAsset(String name) {
+    fixedassetSchedule.remove(name);
+  }
 
 }

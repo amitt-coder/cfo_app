@@ -309,7 +309,7 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                           color: AppColor.blackColor),
                                     ),
                                     Text(
-                                      'D/R         ',
+                                      'D/R                    ',
                                       style: TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
@@ -699,12 +699,30 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                                               FontWeight.w500,
                                                           fontSize: 15),
                                                     ),
-                                                    Icon(
-                                                      Icons.more_vert,
-                                                      size: 20,
-                                                      color: AppColor
-                                                          .txtSecondaryColor,
-                                                    )
+                                                    InkWell(
+                                                      onTap: (){
+                                                        _showEditDialogFixedAsset(assetName);
+                                                      },
+                                                      child: Icon(
+                                                        Icons.edit,
+                                                        size: 22,
+                                                        color: AppColor
+                                                            .txtSecondaryColor,
+                                                      ),
+                                                    ),
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        print('deleteItem');
+                                                        financialProjectionController
+                                                            .deleteAsset(
+                                                            assetName);
+                                                      },
+                                                      child: Icon(
+                                                        Icons.delete,
+                                                        size: 22,
+                                                        color: Colors.red,
+                                                      ),
+                                                    ),
                                                   ],
                                                 ),
                                               );
@@ -826,7 +844,7 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                                   ),
                                                   Icon(
                                                     Icons.more_vert,
-                                                    size: 20,
+                                                    size: 22,
                                                     color: AppColor
                                                         .txtSecondaryColor,
                                                   )
@@ -1823,21 +1841,25 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
           color: AppColor.blackColor,
           fontFamily: 'Urbanist',
           fontWeight: FontWeight.w600,
-          fontSize: 22),
+          fontSize: 20),
       content: Column(
         children: [
           CommonTextField(
             ontap: () {},
             preShow: 'Not',
-            lableText: 'Name',
+            lableText: 'Assest',
             controllers: financialProjectionController.assetsNameController,
             keyboardTypes: TextInputType.name,
             prefixIcon: ProjectImages.mail,
           ),
           CommonTextField(
-            ontap: () {},
+            ontap: () {
+              financialProjectionController
+                  .FixedAssestcalendarOpen(
+                  context);
+            },
             preShow: 'Not',
-            lableText: 'Name',
+            lableText: 'Select Date',
             controllers: financialProjectionController.assetDateController,
             keyboardTypes: TextInputType.name,
             prefixIcon: ProjectImages.mail,
@@ -1845,7 +1867,7 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
           CommonTextField(
             ontap: () {},
             preShow: 'Not',
-            lableText: 'Name',
+            lableText: 'Cost',
             controllers: financialProjectionController.assetsCostController,
             keyboardTypes: TextInputType.name,
             prefixIcon: ProjectImages.mail,
@@ -1853,15 +1875,13 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
           CommonTextField(
             ontap: () {},
             preShow: 'Not',
-            lableText: 'Name',
+            lableText: 'D/R',
             controllers: financialProjectionController.assetsdrController,
             keyboardTypes: TextInputType.name,
             prefixIcon: ProjectImages.mail,
           ),
         ],
       ),
-      textConfirm: "Save",
-      textCancel: "Cancel",
       actions: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
