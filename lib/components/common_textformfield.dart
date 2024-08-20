@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import '../utils/colors.dart';
 
 class CommonTextField extends StatelessWidget {
+
   String lableText;
   TextEditingController controllers;
   String prefixIcon;
@@ -15,8 +16,10 @@ class CommonTextField extends StatelessWidget {
   Function()? ontap;
    Function(String)? onFieldSubmit;
   final String? Function(String?)? validator;
+  final bool? enabled;
+
    CommonTextField({
-    super.key,required this.lableText,
+     required this.lableText,
      required this.controllers,
      required this.keyboardTypes,
      required this.prefixIcon,
@@ -26,6 +29,7 @@ class CommonTextField extends StatelessWidget {
       this.linesShow,
       this.onFieldSubmit,
       this.validator,
+      this.enabled,
   });
 
   @override
@@ -41,11 +45,12 @@ class CommonTextField extends StatelessWidget {
       //     )
       // ),
       child:TextFormField(
+        enabled: enabled,
         onFieldSubmitted: onFieldSubmit,
         validator: validator,
         maxLines: linesShow,
         onTap:ontap,
-        style: TextStyle(fontSize: 14,
+        style:const  TextStyle(fontSize: 14,
           fontFamily:'Urbanist' ,
           fontWeight: FontWeight.w700,
           color: Color(0xFF191A26),
@@ -53,31 +58,31 @@ class CommonTextField extends StatelessWidget {
         textInputAction: TextInputAction.done,
         controller: controllers,
         keyboardType:keyboardTypes,
-        cursorColor:Color(0xFF242B42),
+        cursorColor:const Color(0xFF242B42),
         cursorWidth: 1.5,
         decoration: InputDecoration(
           labelText:lableText,
-          labelStyle:TextStyle(fontSize: 14,
+          labelStyle: const TextStyle(fontSize: 14,
             fontFamily:'Urbanist' ,
             letterSpacing:0.5,
             fontWeight: FontWeight.w400,
             color: Color(0xFF7E8CA0),
           ),
-          floatingLabelStyle:TextStyle(
+          floatingLabelStyle:const TextStyle(
             fontSize: 15,
             fontFamily:'Urbanist' ,
             fontWeight: FontWeight.w400,
             color: Color(0xFF7E8CA0),
           ),
-          hintStyle:TextStyle(fontSize: 14,
+          hintStyle:const TextStyle(fontSize: 14,
             fontFamily:'Urbanist' ,
             fontWeight: FontWeight.w400,
             color: Color(0xFF7E8CA0),
           ),
-          contentPadding:EdgeInsets.symmetric(vertical: 10),
+          contentPadding: const EdgeInsets.symmetric(vertical: 10),
           prefixIcon:preShow=='show'?
           Padding(
-            padding:  EdgeInsets.only(left: 10.0,right: 10),
+            padding: const  EdgeInsets.only(left: 10.0,right: 10),
             child: SvgPicture.asset(prefixIcon,
               height: 20,
               width: 20,
@@ -87,16 +92,17 @@ class CommonTextField extends StatelessWidget {
             height: 5,
             width: 5,color: Colors.transparent,
           ),
-          prefixIconConstraints: preShow=='show'?BoxConstraints(maxHeight: 20,
+          prefixIconConstraints: preShow=='show'?
+          const BoxConstraints(maxHeight: 20,
           ):
-          BoxConstraints(),
+          const BoxConstraints(),
           border: InputBorder.none,
           focusedErrorBorder:UnderlineInputBorder(
             borderSide:
             BorderSide(color: AppColor.txtSecondaryColor, width: 1),
           ),
           disabledBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color:AppColor.primaryColor,width: 1),
+        borderSide: BorderSide(color:AppColor.txtSecondaryColor,width: 1),
          ),
           focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(color:AppColor.primaryColor,width: 1),
@@ -107,7 +113,6 @@ class CommonTextField extends StatelessWidget {
           enabledBorder:  UnderlineInputBorder(
             borderSide: BorderSide(color:AppColor.txtSecondaryColor,width: 1),
           ),
-
         ),
       ),
     );

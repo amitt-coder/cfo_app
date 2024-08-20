@@ -87,7 +87,7 @@ class DrawerControllerr extends GetxController{
 
       if (response.statusCode == 201 || response.statusCode == 200) {
         var responseData = json.decode(response.body);
-
+        print('Logout: ${responseData['msg']}');
         Get.offAllNamed(Routes.SIGN_IN);
         storage.remove('USER_ID');
         return responseData;

@@ -12,7 +12,9 @@ class CommonButton extends StatelessWidget {
   double width;
 
   CommonButton({
-    required this.text, required this.color, required this.textcolor,
+    required this.text,
+    required this.color,
+    required this.textcolor,
     required this.ontap,
     required this.height,
     required this.width,

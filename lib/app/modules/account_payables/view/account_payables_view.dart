@@ -16,6 +16,7 @@ class AccountPayablesView extends StatefulWidget {
 }
 
 class _AccountPayablesViewState extends State<AccountPayablesView> {
+
   AccountPayablesController accountPayablesController =
       Get.put(AccountPayablesController());
 
@@ -395,7 +396,7 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                     ),
                     Align(
                       alignment: Alignment.bottomCenter,
-                      child: InkWell(
+                      child: GestureDetector(
                         onTap: () {
                           Get.toNamed(Routes.ALL_CREDITOR,
                               arguments: {'whichUser': 'All Creditors'});
@@ -419,187 +420,187 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
               const SizedBox(
                 height: 15,
               ),
-              Obx(() => Visibility(
-                    visible: accountPayablesController.creditorShow.value,
-                    child: Text(
-                      'Creditor Detail',
-                      style: TextStyle(
-                        color: AppColor.blackColor,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                        fontFamily: 'Urbanist',
-                      ),
-                    ),
-                  )),
-              const SizedBox(
-                height: 10,
-              ),
-              Obx(() => Visibility(
-                    visible: accountPayablesController.creditorShow.value,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 10),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5)),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                'Name: ',
-                                style: TextStyle(
-                                    color: AppColor.primaryColor,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: 'Urbanist'),
-                              ),
-                              Text(
-                                'Mohit',
-                                style: TextStyle(
-                                    color: AppColor.blackColor,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'Urbanist'),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                'Total Debit Balance: ',
-                                style: TextStyle(
-                                    color: AppColor.primaryColor,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: 'Urbanist'),
-                              ),
-                              Text(
-                                '₹5,000',
-                                style: TextStyle(
-                                    color: AppColor.blackColor,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'Urbanist'),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                'Last Payment Date: ',
-                                style: TextStyle(
-                                    color: AppColor.primaryColor,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: 'Urbanist'),
-                              ),
-                              Text(
-                                '01-01-2024',
-                                style: TextStyle(
-                                    color: AppColor.blackColor,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'Urbanist'),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                'Due Date: ',
-                                style: TextStyle(
-                                    color: AppColor.primaryColor,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: 'Urbanist'),
-                              ),
-                              Text(
-                                '01-01-2024',
-                                style: TextStyle(
-                                    color: AppColor.blackColor,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'Urbanist'),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            'Outstanding Invoices: ',
-                            style: TextStyle(
-                                color: AppColor.primaryColor,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: 'Urbanist'),
-                          ),
-                          Text(
-                            '- Invoice #12345: is ₹2,000',
-                            style: TextStyle(
-                                color: AppColor.blackColor,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: 'Urbanist'),
-                          ),
-                          Text(
-                            '- Due: 01-10-2024',
-                            style: TextStyle(
-                                color: AppColor.blackColor,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: 'Urbanist'),
-                          ),
-                          Text(
-                            '- Invoice #123456: ₹3,000',
-                            style: TextStyle(
-                                color: AppColor.blackColor,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: 'Urbanist'),
-                          ),
-                          Text(
-                            '- Due: 01-20-2024',
-                            style: TextStyle(
-                                color: AppColor.blackColor,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: 'Urbanist'),
-                          ),
-                          Text(
-                            '- Contact info: 123-456-7890',
-                            style: TextStyle(
-                                color: AppColor.blackColor,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: 'Urbanist'),
-                          ),
-                          Text(
-                            '- creditor1@gmail.com',
-                            style: TextStyle(
-                                color: AppColor.blackColor,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: 'Urbanist'),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ))
+              // Obx(() => Visibility(
+              //       visible: accountPayablesController.creditorShow.value,
+              //       child: Text(
+              //         'Creditor Detail',
+              //         style: TextStyle(
+              //           color: AppColor.blackColor,
+              //           fontWeight: FontWeight.w500,
+              //           fontSize: 16,
+              //           fontFamily: 'Urbanist',
+              //         ),
+              //       ),
+              //     )),
+              // const SizedBox(
+              //   height: 10,
+              // ),
+              // Obx(() => Visibility(
+              //       visible: accountPayablesController.creditorShow.value,
+              //       child: Container(
+              //         padding: const EdgeInsets.symmetric(
+              //             vertical: 10, horizontal: 10),
+              //         decoration: BoxDecoration(
+              //             color: Colors.white,
+              //             borderRadius: BorderRadius.circular(5)),
+              //         child: Column(
+              //           crossAxisAlignment: CrossAxisAlignment.start,
+              //           children: [
+              //             Row(
+              //               children: [
+              //                 Text(
+              //                   'Name: ',
+              //                   style: TextStyle(
+              //                       color: AppColor.primaryColor,
+              //                       fontSize: 15,
+              //                       fontWeight: FontWeight.w600,
+              //                       fontFamily: 'Urbanist'),
+              //                 ),
+              //                 Text(
+              //                   'Mohit',
+              //                   style: TextStyle(
+              //                       color: AppColor.blackColor,
+              //                       fontSize: 15,
+              //                       fontWeight: FontWeight.w400,
+              //                       fontFamily: 'Urbanist'),
+              //                 ),
+              //               ],
+              //             ),
+              //             const SizedBox(
+              //               height: 5,
+              //             ),
+              //             Row(
+              //               children: [
+              //                 Text(
+              //                   'Total Debit Balance: ',
+              //                   style: TextStyle(
+              //                       color: AppColor.primaryColor,
+              //                       fontSize: 15,
+              //                       fontWeight: FontWeight.w600,
+              //                       fontFamily: 'Urbanist'),
+              //                 ),
+              //                 Text(
+              //                   '₹5,000',
+              //                   style: TextStyle(
+              //                       color: AppColor.blackColor,
+              //                       fontSize: 15,
+              //                       fontWeight: FontWeight.w400,
+              //                       fontFamily: 'Urbanist'),
+              //                 ),
+              //               ],
+              //             ),
+              //             const SizedBox(
+              //               height: 5,
+              //             ),
+              //             Row(
+              //               children: [
+              //                 Text(
+              //                   'Last Payment Date: ',
+              //                   style: TextStyle(
+              //                       color: AppColor.primaryColor,
+              //                       fontSize: 15,
+              //                       fontWeight: FontWeight.w600,
+              //                       fontFamily: 'Urbanist'),
+              //                 ),
+              //                 Text(
+              //                   '01-01-2024',
+              //                   style: TextStyle(
+              //                       color: AppColor.blackColor,
+              //                       fontSize: 15,
+              //                       fontWeight: FontWeight.w400,
+              //                       fontFamily: 'Urbanist'),
+              //                 ),
+              //               ],
+              //             ),
+              //             const SizedBox(
+              //               height: 5,
+              //             ),
+              //             Row(
+              //               children: [
+              //                 Text(
+              //                   'Due Date: ',
+              //                   style: TextStyle(
+              //                       color: AppColor.primaryColor,
+              //                       fontSize: 15,
+              //                       fontWeight: FontWeight.w600,
+              //                       fontFamily: 'Urbanist'),
+              //                 ),
+              //                 Text(
+              //                   '01-01-2024',
+              //                   style: TextStyle(
+              //                       color: AppColor.blackColor,
+              //                       fontSize: 15,
+              //                       fontWeight: FontWeight.w400,
+              //                       fontFamily: 'Urbanist'),
+              //                 ),
+              //               ],
+              //             ),
+              //             const SizedBox(
+              //               height: 5,
+              //             ),
+              //             Text(
+              //               'Outstanding Invoices: ',
+              //               style: TextStyle(
+              //                   color: AppColor.primaryColor,
+              //                   fontSize: 15,
+              //                   fontWeight: FontWeight.w600,
+              //                   fontFamily: 'Urbanist'),
+              //             ),
+              //             Text(
+              //               '- Invoice #12345: is ₹2,000',
+              //               style: TextStyle(
+              //                   color: AppColor.blackColor,
+              //                   fontSize: 15,
+              //                   fontWeight: FontWeight.w400,
+              //                   fontFamily: 'Urbanist'),
+              //             ),
+              //             Text(
+              //               '- Due: 01-10-2024',
+              //               style: TextStyle(
+              //                   color: AppColor.blackColor,
+              //                   fontSize: 15,
+              //                   fontWeight: FontWeight.w400,
+              //                   fontFamily: 'Urbanist'),
+              //             ),
+              //             Text(
+              //               '- Invoice #123456: ₹3,000',
+              //               style: TextStyle(
+              //                   color: AppColor.blackColor,
+              //                   fontSize: 15,
+              //                   fontWeight: FontWeight.w400,
+              //                   fontFamily: 'Urbanist'),
+              //             ),
+              //             Text(
+              //               '- Due: 01-20-2024',
+              //               style: TextStyle(
+              //                   color: AppColor.blackColor,
+              //                   fontSize: 15,
+              //                   fontWeight: FontWeight.w400,
+              //                   fontFamily: 'Urbanist'),
+              //             ),
+              //             Text(
+              //               '- Contact info: 123-456-7890',
+              //               style: TextStyle(
+              //                   color: AppColor.blackColor,
+              //                   fontSize: 15,
+              //                   fontWeight: FontWeight.w400,
+              //                   fontFamily: 'Urbanist'),
+              //             ),
+              //             Text(
+              //               '- creditor1@gmail.com',
+              //               style: TextStyle(
+              //                   color: AppColor.blackColor,
+              //                   fontSize: 15,
+              //                   fontWeight: FontWeight.w400,
+              //                   fontFamily: 'Urbanist'),
+              //             ),
+              //             const SizedBox(
+              //               height: 5,
+              //             ),
+              //           ],
+              //         ),
+              //       ),
+              //     ))
             ],
           ),
         ),

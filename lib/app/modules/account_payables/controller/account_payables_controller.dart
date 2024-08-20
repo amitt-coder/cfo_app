@@ -1,15 +1,22 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import '../../../../utils/images.dart';
+import 'package:http/http.dart' as http;
 
 class AccountPayablesController extends GetxController {
+
+  final storage = GetStorage();
+
   final selectedDate = DateTime.now().obs;
   TextEditingController dateController = TextEditingController();
   TextEditingController daysController = TextEditingController();
   RxBool creditorShow = false.obs;
   RxString showday = 'Above 30 days'.obs;
-  RxList<String> dayList = ['Above 30 days', 'Above 60 days','Above 90 days','Above 120 days'].obs;
+  RxList<String> dayList =
+      ['Above 30 days', 'Above 60 days', 'Above 90 days', 'Above 120 days'].obs;
   TextEditingController categoryController = TextEditingController();
   RxString showCategory = 'Cateogory A'.obs;
   RxList<String> showCategoryList =
@@ -68,6 +75,37 @@ class AccountPayablesController extends GetxController {
       print('selectedDate.value ${dateController.text}');
     }
   }
+
+
+  Future<dynamic> accountPayableApi() async {
+    print('------accountPayableApi-------');
+
+    String? userId = storage.read('USER_ID');
+    String? token = storage.read('accessToken');
+
+    var request = http.Request('GET', Uri.parse(''));
+
+    http.StreamedResponse response = await request.send();
+    var res = await response.stream.bytesToString();
+
+    print('res----${res}');
+
+    if (response.statusCode == 200 || response == 201) {
+      print('api successfully work');
+
+      var responseData = json.decode(res);
+      print('responseData: ${responseData}');
+    } else if (response.statusCode == 404) {
+      print('Error: Not Found: ${response.statusCode}');
+    } else if (response.statusCode == 500) {
+      print('Error: Internal Server Error ${response.statusCode}');
+    } else if (response.statusCode == 429) {
+      print('Error: Too Many Request ${response.statusCode}');
+    } else {
+      print('Error: ${response.statusCode}');
+    }
+  }
+
 }
 
 class Items {

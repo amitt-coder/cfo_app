@@ -480,6 +480,7 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
                 height: 5,
               ),
               TextFormField(
+                controller: invoiceDetailController.descriptionController,
                 maxLines: 4,
                 textInputAction: TextInputAction.done,
                 inputFormatters: [LengthLimitingTextInputFormatter(170)],

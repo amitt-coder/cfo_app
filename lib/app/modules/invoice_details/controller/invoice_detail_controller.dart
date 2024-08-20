@@ -352,8 +352,21 @@ class InvoiceDetailController extends GetxController {
                   )
               ),
               pw.SizedBox(height: 20),
-              pw.Text('Comment:'),
-              pw.Text('Any additional comments or notes'),
+              pw.Text('Comment:',
+              style: pw.TextStyle(
+                color: PdfColors.black,
+                fontSize: 15,
+                fontWeight: FontWeight.normal
+              )
+              ),
+              pw.Text('${descriptionController.text.toString()}',
+              style: pw.TextStyle(
+                color: PdfColors.black,
+                fontWeight: FontWeight.normal,
+                fontSize: 15
+              )
+
+              ),
             ],
           );
         },

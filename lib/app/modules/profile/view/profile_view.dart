@@ -113,6 +113,7 @@ class _ProfileViewState extends State<ProfileView> {
                   height: 8,
                 ),
                 CommonTextField(
+                  enabled: false,
                   lableText: 'Enter your email address',
                   controllers: profileController.emailController,
                   keyboardTypes: TextInputType.emailAddress,
@@ -216,7 +217,7 @@ class _ProfileViewState extends State<ProfileView> {
                     color: AppColor.primaryColor,
                     ontap: () {
                       Get.offAllNamed(Routes.DASH_BOARD);
-                      profileController.editProfile(profileController.selectedImagePath.value);
+                      // profileController.editProfile(profileController.selectedImagePath.value);
                     },
                     height: 45,
                     width: MediaQuery.of(context).size.width,

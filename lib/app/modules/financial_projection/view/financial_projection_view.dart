@@ -229,11 +229,9 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                       );
                                     },
                                     preShow: 'Not',
-                                    width: MediaQuery.of(context).size.width *
-                                        0.40,
+                                    width: MediaQuery.of(context).size.width * 0.40,
                                     lableText: 'Select Date',
-                                    controllers: financialProjectionController
-                                        .dateController,
+                                    controllers: financialProjectionController.dateController,
                                     keyboardTypes: TextInputType.name,
                                     prefixIcon: ProjectImages.mail,
                                   )
@@ -591,27 +589,22 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                                               .itemNameController
                                                               .text,
                                                           value);
-                                                  // financialProjectionController
-                                                  //     .itemNameController
-                                                  //     .clear();
-                                                  // financialProjectionController
-                                                  //     .itemPriceController.clear();
 
+                                                  financialProjectionController.FixedCostApi();
+                                                  financialProjectionController
+                                                      .itemNameController
+                                                      .clear();
+                                                  financialProjectionController
+                                                      .itemPriceController.clear();
                                                   financialProjectionController
                                                       .addItems();
                                                 },
                                                 ontap: () {},
                                                 preShow: 'Not',
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.40,
+                                                width: MediaQuery.of(context).size.width * 0.40,
                                                 lableText: 'Amount',
-                                                controllers:
-                                                    financialProjectionController
-                                                        .itemPriceController,
-                                                keyboardTypes:
-                                                    TextInputType.number,
+                                                controllers:financialProjectionController.itemPriceController,
+                                                keyboardTypes: TextInputType.number,
                                                 prefixIcon: ProjectImages.mail,
                                               ),
                                             ],
@@ -967,45 +960,27 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                                       ),
                                                       CommonTextField(
                                                         onFieldSubmit: (value) {
-                                                          financialProjectionController
-                                                              .fixedAssetsItem(
-                                                            financialProjectionController
-                                                                .assetsNameController
-                                                                .text,
-                                                            financialProjectionController
-                                                                .assetDateController
-                                                                .text,
-                                                            financialProjectionController
-                                                                .assetsCostController
-                                                                .text,
-                                                            financialProjectionController
-                                                                .assetsdrController
-                                                                .text,
+                                                          financialProjectionController.fixedAssetsItem(
+                                                            financialProjectionController.assetsNameController.text,
+                                                            financialProjectionController.assetDateController.text,
+                                                            financialProjectionController.assetsCostController.text,
+                                                            financialProjectionController.assetsdrController.text,
                                                           );
-                                                          financialProjectionController.assetsNameController.clear();
-                                                          financialProjectionController.assetDateController.clear();
-                                                          financialProjectionController.assetsCostController.clear();
-                                                          financialProjectionController.assetsdrController.clear();
+                                                          financialProjectionController.fixedAssetSchedule();
+                                                          // financialProjectionController.assetsNameController.clear();
+                                                          // financialProjectionController.assetDateController.clear();
+                                                          // financialProjectionController.assetsCostController.clear();
+                                                          // financialProjectionController.assetsdrController.clear();
 
-                                                          financialProjectionController
-                                                              .addItems();
+                                                          financialProjectionController.addItems();
                                                         },
                                                         ontap: () {},
                                                         preShow: 'Not',
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width *
-                                                            0.40,
+                                                        width: MediaQuery.of(context).size.width * 0.40,
                                                         lableText: 'D/R',
-                                                        controllers:
-                                                            financialProjectionController
-                                                                .assetsdrController,
-                                                        keyboardTypes:
-                                                            TextInputType
-                                                                .number,
-                                                        prefixIcon:
-                                                            ProjectImages.mail,
+                                                        controllers: financialProjectionController.assetsdrController,
+                                                        keyboardTypes: TextInputType.number,
+                                                        prefixIcon: ProjectImages.mail,
                                                       ),
                                                     ],
                                                   ),
@@ -1280,13 +1255,15 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                                                   .variableCostNameController
                                                                   .text,
                                                               value);
+
+                                                      financialProjectionController.VariableCostApi();
+
                                                       financialProjectionController
                                                           .variableCostNameController
                                                           .clear();
                                                       financialProjectionController
                                                           .variableCostmPriceController
                                                           .clear();
-
                                                       financialProjectionController
                                                           .addItems();
                                                     },
@@ -1644,10 +1621,8 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                             CommonButton(
                               color: AppColor.primaryColor,
                               ontap: () {
-                                // financialProjectionController.checkCondition();
-                                // Get.offAllNamed(Routes.DASH_BOARD);
-                                Get.offNamed(
-                                    Routes.FINACIAL_PROJECTION_SUMMARY);
+                                // Get.offNamed(Routes.FINACIAL_PROJECTION_SUMMARY);
+                                financialProjectionController.DiscountingFactorApi();
                               },
                               height: 45,
                               width: 150,

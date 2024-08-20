@@ -16,6 +16,7 @@ class CashFlowScreen extends StatefulWidget {
 }
 
 class _CashFlowScreenState extends State<CashFlowScreen> {
+
   final CashflowController cashflowController = Get.put(CashflowController());
 
   Widget _buildBottomTitle(double value, TitleMeta meta) {

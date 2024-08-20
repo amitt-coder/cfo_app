@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import '../../../data/api.dart';
+import '../../../routes/app_pages.dart';
 
 class FinancialProjectionController extends GetxController {
 
@@ -21,14 +22,18 @@ class FinancialProjectionController extends GetxController {
   var variableCostItems = <String, String>{}.obs;
   var fixedassetSchedule = <String, Map<String, String>>{}.obs;
 
+  //Discounting Factor controller
   TextEditingController discountRate = TextEditingController();
   TextEditingController growthRate = TextEditingController();
+
+  //fixed cost controller
   TextEditingController itemNameController = TextEditingController();
   TextEditingController itemPriceController = TextEditingController();
   TextEditingController dateController = TextEditingController();
+  //variable cost controller
   TextEditingController variableCostNameController = TextEditingController();
   TextEditingController variableCostmPriceController = TextEditingController();
-
+  //fixed assets schedule controller
   TextEditingController assetsNameController = TextEditingController();
   TextEditingController assetDateController = TextEditingController();
   TextEditingController assetsCostController = TextEditingController();
@@ -81,7 +86,6 @@ class FinancialProjectionController extends GetxController {
     items.remove(name);
   }
 
-
   void addvariableCostItems(String name, String price) {
     print('addItemAmount');
     if (name.isNotEmpty && price.isNotEmpty) {
@@ -131,7 +135,7 @@ class FinancialProjectionController extends GetxController {
     );
     if (picked != null) {
       selectedDateFixedAssest.value  = picked;
-      String formattedDate = DateFormat('dd-MM-yyyy').format(selectedDateFixedAssest.value);
+      String formattedDate = DateFormat('yyyy-MM-dd').format(selectedDateFixedAssest.value);
 
       print('formattedDate $formattedDate');
 
@@ -168,11 +172,11 @@ class FinancialProjectionController extends GetxController {
         print('status ${response.statusCode}');
 
         if(response.statusCode == 200|| response.statusCode== 201){
-
+          print('api successfully work');
           var responseData = json.decode(response.body);
 
-          print('responseData ${responseData}');
-
+          print('responseData: ${responseData}');
+              return responseData;
         }else{
           print('Failed with status Code: ${response.statusCode}');
           return response.statusCode;
@@ -198,24 +202,29 @@ class FinancialProjectionController extends GetxController {
     String? userId = storage.read('USER_ID');
 
     try{
-
+      print('items: ${variableCostNameController.text.toString()}');
+      print('amount_monthly: ${variableCostmPriceController.text.toString()}');
+      print('created_by_user: ${userId}');
       var response = await http.post(Uri.parse(Api.VariableCost),
       headers: {
         'Content-Type':'application/json',
         'Authorization':'Bearer $token'
       },
+
         body: json.encode({
           'created_by_user':userId,
-          'item':variableCostNameController.text.trim().toString(),
-          'amount_monthly':variableCostmPriceController.text.trim().toString(),
+          'item':variableCostNameController.text.toString(),
+          'amount_monthly':variableCostmPriceController.text.toString(),
         }),
       );
 
-      if(response.statusCode == 200 || response.statusCode == 201){
+      print('response: ${response.statusCode}');
 
+      if(response.statusCode == 200 || response.statusCode == 201){
+        print('api successfully work');
         var responseData = json.decode(response.body);
 
-        print('responseData ${responseData}');
+        print('responseData: ${responseData}');
         return responseData;
       }else{
         print('Failed to statusCode ${response.statusCode}');
@@ -226,9 +235,9 @@ class FinancialProjectionController extends GetxController {
     }
   }
 
-  Future<dynamic> FixedAssetSchedule() async {
+  Future<dynamic> fixedAssetSchedule() async {
 
-    print('------FixedAssetSchedule--------');
+    print('------FixedAssetScheduleApi--------');
 
     final storage = GetStorage();
 
@@ -245,19 +254,19 @@ class FinancialProjectionController extends GetxController {
         },
         body: json.encode({
         'created_by_user':userId,
-        'assets':'',
-        'purchase_date':'',
-        'cost':'',
-        'd_r':'',
+        'assets':assetsNameController.text.toString(),
+        'purchase_date':assetDateController.text.toString(),
+        'cost':assetsCostController.text.toString(),
+        'd_r':assetsdrController.text.toString(),
       }),
       );
 
-      print('statusCode ${response.statusCode}');
+      print('statusCode: ${response.statusCode}');
 
       if(response.statusCode == 200 || response.statusCode == 201){
 
         var responseData = json.decode(response.body);
-
+        print('api successfully work');
         print('responseData: ${responseData}');
 
         return responseData;
@@ -268,11 +277,6 @@ class FinancialProjectionController extends GetxController {
     }catch(e){
       print('Error: $e');
     }
-
-
-
-
-
   }
 
   Future<dynamic> DiscountingFactorApi() async {
@@ -305,21 +309,19 @@ class FinancialProjectionController extends GetxController {
       if(response.statusCode == 200 || response.statusCode == 201){
 
         var responseData = json.decode(response.body);
+        print('api successfully work');
 
-        print('responseData ${responseData}');
-
+        print('responseData: ${responseData}');
+        Get.offNamed(Routes.FINACIAL_PROJECTION_SUMMARY);
         return responseData;
-
       }else{
-        print('Failed to statusCode ${response.statusCode}');
+        print('Failed to statusCode: ${response.statusCode}');
         return response.statusCode;
       }
     }catch(e){
       print('Error: $e');
+      return e;
     }
-
-
-
   }
 
 
@@ -335,8 +337,8 @@ class FinancialProjectionController extends GetxController {
     print('Added items $fixedassetSchedule');
   }
 
-
-  void editAsset(String oldName, String newName, String newPurchaseDate, String newCost, String newDr) {
+  void editAsset(String oldName,String newName,
+      String newPurchaseDate,String newCost,String newDr) {
     if (fixedassetSchedule.containsKey(oldName)) {
       fixedassetSchedule.remove(oldName);
       fixedassetSchedule[newName] = {
@@ -346,6 +348,7 @@ class FinancialProjectionController extends GetxController {
       };
     }
   }
+
   void deleteAsset(String name) {
     fixedassetSchedule.remove(name);
   }

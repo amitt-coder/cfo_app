@@ -329,10 +329,19 @@ class CashFlowChart extends StatelessWidget {
                               barWidth: 1,
                               dotData: FlDotData(show: false)),
                         ],
+                        gridData: FlGridData(
+                          show: true,
+                          horizontalInterval: 200000,
+                          drawVerticalLine: false,
+                        ),
+                        borderData: FlBorderData(show: false),
+                        minX: 0,
+                        maxY: 610000,
+                        minY: -610000,
                         titlesData: FlTitlesData(
-                          rightTitles: AxisTitles(
+                          rightTitles:const AxisTitles(
                               sideTitles: SideTitles(showTitles: false)),
-                          topTitles: AxisTitles(
+                          topTitles:const AxisTitles(
                             sideTitles: SideTitles(
                               showTitles: false,
                             ),
@@ -436,15 +445,7 @@ class CashFlowChart extends StatelessWidget {
                         //     },
                         //   )),
                         // ),
-                        gridData: FlGridData(
-                          show: true,
-                          horizontalInterval: 200000,
-                          drawVerticalLine: false,
-                        ),
-                        borderData: FlBorderData(show: false),
-                        minX: 0,
-                        maxY: 610000,
-                        minY: -610000,
+
                       ),
                     ),
                   ),

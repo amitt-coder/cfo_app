@@ -74,7 +74,10 @@ class ProfileController extends GetxController{
     }
   }
 
-  Future<void> editProfile(String imagePath,) async {
+  Future<void> editProfileApi(String imagePath,) async {
+
+    print('-----editProfileApi-------');
+
     try {
 
       String token = await storage.read('accessToken') ?? '';
@@ -119,7 +122,7 @@ class ProfileController extends GetxController{
 
   Future<dynamic> getProfile() async {
 
-    print('----getProfile----');
+    print('----getProfileApi----');
 
     String userId = await storage.read('USER_ID') ?? '';
 
