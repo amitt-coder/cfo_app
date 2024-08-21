@@ -123,29 +123,29 @@ class _CustomerScreenState extends State<CustomerScreen> {
                                   ),
                                   InkWell(
                                     onTap: (){
-                                      // widget.whichUser == 'All Creditors'?
-                                      // Get.toNamed(Routes.INVOICE_DETAILS,
-                                      //     arguments: {
-                                      //       'userName': customerController
-                                      //           .ItemList2[index].Name,
-                                      //       'crBalance': customerController
-                                      //           .ItemList2[index].Db,
-                                      //       'paymentDate':
-                                      //       customerController
-                                      //           .ItemList2[index].LP,
-                                      //       'whichDetail': 'Creditor Details',
-                                      //     }):
-                                      // Get.toNamed(Routes.INVOICE_DETAILS,
-                                      //     arguments: {
-                                      //       'userName': customerController
-                                      //           .ItemList[index].Name,
-                                      //       'crBalance': customerController
-                                      //           .ItemList[index].Db,
-                                      //       'paymentDate':
-                                      //       customerController
-                                      //           .ItemList[index].LP,
-                                      //       'whichDetail': 'Debtor Details',
-                                      //     });
+                                      widget.whichUser == 'All Creditors'?
+                                      Get.toNamed(Routes.INVOICE_DETAILS,
+                                          arguments: {
+                                            'userName': customerController
+                                                .ItemList2[index].Name,
+                                            'crBalance': customerController
+                                                .ItemList2[index].Db,
+                                            'paymentDate':
+                                            customerController
+                                                .ItemList2[index].LP,
+                                            'whichDetail': 'Creditor Details',
+                                          }):
+                                      Get.toNamed(Routes.INVOICE_DETAILS,
+                                          arguments: {
+                                            'userName': customerController
+                                                .ItemList[index].Name,
+                                            'crBalance': customerController
+                                                .ItemList[index].Db,
+                                            'paymentDate':
+                                            customerController
+                                                .ItemList[index].LP,
+                                            'whichDetail': 'Debtor Details',
+                                          });
                                     },
                                     child: Row(
                                       mainAxisAlignment:

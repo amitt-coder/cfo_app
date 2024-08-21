@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:cfo_app/app/routes/app_pages.dart';
+import 'package:cfo_app/utils/toast_message.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,6 +20,7 @@ class FinancialProjectionView extends StatefulWidget {
 }
 
 class _FinancialProjectionViewState extends State<FinancialProjectionView> {
+
   FinancialProjectionController financialProjectionController =
       Get.put(FinancialProjectionController());
 
@@ -30,7 +32,9 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
         automaticallyImplyLeading: false,
         leading: GestureDetector(
           onTap: () {
-            Get.back();
+            financialProjectionController.firstCheck == false?
+             Get.back():
+            financialProjectionController.hideCondition();
           },
           child: Image.asset(
             ProjectImages.arrow_left,
@@ -219,53 +223,53 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                           fontFamily: 'Urbanist',
                                         ),
                                       ),
-                            financialProjectionController.firstCheck.value ==
-                                    false
-                                ? CommonTextField(
-                                    ontap: () {
-                                      financialProjectionController
-                                          .calendarOpen(
-                                        context,
-                                      );
-                                    },
-                                    preShow: 'Not',
-                                    width: MediaQuery.of(context).size.width * 0.40,
-                                    lableText: 'Select Date',
-                                    controllers: financialProjectionController.dateController,
-                                    keyboardTypes: TextInputType.name,
-                                    prefixIcon: ProjectImages.mail,
-                                  )
-                                // Container(
-                                //         decoration: BoxDecoration(
-                                //             // color: Colors.white,
-                                //             borderRadius: BorderRadius.circular(5),
-                                //             border: Border.all(
-                                //                 width: 1,
-                                //                 color: AppColor.txtSecondaryColor)),
-                                //         padding: const EdgeInsets.symmetric(
-                                //             horizontal: 5, vertical: 3),
-                                //         child: Row(
-                                //           mainAxisAlignment:
-                                //               MainAxisAlignment.center,
-                                //           children: [
-                                //             Text(
-                                //               'Next Year',
-                                //               style: TextStyle(
-                                //                 color: AppColor.txtSecondaryColor,
-                                //                 fontWeight: FontWeight.w500,
-                                //                 fontSize: 16,
-                                //                 fontFamily: 'Urbanist',
-                                //               ),
-                                //             ),
-                                //             Icon(
-                                //               Icons.arrow_drop_down_sharp,
-                                //               size: 30,
-                                //               color: AppColor.txtSecondaryColor,
-                                //             )
-                                //           ],
-                                //         ),
-                                //       )
-                                : const Text('')
+                            // financialProjectionController.firstCheck.value ==
+                            //         false
+                            //     ? CommonTextField(
+                            //         ontap: () {
+                            //           financialProjectionController
+                            //               .calendarOpen(
+                            //             context,
+                            //           );
+                            //         },
+                            //         preShow: 'Not',
+                            //         width: MediaQuery.of(context).size.width * 0.40,
+                            //         lableText: 'Select Date',
+                            //         controllers: financialProjectionController.dateController,
+                            //         keyboardTypes: TextInputType.name,
+                            //         prefixIcon: ProjectImages.mail,
+                            //        )
+                            // Container(
+                            //         decoration: BoxDecoration(
+                            //             // color: Colors.white,
+                            //             borderRadius: BorderRadius.circular(5),
+                            //             border: Border.all(
+                            //                 width: 1,
+                            //                 color: AppColor.txtSecondaryColor)),
+                            //         padding: const EdgeInsets.symmetric(
+                            //             horizontal: 5, vertical: 3),
+                            //         child: Row(
+                            //           mainAxisAlignment:
+                            //               MainAxisAlignment.center,
+                            //           children: [
+                            //             Text(
+                            //               'Next Year',
+                            //               style: TextStyle(
+                            //                 color: AppColor.txtSecondaryColor,
+                            //                 fontWeight: FontWeight.w500,
+                            //                 fontSize: 16,
+                            //                 fontFamily: 'Urbanist',
+                            //               ),
+                            //             ),
+                            //             Icon(
+                            //               Icons.arrow_drop_down_sharp,
+                            //               size: 30,
+                            //               color: AppColor.txtSecondaryColor,
+                            //             )
+                            //           ],
+                            //         ),
+                            //       )
+                            // : const Text('')
                           ],
                         ),
                         const SizedBox(
@@ -279,40 +283,53 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                     color: AppColor.boxblueColor,
                                     borderRadius: BorderRadius.circular(5)),
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                      'Assets',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily: 'Urbanist',
-                                          color: AppColor.blackColor),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Assets',
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: 'Urbanist',
+                                              color: AppColor.blackColor),
+                                        ),
+                                        const SizedBox(width: 50,),
+                                        Text(
+                                          'P.Date',
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: 'Urbanist',
+                                              color: AppColor.blackColor),
+                                        ),
+                                      ],
                                     ),
-                                    Text(
-                                      'P.Date',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily: 'Urbanist',
-                                          color: AppColor.blackColor),
-                                    ),
-                                    Text(
-                                      'Cost',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily: 'Urbanist',
-                                          color: AppColor.blackColor),
-                                    ),
-                                    Text(
-                                      'D/R                    ',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily: 'Urbanist',
-                                          color: AppColor.blackColor),
+                                    Row(
+                                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Cost',
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: 'Urbanist',
+                                              color: AppColor.blackColor),
+                                        ),
+                                        const SizedBox(width: 30,),
+                                        Text(
+                                          // 'D/R                    ',
+                                          'D/R',
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600,
+                                              fontFamily: 'Urbanist',
+                                              color: AppColor.blackColor),
+                                        ),
+                                       const  SizedBox(width: 50,),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -358,21 +375,25 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                 child: Column(
                                   children: [
                                     ListView.builder(
+                                      physics: const NeverScrollableScrollPhysics(),
                                         padding: EdgeInsets.zero,
                                         shrinkWrap: true,
                                         itemCount: financialProjectionController
                                             .items.length,
                                         itemBuilder: (context, index) {
-                                          String itemName =
-                                              financialProjectionController
-                                                  .items.keys
-                                                  .elementAt(index);
-                                          String itemPrice =
-                                              financialProjectionController
-                                                  .items[itemName]!;
+                                          // String itemName =
+                                          //     financialProjectionController
+                                          //         .items.keys
+                                          //         .elementAt(index);
+                                          // String itemPrice =
+                                          //     financialProjectionController
+                                          //         .items[itemName]!;
+                                          String itemName = financialProjectionController.items.keys.elementAt(index);
+                                          String itemPrice = financialProjectionController.items[itemName] ?? 'N/A';
+
                                           return Container(
                                             padding: EdgeInsets.zero,
-                                            margin: EdgeInsets.only(top: 10),
+                                            margin: const EdgeInsets.only(top: 10),
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment
@@ -402,14 +423,15 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                                               FontWeight.w600,
                                                           fontSize: 15),
                                                     ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       width: 10,
                                                     ),
                                                     GestureDetector(
                                                       onTap: () {
-                                                        print('dailog open');
+                                                        print('dailog open ${itemName}');
                                                         _showEditDialog(
                                                             itemName, 'Fixed');
+                                                            // 'test', 'Variable');
                                                       },
                                                       child: Icon(
                                                         Icons.edit,
@@ -420,12 +442,12 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                                     ),
                                                     GestureDetector(
                                                       onTap: () {
-                                                        print('deleteItem');
+                                                        print('deleteItem:$itemName');
                                                         financialProjectionController
                                                             .deleteItem(
                                                                 itemName);
                                                       },
-                                                      child: Icon(
+                                                      child: const Icon(
                                                         Icons.delete,
                                                         size: 25,
                                                         color: Colors.red,
@@ -438,10 +460,10 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                           );
                                         }),
                                     financialProjectionController.items.isEmpty
-                                        ? SizedBox(
+                                        ? const SizedBox(
                                             height: 5,
                                           )
-                                        : SizedBox(
+                                        : const SizedBox(
                                             height: 0,
                                           ),
                                     financialProjectionController.items.isEmpty
@@ -479,12 +501,12 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                               ),
                                             ],
                                           )
-                                        : Text(''),
+                                        : const Text(''),
                                     financialProjectionController.items.isEmpty
-                                        ? SizedBox(
+                                        ? const SizedBox(
                                             height: 5,
                                           )
-                                        : SizedBox(
+                                        : const SizedBox(
                                             height: 0,
                                           ),
                                     financialProjectionController.items.isEmpty
@@ -522,12 +544,12 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                               ),
                                             ],
                                           )
-                                        : Text(''),
+                                        : const Text(''),
                                     financialProjectionController.items.isEmpty
-                                        ? SizedBox(
+                                        ? const SizedBox(
                                             height: 10,
                                           )
-                                        : SizedBox(
+                                        : const SizedBox(
                                             height: 0,
                                           ),
                                     InkWell(
@@ -590,26 +612,34 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                                               .text,
                                                           value);
 
-                                                  financialProjectionController.FixedCostApi();
+                                                  financialProjectionController
+                                                      .FixedCostApi();
                                                   financialProjectionController
                                                       .itemNameController
                                                       .clear();
                                                   financialProjectionController
-                                                      .itemPriceController.clear();
+                                                      .itemPriceController
+                                                      .clear();
                                                   financialProjectionController
                                                       .addItems();
                                                 },
                                                 ontap: () {},
                                                 preShow: 'Not',
-                                                width: MediaQuery.of(context).size.width * 0.40,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.40,
                                                 lableText: 'Amount',
-                                                controllers:financialProjectionController.itemPriceController,
-                                                keyboardTypes: TextInputType.number,
+                                                controllers:
+                                                    financialProjectionController
+                                                        .itemPriceController,
+                                                keyboardTypes:
+                                                    TextInputType.number,
                                                 prefixIcon: ProjectImages.mail,
                                               ),
                                             ],
                                           )
-                                        : Text(''),
+                                        : const Text(''),
                                   ],
                                 ),
                               )
@@ -617,7 +647,7 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                     true
                                 ? Container(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 7, vertical: 10),
+                                        horizontal: 7, vertical: 5),
                                     decoration: const BoxDecoration(
                                         color: Colors.white,
                                         borderRadius: BorderRadius.only(
@@ -630,102 +660,135 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                                 financialProjectionController
                                                     .fixedassetSchedule.length,
                                             shrinkWrap: true,
+                                            physics: const NeverScrollableScrollPhysics(),
                                             padding: EdgeInsets.zero,
                                             itemBuilder: (context, index) {
-                                              String assetName =
-                                                  financialProjectionController
-                                                      .fixedassetSchedule.keys
-                                                      .elementAt(index);
-                                              Map<String, String> assetDetails =
-                                                  financialProjectionController
-                                                          .fixedassetSchedule[
-                                                      assetName]!;
+                                              // String assetName =
+                                              //     financialProjectionController
+                                              //         .fixedassetSchedule.keys
+                                              //         .elementAt(index);
+                                              // Map<String, String> assetDetails =
+                                              //     financialProjectionController
+                                              //             .fixedassetSchedule[
+                                              //         assetName]!;
+                                              String assetName =  financialProjectionController
+                                                  .fixedassetSchedule.keys.elementAt(index);
+                                              Map<String, String> assetDetails =  financialProjectionController
+                                                  .fixedassetSchedule[assetName] ?? {};
                                               return Container(
-                                                margin:
-                                                    EdgeInsets.only(top: 10),
+                                                margin: const EdgeInsets.only(top: 10),
                                                 child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
-                                                    Text(
-                                                      assetName,
-                                                      style: TextStyle(
-                                                          color: AppColor
-                                                              .blackColor,
-                                                          fontFamily:
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children: [
+                                                        Container(
+                                                          width: 80,
+                                                          // color: Colors.red,
+                                                          child: Text(
+                                                            assetName,
+                                                            style: TextStyle(
+                                                                color: AppColor
+                                                                    .blackColor,
+                                                                fontFamily:
+                                                                    'Urbanist',
+                                                                fontWeight:
+                                                                    FontWeight.w500,
+                                                                fontSize: 15),
+                                                            overflow: TextOverflow.ellipsis,
+                                                          ),
+                                                        ),
+                                                        // SizedBox(width: 15,),
+                                                        Text(
+                                                          // assetDetails['P.Date']!,
+                                                          assetDetails['purchase_date'] ?? 'N/A',
+                                                          style: TextStyle(
+                                                              color: AppColor
+                                                                  .blackColor,
+                                                              fontFamily:
                                                               'Urbanist',
-                                                          fontWeight:
+                                                              fontWeight:
                                                               FontWeight.w500,
-                                                          fontSize: 15),
+                                                              fontSize: 15),
+                                                        ),
+                                                      ],
                                                     ),
-                                                    Text(
-                                                      assetDetails['P.Date']!,
-                                                      style: TextStyle(
-                                                          color: AppColor
-                                                              .blackColor,
-                                                          fontFamily:
+                                                    const SizedBox(width: 5,),
+                                                    Row(
+                                                      children: [
+                                                        Container(
+                                                          width:60,
+                                                          child: Text(
+                                                            assetDetails['cost'] ?? 'N/A',
+                                                            // "₹${assetDetails['Cost']!}",
+                                                            style: TextStyle(
+                                                                color: AppColor
+                                                                    .blackColor,
+                                                                fontFamily:
+                                                                    'Urbanist',
+                                                                fontWeight:
+                                                                    FontWeight.w600,
+                                                                fontSize: 15),
+                                                            overflow: TextOverflow.ellipsis,
+                                                          ),
+                                                        ),
+                                                        //
+                                                        Text(
+                                                          assetDetails['d_r'] ?? 'N/A',
+                                                          // "${assetDetails['DR']!}%",
+                                                          style: TextStyle(
+                                                              color: AppColor
+                                                                  .blackColor,
+                                                              fontFamily:
                                                               'Urbanist',
-                                                          fontWeight:
+                                                              fontWeight:
                                                               FontWeight.w500,
-                                                          fontSize: 15),
+                                                              fontSize: 15),
+                                                        ),
+                                                      ],
                                                     ),
-                                                    Text(
-                                                      "₹${assetDetails['Cost']!}",
-                                                      style: TextStyle(
-                                                          color: AppColor
-                                                              .blackColor,
-                                                          fontFamily:
-                                                              'Urbanist',
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          fontSize: 15),
-                                                    ),
-                                                    Text(
-                                                      "${assetDetails['DR']!}%",
-                                                      style: TextStyle(
-                                                          color: AppColor
-                                                              .blackColor,
-                                                          fontFamily:
-                                                              'Urbanist',
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          fontSize: 15),
-                                                    ),
-                                                    InkWell(
-                                                      onTap: (){
-                                                        _showEditDialogFixedAsset(assetName);
-                                                      },
-                                                      child: Icon(
-                                                        Icons.edit,
-                                                        size: 22,
-                                                        color: AppColor
-                                                            .txtSecondaryColor,
-                                                      ),
-                                                    ),
-                                                    GestureDetector(
-                                                      onTap: () {
-                                                        print('deleteItem');
-                                                        financialProjectionController
-                                                            .deleteAsset(
-                                                            assetName);
-                                                      },
-                                                      child: Icon(
-                                                        Icons.delete,
-                                                        size: 22,
-                                                        color: Colors.red,
-                                                      ),
-                                                    ),
+                                                    const SizedBox(width: 5,),
+                                                    Row(
+                                                      children: [
+                                                        InkWell(
+                                                          onTap: () {
+                                                            _showEditDialogFixedAsset(
+                                                                assetName);
+                                                          },
+                                                          child: Icon(
+                                                            Icons.edit,
+                                                            size: 22,
+                                                            color: AppColor
+                                                                .txtSecondaryColor,
+                                                          ),
+                                                        ),
+                                                        const SizedBox(width: 5,),
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            print('deleteItem');
+                                                            financialProjectionController
+                                                                .deleteAsset(
+                                                                assetName);
+                                                          },
+                                                          child: const Icon(
+                                                            Icons.delete,
+                                                            size: 22,
+                                                            color: Colors.red,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    )
                                                   ],
                                                 ),
                                               );
                                             }),
                                         financialProjectionController
                                                 .fixedassetSchedule.isEmpty
-                                            ? SizedBox(
+                                            ? const SizedBox(
                                                 height: 5,
                                               )
-                                            : SizedBox(),
+                                            : const SizedBox(),
                                         financialProjectionController
                                                 .fixedassetSchedule.isEmpty
                                             ? Row(
@@ -781,13 +844,13 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                                   )
                                                 ],
                                               )
-                                            : Text(''),
+                                            : const Text(''),
                                         financialProjectionController
                                                 .fixedassetSchedule.isEmpty
-                                            ? SizedBox(
+                                            ? const SizedBox(
                                                 height: 5,
                                               )
-                                            : SizedBox(),
+                                            : const SizedBox(),
                                         financialProjectionController
                                                 .fixedassetSchedule.isEmpty
                                             ? Row(
@@ -843,13 +906,13 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                                   )
                                                 ],
                                               )
-                                            : Text(''),
+                                            : const Text(''),
                                         financialProjectionController
                                                 .fixedassetSchedule.isEmpty
-                                            ? SizedBox(
+                                            ? const SizedBox(
                                                 height: 10,
                                               )
-                                            : SizedBox(),
+                                            : const SizedBox(),
                                         InkWell(
                                           onTap: () {
                                             print('FixedAssetSchedule');
@@ -933,7 +996,7 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                                       ),
                                                     ],
                                                   ),
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     height: 5,
                                                   ),
                                                   Row(
@@ -960,33 +1023,53 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                                       ),
                                                       CommonTextField(
                                                         onFieldSubmit: (value) {
-                                                          financialProjectionController.fixedAssetsItem(
-                                                            financialProjectionController.assetsNameController.text,
-                                                            financialProjectionController.assetDateController.text,
-                                                            financialProjectionController.assetsCostController.text,
-                                                            financialProjectionController.assetsdrController.text,
+                                                          financialProjectionController
+                                                              .fixedAssetsItem(
+                                                            financialProjectionController
+                                                                .assetsNameController
+                                                                .text,
+                                                            financialProjectionController
+                                                                .assetDateController
+                                                                .text,
+                                                            financialProjectionController
+                                                                .assetsCostController
+                                                                .text,
+                                                            financialProjectionController
+                                                                .assetsdrController
+                                                                .text,
                                                           );
-                                                          financialProjectionController.fixedAssetSchedule();
+                                                          financialProjectionController
+                                                              .fixedAssetSchedule();
                                                           // financialProjectionController.assetsNameController.clear();
                                                           // financialProjectionController.assetDateController.clear();
                                                           // financialProjectionController.assetsCostController.clear();
                                                           // financialProjectionController.assetsdrController.clear();
 
-                                                          financialProjectionController.addItems();
+                                                          financialProjectionController
+                                                              .addItems();
                                                         },
                                                         ontap: () {},
                                                         preShow: 'Not',
-                                                        width: MediaQuery.of(context).size.width * 0.40,
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            0.40,
                                                         lableText: 'D/R',
-                                                        controllers: financialProjectionController.assetsdrController,
-                                                        keyboardTypes: TextInputType.number,
-                                                        prefixIcon: ProjectImages.mail,
+                                                        controllers:
+                                                            financialProjectionController
+                                                                .assetsdrController,
+                                                        keyboardTypes:
+                                                            TextInputType
+                                                                .number,
+                                                        prefixIcon:
+                                                            ProjectImages.mail,
                                                       ),
                                                     ],
                                                   ),
                                                 ],
                                               )
-                                            : Text(''),
+                                            : const Text(''),
                                       ],
                                     ),
                                   )
@@ -1003,22 +1086,25 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                         ListView.builder(
                                             padding: EdgeInsets.zero,
                                             shrinkWrap: true,
+                                            physics: const NeverScrollableScrollPhysics(),
                                             itemCount:
                                                 financialProjectionController
                                                     .variableCostItems.length,
                                             itemBuilder: (context, index) {
-                                              String itemName =
-                                                  financialProjectionController
-                                                      .variableCostItems.keys
-                                                      .elementAt(index);
-                                              String itemPrice =
-                                                  financialProjectionController
-                                                          .variableCostItems[
-                                                      itemName]!;
+                                              // String itemName =
+                                              //     financialProjectionController
+                                              //         .variableCostItems.keys
+                                              //         .elementAt(index);
+                                              // String itemPrice =
+                                              //     financialProjectionController
+                                              //             .variableCostItems[
+                                              //         itemName]!;
+                                              String itemName = financialProjectionController.variableCostItems.keys.elementAt(index);
+                                              String itemPrice = financialProjectionController.variableCostItems[itemName] ?? 'N/A';
                                               return Container(
                                                 padding: EdgeInsets.zero,
                                                 margin:
-                                                    EdgeInsets.only(top: 10),
+                                                    const EdgeInsets.only(top: 10),
                                                 child: Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
@@ -1075,7 +1161,7 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                                                 .deletevariableCostItems(
                                                                     itemName);
                                                           },
-                                                          child: Icon(
+                                                          child: const Icon(
                                                             Icons.delete,
                                                             size: 25,
                                                             color: Colors.red,
@@ -1089,10 +1175,10 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                             }),
                                         financialProjectionController
                                                 .variableCostItems.isEmpty
-                                            ? SizedBox(
+                                            ? const SizedBox(
                                                 height: 5,
                                               )
-                                            : SizedBox(
+                                            : const SizedBox(
                                                 height: 0,
                                               ),
                                         financialProjectionController
@@ -1135,13 +1221,13 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                                   ),
                                                 ],
                                               )
-                                            : Text(''),
+                                            : const Text(''),
                                         financialProjectionController
                                                 .variableCostItems.isEmpty
-                                            ? SizedBox(
+                                            ? const SizedBox(
                                                 height: 5,
                                               )
-                                            : SizedBox(
+                                            : const SizedBox(
                                                 height: 0,
                                               ),
                                         financialProjectionController
@@ -1184,13 +1270,13 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                                   ),
                                                 ],
                                               )
-                                            : Text(''),
+                                            : const Text(''),
                                         financialProjectionController
                                                 .variableCostItems.isEmpty
-                                            ? SizedBox(
+                                            ? const SizedBox(
                                                 height: 10,
                                               )
-                                            : SizedBox(
+                                            : const SizedBox(
                                                 height: 0,
                                               ),
                                         InkWell(
@@ -1256,7 +1342,8 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                                                   .text,
                                                               value);
 
-                                                      financialProjectionController.VariableCostApi();
+                                                      financialProjectionController
+                                                          .VariableCostApi();
 
                                                       financialProjectionController
                                                           .variableCostNameController
@@ -1285,38 +1372,48 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                                   ),
                                                 ],
                                               )
-                                            : Text(''),
+                                            : const Text(''),
                                       ],
                                     ),
                                   ),
                         const SizedBox(
                           height: 20,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            CommonButton(
-                              color: const Color(0xffd9d9d9),
-                              ontap: () {
-                                Get.back();
-                              },
-                              height: 45,
-                              width: 150,
-                              textcolor: AppColor.whiteColor,
-                              text: 'Back',
-                            ),
-                            CommonButton(
-                              color: AppColor.primaryColor,
-                              ontap: () {
-                                financialProjectionController.checkCondition();
-                              },
-                              height: 45,
-                              width: 150,
-                              textcolor: AppColor.whiteColor,
-                              text: 'Next',
-                            ),
-                          ],
-                        )
+                        CommonButton(
+                          color: AppColor.primaryColor,
+                          ontap: () {
+                            financialProjectionController.checkCondition();
+                          },
+                          height: 45,
+                          width: 150,
+                          textcolor: AppColor.whiteColor,
+                          text: 'Next',
+                        ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //   children: [
+                        //     CommonButton(
+                        //       color: const Color(0xffd9d9d9),
+                        //       ontap: () {
+                        //         Get.back();
+                        //       },
+                        //       height: 45,
+                        //       width: 150,
+                        //       textcolor: AppColor.whiteColor,
+                        //       text: 'Back',
+                        //     ),
+                        //     CommonButton(
+                        //       color: AppColor.primaryColor,
+                        //       ontap: () {
+                        //         financialProjectionController.checkCondition();
+                        //       },
+                        //       height: 45,
+                        //       width: 150,
+                        //       textcolor: AppColor.whiteColor,
+                        //       text: 'Next',
+                        //     ),
+                        //   ],
+                        // )
                       ],
                     ),
                   )
@@ -1403,7 +1500,7 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                               lableText: '',
                               controllers:
                                   financialProjectionController.discountRate,
-                              keyboardTypes: TextInputType.name,
+                              keyboardTypes: TextInputType.number,
                               prefixIcon: ProjectImages.mail,
                             ),
                           ],
@@ -1450,7 +1547,7 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                               lableText: '',
                               controllers:
                                   financialProjectionController.growthRate,
-                              keyboardTypes: TextInputType.name,
+                              keyboardTypes: TextInputType.number,
                               prefixIcon: ProjectImages.mail,
                             ),
                           ],
@@ -1622,7 +1719,20 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                               color: AppColor.primaryColor,
                               ontap: () {
                                 // Get.offNamed(Routes.FINACIAL_PROJECTION_SUMMARY);
-                                financialProjectionController.DiscountingFactorApi();
+
+                                if (financialProjectionController
+                                            .growthRate.text ==
+                                        '' ||
+                                    financialProjectionController
+                                            .discountRate.text ==
+                                        '') {
+                                  ToastMessage.showToast(
+                                      'please enter Discounting Rates & Growth Rate');
+                                } else {
+                                  print('api calling');
+                                }
+
+                                // financialProjectionController.DiscountingFactorApi();
                               },
                               height: 45,
                               width: 150,
@@ -1664,18 +1774,29 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
   void _showEditDialog(String oldName, String whichCost) {
     print('whichCost ${whichCost}');
     print('oldName ${oldName}');
-    print('oldName ${financialProjectionController.itemNameController.text}');
-    print('oldName ${financialProjectionController.itemPriceController.text}');
-    whichCost == 'Fixed'
-        ? financialProjectionController.itemNameController.text
-        : financialProjectionController.variableCostNameController.text =
-            oldName;
-    whichCost == 'Fixed'
-        ? financialProjectionController.itemPriceController.text
-        : financialProjectionController.variableCostmPriceController.text =
-            whichCost == 'Fixed'
-                ? financialProjectionController.items[oldName]!
-                : financialProjectionController.variableCostItems[oldName]!;
+
+    if(whichCost=='Variable'){
+      print('Variable');
+      financialProjectionController.variableCostNameController.text = oldName;
+      financialProjectionController.variableCostmPriceController.text =
+      financialProjectionController.variableCostItems[oldName]!;
+    }else{
+      print('Fixed');
+      financialProjectionController.itemNameController.text = oldName;
+      financialProjectionController.itemPriceController.text=
+      financialProjectionController.items[oldName]!;
+    }
+
+    // whichCost == 'Variable'
+    //     ? financialProjectionController.variableCostNameController.text
+    //     : financialProjectionController.itemNameController.text =
+    //         oldName;
+    // whichCost == 'Variable'
+    //     ? financialProjectionController.variableCostmPriceController.text :
+    //     financialProjectionController.itemPriceController.text=
+    //         whichCost == 'Variable'
+    //             ? financialProjectionController.variableCostItems[oldName]!
+    //             : financialProjectionController.items[oldName]!;
 
     Get.defaultDialog(
       barrierDismissible: false,
@@ -1698,24 +1819,24 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
             prefixIcon: ProjectImages.mail,
           ),
           CommonTextField(
-            onFieldSubmit: (value) {
-              whichCost == 'Fixed'
-                  ? financialProjectionController.addItemAmount(
-                      financialProjectionController.itemNameController.text,
-                      value)
-                  : financialProjectionController.addvariableCostItems(
-                      financialProjectionController.itemNameController.text,
-                      value);
-
-              whichCost == 'Fixed'
-                  ? financialProjectionController.itemNameController.clear()
-                  : financialProjectionController.variableCostNameController
-                      .clear();
-              whichCost == 'Fixed'
-                  ? financialProjectionController.itemPriceController.clear()
-                  : financialProjectionController.variableCostmPriceController
-                      .clear();
-            },
+            // onFieldSubmit: (value) {
+            //   whichCost == 'Fixed'
+            //       ? financialProjectionController.addItemAmount(
+            //           financialProjectionController.itemNameController.text,
+            //           value)
+            //       : financialProjectionController.addvariableCostItems(
+            //           financialProjectionController.itemNameController.text,
+            //           value);
+            //
+            //   whichCost == 'Fixed'
+            //       ? financialProjectionController.itemNameController.clear()
+            //       : financialProjectionController.variableCostNameController
+            //           .clear();
+            //   whichCost == 'Fixed'
+            //       ? financialProjectionController.itemPriceController.clear()
+            //       : financialProjectionController.variableCostmPriceController
+            //           .clear();
+            // },
             ontap: () {},
             preShow: 'Not',
             lableText: 'Amount',
@@ -1805,9 +1926,11 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
   void _showEditDialogFixedAsset(String oldName) {
     final asset = financialProjectionController.fixedassetSchedule[oldName];
     financialProjectionController.assetsNameController.text = oldName;
-    financialProjectionController.assetDateController.text = asset?['P.Date'] ?? '';
-    financialProjectionController.assetsCostController.text = asset?['Cost'] ?? '';
-    financialProjectionController.assetsdrController.text = asset?['DR'] ?? '';
+    financialProjectionController.assetDateController.text =
+        asset?['purchase_date'] ?? '';
+    financialProjectionController.assetsCostController.text =
+        asset?['cost'] ?? '';
+    financialProjectionController.assetsdrController.text = asset?['d_r'] ?? '';
 
     Get.defaultDialog(
       barrierDismissible: false,
@@ -1829,9 +1952,7 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
           ),
           CommonTextField(
             ontap: () {
-              financialProjectionController
-                  .FixedAssestcalendarOpen(
-                  context);
+              financialProjectionController.FixedAssestcalendarOpen(context);
             },
             preShow: 'Not',
             lableText: 'Select Date',
@@ -1901,6 +2022,8 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
       ],
     );
   }
+
+
 }
 
 // class Indicator extends StatelessWidget {

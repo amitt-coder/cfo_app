@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class CashflowController extends GetxController {
 
@@ -20,6 +21,31 @@ class CashflowController extends GetxController {
   // Define default and selected colors
   final Color defaultColor = AppColor.whiteColor;
   final Color selectedColor = AppColor.primaryColor;
+
+
+  RxString showday = 'Last week'.obs;
+  RxList<String> dayList =
+      ['Last week','Last month', 'Last quarter',].obs;
+  TextEditingController daysController = TextEditingController();
+  TextEditingController numberofdaysReceiptController = TextEditingController();
+  TextEditingController numberofdaysPaymentController = TextEditingController();
+
+  var selectedValue = 'AR'.obs;
+  List Debitors$credtors = [
+    "Aadtiya Kolasani",
+    "Aarika Singh    ",
+    "Abel Binnis George",
+    "Abrar Hussain     "
+  ];
+  List DebitorscredtorsAmount = [
+    "+36000",
+    "-30000",
+    "-50000",
+    "+80000",
+  ];
+  void selectValue(String value) {
+    selectedValue.value = value;
+  }
 
   @override
   void onInit() {
@@ -61,6 +87,27 @@ class CashflowController extends GetxController {
         dividerPosition.value = 10; // Reset to initial position
       }
     });
+  }
+  TextEditingController dateController = TextEditingController();
+  final selectedDate = DateTime.now().obs;
+  Future<void> calendarOpen(BuildContext context,) async {
+    print('Calendar Open');
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate.value,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2050),
+    );
+    if (picked != null) {
+      selectedDate.value  = picked;
+      String formattedDate = DateFormat('dd-MM-yyyy').format(selectedDate.value);
+
+      print('formattedDate $formattedDate');
+
+      dateController.text= formattedDate;
+      print('selectedDate.value ${dateController.text}');
+
+    }
   }
 
   Future<dynamic> cashFlowApi() async {

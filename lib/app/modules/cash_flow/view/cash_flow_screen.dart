@@ -5,7 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../components/chart.dart';
 import '../../../../components/common_app_bar.dart';
+import '../../../../components/common_textformfield.dart';
+import '../../../../components/dropdown_field.dart';
 import '../../../../utils/style.dart';
+import '../../../routes/app_pages.dart';
+import '../../dashBoard/controllers/dash_board_controller.dart';
 import '../controllers/cash_flow_controller.dart';
 
 class CashFlowScreen extends StatefulWidget {
@@ -16,8 +20,9 @@ class CashFlowScreen extends StatefulWidget {
 }
 
 class _CashFlowScreenState extends State<CashFlowScreen> {
-
   final CashflowController cashflowController = Get.put(CashflowController());
+  DashBoardController dashBoardController = DashBoardController();
+
 
   Widget _buildBottomTitle(double value, TitleMeta meta) {
     const style = TextStyle(
@@ -127,8 +132,8 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                           ),
                         ),
                         child: Text(
-                            'Last Month',
-                            style: TextStyle(
+                          'Last Month',
+                          style: TextStyle(
                             fontSize: 14,
                             fontFamily: 'Urbanist',
                             fontWeight: FontWeight.w500,
@@ -138,43 +143,142 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                           ),
                         ),
                       ),
-                      MaterialButton(
-                        onPressed: () {
-                          cashflowController.toggleColor(3);
-                        },
-                        color: cashflowController.buttonColor3.value,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                          side: BorderSide(
-                            width: 1,
-                            color: AppColor.txtSecondaryColor,
+                      Container(
+                        height: 37,
+                        width: MediaQuery.of(context).size.width * 0.30,
+                        child: TextFormField(
+                          // onFieldSubmitted: onFieldSubmit,
+                          // validator: validator,
+                          // maxLines: linesShow,
+                          onTap: () {
+                            cashflowController.toggleColor(3);
+                            cashflowController.calendarOpen(
+                              context,
+                            );
+                          },
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'Urbanist',
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xFF191A26),
+                          ),
+                          textInputAction: TextInputAction.done,
+                          controller: cashflowController.dateController,
+                          keyboardType: TextInputType.number,
+                          cursorColor: const Color(0xFF242B42),
+                          cursorWidth: 1.5,
+                          decoration: InputDecoration(
+                            hintText: 'Custom',
+                            floatingLabelStyle: const TextStyle(
+                              fontSize: 15,
+                              fontFamily: 'Urbanist',
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xFF7E8CA0),
+                            ),
+                            hintStyle: const TextStyle(
+                              fontSize: 14,
+                              fontFamily: 'Urbanist',
+                              fontWeight: FontWeight.w400,
+                              color: Color(0xFF7E8CA0),
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 15),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: BorderSide(
+                                  color:
+                                      cashflowController.buttonSelect.value == 3
+                                          ? AppColor.primaryColor
+                                          : AppColor.txtSecondaryColor,
+                                  width: 1),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: BorderSide(
+                                  color:
+                                      cashflowController.buttonSelect.value == 3
+                                          ? AppColor.primaryColor
+                                          : AppColor.txtSecondaryColor,
+                                  width: 1),
+                            ),
+                            disabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: BorderSide(
+                                  color:
+                                      cashflowController.buttonSelect.value == 3
+                                          ? AppColor.primaryColor
+                                          : AppColor.txtSecondaryColor,
+                                  width: 1),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: BorderSide(
+                                  color:
+                                      cashflowController.buttonSelect.value == 3
+                                          ? AppColor.primaryColor
+                                          : AppColor.txtSecondaryColor,
+                                  width: 1),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: BorderSide(
+                                  color:
+                                      cashflowController.buttonSelect.value == 3
+                                          ? AppColor.primaryColor
+                                          : AppColor.txtSecondaryColor,
+                                  width: 1),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: BorderSide(
+                                  color:
+                                      cashflowController.buttonSelect.value == 3
+                                          ? AppColor.primaryColor
+                                          : AppColor.txtSecondaryColor,
+                                  width: 1),
+                            ),
                           ),
                         ),
-                        child: Row(
-                          children: [
-                            Text(
-                              'Custom',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontFamily: 'Urbanist',
-                                fontWeight: FontWeight.w500,
-                                color:
-                                    cashflowController.buttonSelect.value == 3
-                                        ? AppColor.whiteColor
-                                        : AppColor.txtSecondaryColor,
-                              ),
-                            ),
-                            Icon(
-                              Icons.arrow_drop_down_sharp,
-                              color: cashflowController.buttonSelect.value == 3
-                                  ? AppColor.whiteColor
-                                  : AppColor.txtSecondaryColor,
-                              size: 30,
-                            ),
-                          ],
-                        ),
                       ),
+
+                      ///
+                      // MaterialButton(
+                      //   onPressed: () {
+                      //     cashflowController.toggleColor(3);
+                      //   },
+                      //   color: cashflowController.buttonColor3.value,
+                      //   elevation: 0,
+                      //   shape: RoundedRectangleBorder(
+                      //     borderRadius: BorderRadius.circular(5),
+                      //     side: BorderSide(
+                      //       width: 1,
+                      //       color: AppColor.txtSecondaryColor,
+                      //     ),
+                      //   ),
+                      //   child: Row(
+                      //     children: [
+                      //       Text(
+                      //         'Custom',
+                      //         style: TextStyle(
+                      //           fontSize: 14,
+                      //           fontFamily: 'Urbanist',
+                      //           fontWeight: FontWeight.w500,
+                      //           color:
+                      //               cashflowController.buttonSelect.value == 3
+                      //                   ? AppColor.whiteColor
+                      //                   : AppColor.txtSecondaryColor,
+                      //         ),
+                      //       ),
+                      //       Icon(
+                      //         Icons.arrow_drop_down_sharp,
+                      //         color: cashflowController.buttonSelect.value == 3
+                      //             ? AppColor.whiteColor
+                      //             : AppColor.txtSecondaryColor,
+                      //         size: 30,
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                     ],
                   ),
                   const SizedBox(
@@ -339,33 +443,60 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                         "Past Trend Analysis",
                         style: TextHeader,
                       ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 5, vertical: 1),
-                        decoration: BoxDecoration(
-                            // color: Color(0xFFEEEEEE),
-                            color: AppColor.boxblueColor,
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Last week",
-                              style: TextStyle(
-                                color: AppColor.blackColor,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 14,
-                                fontFamily: 'Urbanist',
-                              ),
-                            ),
-                            Icon(
-                              Icons.arrow_drop_down_sharp,
-                              size: 30,
-                              color: AppColor.blackColor,
-                            )
-                          ],
-                        ),
-                      )
+                      DropDownField(
+                        onChanged: (String? newValue) {
+                          cashflowController.showday.value = newValue!;
+                        },
+                        selectValue: cashflowController.showday.value,
+                        hintName: 'show',
+                        width: MediaQuery.of(context).size.width * 0.34,
+                        height: 40,
+                        selectPriceInstallment: cashflowController.dayList,
+                        controller: cashflowController.daysController,
+                        showBorder: '0',
+                      ),
+                      // Container(
+                      //   padding: const EdgeInsets.symmetric(
+                      //       horizontal: 5, vertical: 1),
+                      //   decoration: BoxDecoration(
+                      //       // color: Color(0xFFEEEEEE),
+                      //       color: AppColor.boxblueColor,
+                      //       borderRadius: BorderRadius.circular(5)),
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //     children: [
+                      //       Text(
+                      //         "Last week",
+                      //         style: TextStyle(
+                      //           color: AppColor.blackColor,
+                      //           fontWeight: FontWeight.w400,
+                      //           fontSize: 14,
+                      //           fontFamily: 'Urbanist',
+                      //         ),
+                      //       ),
+                      //       Icon(
+                      //         Icons.arrow_drop_down_sharp,
+                      //         size: 30,
+                      //         color: AppColor.blackColor,
+                      //       )
+                      //     ],
+                      //   ),
+                      // )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "Current Cashflow - ",
+                        style: TextHeader,
+                      ),
+                      Text(
+                        "₹15,000",
+                        style: TextHeader,
+                      ),
                     ],
                   ),
                   const SizedBox(
@@ -466,6 +597,199 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                   const SizedBox(
                     height: 20,
                   ),
+                  Container(
+                    width:MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            InkWell(
+                              onTap: () => cashflowController.selectValue("AR"),
+                              child: Container(
+                                width: 160,
+                                height: 50,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 12),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: cashflowController
+                                                .selectedValue.value ==
+                                            "AR"
+                                        ? AppColor.primaryColor
+                                        : AppColor.whiteColor),
+                                child: Center(
+                                  child: Text(
+                                    "AR",
+                                    style: TextStyle(
+                                        color: cashflowController
+                                                    .selectedValue.value ==
+                                                "AR"
+                                            ? AppColor.whiteColor
+                                            : AppColor.fontColor,
+                                        fontSize: 16,
+                                        fontWeight: cashflowController
+                                                    .selectedValue.value ==
+                                                "AR"
+                                            ? FontWeight.w600
+                                            : FontWeight.w500,
+                                        fontFamily: 'Urbanist'),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () => cashflowController.selectValue("AP"),
+                              child: Container(
+                                width: 160,
+                                height: 50,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 12),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: cashflowController
+                                                .selectedValue.value ==
+                                            "AP"
+                                        ? AppColor.primaryColor
+                                        : AppColor.whiteColor),
+                                child: Center(
+                                  child: Text(
+                                    "AP",
+                                    style: TextStyle(
+                                        color: cashflowController
+                                                    .selectedValue.value ==
+                                                "AP"
+                                            ? AppColor.whiteColor
+                                            : AppColor.fontColor,
+                                        fontSize: 16,
+                                        fontWeight: cashflowController
+                                                    .selectedValue.value ==
+                                                "AP"
+                                            ? FontWeight.w600
+                                            : FontWeight.w500,
+                                        fontFamily: 'Urbanist'),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        ListView.builder(
+                          itemCount: cashflowController.Debitors$credtors.length,
+                          shrinkWrap: true,
+                          padding: EdgeInsets.zero,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 18.0, vertical: 16),
+                              child: InkWell(
+                                onTap: () {
+                                  Get.toNamed(Routes.INVOICE_DETAILS,
+                                      arguments: {
+                                        'userName': cashflowController
+                                            .Debitors$credtors[index],
+                                        'crBalance': cashflowController
+                                            .DebitorscredtorsAmount[index],
+                                        'paymentDate': '01-06-2024',
+                                        'whichDetail': cashflowController
+                                                    .selectedValue.value ==
+                                                'AR'
+                                            ? 'Debtor Details'
+                                            : 'Creditor Details',
+                                      });
+                                },
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    if (index == 0)
+                                      Image.asset(
+                                        ProjectImages.a_category,
+                                        height: 25,
+                                        width: 25,
+                                      ),
+                                    if (index == 1)
+                                      Image.asset(
+                                        ProjectImages.b_category,
+                                        height: 25,
+                                        width: 25,
+                                      ),
+                                    if (index == 2)
+                                      Image.asset(
+                                        ProjectImages.c_category,
+                                        height: 25,
+                                        width: 25,
+                                      ),
+                                    if (index == 3)
+                                      Image.asset(
+                                        ProjectImages.a_category,
+                                        height: 25,
+                                        width: 25,
+                                      ),
+                                    Text(
+                                      "${cashflowController.Debitors$credtors[index]}",
+                                      style: TextStyle(
+                                          color: AppColor.fontColor,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: 'Urbanist'),
+                                    ),
+                                    Text(
+                                      "${cashflowController.DebitorscredtorsAmount[index]}",
+                                      style: TextStyle(
+                                          color: AppColor.blackColor,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: 'Urbanist'),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+
+                        const SizedBox(
+                          height: 12,
+                        ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: InkWell(
+                            onTap: () {
+                              cashflowController.selectedValue.value == 'AP'
+                                  ? Get.toNamed(Routes.ALL_CREDITOR,
+                                      arguments: {'whichUser': 'All Creditors'})
+                                  : Get.toNamed(Routes.ALL_CREDITOR,
+                                      arguments: {'whichUser': 'All Debitors'});
+                              // Get.toNamed(Routes.TOP_DEBTORS_CREDITORS);
+                            },
+                            child: const Text(
+                              "View All",
+                              style: TextStyle(
+                                  color: Color(0xFF7E8CA0),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: 'Urbanist'),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        )
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(
+                    height: 20,
+                  ),
                   Text(
                     "Anticipated Fund Flow",
                     style: TextStyle(
@@ -559,26 +883,46 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    "No of Days Receipt",
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'Urbanist',
-                        color: Colors.grey),
+                  CommonTextField(
+                    ontap: () {},
+                    preShow: 'Not',
+                    width: MediaQuery.of(context).size.width,
+                    lableText: 'No of Days Receipt',
+                    controllers:
+                        cashflowController.numberofdaysReceiptController,
+                    keyboardTypes: TextInputType.number,
+                    prefixIcon: ProjectImages.mail,
                   ),
-                  const Divider(
-                    color: Color(0xffd1d1d1),
-                    thickness: 1,
+                  // const Text(
+                  //   "No of Days Receipt",
+                  //   style: TextStyle(
+                  //       fontSize: 16,
+                  //       fontWeight: FontWeight.w400,
+                  //       fontFamily: 'Urbanist',
+                  //       color: Colors.grey),
+                  // ),
+                  // const Divider(
+                  //   color: Color(0xffd1d1d1),
+                  //   thickness: 1,
+                  // ),
+                  CommonTextField(
+                    ontap: () {},
+                    preShow: 'Not',
+                    width: MediaQuery.of(context).size.width,
+                    lableText: 'No of Days Payment',
+                    controllers:
+                        cashflowController.numberofdaysPaymentController,
+                    keyboardTypes: TextInputType.number,
+                    prefixIcon: ProjectImages.mail,
                   ),
-                  const Text(
-                    "No of Days Payment",
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'Urbanist',
-                        color: Colors.grey),
-                  ),
+                  // const Text(
+                  //   "No of Days Payment",
+                  //   style: TextStyle(
+                  //       fontSize: 16,
+                  //       fontWeight: FontWeight.w400,
+                  //       fontFamily: 'Urbanist',
+                  //       color: Colors.grey),
+                  // ),
                   const SizedBox(
                     height: 20,
                   ),
