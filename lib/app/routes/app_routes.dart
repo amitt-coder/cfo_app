@@ -28,6 +28,7 @@ abstract class Routes {
   static const TDS_CHECK = _Paths.TDS_CHECK;
   static const INVOICE_DETAILS = _Paths.INVOICE_DETAILS;
   static const EXCEPTION_REPORT = _Paths.EXCEPTION_REPORT;
+
 }
 
 abstract class _Paths {

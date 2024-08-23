@@ -216,8 +216,9 @@ class _ProfileViewState extends State<ProfileView> {
                   child: CommonButton(
                     color: AppColor.primaryColor,
                     ontap: () {
-                      Get.offAllNamed(Routes.DASH_BOARD);
-                      // profileController.editProfile(profileController.selectedImagePath.value);
+                      // Get.offAllNamed(Routes.DASH_BOARD);
+                      // profileController.editProfileApi(profileController.selectedImagePath.value);
+                      profileController.editProfileApi();
                     },
                     height: 45,
                     width: MediaQuery.of(context).size.width,

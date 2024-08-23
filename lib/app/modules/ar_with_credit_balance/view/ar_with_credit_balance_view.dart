@@ -179,7 +179,7 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Debtors List as Offer',
+                    'Debtors List as Off',
                     style: TextStyle(
                       color: AppColor.blackColor,
                       fontWeight: FontWeight.w500,

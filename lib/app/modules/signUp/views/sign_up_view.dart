@@ -12,6 +12,7 @@ import '../controllers/sign_up_controller.dart';
 class SignUpView extends GetView<SignUpController> {
   SignUpView({Key? key}) : super(key: key);
   SignUpController signUpController = SignUpController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -436,4 +437,7 @@ class SignUpView extends GetView<SignUpController> {
       ),
     );
   }
+
+
+
 }

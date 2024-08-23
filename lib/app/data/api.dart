@@ -11,6 +11,11 @@ class Api{
         static const String VariableCost = '$BASE_URL/VariableCost/';
         static const String FixedAssetSchedule = '$BASE_URL/FixedAssetSchedule/';
         static const String DiscountingFactor = '$BASE_URL/DiscountingFactor/';
+        static const String TallyConnector = '$BASE_URL/TallyConnector/';
+        static const String last_week = '$BASE_URL$api/last_week/';
+        static const String last_month = '$BASE_URL$api/last_month/';
+        static const String filter_creditors = '$BASE_URL$api/filter_creditors/';
+        static const String filter_debtor = '$BASE_URL$api/filter_debtor/';
 
 
 

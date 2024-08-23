@@ -178,7 +178,7 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Creditors List as Offer',
+                    'Creditors List as Off',
                     style: TextStyle(
                       color: AppColor.blackColor,
                       fontWeight: FontWeight.w500,

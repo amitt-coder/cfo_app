@@ -1,8 +1,18 @@
+import 'dart:convert';
+
 import 'package:cfo_app/app/data/api.dart';
 import 'package:cfo_app/app/data/api_helper.dart';
 import 'package:cfo_app/app/routes/app_pages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart' as http;
+
+import '../../../../components/common_button.dart';
+import '../../../../components/common_textformfield.dart';
+import '../../../../utils/colors.dart';
+import '../../../../utils/images.dart';
+
 
 class SignUpController extends GetxController {
 
@@ -14,10 +24,13 @@ class SignUpController extends GetxController {
   final countryController = TextEditingController();
   final cityController = TextEditingController();
 
+
+
   RxBool isCheck = true.obs;
   RxBool isAgreed = false.obs;
   final count = 0.obs;
 
+  final storage = GetStorage();
   Map<String, dynamic> body = {};
 
 
@@ -47,6 +60,8 @@ class SignUpController extends GetxController {
   void increment() => count.value++;
 
 
+
+
   void signUpApi(){
 
 
@@ -69,12 +84,13 @@ class SignUpController extends GetxController {
         url:Api.register,
         body: body,
         onSuccess:(){
+          // _addTallyConnector();
         Get.offAllNamed(Routes.ACCOUNT_VERFIY);
     });
 
-
-
   }
+
+
 
 
 }

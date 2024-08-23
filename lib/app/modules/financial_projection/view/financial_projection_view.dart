@@ -1379,41 +1379,47 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                         const SizedBox(
                           height: 20,
                         ),
-                        CommonButton(
-                          color: AppColor.primaryColor,
-                          ontap: () {
-                            financialProjectionController.checkCondition();
-                          },
-                          height: 45,
-                          width: 150,
-                          textcolor: AppColor.whiteColor,
-                          text: 'Next',
-                        ),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //   children: [
-                        //     CommonButton(
-                        //       color: const Color(0xffd9d9d9),
-                        //       ontap: () {
-                        //         Get.back();
-                        //       },
-                        //       height: 45,
-                        //       width: 150,
-                        //       textcolor: AppColor.whiteColor,
-                        //       text: 'Back',
-                        //     ),
-                        //     CommonButton(
-                        //       color: AppColor.primaryColor,
-                        //       ontap: () {
-                        //         financialProjectionController.checkCondition();
-                        //       },
-                        //       height: 45,
-                        //       width: 150,
-                        //       textcolor: AppColor.whiteColor,
-                        //       text: 'Next',
-                        //     ),
-                        //   ],
-                        // )
+                        // CommonButton(
+                        //   color: AppColor.primaryColor,
+                        //   ontap: () {
+                        //     financialProjectionController.checkCondition();
+                        //   },
+                        //   height: 45,
+                        //   width: 150,
+                        //   textcolor: AppColor.whiteColor,
+                        //   text: 'Next',
+                        // ),
+
+                        Row(
+                          mainAxisAlignment:
+                          financialProjectionController.firstCheck == true?
+                          MainAxisAlignment.spaceBetween:
+                              MainAxisAlignment.center,
+                          children: [
+                            financialProjectionController.firstCheck == true?
+                            CommonButton(
+                              color: const Color(0xffd9d9d9),
+                              ontap: () {
+                                financialProjectionController.hideCondition();
+                              },
+                              height: 45,
+                              width: 150,
+                              textcolor: AppColor.whiteColor,
+                              text: 'Back',
+                            )
+                                :Text(''),
+                            CommonButton(
+                              color: AppColor.primaryColor,
+                              ontap: () {
+                                financialProjectionController.checkCondition();
+                              },
+                              height: 45,
+                              width: 150,
+                              textcolor: AppColor.whiteColor,
+                              text: 'Next',
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   )
@@ -1708,7 +1714,8 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                             CommonButton(
                               color: const Color(0xffd9d9d9),
                               ontap: () {
-                                Get.back();
+                                // Get.back();
+                                financialProjectionController.hideCondition();
                               },
                               height: 45,
                               width: 150,

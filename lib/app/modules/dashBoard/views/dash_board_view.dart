@@ -66,6 +66,7 @@ class DashBoardView extends GetView<DashBoardController> {
                   GestureDetector(
                     onTap: () {
                       Get.toNamed(Routes.NOTIFICATION);
+                      // Get.toNamed(Routes.TallyConnector);
                     },
                     child: SvgPicture.asset(
                       ProjectImages.notification,
