@@ -65,16 +65,15 @@ class CashflowController extends GetxController with SingleGetTickerProviderMixi
     selectedValue.value = value;
   }
 
-  void startMovingDivider() {
-    Timer.periodic(Duration(seconds: 1), (timer) {
-      dividerPosition.value += 1;
-      if (dividerPosition.value > 30) {
-        dividerPosition.value = 10; // Reset to initial position
-      }
-    });
-  }
-   AnimationController? _animationController;
-   Animation<double>? _animation;
+  // void startMovingDivider() {
+  //   Timer.periodic(Duration(seconds: 1), (timer) {
+  //     dividerPosition.value += 1;
+  //     if (dividerPosition.value > 30) {
+  //       dividerPosition.value = 10; // Reset to initial position
+  //     }
+  //   });
+  // }
+
 
 
 
@@ -86,394 +85,21 @@ class CashflowController extends GetxController with SingleGetTickerProviderMixi
 
   var creditorDueDates = <String>[].obs;
   var debtorDueDates = <String>[].obs;
+  var dueDates = <String>[].obs;
 
-  // @override
-  // void onInit() {
-  //   // TODO: implement onInit
-  //   _startMovingDivider();
-  //   lastWeekApi();
-  //   super.onInit();
-  // }
-  ///imp
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  //
-  //   String jsonString = '''
-  //   {
-  //     "creditor": [
-  //       {
-  //         "id": 3,
-  //         "name": "Ashok",
-  //         "contact_no": "8969686800",
-  //         "email": "mailto:ashok@gmail.com",
-  //         "total_balance": "100000",
-  //         "last_payment_date": "2024-05-11",
-  //         "due_date": "2024-05-08",
-  //         "outstanding_invoices": [
-  //           {
-  //             "Invoice": 12360,
-  //             "Due": "2024-08-15"
-  //           }
-  //         ],
-  //         "created_at": "2024-08-22T13:12:25.898552Z",
-  //         "created_from": 1
-  //       },
-  //       {
-  //         "id": 3,
-  //         "name": "Amit",
-  //         "contact_no": "8969686800",
-  //         "email": "mailto:ashok@gmail.com",
-  //         "total_balance": "80000",
-  //         "last_payment_date": "2024-05-11",
-  //         "due_date": "2024-05-08",
-  //         "outstanding_invoices": [
-  //           {
-  //             "Invoice": 12360,
-  //             "Due": "2024-08-15"
-  //           }
-  //         ],
-  //         "created_at": "2024-08-22T13:12:25.898552Z",
-  //         "created_from": 1
-  //       },
-  //        {
-  //         "id": 3,
-  //         "name": "Amit",
-  //         "contact_no": "8969686800",
-  //         "email": "mailto:ashok@gmail.com",
-  //         "total_balance": "40000",
-  //         "last_payment_date": "2024-05-11",
-  //         "due_date": "2024-05-08",
-  //         "outstanding_invoices": [
-  //           {
-  //             "Invoice": 12360,
-  //             "Due": "2024-08-15"
-  //           }
-  //         ],
-  //         "created_at": "2024-08-22T13:12:25.898552Z",
-  //         "created_from": 1
-  //       },
-  //       {
-  //         "id": 3,
-  //         "name": "Amit",
-  //         "contact_no": "8969686800",
-  //         "email": "mailto:ashok@gmail.com",
-  //         "total_balance": "50000",
-  //         "last_payment_date": "2024-05-11",
-  //         "due_date": "2024-05-08",
-  //         "outstanding_invoices": [
-  //           {
-  //             "Invoice": 12360,
-  //             "Due": "2024-08-15"
-  //           }
-  //         ],
-  //         "created_at": "2024-08-22T13:12:25.898552Z",
-  //         "created_from": 1
-  //       },
-  //       {
-  //         "id": 4,
-  //         "name": "Aman",
-  //         "contact_no": "9988447387",
-  //         "email": "mailto:aman@gmail.com",
-  //         "total_balance": "60000",
-  //         "last_payment_date": "2024-08-15",
-  //         "due_date": "2024-08-20",
-  //         "outstanding_invoices": [
-  //           {
-  //             "Invoice": 12362,
-  //             "Due": "2024-08-22"
-  //           }
-  //         ],
-  //         "created_at": "2024-08-22T13:13:29.224684Z",
-  //         "created_from": 1
-  //       }
-  //     ],
-  //     "debtor": [
-  //       {
-  //         "id": 3,
-  //         "name": "Divy",
-  //         "contact_no": "9988447376",
-  //         "email": "mailto:divy@gmail.com",
-  //         "total_balance": "40000",
-  //         "last_payment_date": "2024-08-01",
-  //         "due_date": "2024-07-28",
-  //         "outstanding_invoices": [
-  //           {
-  //             "Invoice": 12241,
-  //             "Due": "2024-08-21"
-  //           },
-  //           {
-  //             "Invoice": 12243,
-  //             "Due": "2024-08-04"
-  //           },
-  //           {
-  //             "Invoice": 12244,
-  //             "Due": "2024-08-12"
-  //           },
-  //           {
-  //             "Invoice": 12245,
-  //             "Due": "2024-08-10"
-  //           }
-  //         ],
-  //         "created_at": "2024-08-22T13:20:21.790467Z",
-  //         "created_from": 1
-  //       },
-  //       {
-  //         "id": 3,
-  //         "name": "Divy",
-  //         "contact_no": "9988447376",
-  //         "email": "mailto:divy@gmail.com",
-  //         "total_balance": "90000",
-  //         "last_payment_date": "2024-08-01",
-  //         "due_date": "2024-07-28",
-  //         "outstanding_invoices": [
-  //           {
-  //             "Invoice": 12241,
-  //             "Due": "2024-08-21"
-  //           },
-  //           {
-  //             "Invoice": 12243,
-  //             "Due": "2024-08-04"
-  //           },
-  //           {
-  //             "Invoice": 12244,
-  //             "Due": "2024-08-12"
-  //           },
-  //           {
-  //             "Invoice": 12245,
-  //             "Due": "2024-08-10"
-  //           }
-  //         ],
-  //         "created_at": "2024-08-22T13:20:21.790467Z",
-  //         "created_from": 1
-  //       },
-  //       {
-  //         "id": 3,
-  //         "name": "Divy",
-  //         "contact_no": "9988447376",
-  //         "email": "mailto:divy@gmail.com",
-  //         "total_balance": "30000",
-  //         "last_payment_date": "2024-08-01",
-  //         "due_date": "2024-07-28",
-  //         "outstanding_invoices": [
-  //           {
-  //             "Invoice": 12241,
-  //             "Due": "2024-08-21"
-  //           },
-  //           {
-  //             "Invoice": 12243,
-  //             "Due": "2024-08-04"
-  //           },
-  //           {
-  //             "Invoice": 12244,
-  //             "Due": "2024-08-12"
-  //           },
-  //           {
-  //             "Invoice": 12245,
-  //             "Due": "2024-08-10"
-  //           }
-  //         ],
-  //         "created_at": "2024-08-22T13:20:21.790467Z",
-  //         "created_from": 1
-  //       },
-  //       {
-  //         "id": 3,
-  //         "name": "Divy",
-  //         "contact_no": "9988447376",
-  //         "email": "mailto:divy@gmail.com",
-  //         "total_balance": "60000",
-  //         "last_payment_date": "2024-08-01",
-  //         "due_date": "2024-07-28",
-  //         "outstanding_invoices": [
-  //           {
-  //             "Invoice": 12241,
-  //             "Due": "2024-08-21"
-  //           },
-  //           {
-  //             "Invoice": 12243,
-  //             "Due": "2024-08-04"
-  //           },
-  //           {
-  //             "Invoice": 12244,
-  //             "Due": "2024-08-12"
-  //           },
-  //           {
-  //             "Invoice": 12245,
-  //             "Due": "2024-08-10"
-  //           }
-  //         ],
-  //         "created_at": "2024-08-22T13:20:21.790467Z",
-  //         "created_from": 1
-  //       },
-  //       {
-  //         "id": 3,
-  //         "name": "Divy",
-  //         "contact_no": "9988447376",
-  //         "email": "mailto:divy@gmail.com",
-  //         "total_balance": "45000",
-  //         "last_payment_date": "2024-08-01",
-  //         "due_date": "2024-07-28",
-  //         "outstanding_invoices": [
-  //           {
-  //             "Invoice": 12241,
-  //             "Due": "2024-08-21"
-  //           },
-  //           {
-  //             "Invoice": 12243,
-  //             "Due": "2024-08-04"
-  //           },
-  //           {
-  //             "Invoice": 12244,
-  //             "Due": "2024-08-12"
-  //           },
-  //           {
-  //             "Invoice": 12245,
-  //             "Due": "2024-08-10"
-  //           }
-  //         ],
-  //         "created_at": "2024-08-22T13:20:21.790467Z",
-  //         "created_from": 1
-  //       },
-  //       {
-  //         "id": 5,
-  //         "name": "Aman",
-  //         "contact_no": "8969686886",
-  //         "email": "mailto:aman@gmail.com",
-  //         "total_balance": "20000",
-  //         "last_payment_date": "2024-08-15",
-  //         "due_date": "2024-08-22",
-  //         "outstanding_invoices": [
-  //           {
-  //             "Invoice": 12248,
-  //             "Due": "2024-08-15"
-  //           }
-  //         ],
-  //         "created_at": "2024-08-22T13:23:00.929506Z",
-  //         "created_from": 1
-  //       },
-  //       {
-  //         "id": 5,
-  //         "name": "Aman",
-  //         "contact_no": "8969686886",
-  //         "email": "mailto:aman@gmail.com",
-  //         "total_balance": "80000",
-  //         "last_payment_date": "2024-08-15",
-  //         "due_date": "2024-08-22",
-  //         "outstanding_invoices": [
-  //           {
-  //             "Invoice": 12248,
-  //             "Due": "2024-08-15"
-  //           }
-  //         ],
-  //         "created_at": "2024-08-22T13:23:00.929506Z",
-  //         "created_from": 1
-  //       },
-  //       {
-  //         "id": 5,
-  //         "name": "Aman",
-  //         "contact_no": "8969686886",
-  //         "email": "mailto:aman@gmail.com",
-  //         "total_balance": "30000",
-  //         "last_payment_date": "2024-08-15",
-  //         "due_date": "2024-08-22",
-  //         "outstanding_invoices": [
-  //           {
-  //             "Invoice": 12248,
-  //             "Due": "2024-08-15"
-  //           }
-  //         ],
-  //         "created_at": "2024-08-22T13:23:00.929506Z",
-  //         "created_from": 1
-  //       },
-  //       {
-  //         "id": 5,
-  //         "name": "Aman",
-  //         "contact_no": "8969686886",
-  //         "email": "mailto:aman@gmail.com",
-  //         "total_balance": "50000",
-  //         "last_payment_date": "2024-08-15",
-  //         "due_date": "2024-08-22",
-  //         "outstanding_invoices": [
-  //           {
-  //             "Invoice": 12248,
-  //             "Due": "2024-08-15"
-  //           }
-  //         ],
-  //         "created_at": "2024-08-22T13:23:00.929506Z",
-  //         "created_from": 1
-  //       },
-  //        {
-  //         "id": 5,
-  //         "name": "Aman",
-  //         "contact_no": "8969686886",
-  //         "email": "mailto:aman@gmail.com",
-  //         "total_balance": "50000",
-  //         "last_payment_date": "2024-08-15",
-  //         "due_date": "2024-08-22",
-  //         "outstanding_invoices": [
-  //           {
-  //             "Invoice": 12248,
-  //             "Due": "2024-08-15"
-  //           }
-  //         ],
-  //         "created_at": "2024-08-22T13:23:00.929506Z",
-  //         "created_from": 1
-  //       },
-  //        {
-  //         "id": 5,
-  //         "name": "Aman",
-  //         "contact_no": "8969686886",
-  //         "email": "mailto:aman@gmail.com",
-  //         "total_balance": "50000",
-  //         "last_payment_date": "2024-08-15",
-  //         "due_date": "2024-08-22",
-  //         "outstanding_invoices": [
-  //           {
-  //             "Invoice": 12248,
-  //             "Due": "2024-08-15"
-  //           }
-  //         ],
-  //         "created_at": "2024-08-22T13:23:00.929506Z",
-  //         "created_from": 1
-  //       },
-  //        {
-  //         "id": 5,
-  //         "name": "Aman",
-  //         "contact_no": "8969686886",
-  //         "email": "mailto:aman@gmail.com",
-  //         "total_balance": "50000",
-  //         "last_payment_date": "2024-08-15",
-  //         "due_date": "2024-08-22",
-  //         "outstanding_invoices": [
-  //           {
-  //             "Invoice": 12248,
-  //             "Due": "2024-08-15"
-  //           }
-  //         ],
-  //         "created_at": "2024-08-22T13:23:00.929506Z",
-  //         "created_from": 1
-  //       }
-  //     ],
-  //     "creditors_amount": 25000,
-  //     "debtors_amount": 50000,
-  //     "total_amount": 25000
-  //   }
-  //   ''';
-  //
-  //   final data = jsonDecode(jsonString) as Map<String, dynamic>;
-  //
-  //   // Cast the lists to the correct type
-  //   var creditors = List<Map<String, dynamic>>.from(data['creditor']);
-  //   var debtors = List<Map<String, dynamic>>.from(data['debtor']);
-  //
-  //   creditorSpots.value = convertCreditorData(creditors);
-  //   debtorSpots.value = convertDebtorData(debtors);
-  // }
+
+  RxString formattedDate =''.obs;
+  List<String> dates =[];
+  List<String> debtordates =[];
+  double verticalLineX = 0.0; // Initial x position of the vertical line
+  // RxString crBalance = ''.obs;
+  var crBalance = 0.0.obs; // Example balance
+  final List<double> cashIn=[];
+  final List<double> cashOut=[];
 
   void onInit() {
     super.onInit();
 
-    startMovingDivider();
     String jsonString = '''
     {
       "creditor": [
@@ -645,6 +271,40 @@ class CashflowController extends GetxController with SingleGetTickerProviderMixi
             }
           ],
           "created_at": "2024-08-22T13:13:29.224684Z",
+          "created_from": 1
+        },
+         {
+          "id": 5,
+          "name": "Aman",
+          "contact_no": "8969686886",
+          "email": "mailto:aman@gmail.com",
+          "total_balance": "50000",
+          "last_payment_date": "2024-08-15",
+          "due_date": "2024-08-22",
+          "outstanding_invoices": [
+            {
+              "Invoice": 12248,
+              "Due": "2024-08-15"
+            }
+          ],
+          "created_at": "2024-08-22T13:23:00.929506Z",
+          "created_from": 1
+        },
+         {
+          "id": 5,
+          "name": "Aman",
+          "contact_no": "8969686886",
+          "email": "mailto:aman@gmail.com",
+          "total_balance": "70000",
+          "last_payment_date": "2024-08-15",
+          "due_date": "2024-08-22",
+          "outstanding_invoices": [
+            {
+              "Invoice": 12248,
+              "Due": "2024-08-15"
+            }
+          ],
+          "created_at": "2024-08-22T13:23:00.929506Z",
           "created_from": 1
         }
       ],
@@ -919,65 +579,88 @@ class CashflowController extends GetxController with SingleGetTickerProviderMixi
       "total_amount": 25000
     }
     ''';
-    // final data = jsonDecode(jsonString) as Map<String, dynamic>;
-    //
-    // // Cast the lists to the correct type
-    // var creditors = List<Map<String, dynamic>>.from(data['creditor']);
-    // var debtors = List<Map<String, dynamic>>.from(data['debtor']);
-    //
-    // creditorSpots.value = convertCreditorData(creditors);
-    // debtorSpots.value = convertDebtorData(debtors);
+
     final data = jsonDecode(jsonString) as Map<String, dynamic>;
 
-    // Cast the lists to the correct type
     var creditors = List<Map<String, dynamic>>.from(data['creditor']);
     var debtors = List<Map<String, dynamic>>.from(data['debtor']);
 
     creditorSpots.value = convertCreditorData(creditors);
     debtorSpots.value = convertDebtorData(debtors);
+
+    // Extract only creditor due dates
+    dates.clear();
+    dates.addAll(creditors.map((item) {
+      final DateFormat inputFormat = DateFormat('yyyy-MM-dd');
+      final DateFormat outputFormat = DateFormat('dd MMM yyyy');
+
+      DateTime date = inputFormat.parse(item['due_date']);
+      return outputFormat.format(date);
+    }).toList());
+
+  // Extract only debtors due dates
+    debtordates.clear();
+    debtordates.addAll(debtors.map((item) {
+      final DateFormat inputFormat = DateFormat('yyyy-MM-dd');
+      final DateFormat outputFormat = DateFormat('dd MMM yyyy');
+
+      DateTime date = inputFormat.parse(item['due_date']);
+      return outputFormat.format(date);
+    }).toList());
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      // Update the dividerPosition to move the line smoothly
+      double newPosition = (dividerPosition.value + 1) % (dates.length - 1);
+      updateDividerPosition(newPosition);
+    });
+
   }
 
 
-
-
-  List<FlSpot> convertToFlSpots(List<Map<String, dynamic>> data) {
-    return data.asMap().entries.map((entry) {
-      int index = entry.key;
-      Map<String, dynamic> item = entry.value;
-
-      final x = index.toDouble(); // Use index as x-axis value
-      final y = double.parse(item['total_balance'].replaceAll(',', '')); // Convert balance to double
-
-      return FlSpot(x, y);
-    }).toList();
+  // Method to update the position, e.g., for animation
+  void updateDividerPosition(double newPosition) {
+    dividerPosition.value = newPosition;
   }
 
-
-  String formatDate(String dateString) {
-    final date = DateTime.parse(dateString);
-    return '${date.day}/${date.month}'; // Adjust format as needed
+  // Method to update balance
+  void updateCrBalance(double newBalance) {
+    crBalance.value = double.parse(newBalance.toString());
   }
 
+  // List<FlSpot> convertCreditorData(List<Map<String, dynamic>> creditors) {
+  //   return List<FlSpot>.generate(
+  //     creditors.length,
+  //         (index) {
+  //       final totalBalance = double.parse(creditors[index]['total_balance']);
+  //       print('cr total $totalBalance');
+  //       crBalance.value=totalBalance;
+  //       return FlSpot(index.toDouble(), totalBalance);
+  //     },
+  //   );
+  // }
   List<FlSpot> convertCreditorData(List<Map<String, dynamic>> creditors) {
-    return convertToFlSpots(creditors);
+    return List<FlSpot>.generate(
+      creditors.length,
+          (index) {
+        final totalBalance = double.parse(creditors[index]['total_balance']);
+        // print('cr total $totalBalance');
+        cashIn.add(totalBalance);
+        print('cashIn ${cashIn}');
+        updateCrBalance(totalBalance); // Update balance
+        return FlSpot(index.toDouble(), totalBalance);
+      },
+    );
   }
-
   List<FlSpot> convertDebtorData(List<Map<String, dynamic>> debtors) {
-    return convertToFlSpots(debtors);
+    return List<FlSpot>.generate(
+      debtors.length,
+          (index) {
+        final totalBalance = double.parse(debtors[index]['total_balance']);
+        cashOut.add(totalBalance);
+        print('cashOut ${cashOut}');
+        return FlSpot(index.toDouble(), totalBalance);
+      },
+    );
   }
- // List<FlSpot> convertCreditorData(List<Map<String, dynamic>> creditors) {
- //    return convertToFlSpots(creditors);
- //  }
- //
- //  List<FlSpot> convertDebtorData(List<Map<String, dynamic>> debtors) {
- //    return convertToFlSpots(debtors);
- //  }
-
-
-
-
-
-
 
 
 
@@ -1213,7 +896,6 @@ class CashflowController extends GetxController with SingleGetTickerProviderMixi
       return e;
     }
   }
-
 
 
 }

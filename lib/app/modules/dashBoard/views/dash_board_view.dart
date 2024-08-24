@@ -665,7 +665,35 @@ class DashBoardView extends GetView<DashBoardController> {
                               const SizedBox(
                                 height: 15,
                               ),
-                              CashFlowChart(),
+                              CashFlowChart(
+                                cashIn: [
+                                  100000,
+                                  120000,
+                                  90000,
+                                  150000,
+                                  600000,
+                                  140000,
+                                  130000,
+                                  170000,
+                                  180000,
+                                  200000,
+                                  190000,
+                                  210000
+                                ],
+                                cashOut:  [
+                                  -50000,
+                                  -70000,
+                                  -40000,
+                                  -80000,
+                                  -90000,
+                                  -60000,
+                                  -70000,
+                                  -90000,
+                                  -10000,
+                                  -120000,
+                                  -110000,
+                                  -130000
+                                ],),
                             ],
                           )),
                       const SizedBox(

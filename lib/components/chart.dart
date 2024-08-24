@@ -97,91 +97,64 @@ class EbitdaGraph extends StatelessWidget {
 }
 
 class CashFlowChart extends StatelessWidget {
+ final List<double> cashIn;
+ final List<double> cashOut;
+
+ CashFlowChart({
+    required this.cashIn,
+    required this.cashOut,
+ });
+
   @override
   Widget build(BuildContext context) {
     // Sample data for 12 months
-    final List<double> cashIn = [
-      100000,
-      120000,
-      90000,
-      150000,
-      600000,
-      140000,
-      130000,
-      170000,
-      180000,
-      200000,
-      190000,
-      210000
-    ];
-    final List<double> cashOut = [
-      -50000,
-      -70000,
-      -40000,
-      -80000,
-      -90000,
-      -60000,
-      -70000,
-      -90000,
-      -10000,
-      -120000,
-      -110000,
-      -130000
-    ];
+    // final List<double> cashIn = [
+    //   100000,
+    //   120000,
+    //   90000,
+    //   150000,
+    //   600000,
+    //   140000,
+    //   130000,
+    //   170000,
+    //   180000,
+    //   200000,
+    //   190000,
+    //   210000
+    // ];
+    // final List<double> cashOut = [
+    //   -50000,
+    //   -70000,
+    //   -40000,
+    //   -80000,
+    //   -90000,
+    //   -60000,
+    //   -70000,
+    //   -90000,
+    //   -10000,
+    //   -120000,
+    //   -110000,
+    //   -130000
+    // ];
     final List<double> totalCash = [
       0,
-      60000,
-      90000,
-      150000,
-      600000,
-      140000,
-      130000,
-      170000,
-      180000,
-      200000,
-      190000,
-      210000
+      40000,90000, 30000, 60000, 45000, 20000, 80000, 30000, 50000, 50000, 50000, 50000
+      // 60000,
+      // 90000,
+      // 150000,
+      // 600000,
+      // 140000,
+      // 130000,
+      // 170000,
+      // 180000,
+      // 200000,
+      // 190000,
+      // 210000
     ];
 
     return SingleChildScrollView(
       child: Column(
         children: [
-          // Container(
-          //   height: 300,
-          //   padding: EdgeInsets.all(16),
-          //   child: LineChart(
-          //     LineChartData(
-          //       lineBarsData: [
-          //         LineChartBarData(
-          //           spots: totalCash
-          //               .asMap()
-          //               .entries
-          //               .map((e) => FlSpot(e.key.toDouble(), e.value))
-          //               .toList(),
-          //           isCurved: false,
-          //           color: Colors.green[900]!,
-          //           barWidth: 2,
-          //         ),
-          //       ],
-          //       titlesData: FlTitlesData(
-          //         leftTitles: AxisTitles(sideTitles:SideTitles(showTitles: true)),
-          //         bottomTitles:AxisTitles(sideTitles: SideTitles(
-          //           showTitles: true,
-          //           getTitlesWidget: (value, meta) {
-          //             final months = [
-          //               'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-          //               'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-          //             ];
-          //
-          //             return Text( months[value.toInt() % 12]);
-          //           },
-          //         )),
-          //       ),
-          //       gridData: FlGridData(show: false),
-          //       borderData: FlBorderData(show: true),
-          //     ),
-          //   ),
-          // ),
           Container(
             height: 132,
             child: Stack(
@@ -189,6 +162,7 @@ class CashFlowChart extends StatelessWidget {
                 BarChart(
                   BarChartData(
                     alignment: BarChartAlignment.spaceBetween,
+                    // barGroups: cashIn
                     barGroups: cashIn
                         .asMap()
                         .entries
@@ -214,8 +188,7 @@ class CashFlowChart extends StatelessWidget {
                         )
                         .toList(),
                     titlesData: FlTitlesData(
-                      rightTitles:
-                          AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                      rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
                       topTitles: AxisTitles(
                         sideTitles: SideTitles(
                           showTitles: false,
@@ -298,8 +271,10 @@ class CashFlowChart extends StatelessWidget {
                         },
                       )),
                     ),
-                    maxY: 610000,
-                    minY: -610000,
+                    // maxY: 610000,
+                    // minY: -610000,
+                    maxY: 100000,
+                    minY: -100000,
                     gridData: FlGridData(
                       show: false,
                       verticalInterval: 200000,
@@ -338,6 +313,8 @@ class CashFlowChart extends StatelessWidget {
                         minX: 0,
                         maxY: 610000,
                         minY: -610000,
+                        // maxY: 100000,
+                        // minY: -100000,
                         titlesData: FlTitlesData(
                           rightTitles:const AxisTitles(
                               sideTitles: SideTitles(showTitles: false)),
@@ -351,6 +328,7 @@ class CashFlowChart extends StatelessWidget {
                               showTitles: true,
                               reservedSize: 30,
                               interval: 200000,
+                              // interval: 100000,
                               // getTitlesWidget: (value, meta) {
                               //   if(value==610000){
                               //     return SizedBox();
