@@ -5,14 +5,15 @@ import 'package:get/get.dart';
 import 'app/routes/app_pages.dart';
 
 void main() async {
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown
-  ]);
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     // options: DefaultFirebaseOptions.currentPlatform,
   );
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown
+  ]);
   runApp(MyApp());
 }
 

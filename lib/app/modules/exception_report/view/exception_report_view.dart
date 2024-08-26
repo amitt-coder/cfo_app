@@ -63,6 +63,14 @@ class _ExceptionReportViewState extends State<ExceptionReportView> {
                     if(index == 1){
                       Get.toNamed(Routes.ACCOUNT_PAYABLES);
                     }
+                    if(index == 2){
+                      Get.toNamed(Routes.KEY_RATIO_ANALYSIS);
+                    }
+                    if(index == 3){
+                      Get.toNamed(Routes.EXPENSE_VARIANCE);
+                    } if(index == 4){
+                      Get.toNamed(Routes.REVENUE_VARIANCE);
+                    }
                   },
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,

@@ -98,6 +98,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                       MaterialButton(
                         onPressed: () {
                           cashflowController.toggleColor(1);
+                          cashflowController.lastWeekApi();
                         },
                         color: cashflowController.buttonColor1.value,
                         elevation: 0,
@@ -123,6 +124,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                       MaterialButton(
                         onPressed: () {
                           cashflowController.toggleColor(2);
+                          cashflowController.lastMonthApi();
                         },
                         color: cashflowController.buttonColor2.value,
                         elevation: 0,
@@ -1405,9 +1407,35 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                           ),
                           CashFlowChart(
                             cashIn: cashflowController.cashIn,
-                            // cashIn: [100000, 80000, 40000, 50000, 60000, 70000, 60000, 40000, 80000, 70000, 50000, 70000],
                             cashOut: cashflowController.cashOut,
-                            // cashOut:[40000,90000, 30000, 60000, 45000, 20000, 80000, 30000, 50000, 50000, 50000, 50000],
+                            highestAmount: cashflowController.highestAmount.value,
+                            lowestAmount: cashflowController.lowestAmount.value,
+                            // cashIn: [100000,
+                            //   120000,
+                            //   90000,
+                            //   150000,
+                            //   600000,
+                            //   140000,
+                            //   130000,
+                            //   170000,
+                            //   180000,
+                            //   200000,
+                            //   190000,
+                            //   210000],
+                            // cashOut:[
+                            //     -50000,
+                            //     -70000,
+                            //     -40000,
+                            //     -80000,
+                            //     -90000,
+                            //     -60000,
+                            //     -70000,
+                            //     -90000,
+                            //     -10000,
+                            //     -120000,
+                            //     -110000,
+                            //     -130000
+                            // ],
                           ),
                         ],
                       )),
@@ -1425,98 +1453,237 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    height: 200,
-                    child: LineChart(
-                      LineChartData(
-                        extraLinesData: ExtraLinesData(
-                          extraLinesOnTop: true,
-                          verticalLines: [
-                            VerticalLine(
-                              x: cashflowController.dividerPosition.value,
-                              color: Colors.green,
-                              strokeWidth: 2,
-                              dashArray: [4, 2],
-                              label: VerticalLineLabel(
-                                show: true,
-                                alignment: Alignment.topRight,
-                                style: const TextStyle(
-                                  color: Colors.green,
-                                  fontSize: 12,
-                                ),
-                                labelResolver: (line) {
-                                  return '${cashflowController.dividerPosition.value.toStringAsFixed(1)}';
-                                },
+                  Obx(() {
+                    if (cashflowController.creditorSpots.isEmpty || cashflowController.debtorSpots.isEmpty) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+
+                    // Create separate lists for creditor and debtor dates
+                    List<String> creditorDates = List.from(cashflowController.dates);
+                    List<String> debtorDates = List.from(cashflowController.debtordates);
+
+                    return Container(
+                      height: 300, // Increased height for better visualization
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: SizedBox(
+                          width: (creditorDates.length + debtorDates.length) * 50.0, // Adjust width based on the number of dates
+                          child: LineChart(
+                            LineChartData(
+                              extraLinesData: ExtraLinesData(
+                                extraLinesOnTop: true,
+                                verticalLines: [
+                                  VerticalLine(
+                                    x: cashflowController.dividerPosition.value,
+                                    color: Colors.green,
+                                    strokeWidth: 2,
+                                    dashArray: [4, 2],
+                                    label: VerticalLineLabel(
+                                      show: true,
+                                      alignment: Alignment.topRight,
+                                      style: const TextStyle(
+                                        color: Colors.green,
+                                        fontSize: 12,
+                                      ),
+                                      labelResolver: (line) {
+                                        // Calculate the closest amount based on the vertical line position
+                                        double closestAmount = 0.0;
+                                        int index = line.x.toInt();
+
+                                        if (index >= 0 && index < cashflowController.creditorSpots.length) {
+                                          closestAmount = cashflowController.creditorSpots[index].y;
+                                        } else if (index >= 0 && index < cashflowController.debtorSpots.length) {
+                                          closestAmount = cashflowController.debtorSpots[index].y;
+                                        }
+
+                                        return '${closestAmount.toStringAsFixed(1)}'; // Show the closest balance
+                                      },
+                                    ),
+                                  ),
+                                ],
                               ),
+                              borderData: FlBorderData(show: false),
+                              gridData: const FlGridData(show: false),
+                              titlesData: FlTitlesData(
+                                bottomTitles: AxisTitles(
+                                  sideTitles: SideTitles(
+                                    showTitles: true,
+                                    reservedSize: 40, // Adjust reserved size to make space for titles
+                                    interval: 1, // Show every date
+                                    getTitlesWidget: (value, meta) {
+                                      int index = value.toInt();
+                                      if (index < 0 || index >= cashflowController.dates.length) {
+                                        return const SizedBox.shrink(); // Return an empty widget for out-of-bounds index
+                                      }
+
+                                      String debtorDate = cashflowController.debtordates[index];
+                                      String creditorDate = cashflowController.dates[index];
+                                      return SideTitleWidget(
+                                        space: 0, // Adjust space for better separation
+                                        axisSide: meta.axisSide,
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              debtorDate, // Show date only for debtors
+                                              style: TextStyle(
+                                                fontSize: 8,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.red, // Color for debtor dates
+                                              ),
+                                              textAlign: TextAlign.center, // Align the text to center for better appearance
+                                            ),
+                                            SizedBox(height: 5), // Space between dates
+                                            Text(
+                                              creditorDate, // Show date only for creditors
+                                              style: TextStyle(
+                                                fontSize: 8,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.green, // Color for creditor dates
+                                              ),
+                                              textAlign: TextAlign.center, // Align the text to center for better appearance
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                leftTitles: AxisTitles(
+                                  sideTitles: SideTitles(
+                                    showTitles: false,
+                                  ),
+                                ),
+                                rightTitles: AxisTitles(
+                                  sideTitles: SideTitles(showTitles: false),
+                                ),
+                                topTitles: AxisTitles(
+                                  sideTitles: SideTitles(showTitles: false),
+                                ),
+                              ),
+                              lineBarsData: [
+                                LineChartBarData(
+                                  spots: cashflowController.creditorSpots,
+                                  isCurved: true,
+                                  color: Colors.green,
+                                  barWidth: 2,
+                                  isStrokeCapRound: true,
+                                  dotData: const FlDotData(show: false),
+                                  belowBarData: BarAreaData(
+                                    show: true,
+                                    color: Colors.green.withOpacity(0.3),
+                                  ),
+                                ),
+                                LineChartBarData(
+                                  spots: cashflowController.debtorSpots,
+                                  isCurved: true,
+                                  color: Colors.red,
+                                  barWidth: 2,
+                                  isStrokeCapRound: true,
+                                  dotData: const FlDotData(show: false),
+                                  belowBarData: BarAreaData(
+                                    show: true,
+                                    color: Colors.red.withOpacity(0.3),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
-                        borderData: FlBorderData(show: false),
-                        gridData: const FlGridData(show: false),
-                        titlesData: FlTitlesData(
-                          bottomTitles: AxisTitles(
-                            sideTitles: SideTitles(
-                              showTitles: true,
-                              interval:
-                                  5, // This ensures that the interval between titles is correct
-                              getTitlesWidget: _buildBottomTitle,
-                            ),
-                          ),
-                          leftTitles: const AxisTitles(
-                            sideTitles: SideTitles(showTitles: false),
-                          ),
-                          rightTitles: const AxisTitles(
-                            sideTitles: SideTitles(showTitles: false),
-                          ),
-                          topTitles: const AxisTitles(
-                            sideTitles: SideTitles(showTitles: false),
-                          ),
-                        ),
-                        lineBarsData: [
-                          LineChartBarData(
-                            spots: [
-                              const FlSpot(10, 3),
-                              const FlSpot(15, 5),
-                              const FlSpot(20, 3.5),
-                              const FlSpot(25, 4),
-                              const FlSpot(30, 3),
-                            ],
-                            isCurved: true,
-                            color: Colors.green,
-                            barWidth: 2,
-                            isStrokeCapRound: true,
-                            dotData: const FlDotData(show: false),
-                            belowBarData: BarAreaData(
-                              show: true,
-                              color: Colors.green.withOpacity(0.3),
-                            ),
-                          ),
-                          LineChartBarData(
-                            spots: [
-                              const FlSpot(10, 2.5),
-                              const FlSpot(15, 4),
-                              const FlSpot(20, 3),
-                              const FlSpot(25, 3.5),
-                              const FlSpot(30, 2.5),
-                            ],
-                            isCurved: true,
-                            color: Colors.red,
-                            barWidth: 2,
-                            isStrokeCapRound: true,
-                            dotData: const FlDotData(show: false),
-                            belowBarData: BarAreaData(
-                              show: true,
-                              color: Colors.green.withOpacity(0.3),
-                            ),
-                          ),
-                        ],
-                        minX: 10,
-                        maxX: 30,
-                        minY: 0,
-                        maxY: 6,
                       ),
-                    ),
-                  ),
+                    );
+                  }),
+                  // Container(
+                  //   height: 200,
+                  //   child: LineChart(
+                  //     LineChartData(
+                  //       extraLinesData: ExtraLinesData(
+                  //         extraLinesOnTop: true,
+                  //         verticalLines: [
+                  //           VerticalLine(
+                  //             x: cashflowController.dividerPosition.value,
+                  //             color: Colors.green,
+                  //             strokeWidth: 2,
+                  //             dashArray: [4, 2],
+                  //             label: VerticalLineLabel(
+                  //               show: true,
+                  //               alignment: Alignment.topRight,
+                  //               style: const TextStyle(
+                  //                 color: Colors.green,
+                  //                 fontSize: 12,
+                  //               ),
+                  //               labelResolver: (line) {
+                  //                 return '${cashflowController.dividerPosition.value.toStringAsFixed(1)}';
+                  //               },
+                  //             ),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //       borderData: FlBorderData(show: false),
+                  //       gridData: const FlGridData(show: false),
+                  //       titlesData: FlTitlesData(
+                  //         bottomTitles: AxisTitles(
+                  //           sideTitles: SideTitles(
+                  //             showTitles: true,
+                  //             interval:
+                  //                 5, // This ensures that the interval between titles is correct
+                  //             getTitlesWidget: _buildBottomTitle,
+                  //           ),
+                  //         ),
+                  //         leftTitles: const AxisTitles(
+                  //           sideTitles: SideTitles(showTitles: false),
+                  //         ),
+                  //         rightTitles: const AxisTitles(
+                  //           sideTitles: SideTitles(showTitles: false),
+                  //         ),
+                  //         topTitles: const AxisTitles(
+                  //           sideTitles: SideTitles(showTitles: false),
+                  //         ),
+                  //       ),
+                  //       lineBarsData: [
+                  //         LineChartBarData(
+                  //           spots: [
+                  //             const FlSpot(10, 3),
+                  //             const FlSpot(15, 5),
+                  //             const FlSpot(20, 3.5),
+                  //             const FlSpot(25, 4),
+                  //             const FlSpot(30, 3),
+                  //           ],
+                  //           isCurved: true,
+                  //           color: Colors.green,
+                  //           barWidth: 2,
+                  //           isStrokeCapRound: true,
+                  //           dotData: const FlDotData(show: false),
+                  //           belowBarData: BarAreaData(
+                  //             show: true,
+                  //             color: Colors.green.withOpacity(0.3),
+                  //           ),
+                  //         ),
+                  //         LineChartBarData(
+                  //           spots: [
+                  //             const FlSpot(10, 2.5),
+                  //             const FlSpot(15, 4),
+                  //             const FlSpot(20, 3),
+                  //             const FlSpot(25, 3.5),
+                  //             const FlSpot(30, 2.5),
+                  //           ],
+                  //           isCurved: true,
+                  //           color: Colors.red,
+                  //           barWidth: 2,
+                  //           isStrokeCapRound: true,
+                  //           dotData: const FlDotData(show: false),
+                  //           belowBarData: BarAreaData(
+                  //             show: true,
+                  //             color: Colors.green.withOpacity(0.3),
+                  //           ),
+                  //         ),
+                  //       ],
+                  //       minX: 10,
+                  //       maxX: 30,
+                  //       minY: 0,
+                  //       maxY: 6,
+                  //     ),
+                  //   ),
+                  // ),
                   const SizedBox(
                     height: 20,
                   ),

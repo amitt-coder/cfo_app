@@ -10,7 +10,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
-class CashflowController extends GetxController with SingleGetTickerProviderMixin {
+class CashflowController extends GetxController{
 
   RxInt buttonSelect = 1.obs;
   var dividerPosition = 0.0.obs;
@@ -96,10 +96,12 @@ class CashflowController extends GetxController with SingleGetTickerProviderMixi
   var crBalance = 0.0.obs; // Example balance
   final List<double> cashIn=[];
   final List<double> cashOut=[];
+  RxDouble highestAmount=0.0.obs;
+  RxDouble lowestAmount=0.0.obs;
 
   void onInit() {
     super.onInit();
-
+    lastWeekApi();
     String jsonString = '''
     {
       "creditor": [
@@ -613,6 +615,15 @@ class CashflowController extends GetxController with SingleGetTickerProviderMixi
       updateDividerPosition(newPosition);
     });
 
+    final List<double> combinedList = [...cashIn, ...cashOut];
+
+    // Find the highest and lowest amounts
+     highestAmount.value = combinedList.reduce((a, b) => a > b ? a : b);
+     lowestAmount.value = combinedList.reduce((a, b) => a < b ? a : b);
+
+    print('Highest Amount: $highestAmount');
+    print('Lowest Amount: $lowestAmount');
+
   }
 
 
@@ -637,6 +648,7 @@ class CashflowController extends GetxController with SingleGetTickerProviderMixi
   //     },
   //   );
   // }
+
   List<FlSpot> convertCreditorData(List<Map<String, dynamic>> creditors) {
     return List<FlSpot>.generate(
       creditors.length,
@@ -650,6 +662,7 @@ class CashflowController extends GetxController with SingleGetTickerProviderMixi
       },
     );
   }
+
   List<FlSpot> convertDebtorData(List<Map<String, dynamic>> debtors) {
     return List<FlSpot>.generate(
       debtors.length,
@@ -702,13 +715,14 @@ class CashflowController extends GetxController with SingleGetTickerProviderMixi
     );
     if (picked != null) {
       selectedDate.value  = picked;
-      String formattedDate = DateFormat('dd-MM-yyyy').format(selectedDate.value);
+      // String formattedDate = DateFormat('dd-MM-yyyy').format(selectedDate.value);2024-08-22
+      String formattedDate = DateFormat('yyy-MM-dd').format(selectedDate.value);
 
       print('formattedDate $formattedDate');
 
       dateController.text= formattedDate;
       print('selectedDate.value ${dateController.text}');
-
+      filterbyCustomeDateApi();
     }
   }
 
@@ -724,13 +738,11 @@ class CashflowController extends GetxController with SingleGetTickerProviderMixi
     // Map<String, dynamic> requestBody = {
     //   'id': userId,
     // };
-    //
     // String encodedBody = json.encode(requestBody);
-    //
-    print('url: ${Api.last_week}$userId');
+    print('url:${Api.last_week}/${userId}');
 
     try {
-      var response = await http.get(Uri.parse('${Api.last_week}${8}'),
+      var response = await http.get(Uri.parse('${Api.last_week}/${userId}'),
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer $token',
@@ -750,12 +762,15 @@ class CashflowController extends GetxController with SingleGetTickerProviderMixi
         print('creditors: ${creditors}');
         print('debtors: ${debtors}');
 
+        creditorsList.clear();
+        creditorsAmountList.clear();
         // Populate creditors
         for (var creditor in creditors) {
           creditorsList.add(creditor['name']);
           creditorsAmountList.add(creditor['total_balance']);
         }
-
+        debtorsList.clear();
+        debtorsAmountList.clear();
         // Populate debtors
         for (var debtor in debtors) {
           debtorsList.add(debtor['name']);
@@ -792,10 +807,11 @@ class CashflowController extends GetxController with SingleGetTickerProviderMixi
     String? token = storage.read('accessToken');
     String? userId = storage.read('USER_ID');
 
-    print('url: ${Api.last_month}$userId');
+    print('url: ${Api.last_month}/${userId}');
 
     try {
-      var response = await http.get(Uri.parse('${Api.last_month}${8}'),
+      var response = await http.get(Uri.parse('${Api.last_month}/${userId}'),
+      // var response = await http.get(Uri.parse('http://cfo2.webzcon.in/api/last_month/8'),
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer $token',
@@ -807,9 +823,34 @@ class CashflowController extends GetxController with SingleGetTickerProviderMixi
       print('response Status ${response.statusCode}');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
+
         var responseData = json.decode(response.body);
 
-        print('Response Data: ${responseData}');
+        final List<dynamic> creditors = responseData['creditor'] ?? [];
+        final List<dynamic> debtors = responseData['debtor'] ?? [];
+        creditorsList.clear();
+        creditorsAmountList.clear();
+        // Populate creditors
+        for (var creditor in creditors) {
+          creditorsList.add(creditor['name']);
+          creditorsAmountList.add(creditor['total_balance']);
+        }
+        debtorsList.clear();
+        debtorsAmountList.clear();
+        // Populate debtors
+        for (var debtor in debtors) {
+          debtorsList.add(debtor['name']);
+          debtorsAmountList.add(debtor['total_balance']);
+        }
+        creditors_amount.value=responseData['creditors_amount'].toString();
+        debtors_amount.value=responseData['debtors_amount'].toString();
+        total_amount.value=responseData['total_amount'].toString();
+        // print('Response Data: ${responseData}');
+
+        print('debtorsList: ${debtorsList}');
+        print('debtorsAmountList: ${debtorsAmountList}');
+        print('creditorsList: ${creditorsList}');
+        print('creditorsAmountList: ${creditorsAmountList}');
         return responseData;
       } else {
         print('Failed with status: ${response.statusCode}');
@@ -820,6 +861,71 @@ class CashflowController extends GetxController with SingleGetTickerProviderMixi
       return e;
     }
   }
+
+  Future<dynamic> filterbyCustomeDateApi() async {
+
+    print('-------filterbyCustomeDateApi--------');
+
+    final storage = GetStorage();
+
+    String? token = storage.read('accessToken');
+    String? userId = storage.read('USER_ID');
+
+    print('${Api.filter_by_custome_date}${userId}/${dateController.text}');
+
+    try {
+      var response = await http.get(Uri.parse('${Api.filter_by_custome_date}${userId}/${dateController.text}'),
+        // var response = await http.get(Uri.parse('http://cfo2.webzcon.in/api/last_month/8'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        // body: encodedBody,
+      );
+
+
+      print('response Status ${response.statusCode}');
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var responseData = json.decode(response.body);
+
+        final List<dynamic> creditors = responseData['Creditors'] ?? [];
+        final List<dynamic> debtors = responseData['Debtors'] ?? [];
+
+        creditorsList.clear();
+        creditorsAmountList.clear();
+        // Populate creditors
+        for (var creditor in creditors) {
+          creditorsList.add(creditor['name']);
+          creditorsAmountList.add(creditor['total_balance']);
+        }
+        debtorsList.clear();
+        debtorsAmountList.clear();
+        // Populate debtors
+        for (var debtor in debtors) {
+          debtorsList.add(debtor['name']);
+          debtorsAmountList.add(debtor['total_balance']);
+        }
+
+        creditors_amount.value=responseData['creditors_amount'].toString();
+        debtors_amount.value=responseData['debtors_amount'].toString();
+        total_amount.value=responseData['total_amount'].toString();
+        print('Response Data: ${responseData}');
+        print('debtorsList: ${debtorsList}');
+        print('debtorsAmountList: ${debtorsAmountList}');
+        print('creditorsList: ${creditorsList}');
+        print('creditorsAmountList: ${creditorsAmountList}');
+        return responseData;
+      } else {
+        print('Failed with status: ${response.statusCode}');
+        return response.statusCode;
+      }
+    } catch (e) {
+      print('Error: ${e}');
+      return e;
+    }
+  }
+
 
   Future<dynamic> filterCreditorsApi() async {
 

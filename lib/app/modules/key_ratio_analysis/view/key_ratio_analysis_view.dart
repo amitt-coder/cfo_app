@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:kdgaugeview/kdgaugeview.dart';
 import '../../../../components/common_app_bar.dart';
+import '../../../../components/dropdown_field.dart';
 import '../../../../utils/images.dart';
 import '../controller/key_ratio_analysis_controller.dart';
 
@@ -112,34 +113,47 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                         fontFamily: 'Urbanist',
                       ),
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                              width: 1, color: AppColor.txtSecondaryColor)),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 5, vertical: 3),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Last 30 Days',
-                            style: TextStyle(
-                              color: AppColor.txtSecondaryColor,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                              fontFamily: 'Urbanist',
-                            ),
-                          ),
-                          Icon(
-                            Icons.arrow_drop_down_sharp,
-                            size: 30,
-                            color: AppColor.txtSecondaryColor,
-                          )
-                        ],
-                      ),
-                    )
+                    DropDownField(
+                      onChanged: (String? newValue) {
+                        keyRatioAnalsisController.showday.value = newValue!;
+                      },
+                      selectValue: keyRatioAnalsisController.showday.value,
+                      hintName: 'show',
+                      width: MediaQuery.of(context).size.width * 0.40,
+                      height: 45,
+                      selectPriceInstallment:
+                      keyRatioAnalsisController.dayList,
+                      controller: keyRatioAnalsisController.daysController,
+                      showBorder: '0',
+                    ),
+                    // Container(
+                    //   decoration: BoxDecoration(
+                    //       color: Colors.white,
+                    //       borderRadius: BorderRadius.circular(5),
+                    //       border: Border.all(
+                    //           width: 1, color: AppColor.txtSecondaryColor)),
+                    //   padding: const EdgeInsets.symmetric(
+                    //       horizontal: 5, vertical: 3),
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.center,
+                    //     children: [
+                    //       Text(
+                    //         'Last 30 Days',
+                    //         style: TextStyle(
+                    //           color: AppColor.txtSecondaryColor,
+                    //           fontWeight: FontWeight.w500,
+                    //           fontSize: 16,
+                    //           fontFamily: 'Urbanist',
+                    //         ),
+                    //       ),
+                    //       Icon(
+                    //         Icons.arrow_drop_down_sharp,
+                    //         size: 30,
+                    //         color: AppColor.txtSecondaryColor,
+                    //       )
+                    //     ],
+                    //   ),
+                    // )
                   ],
                 ),
                 const SizedBox(
@@ -445,16 +459,19 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  // 'Current',
-                                  keyRatioAnalsisController
-                                      .keyRatios[index].name
-                                      .toString(),
-                                  style: TextStyle(
-                                      color: AppColor.blackColor,
-                                      fontFamily: 'Urbanist',
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 15),
+                                Container(
+                                  width: 70,
+                                  child: Text(
+                                    // 'Current',
+                                    keyRatioAnalsisController
+                                        .keyRatios[index].name
+                                        .toString(),
+                                    style: TextStyle(
+                                        color: AppColor.blackColor,
+                                        fontFamily: 'Urbanist',
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 15),overflow: TextOverflow.ellipsis,
+                                  ),
                                 ),
                                 Text(
                                   // '1.5',
@@ -723,3 +740,5 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
     );
   }
 }
+
+

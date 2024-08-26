@@ -12,11 +12,14 @@ import '../../../../utils/colors.dart';
 import '../../../../utils/images.dart';
 import '../../../../utils/style.dart';
 import '../../../routes/app_pages.dart';
+import '../../cash_flow/controllers/cash_flow_controller.dart';
 import '../controllers/dash_board_controller.dart';
 
-class DashBoardView extends GetView<DashBoardController> {
+class DashBoardView extends StatelessWidget {
   DashBoardView({Key? key}) : super(key: key);
-  DashBoardController dashBoardController = DashBoardController();
+  DashBoardController dashBoardController =Get.put(DashBoardController());
+  CashflowController cashflowController = Get.put(CashflowController());
+
   @override
   Widget build(BuildContext context) {
     double maxSpeed = 100;
@@ -125,7 +128,7 @@ class DashBoardView extends GetView<DashBoardController> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(5),
                               child: Image.asset(
-                                controller.banner[index],
+                                dashBoardController.banner[index],
                                 fit: BoxFit.fill,
                               ),
                             ),
@@ -665,35 +668,43 @@ class DashBoardView extends GetView<DashBoardController> {
                               const SizedBox(
                                 height: 15,
                               ),
+                              // CashFlowChart(
+                              //   highestAmount: 61000,
+                              //   lowestAmount: -61000,
+                              //   cashIn: [
+                              //     100000,
+                              //     120000,
+                              //     90000,
+                              //     150000,
+                              //     600000,
+                              //     140000,
+                              //     130000,
+                              //     170000,
+                              //     180000,
+                              //     200000,
+                              //     190000,
+                              //     210000
+                              //   ],
+                              //   cashOut:  [
+                              //     -50000,
+                              //     -70000,
+                              //     -40000,
+                              //     -80000,
+                              //     -90000,
+                              //     -60000,
+                              //     -70000,
+                              //     -90000,
+                              //     -10000,
+                              //     -120000,
+                              //     -110000,
+                              //     -130000
+                              //   ],),
                               CashFlowChart(
-                                cashIn: [
-                                  100000,
-                                  120000,
-                                  90000,
-                                  150000,
-                                  600000,
-                                  140000,
-                                  130000,
-                                  170000,
-                                  180000,
-                                  200000,
-                                  190000,
-                                  210000
-                                ],
-                                cashOut:  [
-                                  -50000,
-                                  -70000,
-                                  -40000,
-                                  -80000,
-                                  -90000,
-                                  -60000,
-                                  -70000,
-                                  -90000,
-                                  -10000,
-                                  -120000,
-                                  -110000,
-                                  -130000
-                                ],),
+                                cashIn: cashflowController.cashIn,
+                                cashOut: cashflowController.cashOut,
+                                highestAmount: cashflowController.highestAmount.value,
+                                lowestAmount: cashflowController.lowestAmount.value,
+                              ),
                             ],
                           )),
                       const SizedBox(

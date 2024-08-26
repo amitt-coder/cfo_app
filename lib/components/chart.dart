@@ -99,10 +99,14 @@ class EbitdaGraph extends StatelessWidget {
 class CashFlowChart extends StatelessWidget {
  final List<double> cashIn;
  final List<double> cashOut;
+ double  highestAmount;
+ double  lowestAmount;
 
  CashFlowChart({
     required this.cashIn,
     required this.cashOut,
+    required this.highestAmount,
+    required this.lowestAmount,
  });
 
   @override
@@ -137,8 +141,18 @@ class CashFlowChart extends StatelessWidget {
     //   -130000
     // ];
     final List<double> totalCash = [
-      0,
-      40000,90000, 30000, 60000, 45000, 20000, 80000, 30000, 50000, 50000, 50000, 50000
+      40000.0,
+      90000.0,
+      30000.0,
+      60000.0,
+      45000.0,
+      20000.0,
+      80000.0,
+      30000.0,
+      50000.0,
+      50000.0,
+      50000.0,
+      50000.0
       // 60000,
       // 90000,
       // 150000,
@@ -151,7 +165,6 @@ class CashFlowChart extends StatelessWidget {
       // 190000,
       // 210000
     ];
-
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -198,11 +211,15 @@ class CashFlowChart extends StatelessWidget {
                         sideTitles: SideTitles(
                           showTitles: true,
                           reservedSize: 30,
-                          interval: 200000,
+                          interval: highestAmount/5,
+                          // interval: 50000,
+                          // interval: 200000,
                           getTitlesWidget: (value, meta) {
-                            if (value == 610000) {
+                            // if (value == 610000) {
+                            if (value == highestAmount) {
                               return SizedBox();
-                            } else if (value == -610000) {
+                            // } else if (value == -610000) {
+                            } else if (value == -(highestAmount)) {
                               return SizedBox();
                             } else if (value >= 1000) {
                               return Text(
@@ -273,11 +290,13 @@ class CashFlowChart extends StatelessWidget {
                     ),
                     // maxY: 610000,
                     // minY: -610000,
-                    maxY: 100000,
-                    minY: -100000,
+                    maxY: highestAmount + 10000,
+                    minY: -(highestAmount + 10000),
                     gridData: FlGridData(
                       show: false,
-                      verticalInterval: 200000,
+                      // verticalInterval: 200000,
+                      // verticalInterval: 50000,
+                      verticalInterval: highestAmount/5,
                       drawVerticalLine: false,
                     ),
                     borderData: FlBorderData(
@@ -306,15 +325,17 @@ class CashFlowChart extends StatelessWidget {
                         ],
                         gridData: FlGridData(
                           show: true,
-                          horizontalInterval: 200000,
+                          horizontalInterval: highestAmount/5,
+                          // horizontalInterval: 50000,
+                          // horizontalInterval: 200000,
                           drawVerticalLine: false,
                         ),
                         borderData: FlBorderData(show: false),
                         minX: 0,
-                        maxY: 610000,
-                        minY: -610000,
-                        // maxY: 100000,
-                        // minY: -100000,
+                        // maxY: 610000,
+                        // minY: -610000,
+                        maxY: highestAmount + 10000,
+                        minY: -(highestAmount + 10000),
                         titlesData: FlTitlesData(
                           rightTitles:const AxisTitles(
                               sideTitles: SideTitles(showTitles: false)),
@@ -327,42 +348,9 @@ class CashFlowChart extends StatelessWidget {
                             sideTitles: SideTitles(
                               showTitles: true,
                               reservedSize: 30,
-                              interval: 200000,
-                              // interval: 100000,
-                              // getTitlesWidget: (value, meta) {
-                              //   if(value==610000){
-                              //     return SizedBox();
-                              //   }else if(value==-610000){
-                              //     return SizedBox();
-                              //   }else if (value >= 1000) {
-                              //     return Text('₹${(value.toInt() / 1000).toStringAsFixed(0)}k',
-                              //       style: TextStyle(
-                              //           color:AppColor.fontColor,
-                              //           fontSize: 7,
-                              //           fontWeight: FontWeight.w500,
-                              //           fontFamily: 'Urbanist'
-                              //       ),
-                              //     );
-                              //   }else if(value.toInt()<=-1000){
-                              //     return Text('₹${(value.toInt() / 1000).toStringAsFixed(0)}k',
-                              //       style: TextStyle(
-                              //           color:AppColor.fontColor,
-                              //           fontSize: 7,
-                              //           fontWeight: FontWeight.w500,
-                              //           fontFamily: 'Urbanist'
-                              //       ),
-                              //     );
-                              //   }
-                              //   return Text(
-                              //    "₹${value.toInt().toString()}",
-                              //     style: TextStyle(
-                              //         color:AppColor.fontColor,
-                              //         fontSize: 7,
-                              //         fontWeight: FontWeight.w500,
-                              //         fontFamily: 'Urbanist'
-                              //     ),
-                              //   );
-                              // },
+                              // interval: 200000,
+                              // interval: 50000,
+                              interval: highestAmount/5,
                               getTitlesWidget: (value, meta) {
                                 return SizedBox();
                               },
@@ -423,7 +411,6 @@ class CashFlowChart extends StatelessWidget {
                         //     },
                         //   )),
                         // ),
-
                       ),
                     ),
                   ),

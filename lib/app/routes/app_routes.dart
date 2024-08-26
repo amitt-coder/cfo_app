@@ -28,6 +28,8 @@ abstract class Routes {
   static const TDS_CHECK = _Paths.TDS_CHECK;
   static const INVOICE_DETAILS = _Paths.INVOICE_DETAILS;
   static const EXCEPTION_REPORT = _Paths.EXCEPTION_REPORT;
+  static const EXPENSE_VARIANCE = _Paths.EXPENSE_VARIANCE;
+  static const REVENUE_VARIANCE = _Paths.REVENUE_VARIANCE;
 
 }
 
@@ -58,4 +60,6 @@ abstract class _Paths {
   static const TDS_CHECK = '/tds-check';
   static const INVOICE_DETAILS = '/invoice-details';
   static const EXCEPTION_REPORT = '/exception-report';
+  static const EXPENSE_VARIANCE = '/expense-variance';
+  static const REVENUE_VARIANCE = '/revenue-variance';
 }

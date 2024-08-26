@@ -8,6 +8,8 @@ import 'package:cfo_app/app/modules/cash_flow/bindings/cash_flow_binding.dart';
 import 'package:cfo_app/app/modules/cash_flow/view/cash_flow_screen.dart';
 import 'package:cfo_app/app/modules/exception_report/binding/exception_report_binding.dart';
 import 'package:cfo_app/app/modules/exception_report/view/exception_report_view.dart';
+import 'package:cfo_app/app/modules/expense_variance/binding/expense_variance_binding.dart';
+import 'package:cfo_app/app/modules/expense_variance/view/expense_variance_view.dart';
 import 'package:cfo_app/app/modules/financial_projection/binding/financial_projection_binding.dart';
 import 'package:cfo_app/app/modules/financial_projection/view/financial_projection_view.dart';
 import 'package:cfo_app/app/modules/financial_projection_summary/view/financial_projection_summary.dart';
@@ -25,6 +27,8 @@ import 'package:cfo_app/app/modules/purchase_order_list/binding/purchase_order_l
 import 'package:cfo_app/app/modules/purchase_order_list/view/purchase_order_list_view.dart';
 import 'package:cfo_app/app/modules/purchase_orders/binding/purchase_order_binding.dart';
 import 'package:cfo_app/app/modules/purchase_orders/view/purchase_order_view.dart';
+import 'package:cfo_app/app/modules/revenue_variance/binding/revenue_variance_binding.dart';
+import 'package:cfo_app/app/modules/revenue_variance/view/revenue_variance_view.dart';
 import 'package:cfo_app/app/modules/tds_check/binding/tds_check_binding.dart';
 import 'package:cfo_app/app/modules/tds_check/view/tds_check_view.dart';
 import 'package:cfo_app/app/modules/top_10_debtors_creditors/binding/top_debtors_creditors_binding.dart';
@@ -184,6 +188,14 @@ class AppPages {
       name: _Paths.EXCEPTION_REPORT,
       page: () => ExceptionReportView(),
       binding: ExceptionReportBinding(),
+    ),GetPage(
+      name: _Paths.EXPENSE_VARIANCE,
+      page: () => ExpenseVariancesView(),
+      binding: ExpenseVarianceBinding(),
+    ),GetPage(
+      name: _Paths.REVENUE_VARIANCE,
+      page: () => RevenueVariancesView(),
+      binding: RevenueVarianceBinding(),
     ),
   ];
 }
