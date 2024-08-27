@@ -60,8 +60,23 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                     ),
                   ),
                   DropDownField(
+                    // onChanged: (String? newValue) {
+                    //   arWithCreditBalanceController.showday.value = newValue!;
+                    // },
                     onChanged: (String? newValue) {
                       arWithCreditBalanceController.showday.value = newValue!;
+
+                      // Split the string by spaces and get the second element
+                      List<String> splitParts = arWithCreditBalanceController.showday.value.split(' ');
+
+                      // Check if the splitParts has at least two elements to avoid index out of range error
+                      if (splitParts.length >= 2) {
+                        String daysValue = splitParts[1]; // This will be "30" for 'Above 30 days'
+                        print('Days: $daysValue'); // Output: Days: 30
+                        arWithCreditBalanceController.filterbyDay(daysValue);
+                      } else {
+                        print('Invalid day format');
+                      }
                     },
                     selectValue: arWithCreditBalanceController.showday.value,
                     hintName: 'show',
@@ -214,8 +229,7 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                     width: 5,
                   ),
                   DropDownField(
-                    selectValue:
-                        arWithCreditBalanceController.showCategory.value,
+                    selectValue: arWithCreditBalanceController.showCategory.value,
                     hintName: 'show',
                     width: MediaQuery.of(context).size.width * 0.35,
                     height: 40,
@@ -282,231 +296,290 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                   ],
                 ),
               ),
-              Obx(() => Container(
-                    decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(5),
-                            bottomLeft: Radius.circular(5))),
-                    child: Column(
-                      children: [
-                        ListView.builder(
-                            itemCount:
-                                arWithCreditBalanceController.ItemList.length,
-                            shrinkWrap: true,
-                            padding: EdgeInsets.zero,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return Container(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                child: Column(
-                                  children: [
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    InkWell(
-                                      onTap: () {
-                                        // arWithCreditBalanceController.debitor();
-                                        // Get.toNamed(Routes.INVOICE_DETAILS);
-                                        Get.toNamed(Routes.INVOICE_DETAILS,
-                                            arguments: {
-                                              'userName':
-                                                  arWithCreditBalanceController
-                                                      .ItemList[index].Name,
-                                              'crBalance':
-                                                  arWithCreditBalanceController
-                                                      .ItemList[index].Db,
-                                              'paymentDate':
-                                                  arWithCreditBalanceController
-                                                      .ItemList[index].LP,
-                                              'whichDetail': 'Debtor Details',
-                                            });
-                                      },
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          // if(index==0)
-                                          //   Image.asset(ProjectImages.a_category,
-                                          //     height: 25,width: 25,
-                                          //   ),
-                                          // if(index==1)
-                                          //   Image.asset(ProjectImages.b_category,
-                                          //     height: 25,width: 25,
-                                          //   ),
-                                          // if(index==2)
-                                          //   Image.asset(ProjectImages.c_category,
-                                          //     height: 25,width: 25,
-                                          //   ),
-                                          // if(index==3 || index==4)
-                                          Image.asset(
-                                            arWithCreditBalanceController
-                                                .ItemList[index].image,
-                                            height: 25,
-                                            width: 25,
-                                          ),
-                                          Text(
-                                            arWithCreditBalanceController
-                                                .ItemList[index].Name,
-                                            style: TextStyle(
-                                                color: AppColor.blackColor,
-                                                fontFamily: 'Urbanist',
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 15),
-                                          ),
-                                          Text(
-                                            arWithCreditBalanceController
-                                                .ItemList[index].Db,
-                                            style: TextStyle(
-                                                color: AppColor.blackColor,
-                                                fontFamily: 'Urbanist',
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 15),
-                                          ),
-                                          Text(
-                                            arWithCreditBalanceController
-                                                .ItemList[index].LP,
-                                            style: TextStyle(
-                                                color: AppColor.blackColor,
-                                                fontFamily: 'Urbanist',
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 15),
-                                          ),
-                                          Text(
-                                            arWithCreditBalanceController
-                                                .ItemList[index].CINFO,
-                                            style: TextStyle(
-                                                color: AppColor.blackColor,
-                                                fontFamily: 'Urbanist',
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 15),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Divider(
-                                      color: AppColor.txtSecondaryColor,
-                                      thickness: 1,
-                                    ),
-                                  ],
+
+
+              ///
+              Obx(() =>
+              Container(
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(5),
+                        bottomLeft: Radius.circular(5))),
+                child: Column(
+                  children: [
+                    ListView.builder(
+                        itemCount: arWithCreditBalanceController.debtors.length,
+                        // itemCount:  arWithCreditBalanceController.categoryImages.length,
+                        shrinkWrap: true,
+                        padding: EdgeInsets.zero,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          var debtor =  arWithCreditBalanceController.debtors[index];
+                          // var imagePath = arWithCreditBalanceController.categoryImages[index];
+                          return Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Column(
+                              children: [
+                                const SizedBox(
+                                  height: 5,
                                 ),
-                              );
-                            }),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: InkWell(
-                            onTap: () {
-                              // Get.toNamed(Routes.ALL_CREDITOR);
-                              Get.toNamed(Routes.ALL_CREDITOR,
-                                  arguments: {'whichUser': 'All Debitors'});
-                            },
-                            child: const Text(
-                              "View All",
-                              style: TextStyle(
-                                  color: Color(0xFF7E8CA0),
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: 'Urbanist'),
+                                InkWell(
+                                  onTap: () {
+                                    // accountPayablesController.debitor();
+                                    // _showDetailsDialog(
+                                    //     context,
+                                    //     accountPayablesController
+                                    //         .ItemList[index]);
+                                    // print('id ${arWithCreditBalanceController.debtors[index]['id']}');
+                                    Get.toNamed(
+                                        Routes.INVOICE_DETAILS,
+                                        arguments: {
+                                          'userName':  arWithCreditBalanceController.debtors[index]['name'],
+                                          'crBalance':  arWithCreditBalanceController.debtors[index]['total_balance'],
+                                          'paymentDate': arWithCreditBalanceController.debtors[index]['last_payment_date'],
+                                          'due_date': arWithCreditBalanceController.debtors[index]['due_date'],
+                                          'whichDetail': 'Debtor Details',
+                                          'invoiceId': arWithCreditBalanceController.debtors[index]['id'].toString(),
+                                          "creditor":debtor
+                                        });
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Image.asset(
+                                        ProjectImages.a_category,
+                                        height: 25,
+                                        width: 25,
+                                      ),
+                                      // Image.asset(
+                                      //   // imagePath,
+                                      //   arWithCreditBalanceController.ItemList[index].image,
+                                      //   height: 25,
+                                      //   width: 25,
+                                      // ),
+                                      Container(
+                                        width: 41,
+                                        child: Text(
+                                          // accountPayablesController.ItemList[index].Name,
+                                          arWithCreditBalanceController.debtors[index]['name'],
+                                          style: TextStyle(
+                                              color: AppColor.blackColor,
+                                              fontFamily: 'Urbanist',
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 15),overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                      Container(
+                                        width: 45,
+                                        child: Text(
+                                          // accountPayablesController.ItemList[index].Db,
+                                          arWithCreditBalanceController.debtors[index]['total_balance'],
+                                          style: TextStyle(
+                                              color: AppColor.blackColor,
+                                              fontFamily: 'Urbanist',
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 15),overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                      Text(
+                                        // accountPayablesController.ItemList[index].LP,
+                                        arWithCreditBalanceController.debtors[index]['last_payment_date'],
+                                        style: TextStyle(
+                                            color: AppColor.blackColor,
+                                            fontFamily: 'Urbanist',
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 15),
+                                      ),
+                                      Container(
+                                        width: 40,
+                                        child: Text(
+                                          arWithCreditBalanceController.debtors[index]['contact_no'],
+                                          // accountPayablesController.ItemList[index].CINFO,
+                                          style: TextStyle(
+                                              color: AppColor.blackColor,
+                                              fontFamily: 'Urbanist',
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 15),overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Divider(
+                                  color: AppColor.txtSecondaryColor,
+                                  thickness: 1,
+                                ),
+                              ],
                             ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        )
-                      ],
+                          );
+                        }),
+                    const SizedBox(
+                      height: 5,
                     ),
-                  )),
-              // ListView.builder(
-              //     itemCount: 5,
-              //     shrinkWrap: true,
-              //     padding: EdgeInsets.zero,
-              //     physics: const NeverScrollableScrollPhysics(),
-              //     itemBuilder: (context, index) {
-              //       return Container(
-              //         padding: const EdgeInsets.symmetric(horizontal: 10),
-              //         decoration: const BoxDecoration(
-              //             color: Colors.white,
-              //             borderRadius: BorderRadius.only(
-              //                 bottomRight: Radius.circular(5),
-              //                 bottomLeft: Radius.circular(5))),
-              //         child: Column(
-              //           children: [
-              //             const SizedBox(
-              //               height: 5,
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.toNamed(Routes.ALL_CREDITOR,
+                              arguments: {'whichUser': 'All Debitors'});
+                        },
+                        child: const Text(
+                          "View All",
+                          style: TextStyle(
+                              color: Color(0xFF7E8CA0),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'Urbanist'),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    )
+                  ],
+                ),
+              )),
+              ///
+              // Obx(() => Container(
+              //       decoration: const BoxDecoration(
+              //           color: Colors.white,
+              //           borderRadius: BorderRadius.only(
+              //               bottomRight: Radius.circular(5),
+              //               bottomLeft: Radius.circular(5))),
+              //       child: Column(
+              //         children: [
+              //           ListView.builder(
+              //               itemCount:
+              //                   arWithCreditBalanceController.ItemList.length,
+              //               shrinkWrap: true,
+              //               padding: EdgeInsets.zero,
+              //               physics: const NeverScrollableScrollPhysics(),
+              //               itemBuilder: (context, index) {
+              //                 return Container(
+              //                   padding:
+              //                       const EdgeInsets.symmetric(horizontal: 10),
+              //                   child: Column(
+              //                     children: [
+              //                       const SizedBox(
+              //                         height: 5,
+              //                       ),
+              //                       InkWell(
+              //                         onTap: () {
+              //                           // arWithCreditBalanceController.debitor();
+              //                           // Get.toNamed(Routes.INVOICE_DETAILS);
+              //                           Get.toNamed(Routes.INVOICE_DETAILS,
+              //                               arguments: {
+              //                                 'userName':
+              //                                     arWithCreditBalanceController
+              //                                         .ItemList[index].Name,
+              //                                 'crBalance':
+              //                                     arWithCreditBalanceController
+              //                                         .ItemList[index].Db,
+              //                                 'paymentDate':
+              //                                     arWithCreditBalanceController
+              //                                         .ItemList[index].LP,
+              //                                 'whichDetail': 'Debtor Details',
+              //                               });
+              //                         },
+              //                         child: Row(
+              //                           mainAxisAlignment:
+              //                               MainAxisAlignment.spaceBetween,
+              //                           children: [
+              //                             // if(index==0)
+              //                             //   Image.asset(ProjectImages.a_category,
+              //                             //     height: 25,width: 25,
+              //                             //   ),
+              //                             // if(index==1)
+              //                             //   Image.asset(ProjectImages.b_category,
+              //                             //     height: 25,width: 25,
+              //                             //   ),
+              //                             // if(index==2)
+              //                             //   Image.asset(ProjectImages.c_category,
+              //                             //     height: 25,width: 25,
+              //                             //   ),
+              //                             // if(index==3 || index==4)
+              //                             Image.asset(
+              //                               arWithCreditBalanceController
+              //                                   .ItemList[index].image,
+              //                               height: 25,
+              //                               width: 25,
+              //                             ),
+              //                             Text(
+              //                               arWithCreditBalanceController
+              //                                   .ItemList[index].Name,
+              //                               style: TextStyle(
+              //                                   color: AppColor.blackColor,
+              //                                   fontFamily: 'Urbanist',
+              //                                   fontWeight: FontWeight.w500,
+              //                                   fontSize: 15),
+              //                             ),
+              //                             Text(
+              //                               arWithCreditBalanceController
+              //                                   .ItemList[index].Db,
+              //                               style: TextStyle(
+              //                                   color: AppColor.blackColor,
+              //                                   fontFamily: 'Urbanist',
+              //                                   fontWeight: FontWeight.w500,
+              //                                   fontSize: 15),
+              //                             ),
+              //                             Text(
+              //                               arWithCreditBalanceController
+              //                                   .ItemList[index].LP,
+              //                               style: TextStyle(
+              //                                   color: AppColor.blackColor,
+              //                                   fontFamily: 'Urbanist',
+              //                                   fontWeight: FontWeight.w500,
+              //                                   fontSize: 15),
+              //                             ),
+              //                             Text(
+              //                               arWithCreditBalanceController
+              //                                   .ItemList[index].CINFO,
+              //                               style: TextStyle(
+              //                                   color: AppColor.blackColor,
+              //                                   fontFamily: 'Urbanist',
+              //                                   fontWeight: FontWeight.w500,
+              //                                   fontSize: 15),
+              //                             ),
+              //                           ],
+              //                         ),
+              //                       ),
+              //                       Divider(
+              //                         color: AppColor.txtSecondaryColor,
+              //                         thickness: 1,
+              //                       ),
+              //                     ],
+              //                   ),
+              //                 );
+              //               }),
+              //           const SizedBox(
+              //             height: 5,
+              //           ),
+              //           Align(
+              //             alignment: Alignment.bottomCenter,
+              //             child: InkWell(
+              //               onTap: () {
+              //                 // Get.toNamed(Routes.ALL_CREDITOR);
+              //                 Get.toNamed(Routes.ALL_CREDITOR,
+              //                     arguments: {'whichUser': 'All Debitors'});
+              //               },
+              //               child: const Text(
+              //                 "View All",
+              //                 style: TextStyle(
+              //                     color: Color(0xFF7E8CA0),
+              //                     fontSize: 16,
+              //                     fontWeight: FontWeight.w600,
+              //                     fontFamily: 'Urbanist'),
+              //               ),
               //             ),
-              //             Row(
-              //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //               children: [
-              //                 if (index == 0)
-              //                   Image.asset(
-              //                     ProjectImages.a_category,
-              //                     height: 25,
-              //                     width: 25,
-              //                   ),
-              //                 if (index == 1)
-              //                   Image.asset(
-              //                     ProjectImages.b_category,
-              //                     height: 25,
-              //                     width: 25,
-              //                   ),
-              //                 if (index == 2)
-              //                   Image.asset(
-              //                     ProjectImages.c_category,
-              //                     height: 25,
-              //                     width: 25,
-              //                   ),
-              //                 if (index == 3 || index == 4)
-              //                   Image.asset(
-              //                     ProjectImages.a_category,
-              //                     height: 25,
-              //                     width: 25,
-              //                   ),
-              //                 Text(
-              //                   'Debtor 1',
-              //                   style: TextStyle(
-              //                       color: AppColor.blackColor,
-              //                       fontFamily: 'Urbanist',
-              //                       fontWeight: FontWeight.w500,
-              //                       fontSize: 15),
-              //                 ),
-              //                 Text(
-              //                   '₹50,000',
-              //                   style: TextStyle(
-              //                       color: AppColor.blackColor,
-              //                       fontFamily: 'Urbanist',
-              //                       fontWeight: FontWeight.w500,
-              //                       fontSize: 15),
-              //                 ),
-              //                 Text(
-              //                   '01-01-2024',
-              //                   style: TextStyle(
-              //                       color: AppColor.blackColor,
-              //                       fontFamily: 'Urbanist',
-              //                       fontWeight: FontWeight.w500,
-              //                       fontSize: 15),
-              //                 ),
-              //                 Text(
-              //                   '123-4..',
-              //                   style: TextStyle(
-              //                       color: AppColor.blackColor,
-              //                       fontFamily: 'Urbanist',
-              //                       fontWeight: FontWeight.w500,
-              //                       fontSize: 15),
-              //                 ),
-              //               ],
-              //             ),
-              //             Divider(
-              //               color: AppColor.txtSecondaryColor,
-              //               thickness: 1,
-              //             )
-              //           ],
-              //         ),
-              //       );
-              //     }),
+              //           ),
+              //           const SizedBox(
+              //             height: 10,
+              //           )
+              //         ],
+              //       ),
+              //     )),
               const SizedBox(
                 height: 15,
               ),

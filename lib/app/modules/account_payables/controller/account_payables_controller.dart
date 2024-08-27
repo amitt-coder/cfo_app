@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cfo_app/app/data/api.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -21,6 +22,7 @@ class AccountPayablesController extends GetxController {
   RxString showCategory = 'Cateogory A'.obs;
   RxList<String> showCategoryList =
       ['Cateogory A', 'Cateogory B', 'Cateogory C'].obs;
+
   List<Items> ItemList = [
     Items(
         Name: "Mohit",
@@ -53,6 +55,13 @@ class AccountPayablesController extends GetxController {
         LP: '05-06-2024',
         CINFO: '123-4'),
   ];
+   RxList<dynamic> creditors=[].obs;
+
+  void onInit() {
+    super.onInit();
+    accountPayableApi();
+  }
+
 
   void debitor() {
     creditorShow.value = !creditorShow.value;
@@ -78,31 +87,99 @@ class AccountPayablesController extends GetxController {
 
 
   Future<dynamic> accountPayableApi() async {
-    print('------accountPayableApi-------');
 
-    String? userId = storage.read('USER_ID');
+    print('-------accountPayableApi--------');
+
+    final storage = GetStorage();
+
     String? token = storage.read('accessToken');
+    String? userId = storage.read('USER_ID');
 
-    var request = http.Request('GET', Uri.parse(''));
+    // Map<String, dynamic> requestBody = {
+    //   'id': userId,
+    // };
+    // String encodedBody = json.encode(requestBody);
+    print('url:${Api.filter_creditors}${userId}');
 
-    http.StreamedResponse response = await request.send();
-    var res = await response.stream.bytesToString();
+    try {
+      var response = await http.get(Uri.parse('${Api.filter_creditors}${userId}'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        // body: encodedBody,
+      );
 
-    print('res----${res}');
 
-    if (response.statusCode == 200 || response == 201) {
-      print('api successfully work');
+      print('response Status ${response.statusCode}');
 
-      var responseData = json.decode(res);
-      print('responseData: ${responseData}');
-    } else if (response.statusCode == 404) {
-      print('Error: Not Found: ${response.statusCode}');
-    } else if (response.statusCode == 500) {
-      print('Error: Internal Server Error ${response.statusCode}');
-    } else if (response.statusCode == 429) {
-      print('Error: Too Many Request ${response.statusCode}');
-    } else {
-      print('Error: ${response.statusCode}');
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var responseData = json.decode(response.body);
+
+        creditors.value = responseData['creditor'] ?? [];
+        final List<dynamic> debtors = responseData['debtor'] ?? [];
+
+        // print('creditors: ${creditors}');
+        // print('debtors: ${debtors}');
+
+
+
+        return responseData;
+      } else {
+        print('Failed with status: ${response.statusCode}');
+        return response.statusCode;
+      }
+    } catch (e) {
+      print('Error: ${e}');
+      return e;
+    }
+  }
+
+  Future<dynamic> filterbyDay(String days) async {
+
+    print('-------filterbyDay--------');
+
+    final storage = GetStorage();
+
+    String? token = storage.read('accessToken');
+    String? userId = storage.read('USER_ID');
+
+    // Map<String, dynamic> requestBody = {
+    //   'id': userId,
+    // };
+    // String encodedBody = json.encode(requestBody);
+    print('url:${Api.filter_by_day_debtor_creditor}${userId}/${days}/');
+
+    try {
+      var response = await http.get(Uri.parse('${Api.filter_by_day_debtor_creditor}${userId}/${days}/'),
+      // var response = await http.get(Uri.parse('http://cfo2.webzcon.in/api/filter_by_day_debtor_creditor/8/90/'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        // body: encodedBody,
+      );
+
+
+      print('response Status ${response.statusCode}');
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var responseData = json.decode(response.body);
+
+        creditors.value = responseData['Creditors'] ?? [];
+        final List<dynamic> debtors = responseData['debtor'] ?? [];
+
+        print('creditors: ${creditors}');
+        // print('debtors: ${debtors}');
+
+        return responseData;
+      } else {
+        print('Failed with status: ${response.statusCode}');
+        return response.statusCode;
+      }
+    } catch (e) {
+      print('Error: ${e}');
+      return e;
     }
   }
 

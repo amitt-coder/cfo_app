@@ -27,28 +27,29 @@ class RevenueVariancesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonAppBar(
-        title: 'Revenue Variances',
-        automaticallyImplyLeading: false,
-        leading: GestureDetector(
-          onTap: () {
-            Get.back();
-          },
-          child: Image.asset(
-            ProjectImages.arrow_left,
-            height: 25,
-            width: 25,
-          ),
-        ),
-      ),
+      // appBar: CommonAppBar(
+      //   title: 'Revenue Variances',
+      //   automaticallyImplyLeading: false,
+      //   leading: GestureDetector(
+      //     onTap: () {
+      //       Get.back();
+      //     },
+      //     child: Image.asset(
+      //       ProjectImages.arrow_left,
+      //       height: 25,
+      //       width: 25,
+      //     ),
+      //   ),
+      // ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        // padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         color: AppColor.backgroundColors,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(height: 20,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

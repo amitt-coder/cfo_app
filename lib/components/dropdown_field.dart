@@ -12,6 +12,7 @@ class DropDownField extends StatefulWidget {
   String showBorder;
   dynamic controller;
   ValueChanged<String?>? onChanged;
+  Function()? ontap;
 
 
   DropDownField({
@@ -23,6 +24,7 @@ class DropDownField extends StatefulWidget {
     required this.controller,
     required this.showBorder,
      this.onChanged,
+     this.ontap,
   });
   @override
   State<DropDownField> createState() => _DropDownFieldState();
@@ -37,6 +39,7 @@ class _DropDownFieldState extends State<DropDownField> {
       padding: EdgeInsets.zero,
       child: DropdownButtonFormField<String>(
         padding: EdgeInsets.zero,
+        onTap: widget.ontap,
         icon: Icon(Icons.arrow_drop_down_sharp,),
         iconSize: 20,
         iconEnabledColor: AppColor.blackColor,

@@ -12,6 +12,7 @@ import '../../../../components/common_textformfield.dart';
 import '../../../../components/dropdown_field.dart';
 import '../../../../utils/style.dart';
 import '../../../routes/app_pages.dart';
+import '../../ar_with_credit_balance/controller/ar_with_credit_balance_controller.dart';
 import '../../dashBoard/controllers/dash_board_controller.dart';
 import '../controllers/cash_flow_controller.dart';
 
@@ -25,7 +26,8 @@ class CashFlowScreen extends StatefulWidget {
 class _CashFlowScreenState extends State<CashFlowScreen> {
   final CashflowController cashflowController = Get.put(CashflowController());
   DashBoardController dashBoardController = DashBoardController();
-
+  ArWithCreditBalanceController arWithCreditBalanceController =
+  Get.put(ArWithCreditBalanceController());
   Widget _buildBottomTitle(double value, TitleMeta meta) {
     const style = TextStyle(
       color: Colors.black,
@@ -759,7 +761,9 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                   //   );
                   // }),
                   Obx(() {
-                    if (cashflowController.creditorSpots.isEmpty || cashflowController.debtorSpots.isEmpty) {
+                    if (
+                    cashflowController.creditorSpots.isEmpty ||
+                        cashflowController.debtorSpots.isEmpty) {
                       return Center(child: CircularProgressIndicator());
                     }
 
@@ -826,28 +830,31 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                                       return SideTitleWidget(
                                         space: 0, // Adjust space for better separation
                                         axisSide: meta.axisSide,
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                              debtorDate, // Show date only for debtors
-                                              style: TextStyle(
-                                                fontSize: 8,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.red, // Color for debtor dates
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(left: 50),
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                debtorDate, // Show date only for debtors
+                                                style: TextStyle(
+                                                  fontSize: 8,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.red, // Color for debtor dates
+                                                ),
+                                                textAlign: TextAlign.center, // Align the text to center for better appearance
                                               ),
-                                              textAlign: TextAlign.center, // Align the text to center for better appearance
-                                            ),
-                                            SizedBox(height: 5), // Space between dates
-                                            Text(
-                                              creditorDate, // Show date only for creditors
-                                              style: TextStyle(
-                                                fontSize: 8,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.green, // Color for creditor dates
+                                              SizedBox(height: 5), // Space between dates
+                                              Text(
+                                                creditorDate, // Show date only for creditors
+                                                style: TextStyle(
+                                                  fontSize: 8,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.green, // Color for creditor dates
+                                                ),
+                                                textAlign: TextAlign.center, // Align the text to center for better appearance
                                               ),
-                                              textAlign: TextAlign.center, // Align the text to center for better appearance
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       );
                                     },
@@ -897,10 +904,11 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                       ),
                     );
                   }),
-
                   const SizedBox(
                     height: 20,
                   ),
+                  cashflowController.creditorsList.isEmpty?
+                  Text(''):
                   Container(
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
@@ -994,7 +1002,10 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                         const SizedBox(
                           height: 15,
                         ),
+                        cashflowController.creditorsList.isEmpty?
+                            Text(''):
                         Obx(() {
+
                           final isViewingCreditors =
                               cashflowController.isViewingCreditors.value;
                           final data = isViewingCreditors
@@ -1003,26 +1014,52 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                           final amountData = isViewingCreditors
                               ? cashflowController.creditorsAmountList
                               : cashflowController.debtorsAmountList;
+                          final dueDate = isViewingCreditors
+                              ? cashflowController.creditorsdueDateList
+                              : cashflowController.debtordueDateList;
+                          final lastpaymentDate = isViewingCreditors
+                              ? cashflowController.creditorslastPaymentDate
+                              : cashflowController.debtorlastPaymentDate;
+                          final invoiceIds = isViewingCreditors
+                              ? cashflowController.creditorInvoiceIds
+                              : cashflowController.debtorInvoiceIds;
+                          final allCreditorDebtor = isViewingCreditors
+                              ? cashflowController.allCreditor
+                              : cashflowController.allDebtor;
                           return ListView.builder(
                             itemCount: data.length,
                             shrinkWrap: true,
                             padding: EdgeInsets.zero,
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
+                              print('allCreditorDebtor: ${allCreditorDebtor[index]}');
                               return Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 18.0, vertical: 16),
                                 child: InkWell(
                                   onTap: () {
+
+                                    // Get.toNamed(Routes.INVOICE_DETAILS,
+                                    //     arguments: {
+                                    //       'userName': data[index],
+                                    //       'crBalance': amountData[index],
+                                    //       'paymentDate':
+                                    //           '01-06-2024', // Replace with actual date if available
+                                    //       'whichDetail': isViewingCreditors
+                                    //           ? 'Creditor Details'
+                                    //           : 'Debtor Details',
+                                    //     });
                                     Get.toNamed(Routes.INVOICE_DETAILS,
                                         arguments: {
                                           'userName': data[index],
                                           'crBalance': amountData[index],
-                                          'paymentDate':
-                                              '01-06-2024', // Replace with actual date if available
+                                          'paymentDate': lastpaymentDate[index], // Replace with actual date if available
                                           'whichDetail': isViewingCreditors
                                               ? 'Creditor Details'
                                               : 'Debtor Details',
+                                          'due_date': dueDate[index],
+                                          'invoiceId': invoiceIds[index],
+                                          "creditor": allCreditorDebtor[index],
                                         });
                                   },
                                   child: Row(

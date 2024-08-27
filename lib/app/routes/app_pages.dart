@@ -32,8 +32,11 @@ import 'package:cfo_app/app/modules/revenue_variance/view/revenue_variance_view.
 import 'package:cfo_app/app/modules/tds_check/binding/tds_check_binding.dart';
 import 'package:cfo_app/app/modules/tds_check/view/tds_check_view.dart';
 import 'package:cfo_app/app/modules/top_10_debtors_creditors/binding/top_debtors_creditors_binding.dart';
+import 'package:cfo_app/app/modules/trends/binding/trends_binding.dart';
 import 'package:cfo_app/app/modules/variance_analysis/binding/variance_analysis_binding.dart';
 import 'package:cfo_app/app/modules/variance_analysis/view/variance_analysis_view.dart';
+import 'package:cfo_app/app/modules/variance_tabs/binding/variance_tab_binding.dart';
+import 'package:cfo_app/app/modules/variance_tabs/view/variance_tabs_view.dart';
 import 'package:get/get.dart';
 import '../modules/Splash/bindings/splash_binding.dart';
 import '../modules/Splash/views/splash_view.dart';
@@ -55,6 +58,7 @@ import '../modules/signIn/views/sign_in_view.dart';
 import '../modules/signUp/bindings/sign_up_binding.dart';
 import '../modules/signUp/views/sign_up_view.dart';
 import '../modules/top_10_debtors_creditors/view/top_debtors_creditors_view.dart';
+import '../modules/trends/view/trends_view.dart';
 
 part 'app_routes.dart';
 
@@ -196,6 +200,14 @@ class AppPages {
       name: _Paths.REVENUE_VARIANCE,
       page: () => RevenueVariancesView(),
       binding: RevenueVarianceBinding(),
+    ),GetPage(
+      name: _Paths.VARIANCE_TABS,
+      page: () => VarianceTabsView(),
+      binding: VarianceTabsBinding(),
+    ),GetPage(
+      name: _Paths.TRENDS,
+      page: () => TrendsView(),
+      binding: TrendsBinding(),
     ),
   ];
 }

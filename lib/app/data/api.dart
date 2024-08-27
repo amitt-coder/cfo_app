@@ -14,9 +14,12 @@ class Api{
         static const String TallyConnector = '$BASE_URL/TallyConnector/';
         static const String last_week = '$BASE_URL$api/last_week/';
         static const String last_month = '$BASE_URL$api/last_month/';
-        static const String filter_creditors = '$BASE_URL$api/filter_creditors/';//not implement
-        static const String filter_debtor = '$BASE_URL$api/filter_debtor/';//not implement
+        static const String filter_creditors = '$BASE_URL$api/filter_creditors/';
+        static const String filter_debtor = '$BASE_URL$api/filter_debtor/';
         static const String filter_by_custome_date = '$BASE_URL$api/filter_by_custome_date/';
+        static const String debtors_discount = '$BASE_URL/debtors_discount/';
+        static const String creditors_discount = '$BASE_URL/creditors_discount/';
+        static const String filter_by_day_debtor_creditor = '$BASE_URL$api/filter_by_day_debtor_creditor/';
 
 
 

@@ -58,8 +58,21 @@ class CashflowController extends GetxController{
   RxBool isViewingCreditors = true.obs;
   RxList<String> creditorsList = <String>[].obs;
   RxList<String> debtorsList = <String>[].obs;
+
   RxList<String> creditorsAmountList = <String>[].obs;
   RxList<String> debtorsAmountList = <String>[].obs;
+
+  RxList<String> creditorsdueDateList = <String>[].obs;
+  RxList<String> debtordueDateList = <String>[].obs;
+
+  RxList<String> creditorslastPaymentDate = <String>[].obs;
+  RxList<String> debtorlastPaymentDate = <String>[].obs;
+
+  RxList<String> creditorInvoiceIds = <String>[].obs;
+  RxList<String> debtorInvoiceIds = <String>[].obs;
+
+  RxList<dynamic> allCreditor=[].obs;
+  RxList<dynamic> allDebtor=[].obs;
 
   void selectValue(String value) {
     selectedValue.value = value;
@@ -83,9 +96,9 @@ class CashflowController extends GetxController{
   RxList<FlSpot> debtorSpots = <FlSpot>[].obs;
   RxList<FlSpot> creditorSpots = <FlSpot>[].obs;
 
-  var creditorDueDates = <String>[].obs;
-  var debtorDueDates = <String>[].obs;
-  var dueDates = <String>[].obs;
+  // var creditorDueDates = <String>[].obs;
+  // var debtorDueDates = <String>[].obs;
+  // var dueDates = <String>[].obs;
 
 
   RxString formattedDate =''.obs;
@@ -623,7 +636,7 @@ class CashflowController extends GetxController{
 
     print('Highest Amount: $highestAmount');
     print('Lowest Amount: $lowestAmount');
-
+    update();
   }
 
 
@@ -739,10 +752,10 @@ class CashflowController extends GetxController{
     //   'id': userId,
     // };
     // String encodedBody = json.encode(requestBody);
-    print('url:${Api.last_week}/${userId}');
+    print('url:${Api.last_week}${userId}');
 
     try {
-      var response = await http.get(Uri.parse('${Api.last_week}/${userId}'),
+      var response = await http.get(Uri.parse('${Api.last_week}${userId}'),
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer $token',
@@ -759,33 +772,52 @@ class CashflowController extends GetxController{
         final List<dynamic> creditors = responseData['creditor'] ?? [];
         final List<dynamic> debtors = responseData['debtor'] ?? [];
 
+        allCreditor.value = responseData['creditor'] ?? [];
+        allDebtor.value = responseData['debtor'] ?? [];
+
         print('creditors: ${creditors}');
         print('debtors: ${debtors}');
 
         creditorsList.clear();
         creditorsAmountList.clear();
+        creditorsdueDateList.clear();
+        creditorslastPaymentDate.clear();
+        creditorInvoiceIds.clear();
         // Populate creditors
         for (var creditor in creditors) {
+
           creditorsList.add(creditor['name']);
           creditorsAmountList.add(creditor['total_balance']);
+          creditorsdueDateList.add(creditor['due_date']);
+          creditorslastPaymentDate.add(creditor['last_payment_date']);
+          creditorInvoiceIds.add(creditor['id'].toString());
         }
+
         debtorsList.clear();
         debtorsAmountList.clear();
+        debtordueDateList.clear();
+        debtorlastPaymentDate.clear();
+        debtorInvoiceIds.clear();
         // Populate debtors
         for (var debtor in debtors) {
+
           debtorsList.add(debtor['name']);
           debtorsAmountList.add(debtor['total_balance']);
+          debtordueDateList.add(debtor['due_date']);
+          debtorlastPaymentDate.add(debtor['last_payment_date']);
+          debtorInvoiceIds.add(debtor['id'].toString());
         }
 
           creditors_amount.value=responseData['creditors_amount'].toString();
           debtors_amount.value=responseData['debtors_amount'].toString();
           total_amount.value=responseData['total_amount'].toString();
-
-        print('creditors_amount: ${creditors_amount}');
-        print('debtors_amount: ${debtors_amount}');
-        print('total_amount: ${total_amount}');
-
-
+        update();
+        // print('creditors_amount: ${creditors_amount}');
+        // print('debtors_amount: ${debtors_amount}');
+        // print('total_amount: ${total_amount}');
+        // print('creditorslastPaymentDate: ${creditorslastPaymentDate}');
+        print('debtorInvoiceIds: ${debtorInvoiceIds}');
+        print('creditorInvoiceIds: ${creditorInvoiceIds}');
 
         return responseData;
       } else {
@@ -807,10 +839,10 @@ class CashflowController extends GetxController{
     String? token = storage.read('accessToken');
     String? userId = storage.read('USER_ID');
 
-    print('url: ${Api.last_month}/${userId}');
+    print('url: ${Api.last_month}${userId}');
 
     try {
-      var response = await http.get(Uri.parse('${Api.last_month}/${userId}'),
+      var response = await http.get(Uri.parse('${Api.last_month}${userId}'),
       // var response = await http.get(Uri.parse('http://cfo2.webzcon.in/api/last_month/8'),
           headers: {
             'Content-Type': 'application/json',
@@ -828,25 +860,40 @@ class CashflowController extends GetxController{
 
         final List<dynamic> creditors = responseData['creditor'] ?? [];
         final List<dynamic> debtors = responseData['debtor'] ?? [];
+        allCreditor.value = responseData['creditor'] ?? [];
+        allDebtor.value = responseData['debtor'] ?? [];
+
         creditorsList.clear();
         creditorsAmountList.clear();
+        creditorsdueDateList.clear();
+        creditorslastPaymentDate.clear();
+        creditorInvoiceIds.clear();
         // Populate creditors
         for (var creditor in creditors) {
           creditorsList.add(creditor['name']);
           creditorsAmountList.add(creditor['total_balance']);
+          creditorsdueDateList.add(creditor['due_date']);
+          creditorslastPaymentDate.add(creditor['last_payment_date']);
+          creditorInvoiceIds.add(creditor['id'].toString());
         }
         debtorsList.clear();
         debtorsAmountList.clear();
+        debtordueDateList.clear();
+        debtorlastPaymentDate.clear();
+        debtorInvoiceIds.clear();
         // Populate debtors
         for (var debtor in debtors) {
           debtorsList.add(debtor['name']);
           debtorsAmountList.add(debtor['total_balance']);
+          debtordueDateList.add(debtor['due_date']);
+          debtorlastPaymentDate.add(debtor['last_payment_date']);
+          debtorInvoiceIds.add(debtor['id'].toString());
         }
         creditors_amount.value=responseData['creditors_amount'].toString();
         debtors_amount.value=responseData['debtors_amount'].toString();
         total_amount.value=responseData['total_amount'].toString();
         // print('Response Data: ${responseData}');
-
+          update();
         print('debtorsList: ${debtorsList}');
         print('debtorsAmountList: ${debtorsAmountList}');
         print('creditorsList: ${creditorsList}');
@@ -892,24 +939,40 @@ class CashflowController extends GetxController{
         final List<dynamic> creditors = responseData['Creditors'] ?? [];
         final List<dynamic> debtors = responseData['Debtors'] ?? [];
 
+        allCreditor.value = responseData['Creditors'] ?? [];
+        allDebtor.value = responseData['Debtors'] ?? [];
+
         creditorsList.clear();
         creditorsAmountList.clear();
+        creditorsdueDateList.clear();
+        creditorslastPaymentDate.clear();
+        creditorInvoiceIds.clear();
         // Populate creditors
         for (var creditor in creditors) {
           creditorsList.add(creditor['name']);
           creditorsAmountList.add(creditor['total_balance']);
+          creditorsdueDateList.add(creditor['due_date']);
+          creditorslastPaymentDate.add(creditor['last_payment_date']);
+          creditorInvoiceIds.add(creditor['id'].toString());
         }
         debtorsList.clear();
         debtorsAmountList.clear();
+        debtordueDateList.clear();
+        debtorlastPaymentDate.clear();
+        debtorInvoiceIds.clear();
         // Populate debtors
         for (var debtor in debtors) {
           debtorsList.add(debtor['name']);
           debtorsAmountList.add(debtor['total_balance']);
+          debtordueDateList.add(debtor['due_date']);
+          debtorlastPaymentDate.add(debtor['last_payment_date']);
+          debtorInvoiceIds.add(debtor['id'].toString());
         }
 
         creditors_amount.value=responseData['creditors_amount'].toString();
         debtors_amount.value=responseData['debtors_amount'].toString();
         total_amount.value=responseData['total_amount'].toString();
+        update();
         print('Response Data: ${responseData}');
         print('debtorsList: ${debtorsList}');
         print('debtorsAmountList: ${debtorsAmountList}');
@@ -953,6 +1016,7 @@ class CashflowController extends GetxController{
       if (response.statusCode == 200 || response.statusCode == 201) {
         var responseData = json.decode(response.body);
 
+        update();
         print('Response Data: ${responseData}');
         return responseData;
       } else {
@@ -990,7 +1054,7 @@ class CashflowController extends GetxController{
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         var responseData = json.decode(response.body);
-
+        update();
         print('Response Data: ${responseData}');
         return responseData;
       } else {

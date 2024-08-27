@@ -3,6 +3,7 @@ import 'package:cfo_app/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
@@ -10,9 +11,19 @@ import 'package:permission_handler/permission_handler.dart';
 import '../../../utils/images.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'dart:io';
+import 'package:http/http.dart' as http;
+import '../../data/api.dart';
 
 class CustomerController extends GetxController {
 
+
+
+  void onInit() {
+    super.onInit();
+    accountPayableApi();
+  }
+
+  RxList<dynamic> creditors=[].obs;
 
   RxList<Items> ItemList = [
     Items(
@@ -329,6 +340,54 @@ class CustomerController extends GetxController {
   }
 
 
+  Future<dynamic> accountPayableApi() async {
+
+    print('-------accountPayableApi--------');
+
+    final storage = GetStorage();
+
+    String? token = storage.read('accessToken');
+    String? userId = storage.read('USER_ID');
+
+    // Map<String, dynamic> requestBody = {
+    //   'id': userId,
+    // };
+    // String encodedBody = json.encode(requestBody);
+    print('url:${Api.filter_creditors}${userId}');
+
+    try {
+      var response = await http.get(Uri.parse('${Api.filter_creditors}${userId}'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        // body: encodedBody,
+      );
+
+
+      print('response Status ${response.statusCode}');
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var responseData = json.decode(response.body);
+
+        creditors.value = responseData['creditor'] ?? [];
+        final List<dynamic> debtors = responseData['debtor'] ?? [];
+
+        // print('creditors: ${creditors.value}');
+        // print('debtors: ${debtors}');
+
+
+
+        return responseData;
+      } else {
+        print('Failed with status: ${response.statusCode}');
+        return response.statusCode;
+      }
+    } catch (e) {
+      print('Error: ${e}');
+      return e;
+    }
+  }
 
 }
 

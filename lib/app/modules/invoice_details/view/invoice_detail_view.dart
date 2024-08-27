@@ -14,11 +14,17 @@ class InvoiceDetailView extends StatefulWidget {
   String crBalance = '';
   String paymentDate = '';
   String whichDetail = '';
+  String due_date = '';
+  String invoiceId = '';
+  final Map<String, dynamic> creditor;
   InvoiceDetailView({super.key,
     this.userName = '',
     this.crBalance = '',
     this.paymentDate = '',
     this.whichDetail = '',
+    this.due_date = '',
+    this.invoiceId = '',
+     this.creditor = const {},
   });
 
   @override
@@ -316,7 +322,7 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
                     buildDetailRow('Last Payment Date:',
                         invoiceDetailController.paymentDate.value),
                     const SizedBox(height: 10),
-                    buildDetailRow('Due Date:', '01-31-2024'),
+                    buildDetailRow('Due Date:', '${invoiceDetailController.due_date.value}'),
                     const SizedBox(height: 15),
                     Text(
                       'Outstanding Invoices:',
@@ -328,9 +334,44 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    buildInvoiceList(),
-                    const SizedBox(height: 15),
-                    buildContactInfo(),
+                    ListView.builder(
+                      itemCount: invoiceDetailController.outstandingInvoices.length,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(), // Prevents nested scrolling issues
+                      itemBuilder: (context, creditorIndex) {
+                        var invoice = invoiceDetailController.outstandingInvoices[creditorIndex];
+                        return Container(
+                          margin: EdgeInsets.symmetric(vertical: 8.0), // Optional: add margin for spacing
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '- Invoice #${invoice['Invoice']}  ${invoice['Amount']}',
+                                style: TextStyle(
+                                  color: AppColor.blackColor,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: 'Urbanist',
+                                ),
+                              ),
+                              Text(
+                                '- Due: ${invoice['Due']}',
+                                style: TextStyle(
+                                  color: AppColor.blackColor,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: 'Urbanist',
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+
+                    // buildInvoiceList(),
+                    // const SizedBox(height: 15),
+                    // buildContactInfo(),
                   ],
                 ),
               ),
@@ -531,7 +572,18 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
               CommonButton(
                 color: AppColor.primaryColor,
                 ontap: () {
-                  Get.offAllNamed(Routes.DASH_BOARD);
+                  print('whichApi: ${invoiceDetailController.whichDetail.toString()}');
+
+                  if(invoiceDetailController.whichDetail.toString() =='Debtor Details'){
+                    invoiceDetailController.debtorsDiscountApi();
+                  }else{
+                    invoiceDetailController.creditorDiscountApi();
+                  }
+
+
+
+
+                  // Get.offAllNamed(Routes.DASH_BOARD);
                 },
                 height: 45,
                 width: double.infinity,

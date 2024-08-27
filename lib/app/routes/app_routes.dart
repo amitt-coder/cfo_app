@@ -30,6 +30,8 @@ abstract class Routes {
   static const EXCEPTION_REPORT = _Paths.EXCEPTION_REPORT;
   static const EXPENSE_VARIANCE = _Paths.EXPENSE_VARIANCE;
   static const REVENUE_VARIANCE = _Paths.REVENUE_VARIANCE;
+  static const VARIANCE_TABS = _Paths.VARIANCE_TABS;
+  static const TRENDS = _Paths.TRENDS;
 
 }
 
@@ -62,4 +64,6 @@ abstract class _Paths {
   static const EXCEPTION_REPORT = '/exception-report';
   static const EXPENSE_VARIANCE = '/expense-variance';
   static const REVENUE_VARIANCE = '/revenue-variance';
+  static const VARIANCE_TABS = '/variance-tabs';
+  static const TRENDS = '/trends';
 }

@@ -67,9 +67,10 @@ class _ExceptionReportViewState extends State<ExceptionReportView> {
                       Get.toNamed(Routes.KEY_RATIO_ANALYSIS);
                     }
                     if(index == 3){
-                      Get.toNamed(Routes.EXPENSE_VARIANCE);
+                      // Get.toNamed(Routes.EXPENSE_VARIANCE);
+                      Get.toNamed(Routes.VARIANCE_TABS);
                     } if(index == 4){
-                      Get.toNamed(Routes.REVENUE_VARIANCE);
+                      Get.toNamed(Routes.TRENDS);
                     }
                   },
                   child: Column(
