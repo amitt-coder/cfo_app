@@ -1,4 +1,4 @@
-import 'package:cfo_app/app/modules/revenue_variance/revenue_variance_controller.dart';
+import 'package:cfo_app/app/modules/revenue_variance/controller/revenue_variance_controller.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -89,15 +89,17 @@ class RevenueVariancesView extends StatelessWidget {
                     fontFamily: 'Urbanist',
                   ),
                 ),
+                Obx(() =>
                 Text(
-                  '₹600,000',
+                  revenueVarianceController.creditors_amount.value,
+                  // '₹600,000',
                   style: TextStyle(
                     color: AppColor.primaryColor,
                     fontWeight: FontWeight.w500,
                     fontSize: 16,
                     fontFamily: 'Urbanist',
                   ),
-                ),
+                )),
               ],
             ),
             SizedBox(height: 5),
@@ -112,15 +114,17 @@ class RevenueVariancesView extends StatelessWidget {
                     fontFamily: 'Urbanist',
                   ),
                 ),
+                Obx(() =>
                 Text(
-                  '₹650,000',
+                  revenueVarianceController.debtors_amount.value,
+                  // '₹650,000',
                   style: TextStyle(
                     color: AppColor.primaryColor,
                     fontWeight: FontWeight.w500,
                     fontSize: 16,
                     fontFamily: 'Urbanist',
                   ),
-                ),
+                )),
               ],
             ),
             SizedBox(height: 5),
@@ -135,126 +139,26 @@ class RevenueVariancesView extends StatelessWidget {
                     fontFamily: 'Urbanist',
                   ),
                 ),
+                Obx(() =>
                 Text(
-                  '₹50,000',
+                  revenueVarianceController.total_amount.value,
                   style: TextStyle(
                     color: AppColor.primaryColor,
                     fontWeight: FontWeight.w500,
                     fontSize: 16,
                     fontFamily: 'Urbanist',
                   ),
-                ),
+                )),
               ],
             ),
             SizedBox(height: 30),
-            // Expanded(
-            //   child: BarChart(
-            //     BarChartData(
-            //       alignment: BarChartAlignment.spaceAround,
-            //       maxY: 30000,
-            //       minY: -15000,
-            //       baselineY: 0.5,
-            //       gridData: FlGridData(
-            //         show: true,
-            //         verticalInterval: 65000,
-            //         horizontalInterval: 65000,
-            //         getDrawingHorizontalLine: (value) {
-            //           return FlLine(
-            //               color: Color(0xFFB1B1B1),
-            //               strokeWidth: 0.5
-            //           );
-            //         },
-            //         drawVerticalLine: false,
-            //       ),
-            //       borderData: FlBorderData(
-            //           show: true,
-            //           border: Border.all(
-            //             color: Colors.transparent,
-            //           )
-            //       ),
-            //       barGroups: _createBarGroups(),
-            //       barTouchData: BarTouchData(enabled: true),
-            //       titlesData: FlTitlesData(
-            //         rightTitles: AxisTitles(
-            //             sideTitles: SideTitles(showTitles: false)),
-            //         topTitles: AxisTitles(
-            //                   sideTitles: SideTitles(
-            //                     showTitles: false,
-            //                   ),
-            //                 ),
-            //         leftTitles: AxisTitles(
-            //           sideTitles: SideTitles(
-            //             showTitles: false,
-            //             reservedSize: 40,
-            //             getTitlesWidget: (value, meta) {
-            //               return Text('${value.toInt()}',
-            //                 style: TextStyle(
-            //                   color: AppColor.blackColor,
-            //                   fontWeight: FontWeight.w500,
-            //                   fontSize: 7,
-            //                   fontFamily: 'Urbanist',
-            //                 ),
-            //
-            //               );
-            //             },
-            //           ),
-            //         ),
-            //         bottomTitles: AxisTitles(
-            //           sideTitles: SideTitles(
-            //             showTitles: true,
-            //             reservedSize: 100,
-            //             getTitlesWidget: (value, meta) {
-            //               switch (value.toInt()) {
-            //                 case 0:
-            //                   return Text('Product A Sales',
-            //                     style: TextStyle(
-            //                       color: AppColor.blackColor,
-            //                       fontWeight: FontWeight.w400,
-            //                       fontSize: 7,
-            //                       fontFamily: 'Urbanist',
-            //                     ),
-            //                   );
-            //                 case 1:
-            //                   return Text('Product B Sales',
-            //                     style: TextStyle(
-            //                       color: AppColor.blackColor,
-            //                       fontWeight: FontWeight.w400,
-            //                       fontSize: 7,
-            //                       fontFamily: 'Urbanist',
-            //                     ),);
-            //                 case 2:
-            //                   return Text('Service Revenue',
-            //                     style: TextStyle(
-            //                       color: AppColor.blackColor,
-            //                       fontWeight: FontWeight.w400,
-            //                       fontSize: 7,
-            //                       fontFamily: 'Urbanist',
-            //                     ),);
-            //                 case 3:
-            //                   return Text('Subscription Income',
-            //                     style: TextStyle(
-            //                       color: AppColor.blackColor,
-            //                       fontWeight: FontWeight.w400,
-            //                       fontSize: 7,
-            //                       fontFamily: 'Urbanist',
-            //                     ),);
-            //                 default:
-            //                   return Text('');
-            //               }
-            //             },
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
-
+            Obx(() =>
             Container(
               height: 132,
               child: BarChart(
                 BarChartData(
                   alignment: BarChartAlignment.spaceAround,
-                  barGroups: cashIn
+                  barGroups: revenueVarianceController.cashOut
                       .asMap()
                       .entries
                       .map(
@@ -348,7 +252,7 @@ class RevenueVariancesView extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
+            )),
           ],
         ),
       ),

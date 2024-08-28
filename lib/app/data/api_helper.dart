@@ -56,6 +56,7 @@ class ApiHelper {
           storage.write('accessToken', accessToken);
           storage.write('refreshToken', refreshToken);
           storage.write('USER_ID', userId.toString());
+          storage.write('isLogin', '0');
           print('api success without token');
           onSuccess();
         }else{

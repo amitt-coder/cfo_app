@@ -24,6 +24,7 @@ class ExpenseVariancesView extends StatelessWidget {
   ];
 
   ExpenseVarianceController expenseVarianceController = Get.put(ExpenseVarianceController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,15 +90,17 @@ class ExpenseVariancesView extends StatelessWidget {
                     fontFamily: 'Urbanist',
                   ),
                 ),
+                Obx(() =>
                 Text(
-                  '₹500,000',
+                  expenseVarianceController.creditors_amount.value,
+                  // '₹500,000',
                   style: TextStyle(
                     color: AppColor.primaryColor,
                     fontWeight: FontWeight.w500,
                     fontSize: 16,
                     fontFamily: 'Urbanist',
                   ),
-                ),
+                )),
               ],
             ),
             SizedBox(height: 5),
@@ -112,15 +115,17 @@ class ExpenseVariancesView extends StatelessWidget {
                     fontFamily: 'Urbanist',
                   ),
                 ),
+                Obx(() =>
                 Text(
-                  '₹550,000',
+                  expenseVarianceController.debtors_amount.value,
+                  // '₹550,000',
                   style: TextStyle(
                     color: AppColor.primaryColor,
                     fontWeight: FontWeight.w500,
                     fontSize: 16,
                     fontFamily: 'Urbanist',
                   ),
-                ),
+                )),
               ],
             ),
             SizedBox(height: 5),
@@ -135,24 +140,27 @@ class ExpenseVariancesView extends StatelessWidget {
                     fontFamily: 'Urbanist',
                   ),
                 ),
+                Obx(() =>
                 Text(
-                  '₹50,000',
+                  expenseVarianceController.total_amount.value,
+                  // '₹50,000',
                   style: TextStyle(
                     color: AppColor.primaryColor,
                     fontWeight: FontWeight.w500,
                     fontSize: 16,
                     fontFamily: 'Urbanist',
                   ),
-                ),
+                )),
               ],
             ),
             SizedBox(height: 30),
+          Obx(() =>
             Container(
               height: 132,
               child: BarChart(
                 BarChartData(
                   alignment: BarChartAlignment.spaceAround,
-                  barGroups: cashIn
+                  barGroups: expenseVarianceController.cashIn
                       .asMap()
                       .entries
                       .map(
@@ -247,7 +255,8 @@ class ExpenseVariancesView extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
+            )),
+            //[40000.0, 50000.0, 80000.0, 70000.0, 50000.0, 70000.0]
           ],
         ),
       ),

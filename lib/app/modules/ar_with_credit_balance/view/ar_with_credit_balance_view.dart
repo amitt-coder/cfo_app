@@ -174,14 +174,16 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                               fontWeight: FontWeight.w600,
                               fontFamily: 'Urbanist'),
                         ),
-                        Text(
-                          '10',
-                          style: TextStyle(
-                              color: AppColor.blackColor,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'Urbanist'),
-                        ),
+                        Obx(() =>
+                            Text(
+                              arWithCreditBalanceController.debtors.length.toString(),
+                              // '08',
+                              style: TextStyle(
+                                  color: AppColor.blackColor,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: 'Urbanist'),
+                            )),
                       ],
                     ),
                   ],

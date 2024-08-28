@@ -1558,28 +1558,31 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                                       return SideTitleWidget(
                                         space: 0, // Adjust space for better separation
                                         axisSide: meta.axisSide,
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                              debtorDate, // Show date only for debtors
-                                              style: TextStyle(
-                                                fontSize: 8,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.red, // Color for debtor dates
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(left: 50),
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                debtorDate, // Show date only for debtors
+                                                style: TextStyle(
+                                                  fontSize: 8,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.red, // Color for debtor dates
+                                                ),
+                                                textAlign: TextAlign.center, // Align the text to center for better appearance
                                               ),
-                                              textAlign: TextAlign.center, // Align the text to center for better appearance
-                                            ),
-                                            SizedBox(height: 5), // Space between dates
-                                            Text(
-                                              creditorDate, // Show date only for creditors
-                                              style: TextStyle(
-                                                fontSize: 8,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.green, // Color for creditor dates
+                                              SizedBox(height: 5), // Space between dates
+                                              Text(
+                                                creditorDate, // Show date only for creditors
+                                                style: TextStyle(
+                                                  fontSize: 8,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.green, // Color for creditor dates
+                                                ),
+                                                textAlign: TextAlign.center, // Align the text to center for better appearance
                                               ),
-                                              textAlign: TextAlign.center, // Align the text to center for better appearance
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       );
                                     },

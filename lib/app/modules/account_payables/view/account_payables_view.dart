@@ -162,21 +162,23 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                     Row(
                       children: [
                         Text(
-                          'Number of Creditors: ',
+                          'Number of Creditorssss: ',
                           style: TextStyle(
                               color: AppColor.primaryColor,
                               fontSize: 15,
                               fontWeight: FontWeight.w600,
                               fontFamily: 'Urbanist'),
                         ),
+                        Obx(() =>
                         Text(
-                          '08',
+                          accountPayablesController.creditors.length.toString(),
+                          // '08',
                           style: TextStyle(
                               color: AppColor.blackColor,
                               fontSize: 15,
                               fontWeight: FontWeight.w400,
                               fontFamily: 'Urbanist'),
-                        ),
+                        )),
                       ],
                     ),
                   ],

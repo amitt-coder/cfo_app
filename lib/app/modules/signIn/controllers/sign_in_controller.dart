@@ -91,8 +91,7 @@ class SignInController extends GetxController {
 
     body['email'] = emailController.text.trim();
     body['password']=passwordController.text.trim();
-
-
+    // var isLogin= storage.read('isLogin',);
 
     ApiHelper.postApi(
         requiresToken: false,

@@ -8,18 +8,21 @@ import 'package:http/http.dart' as http;
 
 import '../../../data/api.dart';
 
-class ExpenseVarianceController extends GetxController{
+class RevenueVarianceController extends GetxController{
   TextEditingController daysController = TextEditingController();
   RxString showday = 'Above 30 days'.obs;
   RxList<String> dayList =
       ['Above 30 days', 'Above 60 days', 'Above 90 days', 'Above 120 days'].obs;
 
+
+
   RxString creditors_amount=''.obs;
   RxString debtors_amount=''.obs;
   RxString total_amount=''.obs;
   RxList cashIn=[].obs;
-  final List<double> cashOut=[];
-
+  RxList cashOut=[].obs;
+  // final List<double> cashOut=[];
+  //
   RxList<FlSpot> debtorSpots = <FlSpot>[].obs;
   RxList<FlSpot> creditorSpots = <FlSpot>[].obs;
   RxDouble highestAmount=0.0.obs;
@@ -30,14 +33,14 @@ class ExpenseVarianceController extends GetxController{
 
   void onInit() {
     super.onInit();
-    expenseVarianceApi();
+    revenueVarianceApi();
     update();
   }
 
 
-  Future<dynamic> expenseVarianceApi() async {
+  Future<dynamic> revenueVarianceApi() async {
 
-    print('-------expenseVarianceApi--------');
+    print('-------revenueVarianceApi--------');
 
     final storage = GetStorage();
 
@@ -80,7 +83,7 @@ class ExpenseVarianceController extends GetxController{
           "name": "Aman",
           "contact_no": "9988447387",
           "email": "mailto:aman@gmail.com",
-          "total_balance": "40000",
+          "total_balance": "60000",
           "last_payment_date": "2024-08-15",
           "due_date": "2024-08-20",
           "outstanding_invoices": [
@@ -180,168 +183,6 @@ class ExpenseVarianceController extends GetxController{
       ],
       "debtor": [
         {
-          "id": 3,
-          "name": "Divy",
-          "contact_no": "9988447376",
-          "email": "mailto:divy@gmail.com",
-          "total_balance": "40000",
-          "last_payment_date": "2024-08-01",
-          "due_date": "2024-07-28",
-          "outstanding_invoices": [
-            {
-              "Invoice": 12241,
-              "Due": "2024-08-21"
-            },
-            {
-              "Invoice": 12243,
-              "Due": "2024-08-04"
-            },
-            {
-              "Invoice": 12244,
-              "Due": "2024-08-12"
-            },
-            {
-              "Invoice": 12245,
-              "Due": "2024-08-10"
-            }
-          ],
-          "created_at": "2024-08-22T13:20:21.790467Z",
-          "created_from": 1
-        },
-        {
-          "id": 3,
-          "name": "Divy",
-          "contact_no": "9988447376",
-          "email": "mailto:divy@gmail.com",
-          "total_balance": "90000",
-          "last_payment_date": "2024-08-01",
-          "due_date": "2024-07-28",
-          "outstanding_invoices": [
-            {
-              "Invoice": 12241,
-              "Due": "2024-08-21"
-            },
-            {
-              "Invoice": 12243,
-              "Due": "2024-08-04"
-            },
-            {
-              "Invoice": 12244,
-              "Due": "2024-08-12"
-            },
-            {
-              "Invoice": 12245,
-              "Due": "2024-08-10"
-            }
-          ],
-          "created_at": "2024-08-22T13:20:21.790467Z",
-          "created_from": 1
-        },
-        {
-          "id": 3,
-          "name": "Divy",
-          "contact_no": "9988447376",
-          "email": "mailto:divy@gmail.com",
-          "total_balance": "30000",
-          "last_payment_date": "2024-08-01",
-          "due_date": "2024-07-28",
-          "outstanding_invoices": [
-            {
-              "Invoice": 12241,
-              "Due": "2024-08-21"
-            },
-            {
-              "Invoice": 12243,
-              "Due": "2024-08-04"
-            },
-            {
-              "Invoice": 12244,
-              "Due": "2024-08-12"
-            },
-            {
-              "Invoice": 12245,
-              "Due": "2024-08-10"
-            }
-          ],
-          "created_at": "2024-08-22T13:20:21.790467Z",
-          "created_from": 1
-        },
-        {
-          "id": 3,
-          "name": "Divy",
-          "contact_no": "9988447376",
-          "email": "mailto:divy@gmail.com",
-          "total_balance": "60000",
-          "last_payment_date": "2024-08-01",
-          "due_date": "2024-07-28",
-          "outstanding_invoices": [
-            {
-              "Invoice": 12241,
-              "Due": "2024-08-21"
-            },
-            {
-              "Invoice": 12243,
-              "Due": "2024-08-04"
-            },
-            {
-              "Invoice": 12244,
-              "Due": "2024-08-12"
-            },
-            {
-              "Invoice": 12245,
-              "Due": "2024-08-10"
-            }
-          ],
-          "created_at": "2024-08-22T13:20:21.790467Z",
-          "created_from": 1
-        },
-        {
-          "id": 3,
-          "name": "Divy",
-          "contact_no": "9988447376",
-          "email": "mailto:divy@gmail.com",
-          "total_balance": "45000",
-          "last_payment_date": "2024-08-01",
-          "due_date": "2024-07-28",
-          "outstanding_invoices": [
-            {
-              "Invoice": 12241,
-              "Due": "2024-08-21"
-            },
-            {
-              "Invoice": 12243,
-              "Due": "2024-08-04"
-            },
-            {
-              "Invoice": 12244,
-              "Due": "2024-08-12"
-            },
-            {
-              "Invoice": 12245,
-              "Due": "2024-08-10"
-            }
-          ],
-          "created_at": "2024-08-22T13:20:21.790467Z",
-          "created_from": 1
-        },
-        {
-          "id": 5,
-          "name": "Aman",
-          "contact_no": "8969686886",
-          "email": "mailto:aman@gmail.com",
-          "total_balance": "20000",
-          "last_payment_date": "2024-08-15",
-          "due_date": "2024-08-22",
-          "outstanding_invoices": [
-            {
-              "Invoice": 12248,
-              "Due": "2024-08-15"
-            }
-          ],
-          "created_at": "2024-08-22T13:23:00.929506Z",
-          "created_from": 1
-        },
-        {
           "id": 5,
           "name": "Aman",
           "contact_no": "8969686886",
@@ -376,23 +217,6 @@ class ExpenseVarianceController extends GetxController{
           "created_from": 1
         },
         {
-          "id": 5,
-          "name": "Aman",
-          "contact_no": "8969686886",
-          "email": "mailto:aman@gmail.com",
-          "total_balance": "50000",
-          "last_payment_date": "2024-08-15",
-          "due_date": "2024-08-22",
-          "outstanding_invoices": [
-            {
-              "Invoice": 12248,
-              "Due": "2024-08-15"
-            }
-          ],
-          "created_at": "2024-08-22T13:23:00.929506Z",
-          "created_from": 1
-        },
-         {
           "id": 5,
           "name": "Aman",
           "contact_no": "8969686886",
@@ -485,8 +309,8 @@ class ExpenseVarianceController extends GetxController{
         //   updateDividerPosition(newPosition);
         // });
 
-        print('cashIn: $cashIn');
-        print('cashOut: $cashOut');
+        // print('cashIn: $cashIn');
+        print('revenue cashOut: $cashOut');
 
         final List<double> combinedList = [...cashIn, ...cashOut];
 
@@ -494,8 +318,8 @@ class ExpenseVarianceController extends GetxController{
         highestAmount.value = combinedList.reduce((a, b) => a > b ? a : b);
         lowestAmount.value = combinedList.reduce((a, b) => a < b ? a : b);
 
-        print('Highest Amount: $highestAmount');
-        print('Lowest Amount: $lowestAmount');
+        // print('Highest Amount: $highestAmount');
+        // print('Lowest Amount: $lowestAmount');
 
 
         // print('ResponseData: ${responseData}');
@@ -545,5 +369,9 @@ class ExpenseVarianceController extends GetxController{
   void updateCrBalance(double newBalance) {
     crBalance.value = double.parse(newBalance.toString());
   }
+
+
+
+
 
 }

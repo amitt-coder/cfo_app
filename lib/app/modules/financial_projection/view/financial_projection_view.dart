@@ -1737,9 +1737,10 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                       'please enter Discounting Rates & Growth Rate');
                                 } else {
                                   print('api calling');
+                                  financialProjectionController.DiscountingFactorApi();
                                 }
 
-                                // financialProjectionController.DiscountingFactorApi();
+                                //
                               },
                               height: 45,
                               width: 150,
