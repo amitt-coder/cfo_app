@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../data/api.dart';
 
@@ -24,10 +25,18 @@ class KeyRatioAnalsisController extends GetxController{
     KeyRatio(name: 'Inventory', value:"12.0", benchmark:'0.8-1.5', interpretation: 'Optimal'),//6Optimal
     KeyRatio(name: 'Working', value:"4.0", benchmark:'0.8-1.5', interpretation: 'Efficient'),//6Optimal
   ];
+
   TextEditingController daysController = TextEditingController();
   RxString showday = 'Above 30 days'.obs;
+
   RxList<String> dayList =
       ['Above 30 days', 'Above 60 days', 'Above 90 days', 'Above 120 days'].obs;
+
+  Rxn<DateTimeRange> selectedDateRange = Rxn<DateTimeRange>();
+  TextEditingController dateRangeController = TextEditingController();
+
+
+
   Color getColorForInterpretation(String interpretation) {
     switch (interpretation) {
       case 'Healthy':
@@ -64,6 +73,31 @@ class KeyRatioAnalsisController extends GetxController{
         }
     });
   }
+
+  Future<void> pickDateRange(BuildContext context) async {
+    final DateTimeRange? picked = await showDateRangePicker(
+      context: context,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2050),
+      currentDate: DateTime.now(),
+      saveText: 'Done',
+    );
+
+    if (picked != null) {
+      selectedDateRange.value = picked;
+    }
+    final range = selectedDateRange.value;
+    final startDate = DateFormat('yyyy-MM-dd').format(range!.start);
+    final endDate = DateFormat('yyyy-MM-dd').format(range.end);
+
+    print('StartDate: ${startDate}');
+    print('endDate: ${endDate}');
+
+    dateRangeController.text = startDate + " to " + endDate;
+
+    print('dateRangeController: ${dateRangeController.text.toString()}');
+  }
+
 
 
   Future<dynamic> keyRatioApi() async {

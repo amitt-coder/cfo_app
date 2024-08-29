@@ -37,6 +37,7 @@ class CashflowController extends GetxController{
   TextEditingController daysController = TextEditingController();
   TextEditingController numberofdaysReceiptController = TextEditingController();
   TextEditingController numberofdaysPaymentController = TextEditingController();
+  TextEditingController dateRangeController = TextEditingController();
 
   TextEditingController dateController = TextEditingController();
   final selectedDate = DateTime.now().obs;
@@ -78,28 +79,10 @@ class CashflowController extends GetxController{
     selectedValue.value = value;
   }
 
-  // void startMovingDivider() {
-  //   Timer.periodic(Duration(seconds: 1), (timer) {
-  //     dividerPosition.value += 1;
-  //     if (dividerPosition.value > 30) {
-  //       dividerPosition.value = 10; // Reset to initial position
-  //     }
-  //   });
-  // }
-
-
-
-
-   // Accessor for animation value
 
 
   RxList<FlSpot> debtorSpots = <FlSpot>[].obs;
   RxList<FlSpot> creditorSpots = <FlSpot>[].obs;
-
-  // var creditorDueDates = <String>[].obs;
-  // var debtorDueDates = <String>[].obs;
-  // var dueDates = <String>[].obs;
-
 
   RxString formattedDate =''.obs;
   List<String> dates =[];
@@ -111,6 +94,7 @@ class CashflowController extends GetxController{
   final List<double> cashOut=[];
   RxDouble highestAmount=0.0.obs;
   RxDouble lowestAmount=0.0.obs;
+  Rxn<DateTimeRange> selectedDateRange = Rxn<DateTimeRange>();
 
   void onInit() {
     super.onInit();
@@ -737,6 +721,31 @@ class CashflowController extends GetxController{
       filterbyCustomeDateApi();
     }
   }
+
+  Future<void> pickDateRange(BuildContext context) async {
+    final DateTimeRange? picked = await showDateRangePicker(
+      context: context,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2050),
+      currentDate: DateTime.now(),
+      saveText: 'Done',
+    );
+
+    if (picked != null) {
+      selectedDateRange.value = picked;
+    }
+    final range = selectedDateRange.value;
+    final startDate = DateFormat('yyyy-MM-dd').format(range!.start);
+    final endDate = DateFormat('yyyy-MM-dd').format(range.end);
+
+    print('StartDate: ${startDate}');
+    print('endDate: ${endDate}');
+
+    dateRangeController.text = startDate + " to " + endDate;
+
+    print('dateRangeController: ${dateRangeController.text.toString()}');
+  }
+
 
   Future<dynamic> lastWeekApi() async {
 

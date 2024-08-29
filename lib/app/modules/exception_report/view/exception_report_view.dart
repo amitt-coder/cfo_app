@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 import '../../../../components/common_app_bar.dart';
 import '../../../../utils/colors.dart';
 import '../../../../utils/images.dart';
@@ -41,7 +39,7 @@ class _ExceptionReportViewState extends State<ExceptionReportView> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         color: AppColor.backgroundColors,
         child: Column(
           children: [

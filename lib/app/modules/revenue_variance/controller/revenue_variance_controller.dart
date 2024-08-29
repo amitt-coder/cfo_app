@@ -1,15 +1,17 @@
 import 'dart:convert';
-
+import 'package:intl/intl.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
 
 import '../../../data/api.dart';
 
 class RevenueVarianceController extends GetxController{
   TextEditingController daysController = TextEditingController();
+  TextEditingController dateRangeController = TextEditingController();
   RxString showday = 'Above 30 days'.obs;
   RxList<String> dayList =
       ['Above 30 days', 'Above 60 days', 'Above 90 days', 'Above 120 days'].obs;
@@ -30,11 +32,36 @@ class RevenueVarianceController extends GetxController{
 
   var dividerPosition = 0.0.obs;
   var crBalance = 0.0.obs;
+  Rxn<DateTimeRange> selectedDateRange = Rxn<DateTimeRange>();
 
   void onInit() {
     super.onInit();
     revenueVarianceApi();
     update();
+  }
+
+  Future<void> pickDateRange(BuildContext context) async {
+    final DateTimeRange? picked = await showDateRangePicker(
+      context: context,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2050),
+      currentDate: DateTime.now(),
+      saveText: 'Done',
+    );
+
+    if (picked != null) {
+      selectedDateRange.value = picked;
+    }
+    final range = selectedDateRange.value;
+    final startDate = DateFormat('yyyy-MM-dd').format(range!.start);
+    final endDate = DateFormat('yyyy-MM-dd').format(range.end);
+
+    print('StartDate: ${startDate}');
+    print('endDate: ${endDate}');
+
+    dateRangeController.text = startDate + " to " + endDate;
+
+    print('dateRangeController: ${dateRangeController.text.toString()}');
   }
 
 

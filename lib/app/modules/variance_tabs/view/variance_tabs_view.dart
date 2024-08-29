@@ -1,9 +1,7 @@
-import 'package:cfo_app/components/common_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../components/common_app_bar.dart';
-import '../../../../components/dropdown_field.dart';
 import '../../../../utils/colors.dart';
 import '../../../../utils/images.dart';
 import '../controller/variance_tabs_controller.dart';
@@ -361,7 +359,7 @@ class _VarianceTabsViewState extends State<VarianceTabsView> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(5),
                     border: Border.all(color: AppColor.boxblueColor, width: 1)),
-                padding: EdgeInsets.symmetric(vertical: 15),
+                padding: const EdgeInsets.symmetric(vertical: 15),
                 child: TabBar(
                   padding: EdgeInsets.zero,
                   controller: varianceTabsController.tabController,
@@ -382,7 +380,7 @@ class _VarianceTabsViewState extends State<VarianceTabsView> {
                         decoration: BoxDecoration(
                             color: AppColor.primaryColor,
                             borderRadius: BorderRadius.circular(10)),
-                        child: Tab(text:
+                        child: const Tab(text:
                         'Expense'
                         )),
                     Container(
@@ -392,7 +390,7 @@ class _VarianceTabsViewState extends State<VarianceTabsView> {
                             color: AppColor.primaryColor,
                             borderRadius: BorderRadius.circular(10)),
                         // decoration: Themes.tabDecoration,
-                        child: Tab(
+                        child:const  Tab(
                           text:
                          'Revenue',
                         )),

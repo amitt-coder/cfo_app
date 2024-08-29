@@ -425,7 +425,10 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                       child: GestureDetector(
                         onTap: () {
                           Get.toNamed(Routes.ALL_CREDITOR,
-                              arguments: {'whichUser': 'All Debitors'});
+                              arguments: {
+                            'whichUser': 'All Debitors',
+                              'debtors':arWithCreditBalanceController.debtors
+                              });
                         },
                         child: const Text(
                           "View All",

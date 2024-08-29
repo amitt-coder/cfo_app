@@ -735,7 +735,7 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                                                         ),
                                                         //
                                                         Text(
-                                                          assetDetails['d_r'] ?? 'N/A',
+                                                          '${assetDetails['d_r'] ?? 'N/A'}%',
                                                           // "${assetDetails['DR']!}%",
                                                           style: TextStyle(
                                                               color: AppColor

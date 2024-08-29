@@ -29,14 +29,15 @@ class AllCreditorController extends GetxController
   RxString whichUser = ''.obs;
   late TabController tabController;
 
-  List<Widget> listingScreens = [
-    CustomerScreen(
-      whichUser:Get.arguments['whichUser'] ?? '', //
-    ),
-    CustomerScreen(
-      whichUser: Get.arguments['whichUser'] ?? '',
-    ),
-  ];
+  // List<Widget> listingScreens = [
+  //   CustomerScreen(
+  //     whichUser:Get.arguments['whichUser'] ?? '', //
+  //   ),
+  //   CustomerScreen(
+  //     whichUser: Get.arguments['whichUser'] ?? '',
+  //   ),
+  // ];
+  List<Widget> listingScreens = [];
 
   @override
   void onClose() {
@@ -54,6 +55,15 @@ class AllCreditorController extends GetxController
     );
     final args = Get.arguments as Map<String, dynamic>?;
     whichUser.value = args?['whichUser'] ?? 'DefaultUser';
+    print('all Creditor: ${whichUser}');
+    listingScreens = [
+      CustomerScreen(
+        whichUser:whichUser.value,
+      ),
+      CustomerScreen(
+        whichUser: whichUser.value,
+      ),
+    ];
   }
 
   // Method to toggle the color of the buttons

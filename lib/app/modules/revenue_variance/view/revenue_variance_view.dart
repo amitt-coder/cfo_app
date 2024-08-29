@@ -6,6 +6,7 @@ import 'package:get/get_core/src/get_main.dart';
 
 import '../../../../components/chart.dart';
 import '../../../../components/common_app_bar.dart';
+import '../../../../components/common_textformfield.dart';
 import '../../../../components/dropdown_field.dart';
 import '../../../../utils/colors.dart';
 import '../../../../utils/images.dart';
@@ -46,214 +47,227 @@ class RevenueVariancesView extends StatelessWidget {
         height: MediaQuery.of(context).size.height,
         // padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         color: AppColor.backgroundColors,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 20,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Revenue Variances',
-                  style: TextStyle(
-                    color: AppColor.blackColor,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
-                    fontFamily: 'Urbanist',
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 20,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Revenue Variances',
+                    style: TextStyle(
+                      color: AppColor.blackColor,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      fontFamily: 'Urbanist',
+                    ),
                   ),
-                ),
-                DropDownField(
-                  onChanged: (String? newValue) {
-                    revenueVarianceController.showday.value = newValue!;
-                  },
-                  selectValue: revenueVarianceController.showday.value,
-                  hintName: 'show',
-                  width: MediaQuery.of(context).size.width * 0.40,
-                  height: 45,
-                  selectPriceInstallment:
-                  revenueVarianceController.dayList,
-                  controller: revenueVarianceController.daysController,
-                  showBorder: '0',
-                ),
-              ],
-            ),
-            SizedBox(height: 15),
-            Row(
-              children: [
-                Text(
-                  'Total Budgeted Revenue: ',
-                  style: TextStyle(
-                    color: AppColor.blackColor,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
-                    fontFamily: 'Urbanist',
+                  CommonTextField(
+                    ontap: () {
+                      revenueVarianceController.pickDateRange(context);
+                    },
+                    preShow: 'Not',
+                    width: MediaQuery.of(context).size.width * 0.40,
+                    lableText: 'Select Date',
+                    controllers: revenueVarianceController.dateRangeController,
+                    keyboardTypes: TextInputType.name,
+                    prefixIcon: ProjectImages.mail,
                   ),
-                ),
-                Obx(() =>
-                Text(
-                  revenueVarianceController.creditors_amount.value,
-                  // '₹600,000',
-                  style: TextStyle(
-                    color: AppColor.primaryColor,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
-                    fontFamily: 'Urbanist',
+                  // DropDownField(
+                  //   onChanged: (String? newValue) {
+                  //     revenueVarianceController.showday.value = newValue!;
+                  //   },
+                  //   selectValue: revenueVarianceController.showday.value,
+                  //   hintName: 'show',
+                  //   width: MediaQuery.of(context).size.width * 0.40,
+                  //   height: 45,
+                  //   selectPriceInstallment:
+                  //   revenueVarianceController.dayList,
+                  //   controller: revenueVarianceController.daysController,
+                  //   showBorder: '0',
+                  // ),
+                ],
+              ),
+              SizedBox(height: 15),
+              Row(
+                children: [
+                  Text(
+                    'Total Budgeted Revenue: ',
+                    style: TextStyle(
+                      color: AppColor.blackColor,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      fontFamily: 'Urbanist',
+                    ),
                   ),
-                )),
-              ],
-            ),
-            SizedBox(height: 5),
-            Row(
-              children: [
-                Text(
-                  'Total Actual Revenue: ',
-                  style: TextStyle(
-                    color: AppColor.blackColor,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
-                    fontFamily: 'Urbanist',
+                  Obx(() =>
+                  Text(
+                    revenueVarianceController.creditors_amount.value,
+                    // '₹600,000',
+                    style: TextStyle(
+                      color: AppColor.primaryColor,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      fontFamily: 'Urbanist',
+                    ),
+                  )),
+                ],
+              ),
+              SizedBox(height: 5),
+              Row(
+                children: [
+                  Text(
+                    'Total Actual Revenue: ',
+                    style: TextStyle(
+                      color: AppColor.blackColor,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      fontFamily: 'Urbanist',
+                    ),
                   ),
-                ),
-                Obx(() =>
-                Text(
-                  revenueVarianceController.debtors_amount.value,
-                  // '₹650,000',
-                  style: TextStyle(
-                    color: AppColor.primaryColor,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
-                    fontFamily: 'Urbanist',
+                  Obx(() =>
+                  Text(
+                    revenueVarianceController.debtors_amount.value,
+                    // '₹650,000',
+                    style: TextStyle(
+                      color: AppColor.primaryColor,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      fontFamily: 'Urbanist',
+                    ),
+                  )),
+                ],
+              ),
+              SizedBox(height: 5),
+              Row(
+                children: [
+                  Text(
+                    'Total Variance: ',
+                    style: TextStyle(
+                      color: AppColor.blackColor,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      fontFamily: 'Urbanist',
+                    ),
                   ),
-                )),
-              ],
-            ),
-            SizedBox(height: 5),
-            Row(
-              children: [
-                Text(
-                  'Total Variance: ',
-                  style: TextStyle(
-                    color: AppColor.blackColor,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
-                    fontFamily: 'Urbanist',
-                  ),
-                ),
-                Obx(() =>
-                Text(
-                  revenueVarianceController.total_amount.value,
-                  style: TextStyle(
-                    color: AppColor.primaryColor,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
-                    fontFamily: 'Urbanist',
-                  ),
-                )),
-              ],
-            ),
-            SizedBox(height: 30),
-            Obx(() =>
-            Container(
-              height: 132,
-              child: BarChart(
-                BarChartData(
-                  alignment: BarChartAlignment.spaceAround,
-                  barGroups: revenueVarianceController.cashOut
-                      .asMap()
-                      .entries
-                      .map(
-                        (e) => BarChartGroupData(
-                      groupVertically: true,
-                      x: e.key,
-                      barRods: [
-                        BarChartRodData(
-                          borderRadius: BorderRadius.circular(3),
-                          toY: e.value,
-                          color: Color(0xFF48BD69),
-                          width: 11,
+                  Obx(() =>
+                  Text(
+                    revenueVarianceController.total_amount.value,
+                    style: TextStyle(
+                      color: AppColor.primaryColor,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      fontFamily: 'Urbanist',
+                    ),
+                  )),
+                ],
+              ),
+              SizedBox(height: 30),
+              Obx(() =>
+              Container(
+                height: 132,
+                child: BarChart(
+                  BarChartData(
+                    alignment: BarChartAlignment.spaceAround,
+                    barGroups: revenueVarianceController.cashOut
+                        .asMap()
+                        .entries
+                        .map(
+                          (e) => BarChartGroupData(
+                        groupVertically: true,
+                        x: e.key,
+                        barRods: [
+                          BarChartRodData(
+                            borderRadius: BorderRadius.circular(3),
+                            toY: e.value,
+                            color: Color(0xFF48BD69),
+                            width: 11,
+                          ),
+                        ],
+                      ),
+                    ).toList(),
+                    titlesData: FlTitlesData(
+                      rightTitles:
+                      AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                      topTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: false,
                         ),
-                      ],
-                    ),
-                  ).toList(),
-                  titlesData: FlTitlesData(
-                    rightTitles:
-                    AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                    topTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: false,
                       ),
-                    ),
-                    leftTitles: AxisTitles(
-                      sideTitles: SideTitles(
-                        showTitles: true,
-                        reservedSize: 30,
-                        interval: 65000,
-                        getTitlesWidget: (value, meta) {
-                          return Text(
-                            "₹${value.toInt().toString()}",
-                            style: TextStyle(
-                                color: AppColor.fontColor,
-                                fontSize: 7,
-                                fontWeight: FontWeight.w500,
-                                fontFamily: 'Urbanist'),
-                          );
-                        },
-                      ),
-                      drawBelowEverything: true,
-                    ),
-                    bottomTitles: AxisTitles(
+                      leftTitles: AxisTitles(
                         sideTitles: SideTitles(
                           showTitles: true,
+                          reservedSize: 30,
+                          interval: 65000,
                           getTitlesWidget: (value, meta) {
-                            final months = [
-                              'Product A Sales',
-                              'Product B Sales',
-                              'Service',
-                              'Subscription',
-                              'other',
-                            ];
-                            return Column(
-                              children: [
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  months[value.toInt() % 12],
-                                  style: TextStyle(
-                                      color: AppColor.blackColor,
-                                      fontSize: 7,
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: 'Urbanist'),
-                                ),
-                              ],
+                            return Text(
+                              "₹${value.toInt().toString()}",
+                              style: TextStyle(
+                                  color: AppColor.fontColor,
+                                  fontSize: 7,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: 'Urbanist'),
                             );
                           },
-                        )),
-                  ),
-                  baselineY: 0.5,
-                  maxY:130000,
-                  gridData: FlGridData(
-                    show: true,
-                    verticalInterval: 65000,
-                    horizontalInterval: 65000,
-                    getDrawingHorizontalLine: (value) {
-                      return FlLine(
-                          color: Color(0xFFB1B1B1),
-                          strokeWidth: 0.5
-                      );
-                    },
-                    drawVerticalLine: false,
-                  ),
-                  borderData: FlBorderData(
+                        ),
+                        drawBelowEverything: true,
+                      ),
+                      bottomTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            getTitlesWidget: (value, meta) {
+                              final months = [
+                                'Product A Sales',
+                                'Product B Sales',
+                                'Service',
+                                'Subscription',
+                                'other',
+                              ];
+                              return Column(
+                                children: [
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    months[value.toInt() % 12],
+                                    style: TextStyle(
+                                        color: AppColor.blackColor,
+                                        fontSize: 7,
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: 'Urbanist'),
+                                  ),
+                                ],
+                              );
+                            },
+                          )),
+                    ),
+                    baselineY: 0.5,
+                    maxY:130000,
+                    gridData: FlGridData(
                       show: true,
-                      border: Border.all(
-                        color: Colors.transparent,
-                      )
+                      verticalInterval: 65000,
+                      horizontalInterval: 65000,
+                      getDrawingHorizontalLine: (value) {
+                        return FlLine(
+                            color: Color(0xFFB1B1B1),
+                            strokeWidth: 0.5
+                        );
+                      },
+                      drawVerticalLine: false,
+                    ),
+                    borderData: FlBorderData(
+                        show: true,
+                        border: Border.all(
+                          color: Colors.transparent,
+                        )
+                    ),
                   ),
                 ),
-              ),
-            )),
-          ],
+              )),
+            ],
+          ),
         ),
       ),
     );

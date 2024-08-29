@@ -16,10 +16,13 @@ import '../../data/api.dart';
 
 class CustomerController extends GetxController {
 
-
+  RxString whichDetail = ''.obs;
 
   void onInit() {
     super.onInit();
+    final args = Get.arguments as Map<String, dynamic>?;
+    whichDetail.value = args?['whichDetail'] ?? 'DefaultUser';
+    print('whichUser: $whichDetail');
     accountPayableApi();
   }
 

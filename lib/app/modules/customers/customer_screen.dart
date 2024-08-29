@@ -7,7 +7,8 @@ import 'customer_controller.dart';
 
 class CustomerScreen extends StatefulWidget {
   String whichUser;
-  CustomerScreen({required this.whichUser});
+
+  CustomerScreen({required this.whichUser, r});
 
   @override
   State<CustomerScreen> createState() => _CustomerScreenState();
@@ -126,7 +127,6 @@ class _CustomerScreenState extends State<CustomerScreen> {
                                   ),
                                   InkWell(
                                     onTap: () {
-
                                       Get.toNamed(Routes.INVOICE_DETAILS,
                                           arguments: {
                                             'userName': customerController.creditors[index]['name'],
