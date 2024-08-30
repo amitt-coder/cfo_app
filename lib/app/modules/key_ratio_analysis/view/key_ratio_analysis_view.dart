@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:kdgaugeview/kdgaugeview.dart';
 import '../../../../components/common_app_bar.dart';
 import '../../../../components/common_textformfield.dart';
-import '../../../../components/dropdown_field.dart';
 import '../../../../utils/images.dart';
 import '../controller/key_ratio_analysis_controller.dart';
 
@@ -69,13 +68,17 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
     double angle;
     if (speed <= 100 || speed >= 90) {
       angle = ((speed) / maxSpeed) * 1.5 * 3.141592653589793;
-    } else if (speed == 50) {
+    }
+    else if (speed == 50) {
       angle = ((speed - 1) / maxSpeed) * 1.5 * 3.141592653589793;
-    } else if (speed == 10) {
+    }
+    else if (speed == 10) {
       angle = ((speed) / maxSpeed) * 1.5 * 3.141592653589793;
-    } else if (speed == 0) {
+    }
+    else if (speed == 0) {
       angle = ((speed - 10) / maxSpeed) * 1.5 * 3.141592653589793;
-    } else {
+    }
+    else {
       angle = ((speed - 2) / maxSpeed) * 1.5 * 3.141592653589793;
     }
     return Scaffold(
@@ -157,8 +160,7 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                   height: 15,
                 ),
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(5)),
@@ -198,10 +200,8 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                               maxSpeed: 100,
                               speed: speed,
                               speedTextStyle: const TextStyle(
-                                  color: Colors
-                                      .transparent), // Speed text inside gauge
-                              minMaxTextStyle:
-                                  const TextStyle(color: Colors.transparent),
+                                  color: Colors.transparent), // Speed text inside gauge
+                              minMaxTextStyle: const TextStyle(color: Colors.transparent),
                               animate: false,
                               gaugeWidth: 5,
                               duration: const Duration(seconds: 3),
@@ -231,8 +231,7 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                       child: SvgPicture.asset(
                                         height: 58,
                                         width: 58,
-                                        ProjectImages
-                                            .circle, // Replace with your gauge circle image path
+                                        ProjectImages.circle, // Replace with your gauge circle image path
                                       ),
                                     ),
                                   ),
@@ -242,11 +241,9 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                     right: 25,
                                     child: Transform(
                                       alignment: Alignment.center,
-                                      transform: Matrix4.rotationZ(
-                                          angle), // Rotate pointer
+                                      transform: Matrix4.rotationZ(angle), // Rotate pointer
                                       child: SvgPicture.asset(
-                                        ProjectImages
-                                            .point, // Replace with your pointer image path
+                                        ProjectImages.point, // Replace with your pointer image path
                                         width: 10,
                                         height: 20,
                                       ),
@@ -254,10 +251,8 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                   ),
                                   // Speed text inside the gauge
                                   Positioned(
-                                    top:
-                                        55, // Adjust top to position text correctly
-                                    left:
-                                        25, // Adjust left to position text correctly
+                                    top: 55, // Adjust top to position text correctly
+                                    left: 25, // Adjust left to position text correctly
                                     child: Center(
                                       child: Text(
                                         "${speed.toStringAsFixed(0)}%",
@@ -280,90 +275,6 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                     ],
                   ),
                 ),
-                // SizedBox(height: 15,),
-                // Align(
-                //   alignment: Alignment.topLeft,
-                //   child: Container(
-                //     height: 80,
-                //     width: 180,
-                //     child: Align(
-                //       alignment: Alignment.topRight,
-                //       child: KdGaugeView(
-                //         minSpeed: 0,
-                //         maxSpeed: 100,
-                //         speed: speed,
-                //         speedTextStyle: TextStyle(color: Colors.transparent), // Speed text inside gauge
-                //         minMaxTextStyle: TextStyle(color: Colors.transparent),
-                //         animate: false,
-                //         gaugeWidth: 5,
-                //         duration: Duration(seconds: 3),
-                //         unitOfMeasurement: "",
-                //         alertColorArray: [AppColor.primaryColor,Colors.yellow],
-                //         alertSpeedArray: [30,35],
-                //         subDivisionCircleColors: Colors.transparent,
-                //         activeGaugeColor: AppColor.primaryColor,
-                //         divisionCircleColors: Colors.transparent,
-                //         child: Stack(
-                //           children: [
-                //             // Background container for gauge view
-                //             Container(
-                //               height: 100,
-                //               width: 150,
-                //               // Optionally add a background color or margin if needed
-                //               // color: Colors.black,
-                //               // margin: EdgeInsets.all(5),
-                //             ),
-                //             // Positioned gauge circle
-                //             Positioned(
-                //               top: 7,
-                //               right: 43,
-                //               child: Transform.scale(
-                //                 scaleX: 1,
-                //                 scaleY: 1,
-                //                 child: SvgPicture.asset(
-                //                   height: 55,
-                //                   width: 55,
-                //                   ProjectImages.circle, // Replace with your gauge circle image path
-                //                 ),
-                //               ),
-                //             ),
-                //             // Positioned pointer
-                //             Positioned(
-                //               top: 25,
-                //               right: 55,
-                //               child: Transform(
-                //                 alignment: Alignment.center,
-                //                 transform: Matrix4.rotationZ(angle), // Rotate pointer
-                //                 child: SvgPicture.asset(
-                //                   ProjectImages.point, // Replace with your pointer image path
-                //                   width: 10,
-                //                   height: 20,
-                //                 ),
-                //               ),
-                //             ),
-                //             // Speed text inside the gauge
-                //             Positioned(
-                //               top: 55, // Adjust top to position text correctly
-                //               left: 60, // Adjust left to position text correctly
-                //               child: Center(
-                //                 child: Text(
-                //                   "${speed.toStringAsFixed(0)}%",
-                //                   style: TextStyle(
-                //                     color: AppColor.fontColor,
-                //                     fontSize: 17,
-                //                     letterSpacing: 0.1,
-                //                     fontWeight: FontWeight.w400,
-                //                     fontFamily: 'Urbanist',
-                //                   ),
-                //                 ),
-                //               ),
-                //             ),
-                //           ],
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // ),
                 const SizedBox(
                   height: 15,
                 ),
@@ -379,8 +290,7 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                   height: 15,
                 ),
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   decoration: BoxDecoration(
                       color: const Color(0xFFE3F2FD),
                       borderRadius: BorderRadius.circular(5)),
@@ -411,20 +321,23 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                             fontFamily: 'Urbanist',
                             color: AppColor.blackColor),
                       ),
-                      Text(
-                        'Interpret..',
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'Urbanist',
-                            color: AppColor.blackColor),
+                      Container(
+                        width: 60,
+                        child: Text(
+                          'Interpretation',
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'Urbanist',
+                              color: AppColor.blackColor),
+                              overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ],
                   ),
                 ),
                 ListView.builder(
-                    itemCount: int.parse(
-                        keyRatioAnalsisController.keyRatios.length.toString()),
+                    itemCount: int.parse(keyRatioAnalsisController.keyRatios.length.toString()),
                     shrinkWrap: true,
                     padding: EdgeInsets.zero,
                     physics: const NeverScrollableScrollPhysics(),
@@ -509,6 +422,7 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                 const SizedBox(
                   height: 15,
                 ),
+                ///Show/Not Show
                 // Text(
                 //   'Ratio Details',
                 //   style: TextStyle(
@@ -521,8 +435,7 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                 //   height: 5,
                 // ),
                 // Container(
-                //   padding:
-                //       const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                //   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 //   decoration: BoxDecoration(
                 //       color: Colors.white,
                 //       borderRadius: BorderRadius.circular(5)),
@@ -632,8 +545,7 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                 //               extraLinesOnTop: true,
                 //               verticalLines: [
                 //                 VerticalLine(
-                //                   x: keyRatioAnalsisController
-                //                       .dividerPosition.value,
+                //                   x: keyRatioAnalsisController.dividerPosition.value,
                 //                   color: Colors.green,
                 //                   strokeWidth: 2,
                 //                   dashArray: [4, 2],
@@ -657,8 +569,7 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                 //               bottomTitles: AxisTitles(
                 //                 sideTitles: SideTitles(
                 //                   showTitles: true,
-                //                   interval:
-                //                       5, // This ensures that the interval between titles is correct
+                //                   interval: 5, // This ensures that the interval between titles is correct
                 //                   getTitlesWidget: _buildBottomTitle,
                 //                 ),
                 //               ),

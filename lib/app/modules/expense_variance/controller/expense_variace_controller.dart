@@ -92,14 +92,12 @@ class ExpenseVarianceController extends GetxController{
       print('response Status ${response.statusCode}');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
+
         var responseData = json.decode(response.body);
-
-
 
         creditors_amount.value=responseData['creditors_amount'].toString();
         debtors_amount.value=responseData['debtors_amount'].toString();
         total_amount.value=responseData['total_amount'].toString();
-
 
         String jsonString = '''
     {

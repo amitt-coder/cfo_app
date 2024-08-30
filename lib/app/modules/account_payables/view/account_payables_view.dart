@@ -139,7 +139,8 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                     Row(
                       children: [
                         Text(
-                          'Total Credit Balance: ',
+                          // 'Total Credit Balance: ',
+                          'Total Debit Balance: ',
                           style: TextStyle(
                               color: AppColor.primaryColor,
                               fontSize: 15,

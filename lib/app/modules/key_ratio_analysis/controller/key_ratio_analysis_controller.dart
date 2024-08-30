@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:ui';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
@@ -22,11 +21,13 @@ class KeyRatioAnalsisController extends GetxController{
     KeyRatio(name: 'Debt Cover', value:"2.5", benchmark:'0.8-1.5', interpretation: 'Strong'),//6Strong
     KeyRatio(name: 'AR Turnover', value:"6.0", benchmark:'0.8-1.5', interpretation: 'Efficient'),//9Efficient
     KeyRatio(name: 'AP Turnover', value:"10.0", benchmark:'0.8-1.5', interpretation: 'Efficient'),//6Optimal
-    KeyRatio(name: 'Inventory', value:"12.0", benchmark:'0.8-1.5', interpretation: 'Optimal'),//6Optimal
-    KeyRatio(name: 'Working', value:"4.0", benchmark:'0.8-1.5', interpretation: 'Efficient'),//6Optimal
+    KeyRatio(name: 'Days', value:"12.0", benchmark:'0.8-1.5', interpretation: 'Optimal'),//6Optimal
+    KeyRatio(name: 'Working Capital Ratio', value:"4.0", benchmark:'0.8-1.5', interpretation: 'Efficient'),//6Optimal
   ];
-
+  //Working - Working Capital Ratio
+  //Inventory - Days
   TextEditingController daysController = TextEditingController();
+
   RxString showday = 'Above 30 days'.obs;
 
   RxList<String> dayList =
@@ -41,11 +42,12 @@ class KeyRatioAnalsisController extends GetxController{
     switch (interpretation) {
       case 'Healthy':
       case 'Strong':
-      case 'Efficient':
-      case 'Optimal':
         return Colors.green;
       case 'Adequate':
         return Colors.yellow;
+      case 'Efficient':
+      case 'Optimal':
+        return Colors.red;
       default:
         return Colors.red;
     }

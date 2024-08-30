@@ -2,11 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-
-import '../../../../components/chart.dart';
-import '../../../../components/common_app_bar.dart';
 import '../../../../components/common_textformfield.dart';
-import '../../../../components/dropdown_field.dart';
 import '../../../../utils/colors.dart';
 import '../../../../utils/images.dart';
 import '../controller/expense_variace_controller.dart';
@@ -29,24 +25,9 @@ class ExpenseVariancesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: CommonAppBar(
-      //   title: 'Expense Variances',
-      //   automaticallyImplyLeading: false,
-      //   leading: GestureDetector(
-      //     onTap: () {
-      //       Get.back();
-      //     },
-      //     child: Image.asset(
-      //       ProjectImages.arrow_left,
-      //       height: 25,
-      //       width: 25,
-      //     ),
-      //   ),
-      // ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        // padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         color: AppColor.backgroundColors,
         child: SingleChildScrollView(
           child: Column(
@@ -304,5 +285,7 @@ class ExpenseVariancesView extends StatelessWidget {
       ],
     );
   }
+
+
 }
 

@@ -144,7 +144,8 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                     Row(
                       children: [
                         Text(
-                          'Total Debit Balance: ',
+                          // 'Total Debit Balance: ',
+                          'Total Credit Balance: ',
                           style: TextStyle(
                               color: AppColor.primaryColor,
                               fontSize: 15,

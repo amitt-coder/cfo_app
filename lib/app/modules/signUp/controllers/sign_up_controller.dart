@@ -78,6 +78,8 @@ class SignUpController extends GetxController {
 
     print('data added to body $body');
 
+    final storage = GetStorage();
+    storage.write('isLogin', '1');
 
     ApiHelper.postApi(
         requiresToken: false,

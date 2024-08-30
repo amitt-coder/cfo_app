@@ -89,19 +89,24 @@ class SignInController extends GetxController {
 
     print('----loginApi-----');
 
+    String isLogin = storage.read('isLogin') ?? '0';
     body['email'] = emailController.text.trim();
     body['password']=passwordController.text.trim();
-    // var isLogin= storage.read('isLogin',);
+
+      print('isLogin: ${isLogin}');
 
     ApiHelper.postApi(
         requiresToken: false,
         url: Api.login,
         body:body,
         onSuccess: (){
-          _addTallyConnector();
-          // Get.offAllNamed(Routes.DASH_BOARD);
+          // _addTallyConnector();
+          if(isLogin.toString() == '1'){
+            _addTallyConnector();
+          }else{
+            Get.offAllNamed(Routes.DASH_BOARD);
+          }
         });
-
   }
 
   void _addTallyConnector() {
@@ -198,6 +203,7 @@ class SignInController extends GetxController {
       if(response.statusCode==200 || response.statusCode == 201){
         print('api successfully work');
         var responseData = json.decode(response.body);
+        storage.write('isLogin', '0');
         print('responseData $responseData');
         // Get.offAllNamed(Routes.DASH_BOARD);
         Get.offAllNamed(Routes.DASH_BOARD);
