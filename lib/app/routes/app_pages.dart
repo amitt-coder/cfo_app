@@ -6,6 +6,8 @@ import 'package:cfo_app/app/modules/ar_with_credit_balance/binding/ar_with_credi
 import 'package:cfo_app/app/modules/ar_with_credit_balance/view/ar_with_credit_balance_view.dart';
 import 'package:cfo_app/app/modules/cash_flow/bindings/cash_flow_binding.dart';
 import 'package:cfo_app/app/modules/cash_flow/view/cash_flow_screen.dart';
+import 'package:cfo_app/app/modules/cash_flow_statement/binding/cash_flow_statement_binding.dart';
+import 'package:cfo_app/app/modules/cash_flow_statement/view/cash_flow_statement_view.dart';
 import 'package:cfo_app/app/modules/exception_report/binding/exception_report_binding.dart';
 import 'package:cfo_app/app/modules/exception_report/view/exception_report_view.dart';
 import 'package:cfo_app/app/modules/expense_variance/binding/expense_variance_binding.dart';
@@ -208,6 +210,10 @@ class AppPages {
       name: _Paths.TRENDS,
       page: () => TrendsView(),
       binding: TrendsBinding(),
+    ),GetPage(
+      name: _Paths.CASHFLOWSTATEMENT,
+      page: () => CashFlowStatementView(),
+      binding: CashFlowStatementBinding(),
     ),
   ];
 }

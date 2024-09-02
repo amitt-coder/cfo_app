@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import '../../../../components/chart.dart';
 import '../../../../components/common_app_bar.dart';
 import '../../../../components/common_textformfield.dart';
-import '../../../../components/dropdown_field.dart';
 import '../../../../utils/style.dart';
 import '../../../routes/app_pages.dart';
 import '../../ar_with_credit_balance/controller/ar_with_credit_balance_controller.dart';
@@ -22,10 +21,11 @@ class CashFlowScreen extends StatefulWidget {
 }
 
 class _CashFlowScreenState extends State<CashFlowScreen> {
-  final CashflowController cashflowController = Get.put(CashflowController());
+
+  CashflowController cashflowController = Get.put(CashflowController());
   DashBoardController dashBoardController = DashBoardController();
-  ArWithCreditBalanceController arWithCreditBalanceController =
-  Get.put(ArWithCreditBalanceController());
+  ArWithCreditBalanceController arWithCreditBalanceController = Get.put(ArWithCreditBalanceController());
+
   Widget _buildBottomTitle(double value, TitleMeta meta) {
     const style = TextStyle(
       color: Colors.black,
@@ -244,7 +244,6 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                           ),
                         ),
                       ),
-
                       ///
                       // MaterialButton(
                       //   onPressed: () {
@@ -422,6 +421,7 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                                     color: AppColor.fontColor,
                                   ),
                                 ),
+                                //
                                 Obx(() => Text(
                                       cashflowController.debtors_amount.value,
                                       // "₹15,000",
@@ -467,51 +467,140 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                         "Past Trend Analysis",
                         style: TextHeader,
                       ),
-                      DropDownField(
-                        onChanged: (String? newValue) {
-                          cashflowController.showday.value = newValue!;
+                      CommonTextField(
+                        ontap: () {
+                          cashflowController.pickDateRangePastTrend(context);
                         },
-                        selectValue: cashflowController.showday.value,
-                        hintName: 'show',
-                        width: MediaQuery.of(context).size.width * 0.34,
-                        height: 40,
-                        selectPriceInstallment: cashflowController.dayList,
-                        controller: cashflowController.daysController,
-                        showBorder: '0',
+                        preShow: 'Not',
+                        width: MediaQuery.of(context).size.width * 0.40,
+                        lableText: 'Select Date',
+                        controllers: cashflowController.pastdateRangeController,
+                        keyboardTypes: TextInputType.name,
+                        prefixIcon: ProjectImages.mail,
                       ),
-                      // Container(
-                      //   padding: const EdgeInsets.symmetric(
-                      //       horizontal: 5, vertical: 1),
-                      //   decoration: BoxDecoration(
-                      //       // color: Color(0xFFEEEEEE),
-                      //       color: AppColor.boxblueColor,
-                      //       borderRadius: BorderRadius.circular(5)),
-                      //   child: Row(
-                      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //     children: [
-                      //       Text(
-                      //         "Last week",
-                      //         style: TextStyle(
-                      //           color: AppColor.blackColor,
-                      //           fontWeight: FontWeight.w400,
-                      //           fontSize: 14,
-                      //           fontFamily: 'Urbanist',
-                      //         ),
-                      //       ),
-                      //       Icon(
-                      //         Icons.arrow_drop_down_sharp,
-                      //         size: 30,
-                      //         color: AppColor.blackColor,
-                      //       )
-                      //     ],
-                      //   ),
-                      // )
+                      // DropDownField(
+                      //   onChanged: (String? newValue) {
+                      //     cashflowController.showday.value = newValue!;
+                      //   },
+                      //   selectValue: cashflowController.showday.value,
+                      //   hintName: 'show',
+                      //   width: MediaQuery.of(context).size.width * 0.34,
+                      //   height: 40,
+                      //   selectPriceInstallment: cashflowController.dayList,
+                      //   controller: cashflowController.daysController,
+                      //   showBorder: '0',
+                      // ),
                     ],
                   ),
-
                   const SizedBox(
                     height: 20,
                   ),
+                  Obx(() =>
+                      Container(
+                        height: 132,
+                        child: BarChart(
+                          BarChartData(
+                            alignment: BarChartAlignment.spaceAround,
+                            barGroups: cashflowController.cashInPercentages
+                                .asMap()
+                                .entries
+                                .map(
+                                  (e) => BarChartGroupData(
+                                groupVertically: true,
+                                x: e.key,
+                                barRods: [
+                                  BarChartRodData(
+                                    borderRadius: BorderRadius.circular(3),
+                                    toY: e.value,
+                                    color: const Color(0xFF48BD69),
+                                    width: 11,
+                                  ),
+                                ],
+                              ),
+                            ).toList(),
+                            titlesData: FlTitlesData(
+                              rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                              topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                              leftTitles: AxisTitles(
+                                sideTitles: SideTitles(
+                                  showTitles: true,
+                                  reservedSize: 30,
+                                  interval: 10, // Adjusted interval for percentage
+                                  getTitlesWidget: (value, meta) {
+                                    return Text(
+                                      "${value.toInt()}%",
+                                      style: TextStyle(
+                                          color: AppColor.fontColor,
+                                          fontSize: 7,
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: 'Urbanist'),
+                                    );
+                                  },
+                                ),
+                                drawBelowEverything: true,
+                              ),
+                              bottomTitles: AxisTitles(
+                                sideTitles: SideTitles(
+                                  showTitles: true,
+                                  getTitlesWidget: (value, meta) {
+                                    final months = [
+                                      'Salaries',
+                                      'Marketing',
+                                      'Utilities',
+                                      'Office',
+                                      'Travel',
+                                      'Other',
+                                      'Salaries',
+                                      'Marketing',
+                                      'Utilities',
+                                      'Office',
+                                      'Travel',
+                                      'Other',
+                                    ];
+                                    return Column(
+                                      children: [
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text(
+                                          months[value.toInt() % 12],
+                                          style: const TextStyle(
+                                              color: Color(0xFF808D9E),
+                                              fontSize: 5,
+                                              fontWeight: FontWeight.w500,
+                                              fontFamily: 'Urbanist'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                            baselineY: 0.5,
+                            maxY: 100, // Max Y value is now 100 for percentages
+                            gridData: FlGridData(
+                              show: true,
+                              verticalInterval: 10, // Adjusted interval for percentage
+                              horizontalInterval: 10, // Adjusted interval for percentage
+                              getDrawingHorizontalLine: (value) {
+                                return const FlLine(
+                                    color: Color(0xFFB1B1B1),
+                                    strokeWidth: 0.5
+                                );
+                              },
+                              drawVerticalLine: false,
+                            ),
+                            borderData: FlBorderData(
+                                show: true,
+                                border: Border.all(
+                                  color: Colors.transparent,
+                                )
+                            ),
+                          ),
+                        ),
+                      )
+                  ),
+
                   ///only design
                   // Container(
                   //   height: 200,
@@ -758,162 +847,164 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                   //     ),
                   //   );
                   // }),
-                  Obx(() {
-                    if (
-                    cashflowController.creditorSpots.isEmpty ||
-                        cashflowController.debtorSpots.isEmpty) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-
-                    // Create separate lists for creditor and debtor dates
-                    List<String> creditorDates = List.from(cashflowController.dates);
-                    List<String> debtorDates = List.from(cashflowController.debtordates);
-
-                    return Container(
-                      height: 300, // Increased height for better visualization
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: SizedBox(
-                          width: (creditorDates.length + debtorDates.length) * 50.0, // Adjust width based on the number of dates
-                          child: LineChart(
-                            LineChartData(
-                              extraLinesData: ExtraLinesData(
-                                extraLinesOnTop: true,
-                                verticalLines: [
-                                  VerticalLine(
-                                    x: cashflowController.dividerPosition.value,
-                                    color: Colors.green,
-                                    strokeWidth: 2,
-                                    dashArray: [4, 2],
-                                    label: VerticalLineLabel(
-                                      show: true,
-                                      alignment: Alignment.topRight,
-                                      style: const TextStyle(
-                                        color: Colors.green,
-                                        fontSize: 12,
-                                      ),
-                                      labelResolver: (line) {
-                                        // Calculate the closest amount based on the vertical line position
-                                        double closestAmount = 0.0;
-                                        int index = line.x.toInt();
-
-                                        if (index >= 0 && index < cashflowController.creditorSpots.length) {
-                                          closestAmount = cashflowController.creditorSpots[index].y;
-                                        } else if (index >= 0 && index < cashflowController.debtorSpots.length) {
-                                          closestAmount = cashflowController.debtorSpots[index].y;
-                                        }
-
-                                        return '${closestAmount.toStringAsFixed(1)}'; // Show the closest balance
-                                      },
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              borderData: FlBorderData(show: false),
-                              gridData: const FlGridData(show: false),
-                              titlesData: FlTitlesData(
-                                bottomTitles: AxisTitles(
-                                  sideTitles: SideTitles(
-                                    showTitles: true,
-                                    reservedSize: 40, // Adjust reserved size to make space for titles
-                                    interval: 1, // Show every date
-                                    getTitlesWidget: (value, meta) {
-                                      int index = value.toInt();
-                                      if (index < 0 || index >= cashflowController.dates.length) {
-                                        return const SizedBox.shrink(); // Return an empty widget for out-of-bounds index
-                                      }
-
-                                      String debtorDate = cashflowController.debtordates[index];
-                                      String creditorDate = cashflowController.dates[index];
-                                      return SideTitleWidget(
-                                        space: 0, // Adjust space for better separation
-                                        axisSide: meta.axisSide,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(left: 50),
-                                          child: Column(
-                                            children: [
-                                              Text(
-                                                debtorDate, // Show date only for debtors
-                                                style: const TextStyle(
-                                                  fontSize: 8,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.red, // Color for debtor dates
-                                                ),
-                                                textAlign: TextAlign.center, // Align the text to center for better appearance
-                                              ),
-                                              const SizedBox(height: 5), // Space between dates
-                                              Text(
-                                                creditorDate, // Show date only for creditors
-                                                style: const TextStyle(
-                                                  fontSize: 8,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.green, // Color for creditor dates
-                                                ),
-                                                textAlign: TextAlign.center, // Align the text to center for better appearance
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                                leftTitles: const AxisTitles(
-                                  sideTitles: SideTitles(
-                                    showTitles: false,
-                                  ),
-                                ),
-                                rightTitles: const AxisTitles(
-                                  sideTitles: SideTitles(showTitles: false),
-                                ),
-                                topTitles: const AxisTitles(
-                                  sideTitles: SideTitles(showTitles: false),
-                                ),
-                              ),
-                              lineBarsData: [
-                                LineChartBarData(
-                                  spots: cashflowController.creditorSpots,
-                                  isCurved: true,
-                                  color: Colors.green,
-                                  barWidth: 2,
-                                  isStrokeCapRound: true,
-                                  dotData: const FlDotData(show: false),
-                                  belowBarData: BarAreaData(
-                                    show: true,
-                                    color: Colors.green.withOpacity(0.3),
-                                  ),
-                                ),
-                                LineChartBarData(
-                                  spots: cashflowController.debtorSpots,
-                                  isCurved: true,
-                                  color: Colors.red,
-                                  barWidth: 2,
-                                  isStrokeCapRound: true,
-                                  dotData: const FlDotData(show: false),
-                                  belowBarData: BarAreaData(
-                                    show: true,
-                                    color: Colors.red.withOpacity(0.3),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  }),
+                  // Obx(() {
+                  //   if (
+                  //   cashflowController.creditorSpots.isEmpty ||
+                  //       cashflowController.debtorSpots.isEmpty) {
+                  //     return const Center(child: CircularProgressIndicator());
+                  //   }
+                  //
+                  //   // Create separate lists for creditor and debtor dates
+                  //   List<String> creditorDates = List.from(cashflowController.dates);
+                  //   List<String> debtorDates = List.from(cashflowController.debtordates);
+                  //
+                  //   return Container(
+                  //     height: 300, // Increased height for better visualization
+                  //     child: SingleChildScrollView(
+                  //       scrollDirection: Axis.horizontal,
+                  //       child: SizedBox(
+                  //         width: (creditorDates.length + debtorDates.length) * 50.0, // Adjust width based on the number of dates
+                  //         child: LineChart(
+                  //           LineChartData(
+                  //             extraLinesData: ExtraLinesData(
+                  //               extraLinesOnTop: true,
+                  //               verticalLines: [
+                  //                 VerticalLine(
+                  //                   x: cashflowController.dividerPosition.value,
+                  //                   color: Colors.green,
+                  //                   strokeWidth: 2,
+                  //                   dashArray: [4, 2],
+                  //                   label: VerticalLineLabel(
+                  //                     show: true,
+                  //                     alignment: Alignment.topRight,
+                  //                     style: const TextStyle(
+                  //                       color: Colors.green,
+                  //                       fontSize: 12,
+                  //                     ),
+                  //                     labelResolver: (line) {
+                  //                       // Calculate the closest amount based on the vertical line position
+                  //                       double closestAmount = 0.0;
+                  //                       int index = line.x.toInt();
+                  //
+                  //                       if (index >= 0 && index < cashflowController.creditorSpots.length) {
+                  //                         closestAmount = cashflowController.creditorSpots[index].y;
+                  //                       } else if (index >= 0 && index < cashflowController.debtorSpots.length) {
+                  //                         closestAmount = cashflowController.debtorSpots[index].y;
+                  //                       }
+                  //
+                  //                       return '${closestAmount.toStringAsFixed(1)}'; // Show the closest balance
+                  //                     },
+                  //                   ),
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //             borderData: FlBorderData(show: false),
+                  //             gridData: const FlGridData(show: false),
+                  //             titlesData: FlTitlesData(
+                  //               bottomTitles: AxisTitles(
+                  //                 sideTitles: SideTitles(
+                  //                   showTitles: true,
+                  //                   reservedSize: 40, // Adjust reserved size to make space for titles
+                  //                   interval: 1, // Show every date
+                  //                   getTitlesWidget: (value, meta) {
+                  //                     int index = value.toInt();
+                  //                     if (index < 0 || index >= cashflowController.dates.length) {
+                  //                       return const SizedBox.shrink(); // Return an empty widget for out-of-bounds index
+                  //                     }
+                  //
+                  //                     String debtorDate = cashflowController.debtordates[index];
+                  //                     String creditorDate = cashflowController.dates[index];
+                  //                     return SideTitleWidget(
+                  //                       space: 0, // Adjust space for better separation
+                  //                       axisSide: meta.axisSide,
+                  //                       child: Padding(
+                  //                         padding: const EdgeInsets.only(left: 50),
+                  //                         child: Column(
+                  //                           children: [
+                  //                             Text(
+                  //                               debtorDate, // Show date only for debtors
+                  //                               style: const TextStyle(
+                  //                                 fontSize: 8,
+                  //                                 fontWeight: FontWeight.bold,
+                  //                                 color: Colors.red, // Color for debtor dates
+                  //                               ),
+                  //                               textAlign: TextAlign.center, // Align the text to center for better appearance
+                  //                             ),
+                  //                             const SizedBox(height: 5), // Space between dates
+                  //                             Text(
+                  //                               creditorDate, // Show date only for creditors
+                  //                               style: const TextStyle(
+                  //                                 fontSize: 8,
+                  //                                 fontWeight: FontWeight.bold,
+                  //                                 color: Colors.green, // Color for creditor dates
+                  //                               ),
+                  //                               textAlign: TextAlign.center, // Align the text to center for better appearance
+                  //                             ),
+                  //                           ],
+                  //                         ),
+                  //                       ),
+                  //                     );
+                  //                   },
+                  //                 ),
+                  //               ),
+                  //               leftTitles: const AxisTitles(
+                  //                 sideTitles: SideTitles(
+                  //                   showTitles: false,
+                  //                 ),
+                  //               ),
+                  //               rightTitles: const AxisTitles(
+                  //                 sideTitles: SideTitles(showTitles: false),
+                  //               ),
+                  //               topTitles: const AxisTitles(
+                  //                 sideTitles: SideTitles(showTitles: false),
+                  //               ),
+                  //             ),
+                  //             lineBarsData: [
+                  //               LineChartBarData(
+                  //                 spots: cashflowController.creditorSpots,
+                  //                 isCurved: true,
+                  //                 color: Colors.green,
+                  //                 barWidth: 2,
+                  //                 isStrokeCapRound: true,
+                  //                 dotData: const FlDotData(show: false),
+                  //                 belowBarData: BarAreaData(
+                  //                   show: true,
+                  //                   color: Colors.green.withOpacity(0.3),
+                  //                 ),
+                  //               ),
+                  //               LineChartBarData(
+                  //                 spots: cashflowController.debtorSpots,
+                  //                 isCurved: true,
+                  //                 color: Colors.red,
+                  //                 barWidth: 2,
+                  //                 isStrokeCapRound: true,
+                  //                 dotData: const FlDotData(show: false),
+                  //                 belowBarData: BarAreaData(
+                  //                   show: true,
+                  //                   color: Colors.red.withOpacity(0.3),
+                  //                 ),
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   );
+                  // }),
                   const SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   CommonButton(
                       text: 'View',
                       color: AppColor.primaryColor,
                       textcolor: Colors.white,
                       ontap: (){
-                        Get.toNamed(Routes.TRENDS);
+                        Get.toNamed(Routes.CASHFLOWSTATEMENT);
+                        // Get.toNamed(Routes.TRENDS);
                       },
                       height: 45,
-                      width: 120),
+                      width: MediaQuery.of(context).size.width
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
@@ -1015,7 +1106,6 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                         cashflowController.creditorsList.isEmpty?
                             const Text(''):
                         Obx(() {
-
                           final isViewingCreditors =
                               cashflowController.isViewingCreditors.value;
                           final data = isViewingCreditors
@@ -1042,13 +1132,12 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                             padding: EdgeInsets.zero,
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
-                              print('allCreditorDebtor: ${allCreditorDebtor[index]}');
+                              // print('allCreditorDebtor: ${allCreditorDebtor[index]}');
                               return Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 18.0, vertical: 16),
                                 child: InkWell(
                                   onTap: () {
-
                                     // Get.toNamed(Routes.INVOICE_DETAILS,
                                     //     arguments: {
                                     //       'userName': data[index],
@@ -1501,163 +1590,162 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                           ),
                         ],
                       )),
-                    // const SizedBox(
-                  //   height: 20,
-                  // ),
-                  // Text(
-                  //   "Trend Analysis",
-                  //   style: TextStyle(
-                  //       fontSize: 18,
-                  //       fontWeight: FontWeight.w500,
-                  //       fontFamily: 'Urbanist',
-                  //       color: AppColor.blackColor),
-                  // ),
-                  // const SizedBox(
-                  //   height: 20,
-                  // ),
-                  // Obx(() {
-                  //   if (cashflowController.creditorSpots.isEmpty || cashflowController.debtorSpots.isEmpty) {
-                  //     return Center(child: CircularProgressIndicator());
-                  //   }
-                  //
-                  //   // Create separate lists for creditor and debtor dates
-                  //   List<String> creditorDates = List.from(cashflowController.dates);
-                  //   List<String> debtorDates = List.from(cashflowController.debtordates);
-                  //
-                  //   return Container(
-                  //     height: 300, // Increased height for better visualization
-                  //     child: SingleChildScrollView(
-                  //       scrollDirection: Axis.horizontal,
-                  //       child: SizedBox(
-                  //         width: (creditorDates.length + debtorDates.length) * 50.0, // Adjust width based on the number of dates
-                  //         child: LineChart(
-                  //           LineChartData(
-                  //             extraLinesData: ExtraLinesData(
-                  //               extraLinesOnTop: true,
-                  //               verticalLines: [
-                  //                 VerticalLine(
-                  //                   x: cashflowController.dividerPosition.value,
-                  //                   color: Colors.green,
-                  //                   strokeWidth: 2,
-                  //                   dashArray: [4, 2],
-                  //                   label: VerticalLineLabel(
-                  //                     show: true,
-                  //                     alignment: Alignment.topRight,
-                  //                     style: const TextStyle(
-                  //                       color: Colors.green,
-                  //                       fontSize: 12,
-                  //                     ),
-                  //                     labelResolver: (line) {
-                  //                       // Calculate the closest amount based on the vertical line position
-                  //                       double closestAmount = 0.0;
-                  //                       int index = line.x.toInt();
-                  //
-                  //                       if (index >= 0 && index < cashflowController.creditorSpots.length) {
-                  //                         closestAmount = cashflowController.creditorSpots[index].y;
-                  //                       } else if (index >= 0 && index < cashflowController.debtorSpots.length) {
-                  //                         closestAmount = cashflowController.debtorSpots[index].y;
-                  //                       }
-                  //
-                  //                       return '${closestAmount.toStringAsFixed(1)}'; // Show the closest balance
-                  //                     },
-                  //                   ),
-                  //                 ),
-                  //               ],
-                  //             ),
-                  //             borderData: FlBorderData(show: false),
-                  //             gridData: const FlGridData(show: false),
-                  //             titlesData: FlTitlesData(
-                  //               bottomTitles: AxisTitles(
-                  //                 sideTitles: SideTitles(
-                  //                   showTitles: true,
-                  //                   reservedSize: 40, // Adjust reserved size to make space for titles
-                  //                   interval: 1, // Show every date
-                  //                   getTitlesWidget: (value, meta) {
-                  //                     int index = value.toInt();
-                  //                     if (index < 0 || index >= cashflowController.dates.length) {
-                  //                       return const SizedBox.shrink(); // Return an empty widget for out-of-bounds index
-                  //                     }
-                  //
-                  //                     String debtorDate = cashflowController.debtordates[index];
-                  //                     String creditorDate = cashflowController.dates[index];
-                  //                     return SideTitleWidget(
-                  //                       space: 0, // Adjust space for better separation
-                  //                       axisSide: meta.axisSide,
-                  //                       child: Padding(
-                  //                         padding: const EdgeInsets.only(left: 50),
-                  //                         child: Column(
-                  //                           children: [
-                  //                             Text(
-                  //                               debtorDate, // Show date only for debtors
-                  //                               style: TextStyle(
-                  //                                 fontSize: 8,
-                  //                                 fontWeight: FontWeight.bold,
-                  //                                 color: Colors.red, // Color for debtor dates
-                  //                               ),
-                  //                               textAlign: TextAlign.center, // Align the text to center for better appearance
-                  //                             ),
-                  //                             SizedBox(height: 5), // Space between dates
-                  //                             Text(
-                  //                               creditorDate, // Show date only for creditors
-                  //                               style: TextStyle(
-                  //                                 fontSize: 8,
-                  //                                 fontWeight: FontWeight.bold,
-                  //                                 color: Colors.green, // Color for creditor dates
-                  //                               ),
-                  //                               textAlign: TextAlign.center, // Align the text to center for better appearance
-                  //                             ),
-                  //                           ],
-                  //                         ),
-                  //                       ),
-                  //                     );
-                  //                   },
-                  //                 ),
-                  //               ),
-                  //               leftTitles: AxisTitles(
-                  //                 sideTitles: SideTitles(
-                  //                   showTitles: false,
-                  //                 ),
-                  //               ),
-                  //               rightTitles: AxisTitles(
-                  //                 sideTitles: SideTitles(showTitles: false),
-                  //               ),
-                  //               topTitles: AxisTitles(
-                  //                 sideTitles: SideTitles(showTitles: false),
-                  //               ),
-                  //             ),
-                  //             lineBarsData: [
-                  //               LineChartBarData(
-                  //                 spots: cashflowController.creditorSpots,
-                  //                 isCurved: true,
-                  //                 color: Colors.green,
-                  //                 barWidth: 2,
-                  //                 isStrokeCapRound: true,
-                  //                 dotData: const FlDotData(show: false),
-                  //                 belowBarData: BarAreaData(
-                  //                   show: true,
-                  //                   color: Colors.green.withOpacity(0.3),
-                  //                 ),
-                  //               ),
-                  //               LineChartBarData(
-                  //                 spots: cashflowController.debtorSpots,
-                  //                 isCurved: true,
-                  //                 color: Colors.red,
-                  //                 barWidth: 2,
-                  //                 isStrokeCapRound: true,
-                  //                 dotData: const FlDotData(show: false),
-                  //                 belowBarData: BarAreaData(
-                  //                   show: true,
-                  //                   color: Colors.red.withOpacity(0.3),
-                  //                 ),
-                  //               ),
-                  //             ],
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   );
-                  // }),
-                  //
+                    const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "Trend Analysis",
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: 'Urbanist',
+                        color: AppColor.blackColor),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Obx(() {
+                    if (cashflowController.creditorSpots.isEmpty || cashflowController.debtorSpots.isEmpty) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+
+                    // Create separate lists for creditor and debtor dates
+                    List<String> creditorDates = List.from(cashflowController.dates);
+                    List<String> debtorDates = List.from(cashflowController.debtordates);
+
+                    return Container(
+                      height: 300, // Increased height for better visualization
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: SizedBox(
+                          width: (creditorDates.length + debtorDates.length) * 50.0, // Adjust width based on the number of dates
+                          child: LineChart(
+                            LineChartData(
+                              extraLinesData: ExtraLinesData(
+                                extraLinesOnTop: true,
+                                verticalLines: [
+                                  VerticalLine(
+                                    x: cashflowController.dividerPosition.value,
+                                    color: Colors.green,
+                                    strokeWidth: 2,
+                                    dashArray: [4, 2],
+                                    label: VerticalLineLabel(
+                                      show: true,
+                                      alignment: Alignment.topRight,
+                                      style: const TextStyle(
+                                        color: Colors.green,
+                                        fontSize: 12,
+                                      ),
+                                      labelResolver: (line) {
+                                        // Calculate the closest amount based on the vertical line position
+                                        double closestAmount = 0.0;
+                                        int index = line.x.toInt();
+
+                                        if (index >= 0 && index < cashflowController.creditorSpots.length) {
+                                          closestAmount = cashflowController.creditorSpots[index].y;
+                                        } else if (index >= 0 && index < cashflowController.debtorSpots.length) {
+                                          closestAmount = cashflowController.debtorSpots[index].y;
+                                        }
+
+                                        return '${closestAmount.toStringAsFixed(1)}'; // Show the closest balance
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              borderData: FlBorderData(show: false),
+                              gridData: const FlGridData(show: false),
+                              titlesData: FlTitlesData(
+                                bottomTitles: AxisTitles(
+                                  sideTitles: SideTitles(
+                                    showTitles: true,
+                                    reservedSize: 40, // Adjust reserved size to make space for titles
+                                    interval: 1, // Show every date
+                                    getTitlesWidget: (value, meta) {
+                                      int index = value.toInt();
+                                      if (index < 0 || index >= cashflowController.dates.length) {
+                                        return const SizedBox.shrink(); // Return an empty widget for out-of-bounds index
+                                      }
+
+                                      String debtorDate = cashflowController.debtordates[index];
+                                      String creditorDate = cashflowController.dates[index];
+                                      return SideTitleWidget(
+                                        space: 0, // Adjust space for better separation
+                                        axisSide: meta.axisSide,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(left: 50),
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                debtorDate, // Show date only for debtors
+                                                style: const TextStyle(
+                                                  fontSize: 8,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.red, // Color for debtor dates
+                                                ),
+                                                textAlign: TextAlign.center, // Align the text to center for better appearance
+                                              ),
+                                              const SizedBox(height: 5), // Space between dates
+                                              Text(
+                                                creditorDate, // Show date only for creditors
+                                                style:const TextStyle(
+                                                  fontSize: 8,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.green, // Color for creditor dates
+                                                ),
+                                                textAlign: TextAlign.center, // Align the text to center for better appearance
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                leftTitles: const AxisTitles(
+                                  sideTitles: SideTitles(
+                                    showTitles: false,
+                                  ),
+                                ),
+                                rightTitles:const  AxisTitles(
+                                  sideTitles: SideTitles(showTitles: false),
+                                ),
+                                topTitles: const AxisTitles(
+                                  sideTitles: SideTitles(showTitles: false),
+                                ),
+                              ),
+                              lineBarsData: [
+                                LineChartBarData(
+                                  spots: cashflowController.creditorSpots,
+                                  isCurved: true,
+                                  color: Colors.green,
+                                  barWidth: 2,
+                                  isStrokeCapRound: true,
+                                  dotData: const FlDotData(show: false),
+                                  belowBarData: BarAreaData(
+                                    show: true,
+                                    color: Colors.green.withOpacity(0.3),
+                                  ),
+                                ),
+                                LineChartBarData(
+                                  spots: cashflowController.debtorSpots,
+                                  isCurved: true,
+                                  color: Colors.red,
+                                  barWidth: 2,
+                                  isStrokeCapRound: true,
+                                  dotData: const FlDotData(show: false),
+                                  belowBarData: BarAreaData(
+                                    show: true,
+                                    color: Colors.red.withOpacity(0.3),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
                   const SizedBox(
                     height: 20,
                   ),

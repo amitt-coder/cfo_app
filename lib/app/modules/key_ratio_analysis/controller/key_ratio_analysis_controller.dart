@@ -39,17 +39,23 @@ class KeyRatioAnalsisController extends GetxController{
 
 
   Color getColorForInterpretation(String interpretation) {
+    print('interpretation: ${interpretation}');
     switch (interpretation) {
       case 'Healthy':
       case 'Strong':
+      case '12.0':
+      case '10.0':
+      case '6.0':
         return Colors.green;
-      case 'Adequate':
-        return Colors.yellow;
       case 'Efficient':
       case 'Optimal':
+      case '1.5':
+      case '1.2':
+      case '2.5':
+      case '4.0':
         return Colors.red;
       default:
-        return Colors.red;
+        return Colors.yellow;
     }
 }
 

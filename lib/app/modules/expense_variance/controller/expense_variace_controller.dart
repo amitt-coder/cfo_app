@@ -27,6 +27,7 @@ class ExpenseVarianceController extends GetxController{
   RxList<FlSpot> creditorSpots = <FlSpot>[].obs;
   RxDouble highestAmount=0.0.obs;
   RxDouble lowestAmount=0.0.obs;
+  RxList cashInPercentages=[].obs;
 
   var dividerPosition = 0.0.obs;
   var crBalance = 0.0.obs;
@@ -141,7 +142,7 @@ class ExpenseVarianceController extends GetxController{
           "name": "Aman",
           "contact_no": "9988447387",
           "email": "mailto:aman@gmail.com",
-          "total_balance": "80000",
+          "total_balance": "60000",
           "last_payment_date": "2024-08-15",
           "due_date": "2024-08-20",
           "outstanding_invoices": [
@@ -524,7 +525,8 @@ class ExpenseVarianceController extends GetxController{
         print('Highest Amount: $highestAmount');
         print('Lowest Amount: $lowestAmount');
 
-
+        final maxCashInValue = cashIn.reduce((a, b) => a > b ? a : b);
+         cashInPercentages.value = cashIn.map((value) => (value / maxCashInValue) * 100).toList();
         // print('ResponseData: ${responseData}');
         return responseData;
       } else {

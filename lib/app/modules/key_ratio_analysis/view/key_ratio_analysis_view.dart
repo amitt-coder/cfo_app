@@ -96,7 +96,9 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
           ),
         ),
       ),
-      body: Container(
+      body:
+      Obx(() =>
+      Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -297,13 +299,16 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'Name',
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'Urbanist',
-                            color: AppColor.blackColor),
+                      Container(
+                        width: 70,
+                        child: Text(
+                          'Name',
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'Urbanist',
+                              color: AppColor.blackColor),
+                        ),
                       ),
                       Text(
                         '      Value',
@@ -321,18 +326,18 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                             fontFamily: 'Urbanist',
                             color: AppColor.blackColor),
                       ),
-                      Container(
-                        width: 60,
-                        child: Text(
-                          'Interpretation',
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: 'Urbanist',
-                              color: AppColor.blackColor),
-                              overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
+                      // Container(
+                      //   width: 60,
+                      //   child: Text(
+                      //     'Interpretation',
+                      //     style: TextStyle(
+                      //         fontSize: 14,
+                      //         fontWeight: FontWeight.w600,
+                      //         fontFamily: 'Urbanist',
+                      //         color: AppColor.blackColor),
+                      //         overflow: TextOverflow.ellipsis,
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -377,7 +382,12 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                       .keyRatios[index].value
                                       .toString(),
                                   style: TextStyle(
-                                      color: AppColor.blackColor,
+                                      // color: AppColor.blackColor,
+                                      color: keyRatioAnalsisController
+                                                .getColorForInterpretation(
+                                                    keyRatioAnalsisController
+                                                        .keyRatios[index]
+                                                        .value),
                                       fontFamily: 'Urbanist',
                                       fontWeight: FontWeight.w500,
                                       fontSize: 15),
@@ -393,21 +403,21 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                       fontWeight: FontWeight.w500,
                                       fontSize: 15),
                                 ),
-                                Text(
-                                  // 'Healthy',
-                                  keyRatioAnalsisController
-                                      .keyRatios[index].interpretation
-                                      .toString(),
-                                  style: TextStyle(
-                                      color: keyRatioAnalsisController
-                                          .getColorForInterpretation(
-                                              keyRatioAnalsisController
-                                                  .keyRatios[index]
-                                                  .interpretation),
-                                      fontFamily: 'Urbanist',
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 15),
-                                ),
+                                // Text(
+                                //   // 'Healthy',
+                                //   keyRatioAnalsisController
+                                //       .keyRatios[index].interpretation
+                                //       .toString(),
+                                //   style: TextStyle(
+                                //       color: keyRatioAnalsisController
+                                //           .getColorForInterpretation(
+                                //               keyRatioAnalsisController
+                                //                   .keyRatios[index]
+                                //                   .interpretation),
+                                //       fontFamily: 'Urbanist',
+                                //       fontWeight: FontWeight.w500,
+                                //       fontSize: 15),
+                                // ),
                               ],
                             ),
                             Divider(
@@ -423,218 +433,218 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                   height: 15,
                 ),
                 ///Show/Not Show
-                // Text(
-                //   'Ratio Details',
-                //   style: TextStyle(
-                //       color: AppColor.blackColor,
-                //       fontFamily: 'Urbanist',
-                //       fontWeight: FontWeight.w500,
-                //       fontSize: 16),
-                // ),
-                // const SizedBox(
-                //   height: 5,
-                // ),
-                // Container(
-                //   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                //   decoration: BoxDecoration(
-                //       color: Colors.white,
-                //       borderRadius: BorderRadius.circular(5)),
-                //   child: Column(
-                //     crossAxisAlignment: CrossAxisAlignment.start,
-                //     children: [
-                //       Row(
-                //         children: [
-                //           Text(
-                //             'Ratio Name: ',
-                //             style: TextStyle(
-                //                 color: AppColor.primaryColor,
-                //                 fontSize: 15,
-                //                 fontWeight: FontWeight.w600,
-                //                 fontFamily: 'Urbanist'),
-                //           ),
-                //           Text(
-                //             'Current Ratio',
-                //             style: TextStyle(
-                //                 color: AppColor.blackColor,
-                //                 fontSize: 15,
-                //                 fontWeight: FontWeight.w500,
-                //                 fontFamily: 'Urbanist'),
-                //           )
-                //         ],
-                //       ),
-                //       const SizedBox(
-                //         height: 5,
-                //       ),
-                //       Row(
-                //         crossAxisAlignment: CrossAxisAlignment.start,
-                //         children: [
-                //           Text(
-                //             'Defination: ',
-                //             style: TextStyle(
-                //                 color: AppColor.primaryColor,
-                //                 fontSize: 15,
-                //                 fontWeight: FontWeight.w600,
-                //                 fontFamily: 'Urbanist'),
-                //           ),
-                //           Text(
-                //             'Measures the comapny s\nability to pay short-term\nobligation with current assets',
-                //             style: TextStyle(
-                //                 color: AppColor.blackColor,
-                //                 fontSize: 15,
-                //                 fontWeight: FontWeight.w500,
-                //                 fontFamily: 'Urbanist'),
-                //           )
-                //         ],
-                //       ),
-                //       const SizedBox(
-                //         height: 5,
-                //       ),
-                //       Row(
-                //         crossAxisAlignment: CrossAxisAlignment.start,
-                //         children: [
-                //           Text(
-                //             'Formula: ',
-                //             style: TextStyle(
-                //                 color: AppColor.primaryColor,
-                //                 fontSize: 15,
-                //                 fontWeight: FontWeight.w600,
-                //                 fontFamily: 'Urbanist'),
-                //           ),
-                //           Text(
-                //             'Current Assets / Current Liabilities',
-                //             style: TextStyle(
-                //                 color: AppColor.blackColor,
-                //                 fontSize: 15,
-                //                 fontWeight: FontWeight.w500,
-                //                 fontFamily: 'Urbanist'),
-                //           )
-                //         ],
-                //       ),
-                //       const SizedBox(
-                //         height: 5,
-                //       ),
-                //       Row(
-                //         crossAxisAlignment: CrossAxisAlignment.start,
-                //         children: [
-                //           Text(
-                //             'Trend Analysis: ',
-                //             style: TextStyle(
-                //                 color: AppColor.primaryColor,
-                //                 fontSize: 15,
-                //                 fontWeight: FontWeight.w600,
-                //                 fontFamily: 'Urbanist'),
-                //           ),
-                //           Text(
-                //             'Chart showing trend over...',
-                //             style: TextStyle(
-                //                 color: AppColor.blackColor,
-                //                 fontSize: 15,
-                //                 fontWeight: FontWeight.w500,
-                //                 fontFamily: 'Urbanist'),
-                //           )
-                //         ],
-                //       ),
-                //       const SizedBox(
-                //         height: 15,
-                //       ),
-                //       Container(
-                //         height: 200,
-                //         child: LineChart(
-                //           LineChartData(
-                //             extraLinesData: ExtraLinesData(
-                //               extraLinesOnTop: true,
-                //               verticalLines: [
-                //                 VerticalLine(
-                //                   x: keyRatioAnalsisController.dividerPosition.value,
-                //                   color: Colors.green,
-                //                   strokeWidth: 2,
-                //                   dashArray: [4, 2],
-                //                   label: VerticalLineLabel(
-                //                     show: true,
-                //                     alignment: Alignment.topRight,
-                //                     style: const TextStyle(
-                //                         color: Colors.green,
-                //                         fontSize: 12,
-                //                         fontFamily: 'Urbanist'),
-                //                     labelResolver: (line) {
-                //                       return '${keyRatioAnalsisController.dividerPosition.value.toStringAsFixed(1)}';
-                //                     },
-                //                   ),
-                //                 ),
-                //               ],
-                //             ),
-                //             borderData: FlBorderData(show: false),
-                //             gridData: const FlGridData(show: false),
-                //             titlesData: FlTitlesData(
-                //               bottomTitles: AxisTitles(
-                //                 sideTitles: SideTitles(
-                //                   showTitles: true,
-                //                   interval: 5, // This ensures that the interval between titles is correct
-                //                   getTitlesWidget: _buildBottomTitle,
-                //                 ),
-                //               ),
-                //               leftTitles: const AxisTitles(
-                //                 sideTitles: SideTitles(showTitles: false),
-                //               ),
-                //               rightTitles: const AxisTitles(
-                //                 sideTitles: SideTitles(showTitles: false),
-                //               ),
-                //               topTitles: const AxisTitles(
-                //                 sideTitles: SideTitles(showTitles: false),
-                //               ),
-                //             ),
-                //             lineBarsData: [
-                //               LineChartBarData(
-                //                 spots: [
-                //                   const FlSpot(10, 3),
-                //                   const FlSpot(15, 5),
-                //                   const FlSpot(20, 3.5),
-                //                   const FlSpot(25, 4),
-                //                   const FlSpot(30, 3),
-                //                 ],
-                //                 isCurved: true,
-                //                 color: Colors.green,
-                //                 barWidth: 2,
-                //                 isStrokeCapRound: true,
-                //                 dotData: const FlDotData(show: false),
-                //                 belowBarData: BarAreaData(
-                //                   show: true,
-                //                   color: Colors.green.withOpacity(0.3),
-                //                 ),
-                //               ),
-                //               LineChartBarData(
-                //                 spots: [
-                //                   const FlSpot(10, 2.5),
-                //                   const FlSpot(15, 4),
-                //                   const FlSpot(20, 3),
-                //                   const FlSpot(25, 3.5),
-                //                   const FlSpot(30, 2.5),
-                //                 ],
-                //                 isCurved: true,
-                //                 color: Colors.red,
-                //                 barWidth: 2,
-                //                 isStrokeCapRound: true,
-                //                 dotData: const FlDotData(show: false),
-                //                 belowBarData: BarAreaData(
-                //                   show: true,
-                //                   color: Colors.green.withOpacity(0.3),
-                //                 ),
-                //               ),
-                //             ],
-                //             minX: 10,
-                //             maxX: 30,
-                //             minY: 0,
-                //             maxY: 6,
-                //           ),
-                //         ),
-                //       )
-                //     ],
-                //   ),
-                // )
+                Text(
+                  'Ratio Details',
+                  style: TextStyle(
+                      color: AppColor.blackColor,
+                      fontFamily: 'Urbanist',
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            'Ratio Name: ',
+                            style: TextStyle(
+                                color: AppColor.primaryColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'Urbanist'),
+                          ),
+                          Text(
+                            'Current Ratio',
+                            style: TextStyle(
+                                color: AppColor.blackColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'Urbanist'),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Defination: ',
+                            style: TextStyle(
+                                color: AppColor.primaryColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'Urbanist'),
+                          ),
+                          Text(
+                            'Measures the comapny s\nability to pay short-term\nobligation with current assets',
+                            style: TextStyle(
+                                color: AppColor.blackColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'Urbanist'),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Formula: ',
+                            style: TextStyle(
+                                color: AppColor.primaryColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'Urbanist'),
+                          ),
+                          Text(
+                            'Current Assets / Current Liabilities',
+                            style: TextStyle(
+                                color: AppColor.blackColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'Urbanist'),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Trend Analysis: ',
+                            style: TextStyle(
+                                color: AppColor.primaryColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'Urbanist'),
+                          ),
+                          Text(
+                            'Chart showing trend over...',
+                            style: TextStyle(
+                                color: AppColor.blackColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'Urbanist'),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Container(
+                        height: 200,
+                        child: LineChart(
+                          LineChartData(
+                            extraLinesData: ExtraLinesData(
+                              extraLinesOnTop: true,
+                              verticalLines: [
+                                VerticalLine(
+                                  x: keyRatioAnalsisController.dividerPosition.value,
+                                  color: Colors.green,
+                                  strokeWidth: 2,
+                                  dashArray: [4, 2],
+                                  label: VerticalLineLabel(
+                                    show: true,
+                                    alignment: Alignment.topRight,
+                                    style: const TextStyle(
+                                        color: Colors.green,
+                                        fontSize: 12,
+                                        fontFamily: 'Urbanist'),
+                                    labelResolver: (line) {
+                                      return '${keyRatioAnalsisController.dividerPosition.value.toStringAsFixed(1)}';
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                            borderData: FlBorderData(show: false),
+                            gridData: const FlGridData(show: false),
+                            titlesData: FlTitlesData(
+                              bottomTitles: AxisTitles(
+                                sideTitles: SideTitles(
+                                  showTitles: true,
+                                  interval: 5, // This ensures that the interval between titles is correct
+                                  getTitlesWidget: _buildBottomTitle,
+                                ),
+                              ),
+                              leftTitles: const AxisTitles(
+                                sideTitles: SideTitles(showTitles: false),
+                              ),
+                              rightTitles: const AxisTitles(
+                                sideTitles: SideTitles(showTitles: false),
+                              ),
+                              topTitles: const AxisTitles(
+                                sideTitles: SideTitles(showTitles: false),
+                              ),
+                            ),
+                            lineBarsData: [
+                              LineChartBarData(
+                                spots: [
+                                  const FlSpot(10, 3),
+                                  const FlSpot(15, 5),
+                                  const FlSpot(20, 3.5),
+                                  const FlSpot(25, 4),
+                                  const FlSpot(30, 3),
+                                ],
+                                isCurved: true,
+                                color: Colors.green,
+                                barWidth: 2,
+                                isStrokeCapRound: true,
+                                dotData: const FlDotData(show: false),
+                                belowBarData: BarAreaData(
+                                  show: true,
+                                  color: Colors.green.withOpacity(0.3),
+                                ),
+                              ),
+                              LineChartBarData(
+                                spots: [
+                                  const FlSpot(10, 2.5),
+                                  const FlSpot(15, 4),
+                                  const FlSpot(20, 3),
+                                  const FlSpot(25, 3.5),
+                                  const FlSpot(30, 2.5),
+                                ],
+                                isCurved: true,
+                                color: Colors.red,
+                                barWidth: 2,
+                                isStrokeCapRound: true,
+                                dotData: const FlDotData(show: false),
+                                belowBarData: BarAreaData(
+                                  show: true,
+                                  color: Colors.green.withOpacity(0.3),
+                                ),
+                              ),
+                            ],
+                            minX: 10,
+                            maxX: 30,
+                            minY: 0,
+                            maxY: 6,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                )
               ],
             ),
           )),
-    );
+    ));
   }
 }
 

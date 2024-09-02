@@ -1411,12 +1411,15 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                             CommonButton(
                               color: AppColor.primaryColor,
                               ontap: () {
+                                financialProjectionController.secondCheck.value == true?
+                                 Get.offAllNamed(Routes.DASH_BOARD)   :
                                 financialProjectionController.checkCondition();
                               },
                               height: 45,
                               width: 150,
                               textcolor: AppColor.whiteColor,
-                              text: 'Next',
+                              text: financialProjectionController.secondCheck.value ==
+                                  true?'Finish':'Next',
                             ),
                           ],
                         )

@@ -38,6 +38,7 @@ class CashflowController extends GetxController{
   TextEditingController numberofdaysReceiptController = TextEditingController();
   TextEditingController numberofdaysPaymentController = TextEditingController();
   TextEditingController dateRangeController = TextEditingController();
+  TextEditingController pastdateRangeController = TextEditingController();
 
   TextEditingController dateController = TextEditingController();
   final selectedDate = DateTime.now().obs;
@@ -56,6 +57,7 @@ class CashflowController extends GetxController{
   //   "-50000",
   //   "+80000",
   // ];
+
   RxBool isViewingCreditors = true.obs;
   RxList<String> creditorsList = <String>[].obs;
   RxList<String> debtorsList = <String>[].obs;
@@ -74,7 +76,7 @@ class CashflowController extends GetxController{
 
   RxList<dynamic> allCreditor=[].obs;
   RxList<dynamic> allDebtor=[].obs;
-
+  RxList cashInPercentages=[].obs;
   void selectValue(String value) {
     selectedValue.value = value;
   }
@@ -95,6 +97,7 @@ class CashflowController extends GetxController{
   RxDouble highestAmount=0.0.obs;
   RxDouble lowestAmount=0.0.obs;
   Rxn<DateTimeRange> selectedDateRange = Rxn<DateTimeRange>();
+  Rxn<DateTimeRange> selectedDateRangepastTrend = Rxn<DateTimeRange>();
 
   void onInit() {
     super.onInit();
@@ -618,9 +621,37 @@ class CashflowController extends GetxController{
      highestAmount.value = combinedList.reduce((a, b) => a > b ? a : b);
      lowestAmount.value = combinedList.reduce((a, b) => a < b ? a : b);
 
+    final maxCashInValue = cashIn.reduce((a, b) => a > b ? a : b);
+    cashInPercentages.value = cashIn.map((value) => (value / maxCashInValue) * 100).toList();
+
     print('Highest Amount: $highestAmount');
     print('Lowest Amount: $lowestAmount');
     update();
+  }
+
+
+  Future<void> pickDateRangePastTrend(BuildContext context) async {
+    final DateTimeRange? picked = await showDateRangePicker(
+      context: context,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2050),
+      currentDate: DateTime.now(),
+      saveText: 'Done',
+    );
+
+    if (picked != null) {
+      selectedDateRangepastTrend.value = picked;
+    }
+    final range = selectedDateRangepastTrend.value;
+    final startDate = DateFormat('yyyy-MM-dd').format(range!.start);
+    final endDate = DateFormat('yyyy-MM-dd').format(range.end);
+
+    print('StartDate: ${startDate}');
+    print('endDate: ${endDate}');
+
+    pastdateRangeController.text = startDate + " to " + endDate;
+
+    print('dateRangeController: ${pastdateRangeController.text.toString()}');
   }
 
 

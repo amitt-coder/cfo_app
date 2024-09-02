@@ -32,6 +32,7 @@ abstract class Routes {
   static const REVENUE_VARIANCE = _Paths.REVENUE_VARIANCE;
   static const VARIANCE_TABS = _Paths.VARIANCE_TABS;
   static const TRENDS = _Paths.TRENDS;
+  static const CASHFLOWSTATEMENT = _Paths.CASHFLOWSTATEMENT;
 
 }
 
@@ -66,4 +67,5 @@ abstract class _Paths {
   static const REVENUE_VARIANCE = '/revenue-variance';
   static const VARIANCE_TABS = '/variance-tabs';
   static const TRENDS = '/trends';
+  static const CASHFLOWSTATEMENT = '/cash-flow-statement';
 }

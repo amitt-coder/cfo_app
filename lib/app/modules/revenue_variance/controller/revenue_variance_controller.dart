@@ -33,6 +33,7 @@ class RevenueVarianceController extends GetxController{
   var dividerPosition = 0.0.obs;
   var crBalance = 0.0.obs;
   Rxn<DateTimeRange> selectedDateRange = Rxn<DateTimeRange>();
+  RxList cashInPercentages=[].obs;
 
   void onInit() {
     super.onInit();
@@ -349,7 +350,9 @@ class RevenueVarianceController extends GetxController{
         // print('Lowest Amount: $lowestAmount');
 
 
-        // print('ResponseData: ${responseData}');
+        final maxCashInValue = cashOut.reduce((a, b) => a > b ? a : b);
+        cashInPercentages.value = cashOut.map((value) => (value / maxCashInValue) * 100).toList();
+        print('cashInPercentages: ${cashInPercentages}');
         return responseData;
       } else {
         print('Failed with status: ${response.statusCode}');
