@@ -345,10 +345,34 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      // if(index==0)
-                                        Image.asset(ProjectImages.a_category,
-                                          height: 25,width: 25,
+                                      if (index % 4 == 0)
+                                        Image.asset(
+                                          ProjectImages.a_category,
+                                          height: 25,
+                                          width: 25,
                                         ),
+                                      if (index % 4 == 1)
+                                        Image.asset(
+                                          ProjectImages.b_category,
+                                          height: 25,
+                                          width: 25,
+                                        ),
+                                      if (index % 4 == 2)
+                                        Image.asset(
+                                          ProjectImages.c_category,
+                                          height: 25,
+                                          width: 25,
+                                        ),
+                                      if (index % 4 == 3)
+                                        Image.asset(
+                                          ProjectImages.a_category,
+                                          height: 25,
+                                          width: 25,
+                                        ),
+                                      // if(index==0)
+                                      //   Image.asset(ProjectImages.a_category,
+                                      //     height: 25,width: 25,
+                                      //   ),
                                       // if(index==1)
                                       //   Image.asset(ProjectImages.b_category,
                                       //     height: 25,width: 25,

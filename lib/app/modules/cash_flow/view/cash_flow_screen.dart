@@ -495,51 +495,98 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Obx(() =>
-                      Container(
-                        height: 132,
-                        child: BarChart(
-                          BarChartData(
-                            alignment: BarChartAlignment.spaceAround,
-                            barGroups: cashflowController.cashInPercentages
-                                .asMap()
-                                .entries
-                                .map(
-                                  (e) => BarChartGroupData(
-                                groupVertically: true,
-                                x: e.key,
-                                barRods: [
-                                  BarChartRodData(
-                                    borderRadius: BorderRadius.circular(3),
-                                    toY: e.value,
-                                    color: const Color(0xFF48BD69),
-                                    width: 11,
-                                  ),
-                                ],
+                  // Obx(() =>
+                    Container(
+                      height: 132,
+                      child: BarChart(
+                        BarChartData(
+                          alignment: BarChartAlignment.spaceAround,
+                          barGroups: cashflowController.cashIn
+                              .asMap()
+                              .entries
+                              .map(
+                                (e) => BarChartGroupData(
+                              groupVertically: true,
+                              x: e.key,
+                              barRods: [
+                                //Cash In
+                                BarChartRodData(
+                                  borderRadius: BorderRadius.circular(3),
+                                  toY: e.value,
+                                  color: const Color(0xFF48BD69),
+                                  width: 11,
+                                ),
+                                //Cash Out
+                                BarChartRodData(
+                                  borderRadius: BorderRadius.circular(3),
+                                  toY:  cashflowController.cashOut[e.key],
+                                  color: Colors.red,
+                                  width: 11,
+                                ),
+                              ],
+                            ),
+                          ).toList(),
+                          titlesData: FlTitlesData(
+                            rightTitles:const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                            topTitles: const AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: false,
                               ),
-                            ).toList(),
-                            titlesData: FlTitlesData(
-                              rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                              topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                              leftTitles: AxisTitles(
-                                sideTitles: SideTitles(
-                                  showTitles: true,
-                                  reservedSize: 30,
-                                  interval: 10, // Adjusted interval for percentage
-                                  getTitlesWidget: (value, meta) {
+                            ),
+                            leftTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: true,
+                                reservedSize: 30,
+                                // interval: 65000,
+                                interval: cashflowController.highestAmount.value/5,
+                                getTitlesWidget: (value, meta) {
+                                  // if (value == 610000) {
+                                  if (value ==  cashflowController.highestAmount.value) {
+                                    return const SizedBox();
+                                  } else if (value == -( cashflowController.highestAmount.value)) {
+                                    return const SizedBox();
+                                  } else if (value >= 1000) {
                                     return Text(
-                                      "${value.toInt()}%",
+                                      '₹${(value.toInt() / 1000).toStringAsFixed(0)}k',
                                       style: TextStyle(
                                           color: AppColor.fontColor,
                                           fontSize: 7,
                                           fontWeight: FontWeight.w500,
                                           fontFamily: 'Urbanist'),
                                     );
-                                  },
-                                ),
-                                drawBelowEverything: true,
+                                  } else if (value.toInt() <= -1000) {
+                                    return Text(
+                                      '₹${(value.toInt() / 1000).toStringAsFixed(0)}k',
+                                      style: TextStyle(
+                                          color: AppColor.fontColor,
+                                          fontSize: 7,
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: 'Urbanist'),
+                                    );
+                                  }
+                                  return Text(
+                                    "₹${value.toInt().toString()}",
+                                    style: TextStyle(
+                                        color: AppColor.fontColor,
+                                        fontSize: 7,
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: 'Urbanist'),
+                                  );
+                                },
+                                // getTitlesWidget: (value, meta) {
+                                //   return Text(
+                                //     "₹${value.toInt().toString()}",
+                                //     style: TextStyle(
+                                //         color: AppColor.fontColor,
+                                //         fontSize: 7,
+                                //         fontWeight: FontWeight.w500,
+                                //         fontFamily: 'Urbanist'),
+                                //   );
+                                // },
                               ),
-                              bottomTitles: AxisTitles(
+                              drawBelowEverything: true,
+                            ),
+                            bottomTitles: AxisTitles(
                                 sideTitles: SideTitles(
                                   showTitles: true,
                                   getTitlesWidget: (value, meta) {
@@ -547,13 +594,13 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                                       'Salaries',
                                       'Marketing',
                                       'Utilities',
-                                      'Office',
+                                      'Office Supplies',
                                       'Travel',
                                       'Other',
                                       'Salaries',
                                       'Marketing',
                                       'Utilities',
-                                      'Office',
+                                      'Office Supplies',
                                       'Travel',
                                       'Other',
                                     ];
@@ -566,41 +613,147 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                                           months[value.toInt() % 12],
                                           style: const TextStyle(
                                               color: Color(0xFF808D9E),
-                                              fontSize: 5,
+                                              fontSize: 8,
                                               fontWeight: FontWeight.w500,
                                               fontFamily: 'Urbanist'),
                                         ),
                                       ],
                                     );
                                   },
-                                ),
-                              ),
-                            ),
-                            baselineY: 0.5,
-                            maxY: 100, // Max Y value is now 100 for percentages
-                            gridData: FlGridData(
+                                )),
+                          ),
+                          baselineY: 0.5,
+                          // maxY:130000,
+                          maxY: (cashflowController.highestAmount.value) + 10000,
+                          // minY: -(cashflowController.highestAmount.value + 10000),
+                          gridData: FlGridData(
+                            show: true,
+                            // verticalInterval: 65000,
+                            // horizontalInterval: 65000,
+                            verticalInterval: cashflowController.highestAmount.value/5,
+                            horizontalInterval: cashflowController.highestAmount.value/5,
+                            getDrawingHorizontalLine: (value) {
+                              return const FlLine(
+                                  color: Color(0xFFB1B1B1),
+                                  strokeWidth: 0.5
+                              );
+                            },
+                            drawVerticalLine: false,
+                          ),
+                          borderData: FlBorderData(
                               show: true,
-                              verticalInterval: 10, // Adjusted interval for percentage
-                              horizontalInterval: 10, // Adjusted interval for percentage
-                              getDrawingHorizontalLine: (value) {
-                                return const FlLine(
-                                    color: Color(0xFFB1B1B1),
-                                    strokeWidth: 0.5
-                                );
-                              },
-                              drawVerticalLine: false,
-                            ),
-                            borderData: FlBorderData(
-                                show: true,
-                                border: Border.all(
-                                  color: Colors.transparent,
-                                )
-                            ),
+                              border: Border.all(
+                                color: Colors.transparent,
+                              )
                           ),
                         ),
-                      )
-                  ),
-
+                      ),
+                    ),
+                  // ),
+                  const SizedBox(height: 20,),
+                  // Obx(() =>
+                  //     Container(
+                  //       height: 132,
+                  //       child: BarChart(
+                  //         BarChartData(
+                  //           alignment: BarChartAlignment.spaceAround,
+                  //           barGroups: cashflowController.cashInPercentages
+                  //               .asMap()
+                  //               .entries
+                  //               .map(
+                  //                 (e) => BarChartGroupData(
+                  //               groupVertically: true,
+                  //               x: e.key,
+                  //               barRods: [
+                  //                 BarChartRodData(
+                  //                   borderRadius: BorderRadius.circular(3),
+                  //                   toY: e.value,
+                  //                   color: const Color(0xFF48BD69),
+                  //                   width: 11,
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //           ).toList(),
+                  //           titlesData: FlTitlesData(
+                  //             rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                  //             topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                  //             leftTitles: AxisTitles(
+                  //               sideTitles: SideTitles(
+                  //                 showTitles: true,
+                  //                 reservedSize: 30,
+                  //                 interval: 10, // Adjusted interval for percentage
+                  //                 getTitlesWidget: (value, meta) {
+                  //                   return Text(
+                  //                     "${value.toInt()}%",
+                  //                     style: TextStyle(
+                  //                         color: AppColor.fontColor,
+                  //                         fontSize: 7,
+                  //                         fontWeight: FontWeight.w500,
+                  //                         fontFamily: 'Urbanist'),
+                  //                   );
+                  //                 },
+                  //               ),
+                  //               drawBelowEverything: true,
+                  //             ),
+                  //             bottomTitles: AxisTitles(
+                  //               sideTitles: SideTitles(
+                  //                 showTitles: true,
+                  //                 getTitlesWidget: (value, meta) {
+                  //                   final months = [
+                  //                     'Salaries',
+                  //                     'Marketing',
+                  //                     'Utilities',
+                  //                     'Office',
+                  //                     'Travel',
+                  //                     'Other',
+                  //                     'Salaries',
+                  //                     'Marketing',
+                  //                     'Utilities',
+                  //                     'Office',
+                  //                     'Travel',
+                  //                     'Other',
+                  //                   ];
+                  //                   return Column(
+                  //                     children: [
+                  //                       const SizedBox(height: 10,),
+                  //                       Text(
+                  //                         months[value.toInt() % 12],
+                  //                         style: const TextStyle(
+                  //                             color: Color(0xFF808D9E),
+                  //                             fontSize: 5,
+                  //                             fontWeight: FontWeight.w500,
+                  //                             fontFamily: 'Urbanist'),
+                  //                       ),
+                  //                     ],
+                  //                   );
+                  //                 },
+                  //               ),
+                  //             ),
+                  //           ),
+                  //           baselineY: 0.5,
+                  //           maxY: 100, // Max Y value is now 100 for percentages
+                  //           gridData: FlGridData(
+                  //             show: true,
+                  //             verticalInterval: 10, // Adjusted interval for percentage
+                  //             horizontalInterval: 10, // Adjusted interval for percentage
+                  //             getDrawingHorizontalLine: (value) {
+                  //               return const FlLine(
+                  //                   color: Color(0xFFB1B1B1),
+                  //                   strokeWidth: 0.5
+                  //               );
+                  //             },
+                  //             drawVerticalLine: false,
+                  //           ),
+                  //           borderData: FlBorderData(
+                  //               show: true,
+                  //               border: Border.all(
+                  //                 color: Colors.transparent,
+                  //               )
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     )
+                  // ),
                   ///only design
                   // Container(
                   //   height: 200,
@@ -1666,7 +1819,6 @@ class _CashFlowScreenState extends State<CashFlowScreen> {
                                       if (index < 0 || index >= cashflowController.dates.length) {
                                         return const SizedBox.shrink(); // Return an empty widget for out-of-bounds index
                                       }
-
                                       String debtorDate = cashflowController.debtordates[index];
                                       String creditorDate = cashflowController.dates[index];
                                       return SideTitleWidget(

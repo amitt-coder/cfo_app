@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 import '../../../../components/common_app_bar.dart';
 import '../../../../utils/colors.dart';
 import '../../../../utils/images.dart';
@@ -110,7 +108,6 @@ class CashFlowStatementView extends StatelessWidget {
           ...items.map((item) => ListTile(
             contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 0), // Adjust the horizontal and vertical padding
             dense: true, // Makes the ListTile more compact
-
             title: Text(item,
               style: TextStyle(
                 color: AppColor.blackColor,
@@ -124,8 +121,6 @@ class CashFlowStatementView extends StatelessWidget {
               fontWeight: FontWeight.w400,
               fontSize: 12,
               fontFamily: 'Urbanist',
-
-
             )),
           )),
         ],

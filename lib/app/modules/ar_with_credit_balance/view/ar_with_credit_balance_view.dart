@@ -82,8 +82,7 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                     hintName: 'show',
                     width: MediaQuery.of(context).size.width * 0.40,
                     height: 45,
-                    selectPriceInstallment:
-                        arWithCreditBalanceController.dayList,
+                    selectPriceInstallment: arWithCreditBalanceController.dayList,
                     controller: arWithCreditBalanceController.daysController,
                     showBorder: '0',
                   ),
@@ -351,11 +350,35 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                                     mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Image.asset(
-                                        ProjectImages.a_category,
-                                        height: 25,
-                                        width: 25,
-                                      ),
+                                      if (index % 4 == 0)
+                                        Image.asset(
+                                          ProjectImages.a_category,
+                                          height: 25,
+                                          width: 25,
+                                        ),
+                                      if (index % 4 == 1)
+                                        Image.asset(
+                                          ProjectImages.b_category,
+                                          height: 25,
+                                          width: 25,
+                                        ),
+                                      if (index % 4 == 2)
+                                        Image.asset(
+                                          ProjectImages.c_category,
+                                          height: 25,
+                                          width: 25,
+                                        ),
+                                      if (index % 4 == 3)
+                                        Image.asset(
+                                          ProjectImages.a_category,
+                                          height: 25,
+                                          width: 25,
+                                        ),
+                                      // Image.asset(
+                                      //   ProjectImages.a_category,
+                                      //   height: 25,
+                                      //   width: 25,
+                                      // ),
                                       // Image.asset(
                                       //   // imagePath,
                                       //   arWithCreditBalanceController.ItemList[index].image,
