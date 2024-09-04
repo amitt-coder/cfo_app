@@ -19,13 +19,16 @@ class KeyRatioAnalsisController extends GetxController{
     KeyRatio(name: 'Current Ratio', value:"1.5", benchmark:'1.0-2.0', interpretation: 'Healthy'),//7Healthy
     KeyRatio(name: 'Quick Ratio', value:"1.2", benchmark:'0.8-1.5', interpretation: 'Optimal'),//8Adequate
     KeyRatio(name: 'Debt Cover', value:"2.5", benchmark:'0.8-1.5', interpretation: 'Strong'),//6Strong
-    KeyRatio(name: 'AR Turnover', value:"6.0", benchmark:'0.8-1.5', interpretation: 'Efficient'),//9Efficient
-    KeyRatio(name: 'AP Turnover', value:"10.0", benchmark:'0.8-1.5', interpretation: 'Efficient'),//6Optimal
-    KeyRatio(name: 'Days', value:"12.0", benchmark:'0.8-1.5', interpretation: 'Optimal'),//6Optimal
+    KeyRatio(name: 'Daily Base', value:"6.0", benchmark:'0.8-1.5', interpretation: 'Efficient'),//9Efficient
+    KeyRatio(name: 'Daily Payment Out', value:"10.0", benchmark:'0.8-1.5', interpretation: 'Efficient'),//6Optimal
+    KeyRatio(name: 'Inventory', value:"12.0", benchmark:'0.8-1.5', interpretation: 'Optimal'),//6Optimal
     KeyRatio(name: 'Working Capital Ratio', value:"4.0", benchmark:'0.8-1.5', interpretation: 'Efficient'),//6Optimal
   ];
+
   //Working - Working Capital Ratio
   //Inventory - Days
+  //AR Turnover - Daily Base
+  //AP Turnover - Daily Payment Out
   TextEditingController daysController = TextEditingController();
 
   RxString showday = 'Above 30 days'.obs;
@@ -39,18 +42,18 @@ class KeyRatioAnalsisController extends GetxController{
 
 
   Color getColorForInterpretation(String interpretation) {
-    print('interpretation: ${interpretation}');
+    // print('interpretation: ${interpretation}');
     switch (interpretation) {
       case 'Healthy':
       case 'Strong':
-      case '12.0':
-      case '10.0':
-      case '6.0':
+      case '1.5':
+      case '1.2':
         return Colors.green;
       case 'Efficient':
       case 'Optimal':
-      case '1.5':
-      case '1.2':
+      case '12.0':
+      case '10.0':
+      case '6.0':
       case '2.5':
       case '4.0':
         return Colors.red;

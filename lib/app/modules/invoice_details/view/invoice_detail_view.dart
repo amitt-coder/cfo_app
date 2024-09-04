@@ -579,10 +579,6 @@ class _InvoiceDetailViewState extends State<InvoiceDetailView> {
                   }else{
                     invoiceDetailController.creditorDiscountApi();
                   }
-
-
-
-
                   // Get.offAllNamed(Routes.DASH_BOARD);
                 },
                 height: 45,

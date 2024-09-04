@@ -20,6 +20,7 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
   AccountPayablesController accountPayablesController =
       Get.put(AccountPayablesController());
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,11 +64,13 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                       accountPayablesController.showday.value = newValue!;
 
                       // Split the string by spaces and get the second element
-                      List<String> splitParts = accountPayablesController.showday.value.split(' ');
+                      List<String> splitParts =
+                          accountPayablesController.showday.value.split(' ');
 
                       // Check if the splitParts has at least two elements to avoid index out of range error
                       if (splitParts.length >= 2) {
-                        String daysValue = splitParts[1]; // This will be "30" for 'Above 30 days'
+                        String daysValue = splitParts[
+                            1]; // This will be "30" for 'Above 30 days'
                         print('Days: $daysValue'); // Output: Days: 30
                         accountPayablesController.filterbyDay(daysValue);
                       } else {
@@ -128,8 +131,7 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                 height: 10,
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(5)),
@@ -147,14 +149,15 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                               fontWeight: FontWeight.w600,
                               fontFamily: 'Urbanist'),
                         ),
-                        Text(
-                          '₹40,000',
-                          style: TextStyle(
-                              color: AppColor.blackColor,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'Urbanist'),
-                        ),
+                        Obx(() => Text(
+                              // '₹40,000',
+                              '₹${accountPayablesController.totalDebitBalance.value}',
+                              style: TextStyle(
+                                  color: AppColor.blackColor,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: 'Urbanist'),
+                            )),
                       ],
                     ),
                     const SizedBox(
@@ -163,23 +166,22 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                     Row(
                       children: [
                         Text(
-                          'Number of Creditorssss: ',
+                          'Number of Creditors: ',
                           style: TextStyle(
                               color: AppColor.primaryColor,
                               fontSize: 15,
                               fontWeight: FontWeight.w600,
                               fontFamily: 'Urbanist'),
                         ),
-                        Obx(() =>
-                        Text(
-                          accountPayablesController.creditors.length.toString(),
-                          // '08',
-                          style: TextStyle(
-                              color: AppColor.blackColor,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'Urbanist'),
-                        )),
+                        Obx(() => Text(
+                              accountPayablesController.creditors.length.toString(),
+                              // '08',
+                              style: TextStyle(
+                                  color: AppColor.blackColor,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: 'Urbanist'),
+                            )),
                       ],
                     ),
                   ],
@@ -228,15 +230,12 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                     width: 5,
                   ),
                   DropDownField(
-                    selectValue:
-                    accountPayablesController.showCategory.value,
+                    selectValue: accountPayablesController.showCategory.value,
                     hintName: 'show',
                     width: MediaQuery.of(context).size.width * 0.35,
                     height: 40,
-                    selectPriceInstallment:
-                    accountPayablesController.showCategoryList,
-                    controller:
-                    accountPayablesController.categoryController,
+                    selectPriceInstallment: accountPayablesController.showCategoryList,
+                    controller: accountPayablesController.categoryController,
                     showBorder: '1',
                   ),
                 ],
@@ -296,179 +295,182 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                   ],
                 ),
               ),
-              Obx(() =>
-              Container(
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(5),
-                        bottomLeft: Radius.circular(5))),
-                child: Column(
-                  children: [
-                    ListView.builder(
-                        // itemCount: accountPayablesController.ItemList.length,
-                        itemCount: accountPayablesController.creditors.length,
-                        shrinkWrap: true,
-                        padding: EdgeInsets.zero,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          var creditor = accountPayablesController.creditors[index];
-                          // var creditor = accountPayablesController.creditors[index]['name'];
-                          // print('creditor: ${creditor}');
-                          // print('creditor: ${}');
-                          return Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Column(
-                              children: [
-                                const SizedBox(
-                                  height: 5,
+              Obx(() => Container(
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(5),
+                            bottomLeft: Radius.circular(5))),
+                    child: Column(
+                      children: [
+                        ListView.builder(
+                            // itemCount: accountPayablesController.ItemList.length,
+                            itemCount: accountPayablesController.creditors.length,
+                            shrinkWrap: true,
+                            padding: EdgeInsets.zero,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              var creditor = accountPayablesController.creditors[index];
+                              return Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                child: Column(
+                                  children: [
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        // accountPayablesController.debitor();
+                                        // _showDetailsDialog(
+                                        //     context,
+                                        //     accountPayablesController
+                                        //         .ItemList[index]);
+                                        Get.toNamed(Routes.INVOICE_DETAILS,
+                                            arguments: {
+                                              'userName':
+                                                  accountPayablesController
+                                                      .creditors[index]['name'],
+                                              'crBalance':
+                                                  accountPayablesController
+                                                          .creditors[index]
+                                                      ['total_balance'],
+                                              'paymentDate':
+                                                  accountPayablesController
+                                                          .creditors[index]
+                                                      ['last_payment_date'],
+                                              'due_date':
+                                                  accountPayablesController
+                                                          .creditors[index]
+                                                      ['due_date'],
+                                              'whichDetail': 'Creditor Details',
+                                              "creditor": creditor,
+                                              'invoiceId':
+                                                  accountPayablesController
+                                                      .creditors[index]['id']
+                                                      .toString(),
+                                            });
+                                      },
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          // Image.asset(
+                                          //   accountPayablesController.
+                                          //   getImageForCategory(accountPayablesController.category.value),
+                                          //   height: 25,
+                                          //   width: 25,),
+                                          if (index % 4 == 0)
+                                            Image.asset(
+                                              ProjectImages.a_category,
+                                              height: 25,
+                                              width: 25,
+                                            ),
+                                          if (index % 4 == 1)
+                                            Image.asset(
+                                              ProjectImages.b_category,
+                                              height: 25,
+                                              width: 25,
+                                            ),
+                                          if (index % 4 == 2)
+                                            Image.asset(
+                                              ProjectImages.c_category,
+                                              height: 25,
+                                              width: 25,
+                                            ),
+                                          if (index % 4 == 3)
+                                            Image.asset(
+                                              ProjectImages.a_category,
+                                              height: 25,
+                                              width: 25,
+                                            ),
+                                          Container(
+                                            width: 41,
+                                            child: Text(
+                                              // accountPayablesController.ItemList[index].Name,
+                                              accountPayablesController
+                                                  .creditors[index]['name'],
+                                              style: TextStyle(
+                                                  color: AppColor.blackColor,
+                                                  fontFamily: 'Urbanist',
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 15),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                          Container(
+                                            width: 45,
+                                            child: Text(
+                                              // accountPayablesController.ItemList[index].Db,
+                                              accountPayablesController.creditors[index]['total_balance'],
+                                                  style: TextStyle(
+                                                  color: AppColor.blackColor,
+                                                  fontFamily: 'Urbanist',
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 15),
+                                                  overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                          Text(
+                                            // accountPayablesController.ItemList[index].LP,
+                                            accountPayablesController.creditors[index]['last_payment_date'],
+                                                style: TextStyle(
+                                                color: AppColor.blackColor,
+                                                fontFamily: 'Urbanist',
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 15),
+                                          ),
+                                          Container(
+                                            width: 40,
+                                            child: Text(
+                                              accountPayablesController
+                                                      .creditors[index]
+                                                  ['contact_no'],
+                                              // accountPayablesController.ItemList[index].CINFO,
+                                              style: TextStyle(
+                                                  color: AppColor.blackColor,
+                                                  fontFamily: 'Urbanist',
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 15),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Divider(
+                                      color: AppColor.txtSecondaryColor,
+                                      thickness: 1,
+                                    ),
+                                  ],
                                 ),
-                                InkWell(
-                                  onTap: () {
-                                    // accountPayablesController.debitor();
-                                    // _showDetailsDialog(
-                                    //     context,
-                                    //     accountPayablesController
-                                    //         .ItemList[index]);
-                                    Get.toNamed(Routes.INVOICE_DETAILS,
-                                        arguments: {
-                                          'userName': accountPayablesController.creditors[index]['name'],
-                                          'crBalance': accountPayablesController.creditors[index]['total_balance'],
-                                          'paymentDate':accountPayablesController.creditors[index]['last_payment_date'],
-                                          'due_date':accountPayablesController.creditors[index]['due_date'],
-                                          'whichDetail': 'Creditor Details',
-                                          "creditor":creditor,
-                                          'invoiceId': accountPayablesController.creditors[index]['id'].toString(),
-                                        });
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      if (index % 4 == 0)
-                                        Image.asset(
-                                          ProjectImages.a_category,
-                                          height: 25,
-                                          width: 25,
-                                        ),
-                                      if (index % 4 == 1)
-                                        Image.asset(
-                                          ProjectImages.b_category,
-                                          height: 25,
-                                          width: 25,
-                                        ),
-                                      if (index % 4 == 2)
-                                        Image.asset(
-                                          ProjectImages.c_category,
-                                          height: 25,
-                                          width: 25,
-                                        ),
-                                      if (index % 4 == 3)
-                                        Image.asset(
-                                          ProjectImages.a_category,
-                                          height: 25,
-                                          width: 25,
-                                        ),
-                                      // if(index==0)
-                                      //   Image.asset(ProjectImages.a_category,
-                                      //     height: 25,width: 25,
-                                      //   ),
-                                      // if(index==1)
-                                      //   Image.asset(ProjectImages.b_category,
-                                      //     height: 25,width: 25,
-                                      //   ),
-                                      // if(index==2)
-                                      //   Image.asset(ProjectImages.c_category,
-                                      //     height: 25,width: 25,
-                                      //   ),
-                                      // if(index==3 || index==4)
-                                      // Image.asset(
-                                      //   accountPayablesController.ItemList[index].image,
-                                      //   height: 25,
-                                      //   width: 25,
-                                      // ),
-                                      Container(
-                                        width: 41,
-                                        child: Text(
-                                          // accountPayablesController.ItemList[index].Name,
-                                          accountPayablesController.creditors[index]['name'],
-                                          style: TextStyle(
-                                              color: AppColor.blackColor,
-                                              fontFamily: 'Urbanist',
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 15),overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                      Container(
-                                        width: 45,
-                                        child: Text(
-                                          // accountPayablesController.ItemList[index].Db,
-                                          accountPayablesController.creditors[index]['total_balance'],
-                                          style: TextStyle(
-                                              color: AppColor.blackColor,
-                                              fontFamily: 'Urbanist',
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 15),overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                      Text(
-                                        // accountPayablesController.ItemList[index].LP,
-                                        accountPayablesController.creditors[index]['last_payment_date'],
-                                        style: TextStyle(
-                                            color: AppColor.blackColor,
-                                            fontFamily: 'Urbanist',
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 15),
-                                      ),
-                                      Container(
-                                        width: 40,
-                                        child: Text(
-                                            accountPayablesController.creditors[index]['contact_no'],
-                                          // accountPayablesController.ItemList[index].CINFO,
-                                          style: TextStyle(
-                                              color: AppColor.blackColor,
-                                              fontFamily: 'Urbanist',
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 15),overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Divider(
-                                  color: AppColor.txtSecondaryColor,
-                                  thickness: 1,
-                                ),
-                              ],
-                            ),
-                          );
-                        }),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: GestureDetector(
-                        onTap: () {
-                          Get.toNamed(Routes.ALL_CREDITOR,
-                              arguments: {'whichUser': 'All Creditors'});
-                        },
-                        child: const Text(
-                          "View All",
-                          style: TextStyle(
-                              color: Color(0xFF7E8CA0),
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: 'Urbanist'),
+                              );
+                            }),
+                        const SizedBox(
+                          height: 5,
                         ),
-                      ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: GestureDetector(
+                            onTap: () {
+                              Get.toNamed(Routes.ALL_CREDITOR,
+                                  arguments: {'whichUser': 'All Creditors'});
+                            },
+                            child: const Text(
+                              "View All",
+                              style: TextStyle(
+                                  color: Color(0xFF7E8CA0),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: 'Urbanist'),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        )
+                      ],
                     ),
-                    const SizedBox(
-                      height: 10,
-                    )
-                  ],
-                ),
-              )),
+                  )),
               const SizedBox(
                 height: 15,
               ),

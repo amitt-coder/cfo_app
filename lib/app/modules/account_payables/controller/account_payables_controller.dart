@@ -22,6 +22,7 @@ class AccountPayablesController extends GetxController {
   RxString showCategory = 'Cateogory A'.obs;
   RxList<String> showCategoryList =
       ['Cateogory A', 'Cateogory B', 'Cateogory C'].obs;
+    RxInt totalDebitBalance =0.obs;
 
   List<Items> ItemList = [
     Items(
@@ -55,6 +56,7 @@ class AccountPayablesController extends GetxController {
         LP: '05-06-2024',
         CINFO: '123-4'),
   ];
+
    RxList<dynamic> creditors=[].obs;
 
   void onInit() {
@@ -85,6 +87,21 @@ class AccountPayablesController extends GetxController {
     }
   }
 
+  RxString category = 'category a'.obs;
+
+  String getImageForCategory(String category) {
+    print('getImageForCategory: ${category}');
+    switch (category.toLowerCase()) {
+      case 'category a':
+        return ProjectImages.a_category;
+      case 'category b':
+        return ProjectImages.b_category;
+      case 'category c':
+        return ProjectImages.c_category;
+      default:
+        return 'assets/default_image.png'; // Optional: a default image if category doesn't match
+    }
+  }
 
   Future<dynamic> accountPayableApi() async {
 
@@ -121,7 +138,17 @@ class AccountPayablesController extends GetxController {
 
         // print('creditors: ${creditors}');
         // print('debtors: ${debtors}');
+        double totalAmount = 0.0;
 
+        // Iterate through the list and sum up all the total_balance amounts
+        for (var creditor in creditors) {
+          // Convert total_balance to a double, handling possible formatting issues
+          double balance = double.tryParse(creditor['total_balance'].replaceAll(',', '')) ?? 0.0;
+          totalAmount += balance;
+        }
+        // print('Total Amount: ${totalAmount}');
+        totalDebitBalance.value = totalAmount.toInt();
+        print('totalDebitBalance: ${totalDebitBalance.value}');
 
 
         return responseData;
@@ -171,7 +198,18 @@ class AccountPayablesController extends GetxController {
 
         print('creditors: ${creditors}');
         // print('debtors: ${debtors}');
+        double totalAmount = 0.0;
 
+        // Iterate through the list and sum up all the total_balance amounts
+        for (var creditor in creditors) {
+          // Convert total_balance to a double, handling possible formatting issues
+          double balance = double.tryParse(creditor['total_balance'].replaceAll(',', '')) ?? 0.0;
+          totalAmount += balance;
+        }
+        totalDebitBalance.value = totalAmount.toInt();
+        print('totalDebitBalance: ${totalDebitBalance.value}');
+        category.value='category b';
+        print('which category: $category');
         return responseData;
       } else {
         print('Failed with status: ${response.statusCode}');

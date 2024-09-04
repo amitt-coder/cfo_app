@@ -151,14 +151,16 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                               fontWeight: FontWeight.w600,
                               fontFamily: 'Urbanist'),
                         ),
+                        Obx(()=>
                         Text(
-                          '₹50,000',
+                          // '₹50,000',
+                          '₹${arWithCreditBalanceController.totalCreditBalance.value}',
                           style: TextStyle(
                               color: AppColor.blackColor,
                               fontSize: 15,
                               fontWeight: FontWeight.w400,
                               fontFamily: 'Urbanist'),
-                        ),
+                        )),
                       ],
                     ),
                     const SizedBox(
@@ -350,6 +352,11 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                                     mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                     children: [
+                                      // Image.asset(
+                                      //   arWithCreditBalanceController.
+                                      //   getImageForCategory(arWithCreditBalanceController.category.value),
+                                      //   height: 25,
+                                      //   width: 25,),
                                       if (index % 4 == 0)
                                         Image.asset(
                                           ProjectImages.a_category,

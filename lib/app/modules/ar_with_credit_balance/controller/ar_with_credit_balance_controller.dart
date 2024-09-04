@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -31,7 +29,7 @@ class ArWithCreditBalanceController extends GetxController {
       ['Above 30 days', 'Above 60 days', 'Above 90 days', 'Above 120 days'].obs;
 
 
-
+  RxInt totalCreditBalance =0.obs;
   RxList<String> categoryImages = <String>[].obs; // To store images based on category
 
   // Sample image data (replace these with your actual image paths or URLs)
@@ -39,7 +37,6 @@ class ArWithCreditBalanceController extends GetxController {
     ProjectImages.a_category,
     ProjectImages.a_category,
     ProjectImages.a_category,
-
   ];
 
   final List<String> bCategoryImages = [
@@ -52,6 +49,7 @@ class ArWithCreditBalanceController extends GetxController {
     ProjectImages.c_category,
     ProjectImages.c_category,
   ];
+
   void updateCategoryImages() {
     print('updateCate...${showCategory.value}');
     switch (showCategory.value) {
@@ -86,7 +84,7 @@ class ArWithCreditBalanceController extends GetxController {
   }
 
   void onCategoryChanged(String newCategory) {
-    print('onCategoryChanged: ${newCategory}');
+    print('onCategoryChanged: $newCategory');
     showCategory.value = newCategory;
     updateCategoryImages();
   }
@@ -139,6 +137,24 @@ class ArWithCreditBalanceController extends GetxController {
     update();
   }
 
+  RxString category = 'category a'.obs;
+
+  String getImageForCategory(String category) {
+    print('getImageForCategory: $category');
+    switch (category.toLowerCase()) {
+      case 'category a':
+        return ProjectImages.a_category;
+      case 'category b':
+        return ProjectImages.b_category;
+      case 'category c':
+        return ProjectImages.c_category;
+      default:
+        return ProjectImages.a_category;
+    }
+  }
+
+
+
   Future<void> calendarOpen(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -148,8 +164,7 @@ class ArWithCreditBalanceController extends GetxController {
     );
     if (picked != null) {
       selectedDate.value = picked;
-      String formattedDate =
-          DateFormat('dd-MM-yyyy').format(selectedDate.value);
+      String formattedDate = DateFormat('dd-MM-yyyy').format(selectedDate.value);
       dateController.text = formattedDate;
       print('selectedDate.value ${dateController.text}');
     }
@@ -190,8 +205,16 @@ class ArWithCreditBalanceController extends GetxController {
 
         // print('creditors: ${creditors}');
         print('debtors: ${debtors}');
+        double totalAmount = 0.0;
 
-
+        // Iterate through the list and sum up all the total_balance amounts
+        for (var creditor in debtors) {
+          // Convert total_balance to a double, handling possible formatting issues
+          double balance = double.tryParse(creditor['total_balance'].replaceAll(',', '')) ?? 0.0;
+          totalAmount += balance;
+        }
+        totalCreditBalance.value = totalAmount.toInt();
+        print('totalCreditBalance: ${totalCreditBalance.value}');
 
         return responseData;
       } else {
@@ -203,6 +226,7 @@ class ArWithCreditBalanceController extends GetxController {
       return e;
     }
   }
+
   Future<dynamic> filterbyDay(String days) async {
 
     print('-------filterbyDay--------');
@@ -243,6 +267,19 @@ class ArWithCreditBalanceController extends GetxController {
         // print('creditors: ${creditors}');
         print('debtors: ${debtors}');
 
+        double totalAmount = 0.0;
+
+        // Iterate through the list and sum up all the total_balance amounts
+        for (var creditor in debtors) {
+          // Convert total_balance to a double, handling possible formatting issues
+          double balance = double.tryParse(creditor['total_balance'].replaceAll(',', '')) ?? 0.0;
+          totalAmount += balance;
+        }
+        totalCreditBalance.value = totalAmount.toInt();
+        print('totalCreditBalance: ${totalCreditBalance.value}');
+
+        category.value='category b';
+        print('which category: $category');
         return responseData;
       } else {
         print('Failed with status: ${response.statusCode}');

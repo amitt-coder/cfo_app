@@ -42,7 +42,7 @@ class CashFlowStatementView extends StatelessWidget {
                   'Income Taxes Payable',
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               // CFI Section
               _buildSection(
                 title: 'Cash Flow From Investing (CFI)',
@@ -53,7 +53,7 @@ class CashFlowStatementView extends StatelessWidget {
                   'Sale of Long-term Investments',
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               // CFF Section
               _buildSection(
                 title: 'Cash Flow From Financing (CFF)',
@@ -65,7 +65,7 @@ class CashFlowStatementView extends StatelessWidget {
                   'Taking out a Loan',
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               // Summary
               _buildSummary(),
             ],
@@ -86,13 +86,13 @@ class CashFlowStatementView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5,),
             child: Row(
               children: [
                 Icon(icon, color: color),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Text(
                   title,
                   style: TextStyle(
@@ -106,7 +106,7 @@ class CashFlowStatementView extends StatelessWidget {
             ),
           ),
           ...items.map((item) => ListTile(
-            contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 0), // Adjust the horizontal and vertical padding
+            contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 0), // Adjust the horizontal and vertical padding
             dense: true, // Makes the ListTile more compact
             title: Text(item,
               style: TextStyle(
@@ -135,7 +135,7 @@ class CashFlowStatementView extends StatelessWidget {
           borderRadius: BorderRadius.circular(10)
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -146,7 +146,7 @@ class CashFlowStatementView extends StatelessWidget {
                 fontSize: 16,
                 fontFamily: 'Urbanist',),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -173,7 +173,7 @@ class CashFlowStatementView extends StatelessWidget {
                   fontFamily: 'Urbanist',)),
               ],
             ),
-            Divider(),
+            const Divider(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

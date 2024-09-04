@@ -1412,7 +1412,8 @@ class _FinancialProjectionViewState extends State<FinancialProjectionView> {
                               color: AppColor.primaryColor,
                               ontap: () {
                                 financialProjectionController.secondCheck.value == true?
-                                 Get.offAllNamed(Routes.DASH_BOARD)   :
+                                 // Get.offAllNamed(Routes.DASH_BOARD)   :
+                                 Get.toNamed(Routes.FINACIAL_PROJECTION_SUMMARY)   :
                                 financialProjectionController.checkCondition();
                               },
                               height: 45,
