@@ -330,12 +330,6 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    // accountPayablesController.debitor();
-                                    // _showDetailsDialog(
-                                    //     context,
-                                    //     accountPayablesController
-                                    //         .ItemList[index]);
-                                    // print('id ${arWithCreditBalanceController.debtors[index]['id']}');
                                     Get.toNamed(
                                         Routes.INVOICE_DETAILS,
                                         arguments: {

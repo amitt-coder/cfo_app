@@ -92,14 +92,14 @@ class AccountPayablesController extends GetxController {
   String getImageForCategory(String category) {
     print('getImageForCategory: ${category}');
     switch (category.toLowerCase()) {
-      case 'category a':
+      case 'A':
         return ProjectImages.a_category;
-      case 'category b':
+      case 'B':
         return ProjectImages.b_category;
-      case 'category c':
+      case 'C':
         return ProjectImages.c_category;
       default:
-        return 'assets/default_image.png'; // Optional: a default image if category doesn't match
+        return ProjectImages.a_category;
     }
   }
 

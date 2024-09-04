@@ -320,11 +320,6 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                                     ),
                                     InkWell(
                                       onTap: () {
-                                        // accountPayablesController.debitor();
-                                        // _showDetailsDialog(
-                                        //     context,
-                                        //     accountPayablesController
-                                        //         .ItemList[index]);
                                         Get.toNamed(Routes.INVOICE_DETAILS,
                                             arguments: {
                                               'userName':
