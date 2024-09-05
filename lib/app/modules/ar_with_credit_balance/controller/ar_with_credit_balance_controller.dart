@@ -28,7 +28,7 @@ class ArWithCreditBalanceController extends GetxController {
   RxList<String> dayList =
       ['Above 30 days', 'Above 60 days', 'Above 90 days', 'Above 120 days'].obs;
 
-
+  var filteredCreditors = [].obs;
   RxInt totalCreditBalance =0.obs;
   RxList<String> categoryImages = <String>[].obs; // To store images based on category
 
@@ -137,19 +137,44 @@ class ArWithCreditBalanceController extends GetxController {
     update();
   }
 
-  RxString category = 'category a'.obs;
 
   String getImageForCategory(String category) {
-    print('getImageForCategory: $category');
+    print('getImageForCategory: ${category}');
     switch (category.toLowerCase()) {
-      case 'category a':
+      case 'A':
         return ProjectImages.a_category;
-      case 'category b':
+      case 'B':
         return ProjectImages.b_category;
-      case 'category c':
+      case 'C':
         return ProjectImages.c_category;
       default:
         return ProjectImages.a_category;
+    }
+  }
+
+  void filterByCategory() {
+
+    print('filterByCategory');
+
+    List<String> splitParts = showCategory.value.split(' ');
+
+    // Check if the splitParts has at least two elements to avoid index out of range error
+    if (splitParts.length >= 2) {
+      String categoryValue = splitParts[1];
+      print('categoryValue: $categoryValue');
+      showCategory.value=categoryValue;
+    } else {
+      print('Invalid Category');
+    }
+
+    if (showCategory.value.isEmpty) {
+      filteredCreditors.value = debtors;
+    } else {
+      filteredCreditors.value = debtors.where((creditor) =>
+      creditor['category']['category'] == showCategory.value).toList();
+    }
+    if (filteredCreditors.isEmpty) {
+      print("Data Not Found");
     }
   }
 
@@ -215,7 +240,8 @@ class ArWithCreditBalanceController extends GetxController {
         }
         totalCreditBalance.value = totalAmount.toInt();
         print('totalCreditBalance: ${totalCreditBalance.value}');
-
+        debtors.value = responseData['debtor']; // Assuming the API response structure
+        filterByCategory();
         return responseData;
       } else {
         print('Failed with status: ${response.statusCode}');
@@ -267,6 +293,10 @@ class ArWithCreditBalanceController extends GetxController {
         // print('creditors: ${creditors}');
         print('debtors: ${debtors}');
 
+        showCategory.value = 'Category A';
+
+        filterByCategory();
+
         double totalAmount = 0.0;
 
         // Iterate through the list and sum up all the total_balance amounts
@@ -277,9 +307,9 @@ class ArWithCreditBalanceController extends GetxController {
         }
         totalCreditBalance.value = totalAmount.toInt();
         print('totalCreditBalance: ${totalCreditBalance.value}');
+        debtors.value = responseData['creditor']; // Assuming the API response structure
 
-        category.value='category b';
-        print('which category: $category');
+
         return responseData;
       } else {
         print('Failed with status: ${response.statusCode}');

@@ -19,10 +19,10 @@ class AccountPayablesController extends GetxController {
   RxList<String> dayList =
       ['Above 30 days', 'Above 60 days', 'Above 90 days', 'Above 120 days'].obs;
   TextEditingController categoryController = TextEditingController();
-  RxString showCategory = 'Cateogory A'.obs;
-  RxList<String> showCategoryList =
-      ['Cateogory A', 'Cateogory B', 'Cateogory C'].obs;
+  RxString showCategory = 'Category A'.obs;
+  RxList<String> showCategoryList = ['Category A', 'Category B', 'Category C'].obs;
     RxInt totalDebitBalance =0.obs;
+  var filteredCreditors = [].obs;
 
   List<Items> ItemList = [
     Items(
@@ -87,7 +87,7 @@ class AccountPayablesController extends GetxController {
     }
   }
 
-  RxString category = 'category a'.obs;
+
 
   String getImageForCategory(String category) {
     print('getImageForCategory: ${category}');
@@ -102,6 +102,32 @@ class AccountPayablesController extends GetxController {
         return ProjectImages.a_category;
     }
   }
+
+  void filterByCategory() {
+    print('filterByCategory');
+    List<String> splitParts = showCategory.value.split(' ');
+
+    // Check if the splitParts has at least two elements to avoid index out of range error
+    if (splitParts.length >= 2) {
+      String categoryValue = splitParts[1];
+      print('categoryValue: $categoryValue');
+      showCategory.value=categoryValue;
+    } else {
+      print('Invalid Category');
+    }
+
+    if (showCategory.value.isEmpty) {
+      filteredCreditors.value = creditors;
+    } else {
+      filteredCreditors.value = creditors.where((creditor) =>
+      creditor['category']['category'] == showCategory.value).toList();
+    }
+
+    if (filteredCreditors.isEmpty) {
+      print("Data Not Found");
+    }
+  }
+
 
   Future<dynamic> accountPayableApi() async {
 
@@ -149,6 +175,8 @@ class AccountPayablesController extends GetxController {
         // print('Total Amount: ${totalAmount}');
         totalDebitBalance.value = totalAmount.toInt();
         print('totalDebitBalance: ${totalDebitBalance.value}');
+        creditors.value = responseData['creditor']; // Assuming the API response structure
+        filterByCategory();
 
 
         return responseData;
@@ -187,17 +215,16 @@ class AccountPayablesController extends GetxController {
         // body: encodedBody,
       );
 
-
       print('response Status ${response.statusCode}');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         var responseData = json.decode(response.body);
 
         creditors.value = responseData['Creditors'] ?? [];
-        final List<dynamic> debtors = responseData['debtor'] ?? [];
+        showCategory.value = 'Category A';
+        filterByCategory();
 
         print('creditors: ${creditors}');
-        // print('debtors: ${debtors}');
         double totalAmount = 0.0;
 
         // Iterate through the list and sum up all the total_balance amounts
@@ -206,10 +233,12 @@ class AccountPayablesController extends GetxController {
           double balance = double.tryParse(creditor['total_balance'].replaceAll(',', '')) ?? 0.0;
           totalAmount += balance;
         }
+
         totalDebitBalance.value = totalAmount.toInt();
         print('totalDebitBalance: ${totalDebitBalance.value}');
-        category.value='category b';
-        print('which category: $category');
+        // creditors.value = responseData['Creditors']; // Assuming the API response structure
+        // filterByCategory();
+
         return responseData;
       } else {
         print('Failed with status: ${response.statusCode}');

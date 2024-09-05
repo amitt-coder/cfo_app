@@ -62,16 +62,31 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                   DropDownField(
                     // onChanged: (String? newValue) {
                     //   arWithCreditBalanceController.showday.value = newValue!;
+                    //
+                    //   // Split the string by spaces and get the second element
+                    //   List<String> splitParts = arWithCreditBalanceController.showday.value.split(' ');
+                    //
+                    //   // Check if the splitParts has at least two elements to avoid index out of range error
+                    //   if (splitParts.length >= 2) {
+                    //     String daysValue = splitParts[1]; // This will be "30" for 'Above 30 days'
+                    //     print('Days: $daysValue'); // Output: Days: 30
+                    //     arWithCreditBalanceController.filterbyDay(daysValue);
+                    //   } else {
+                    //     print('Invalid day format');
+                    //   }
                     // },
                     onChanged: (String? newValue) {
                       arWithCreditBalanceController.showday.value = newValue!;
 
                       // Split the string by spaces and get the second element
-                      List<String> splitParts = arWithCreditBalanceController.showday.value.split(' ');
+                      List<String> splitParts = arWithCreditBalanceController
+                          .showday.value
+                          .split(' ');
 
                       // Check if the splitParts has at least two elements to avoid index out of range error
                       if (splitParts.length >= 2) {
-                        String daysValue = splitParts[1]; // This will be "30" for 'Above 30 days'
+                        String daysValue = splitParts[
+                            1]; // This will be "30" for 'Above 30 days'
                         print('Days: $daysValue'); // Output: Days: 30
                         arWithCreditBalanceController.filterbyDay(daysValue);
                       } else {
@@ -82,7 +97,8 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                     hintName: 'show',
                     width: MediaQuery.of(context).size.width * 0.40,
                     height: 45,
-                    selectPriceInstallment: arWithCreditBalanceController.dayList,
+                    selectPriceInstallment:
+                        arWithCreditBalanceController.dayList,
                     controller: arWithCreditBalanceController.daysController,
                     showBorder: '0',
                   ),
@@ -151,16 +167,15 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                               fontWeight: FontWeight.w600,
                               fontFamily: 'Urbanist'),
                         ),
-                        Obx(()=>
-                        Text(
-                          // '₹50,000',
-                          '₹${arWithCreditBalanceController.totalCreditBalance.value}',
-                          style: TextStyle(
-                              color: AppColor.blackColor,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'Urbanist'),
-                        )),
+                        Obx(() => Text(
+                              // '₹50,000',
+                              '₹${arWithCreditBalanceController.totalCreditBalance.value}',
+                              style: TextStyle(
+                                  color: AppColor.blackColor,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: 'Urbanist'),
+                            )),
                       ],
                     ),
                     const SizedBox(
@@ -176,10 +191,11 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                               fontWeight: FontWeight.w600,
                               fontFamily: 'Urbanist'),
                         ),
-                        Obx(() =>
-                            Text(
-                              arWithCreditBalanceController.debtors.length.toString(),
-                              // '08',
+                        Obx(() => Text(
+                              // arWithCreditBalanceController.debtors.length.toString(),
+                              arWithCreditBalanceController
+                                  .filteredCreditors.length
+                                  .toString(),
                               style: TextStyle(
                                   color: AppColor.blackColor,
                                   fontSize: 15,
@@ -233,7 +249,27 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                     width: 5,
                   ),
                   DropDownField(
-                    selectValue: arWithCreditBalanceController.showCategory.value,
+                    onChanged: (value) {
+                      arWithCreditBalanceController.showCategory.value = value!;
+                      // Split the string by spaces and get the second element
+                      List<String> splitParts = arWithCreditBalanceController
+                          .showCategory.value
+                          .split(' ');
+
+                      // Check if the splitParts has at least two elements to avoid index out of range error
+                      if (splitParts.length >= 2) {
+                        String categoryValue = splitParts[1];
+                        print('categoryValue: $categoryValue');
+                        arWithCreditBalanceController.filteredCreditors.clear();
+                        arWithCreditBalanceController.showCategory.value =
+                            categoryValue;
+                        arWithCreditBalanceController.filterByCategory();
+                      } else {
+                        print('Invalid category');
+                      }
+                    },
+                    selectValue:
+                        arWithCreditBalanceController.showCategory.value,
                     hintName: 'show',
                     width: MediaQuery.of(context).size.width * 0.35,
                     height: 40,
@@ -248,229 +284,389 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
               const SizedBox(
                 height: 10,
               ),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                decoration: BoxDecoration(
-                    color: const Color(0xFFE3F2FD),
-                    borderRadius: BorderRadius.circular(5)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Cat.',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'Urbanist',
-                          color: AppColor.blackColor),
+              Obx(() {
+                if (arWithCreditBalanceController.filteredCreditors.isEmpty) {
+                  return SizedBox();
+                } else {
+                  return Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
+                    decoration: BoxDecoration(
+                        color: const Color(0xFFE3F2FD),
+                        borderRadius: BorderRadius.circular(5)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Cat.',
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'Urbanist',
+                              color: AppColor.blackColor),
+                        ),
+                        Text(
+                          'Name',
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'Urbanist',
+                              color: AppColor.blackColor),
+                        ),
+                        Text(
+                          'Cr.Bal',
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'Urbanist',
+                              color: AppColor.blackColor),
+                        ),
+                        Text(
+                          'L.T Date',
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'Urbanist',
+                              color: AppColor.blackColor),
+                        ),
+                        Text(
+                          'C.info',
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'Urbanist',
+                              color: AppColor.blackColor),
+                        ),
+                      ],
                     ),
-                    Text(
-                      'Name',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'Urbanist',
-                          color: AppColor.blackColor),
-                    ),
-                    Text(
-                      'Cr.Bal',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'Urbanist',
-                          color: AppColor.blackColor),
-                    ),
-                    Text(
-                      'L.T Date',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'Urbanist',
-                          color: AppColor.blackColor),
-                    ),
-                    Text(
-                      'C.info',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'Urbanist',
-                          color: AppColor.blackColor),
-                    ),
-                  ],
-                ),
-              ),
+                  );
+                }
+              }),
 
+              Obx(() {
+                if (arWithCreditBalanceController.filteredCreditors.isEmpty) {
+                  return const Center(
+                    child: Text("Data Not Found",
+                        style: TextStyle(
+                            fontFamily: 'Urbanist',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 15,
+                            color: Colors.red)),
+                  );
+                } else {
+                  return Container(
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(5),
+                            bottomLeft: Radius.circular(5))),
+                    child: Column(
+                      children: [
+                        ListView.builder(
+                          shrinkWrap: true,
+                          padding: EdgeInsets.zero,
+                          physics:const NeverScrollableScrollPhysics(),
+                          itemCount: arWithCreditBalanceController.filteredCreditors.length,
+                          itemBuilder: (context, index) {
+                            var creditor = arWithCreditBalanceController.filteredCreditors[index];
+                            String category = creditor['category']['category'];
+                            return Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: Column(
+                                children: [
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      Get.toNamed(Routes.INVOICE_DETAILS,
+                                          arguments: {
+                                            'userName':
+                                                arWithCreditBalanceController
+                                                    .debtors[index]['name'],
+                                            'crBalance':
+                                                arWithCreditBalanceController
+                                                        .debtors[index]
+                                                    ['total_balance'],
+                                            'paymentDate':
+                                                arWithCreditBalanceController
+                                                        .debtors[index]
+                                                    ['last_payment_date'],
+                                            'due_date':
+                                                arWithCreditBalanceController
+                                                    .debtors[index]['due_date'],
+                                            'whichDetail': 'Debtor Details',
+                                            "creditor": creditor,
+                                            'invoiceId':
+                                                arWithCreditBalanceController
+                                                    .debtors[index]['id']
+                                                    .toString(),
+                                          });
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Image.asset(
+                                          arWithCreditBalanceController.getImageForCategory(category),
+                                          height: 25,
+                                          width: 25,
+                                        ),
+                                        Container(
+                                          width: 41,
+                                          child: Text(
+                                            creditor['name'],
+                                            style: TextStyle(
+                                                color: AppColor.blackColor,
+                                                fontFamily: 'Urbanist',
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 15),
+                                                overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                        Container(
+                                          width: 45,
+                                          child: Text(
+                                            creditor['total_balance'],
+                                            style: TextStyle(
+                                                color: AppColor.blackColor,
+                                                fontFamily: 'Urbanist',
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 15),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                        Text(
+                                          creditor['last_payment_date'],
+                                          style: TextStyle(
+                                              color: AppColor.blackColor,
+                                              fontFamily: 'Urbanist',
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 15),
+                                        ),
+                                        Container(
+                                          width: 40,
+                                          child: Text(
+                                            creditor['contact_no'],
+                                            style: TextStyle(
+                                                color: AppColor.blackColor,
+                                                fontFamily: 'Urbanist',
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 15),
+                                                overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Divider(
+                                    color: AppColor.txtSecondaryColor,
+                                    thickness: 1,
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: GestureDetector(
+                            onTap: () {
+                              Get.toNamed(Routes.ALL_CREDITOR,
+                                  arguments: {'whichUser': 'All Debtor'});
+                            },
+                            child: const Text(
+                              "View All",
+                              style: TextStyle(
+                                  color: Color(0xFF7E8CA0),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: 'Urbanist'),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        )
+                      ],
+                    ),
+                  );
+                }
+              }),
 
               ///
-              Obx(() =>
-              Container(
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(5),
-                        bottomLeft: Radius.circular(5))),
-                child: Column(
-                  children: [
-                    ListView.builder(
-                        itemCount: arWithCreditBalanceController.debtors.length,
-                        // itemCount:  arWithCreditBalanceController.categoryImages.length,
-                        shrinkWrap: true,
-                        padding: EdgeInsets.zero,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          var debtor =  arWithCreditBalanceController.debtors[index];
-                          // var imagePath = arWithCreditBalanceController.categoryImages[index];
-                          return Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Column(
-                              children: [
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Get.toNamed(
-                                        Routes.INVOICE_DETAILS,
-                                        arguments: {
-                                          'userName':  arWithCreditBalanceController.debtors[index]['name'],
-                                          'crBalance':  arWithCreditBalanceController.debtors[index]['total_balance'],
-                                          'paymentDate': arWithCreditBalanceController.debtors[index]['last_payment_date'],
-                                          'due_date': arWithCreditBalanceController.debtors[index]['due_date'],
-                                          'whichDetail': 'Debtor Details',
-                                          'invoiceId': arWithCreditBalanceController.debtors[index]['id'].toString(),
-                                          "creditor":debtor
-                                        });
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      // Image.asset(
-                                      //   arWithCreditBalanceController.
-                                      //   getImageForCategory(arWithCreditBalanceController.category.value),
-                                      //   height: 25,
-                                      //   width: 25,),
-                                      if (index % 4 == 0)
-                                        Image.asset(
-                                          ProjectImages.a_category,
-                                          height: 25,
-                                          width: 25,
-                                        ),
-                                      if (index % 4 == 1)
-                                        Image.asset(
-                                          ProjectImages.b_category,
-                                          height: 25,
-                                          width: 25,
-                                        ),
-                                      if (index % 4 == 2)
-                                        Image.asset(
-                                          ProjectImages.c_category,
-                                          height: 25,
-                                          width: 25,
-                                        ),
-                                      if (index % 4 == 3)
-                                        Image.asset(
-                                          ProjectImages.a_category,
-                                          height: 25,
-                                          width: 25,
-                                        ),
-                                      // Image.asset(
-                                      //   ProjectImages.a_category,
-                                      //   height: 25,
-                                      //   width: 25,
-                                      // ),
-                                      // Image.asset(
-                                      //   // imagePath,
-                                      //   arWithCreditBalanceController.ItemList[index].image,
-                                      //   height: 25,
-                                      //   width: 25,
-                                      // ),
-                                      Container(
-                                        width: 41,
-                                        child: Text(
-                                          // accountPayablesController.ItemList[index].Name,
-                                          arWithCreditBalanceController.debtors[index]['name'],
-                                          style: TextStyle(
-                                              color: AppColor.blackColor,
-                                              fontFamily: 'Urbanist',
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 15),overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                      Container(
-                                        width: 45,
-                                        child: Text(
-                                          // accountPayablesController.ItemList[index].Db,
-                                          arWithCreditBalanceController.debtors[index]['total_balance'],
-                                          style: TextStyle(
-                                              color: AppColor.blackColor,
-                                              fontFamily: 'Urbanist',
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 15),overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                      Text(
-                                        // accountPayablesController.ItemList[index].LP,
-                                        arWithCreditBalanceController.debtors[index]['last_payment_date'],
-                                        style: TextStyle(
-                                            color: AppColor.blackColor,
-                                            fontFamily: 'Urbanist',
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 15),
-                                      ),
-                                      Container(
-                                        width: 40,
-                                        child: Text(
-                                          arWithCreditBalanceController.debtors[index]['contact_no'],
-                                          // accountPayablesController.ItemList[index].CINFO,
-                                          style: TextStyle(
-                                              color: AppColor.blackColor,
-                                              fontFamily: 'Urbanist',
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 15),overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Divider(
-                                  color: AppColor.txtSecondaryColor,
-                                  thickness: 1,
-                                ),
-                              ],
-                            ),
-                          );
-                        }),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: GestureDetector(
-                        onTap: () {
-                          Get.toNamed(Routes.ALL_CREDITOR,
-                              arguments: {
-                            'whichUser': 'All Debitors',
-                              'debtors':arWithCreditBalanceController.debtors
-                              });
-                        },
-                        child: const Text(
-                          "View All",
-                          style: TextStyle(
-                              color: Color(0xFF7E8CA0),
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              fontFamily: 'Urbanist'),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    )
-                  ],
-                ),
-              )),
+              // Obx(() =>
+              // Container(
+              //   decoration: const BoxDecoration(
+              //       color: Colors.white,
+              //       borderRadius: BorderRadius.only(
+              //           bottomRight: Radius.circular(5),
+              //           bottomLeft: Radius.circular(5))),
+              //   child: Column(
+              //     children: [
+              //       ListView.builder(
+              //           itemCount: arWithCreditBalanceController.debtors.length,
+              //           // itemCount:  arWithCreditBalanceController.categoryImages.length,
+              //           shrinkWrap: true,
+              //           padding: EdgeInsets.zero,
+              //           physics: const NeverScrollableScrollPhysics(),
+              //           itemBuilder: (context, index) {
+              //             var debtor =  arWithCreditBalanceController.debtors[index];
+              //             // var imagePath = arWithCreditBalanceController.categoryImages[index];
+              //             return Container(
+              //               padding: const EdgeInsets.symmetric(horizontal: 10),
+              //               child: Column(
+              //                 children: [
+              //                   const SizedBox(
+              //                     height: 5,
+              //                   ),
+              //                   InkWell(
+              //                     onTap: () {
+              //                       Get.toNamed(
+              //                           Routes.INVOICE_DETAILS,
+              //                           arguments: {
+              //                             'userName':  arWithCreditBalanceController.debtors[index]['name'],
+              //                             'crBalance':  arWithCreditBalanceController.debtors[index]['total_balance'],
+              //                             'paymentDate': arWithCreditBalanceController.debtors[index]['last_payment_date'],
+              //                             'due_date': arWithCreditBalanceController.debtors[index]['due_date'],
+              //                             'whichDetail': 'Debtor Details',
+              //                             'invoiceId': arWithCreditBalanceController.debtors[index]['id'].toString(),
+              //                             "creditor":debtor
+              //                           });
+              //                     },
+              //                     child: Row(
+              //                       mainAxisAlignment:
+              //                       MainAxisAlignment.spaceBetween,
+              //                       children: [
+              //                         // Image.asset(
+              //                         //   arWithCreditBalanceController.
+              //                         //   getImageForCategory(arWithCreditBalanceController.category.value),
+              //                         //   height: 25,
+              //                         //   width: 25,),
+              //                         if (index % 4 == 0)
+              //                           Image.asset(
+              //                             ProjectImages.a_category,
+              //                             height: 25,
+              //                             width: 25,
+              //                           ),
+              //                         if (index % 4 == 1)
+              //                           Image.asset(
+              //                             ProjectImages.b_category,
+              //                             height: 25,
+              //                             width: 25,
+              //                           ),
+              //                         if (index % 4 == 2)
+              //                           Image.asset(
+              //                             ProjectImages.c_category,
+              //                             height: 25,
+              //                             width: 25,
+              //                           ),
+              //                         if (index % 4 == 3)
+              //                           Image.asset(
+              //                             ProjectImages.a_category,
+              //                             height: 25,
+              //                             width: 25,
+              //                           ),
+              //                         // Image.asset(
+              //                         //   ProjectImages.a_category,
+              //                         //   height: 25,
+              //                         //   width: 25,
+              //                         // ),
+              //                         // Image.asset(
+              //                         //   // imagePath,
+              //                         //   arWithCreditBalanceController.ItemList[index].image,
+              //                         //   height: 25,
+              //                         //   width: 25,
+              //                         // ),
+              //                         Container(
+              //                           width: 41,
+              //                           child: Text(
+              //                             // accountPayablesController.ItemList[index].Name,
+              //                             arWithCreditBalanceController.debtors[index]['name'],
+              //                             style: TextStyle(
+              //                                 color: AppColor.blackColor,
+              //                                 fontFamily: 'Urbanist',
+              //                                 fontWeight: FontWeight.w500,
+              //                                 fontSize: 15),overflow: TextOverflow.ellipsis,
+              //                           ),
+              //                         ),
+              //                         Container(
+              //                           width: 45,
+              //                           child: Text(
+              //                             // accountPayablesController.ItemList[index].Db,
+              //                             arWithCreditBalanceController.debtors[index]['total_balance'],
+              //                             style: TextStyle(
+              //                                 color: AppColor.blackColor,
+              //                                 fontFamily: 'Urbanist',
+              //                                 fontWeight: FontWeight.w500,
+              //                                 fontSize: 15),overflow: TextOverflow.ellipsis,
+              //                           ),
+              //                         ),
+              //                         Text(
+              //                           // accountPayablesController.ItemList[index].LP,
+              //                           arWithCreditBalanceController.debtors[index]['last_payment_date'],
+              //                           style: TextStyle(
+              //                               color: AppColor.blackColor,
+              //                               fontFamily: 'Urbanist',
+              //                               fontWeight: FontWeight.w500,
+              //                               fontSize: 15),
+              //                         ),
+              //                         Container(
+              //                           width: 40,
+              //                           child: Text(
+              //                             arWithCreditBalanceController.debtors[index]['contact_no'],
+              //                             // accountPayablesController.ItemList[index].CINFO,
+              //                             style: TextStyle(
+              //                                 color: AppColor.blackColor,
+              //                                 fontFamily: 'Urbanist',
+              //                                 fontWeight: FontWeight.w500,
+              //                                 fontSize: 15),overflow: TextOverflow.ellipsis,
+              //                           ),
+              //                         ),
+              //                       ],
+              //                     ),
+              //                   ),
+              //                   Divider(
+              //                     color: AppColor.txtSecondaryColor,
+              //                     thickness: 1,
+              //                   ),
+              //                 ],
+              //               ),
+              //             );
+              //           }),
+              //       const SizedBox(
+              //         height: 5,
+              //       ),
+              //       Align(
+              //         alignment: Alignment.bottomCenter,
+              //         child: GestureDetector(
+              //           onTap: () {
+              //             Get.toNamed(Routes.ALL_CREDITOR,
+              //                 arguments: {
+              //               'whichUser': 'All Debitors',
+              //                 'debtors':arWithCreditBalanceController.debtors
+              //                 });
+              //           },
+              //           child: const Text(
+              //             "View All",
+              //             style: TextStyle(
+              //                 color: Color(0xFF7E8CA0),
+              //                 fontSize: 16,
+              //                 fontWeight: FontWeight.w600,
+              //                 fontFamily: 'Urbanist'),
+              //           ),
+              //         ),
+              //       ),
+              //       const SizedBox(
+              //         height: 10,
+              //       )
+              //     ],
+              //   ),
+              // )),
               ///
               // Obx(() => Container(
               //       decoration: const BoxDecoration(
@@ -613,187 +809,6 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
               const SizedBox(
                 height: 15,
               ),
-              // Obx(() => Visibility(
-              //       visible: arWithCreditBalanceController.debitorShow.value,
-              //       child: Text(
-              //         'Debtors Detail',
-              //         style: TextStyle(
-              //           color: AppColor.blackColor,
-              //           fontWeight: FontWeight.w500,
-              //           fontSize: 16,
-              //           fontFamily: 'Urbanist',
-              //         ),
-              //       ),
-              //     )),
-              // const SizedBox(
-              //   height: 10,
-              // ),
-              // Obx(() => Visibility(
-              //       visible: arWithCreditBalanceController.debitorShow.value,
-              //       child: Container(
-              //         padding: const EdgeInsets.symmetric(
-              //             vertical: 10, horizontal: 10),
-              //         decoration: BoxDecoration(
-              //             color: Colors.white,
-              //             borderRadius: BorderRadius.circular(5)),
-              //         child: Column(
-              //           crossAxisAlignment: CrossAxisAlignment.start,
-              //           children: [
-              //             Row(
-              //               children: [
-              //                 Text(
-              //                   'Name: ',
-              //                   style: TextStyle(
-              //                       color: AppColor.primaryColor,
-              //                       fontSize: 15,
-              //                       fontWeight: FontWeight.w600,
-              //                       fontFamily: 'Urbanist'),
-              //                 ),
-              //                 Text(
-              //                   'Vishal',
-              //                   style: TextStyle(
-              //                       color: AppColor.blackColor,
-              //                       fontSize: 15,
-              //                       fontWeight: FontWeight.w400,
-              //                       fontFamily: 'Urbanist'),
-              //                 ),
-              //               ],
-              //             ),
-              //             const SizedBox(
-              //               height: 5,
-              //             ),
-              //             Row(
-              //               children: [
-              //                 Text(
-              //                   'Total Credit Balance: ',
-              //                   style: TextStyle(
-              //                       color: AppColor.primaryColor,
-              //                       fontSize: 15,
-              //                       fontWeight: FontWeight.w600,
-              //                       fontFamily: 'Urbanist'),
-              //                 ),
-              //                 Text(
-              //                   '₹5,000',
-              //                   style: TextStyle(
-              //                       color: AppColor.blackColor,
-              //                       fontSize: 15,
-              //                       fontWeight: FontWeight.w400,
-              //                       fontFamily: 'Urbanist'),
-              //                 ),
-              //               ],
-              //             ),
-              //             const SizedBox(
-              //               height: 5,
-              //             ),
-              //             Row(
-              //               children: [
-              //                 Text(
-              //                   'Last Payment Date: ',
-              //                   style: TextStyle(
-              //                       color: AppColor.primaryColor,
-              //                       fontSize: 15,
-              //                       fontWeight: FontWeight.w600,
-              //                       fontFamily: 'Urbanist'),
-              //                 ),
-              //                 Text(
-              //                   '01-01-2024',
-              //                   style: TextStyle(
-              //                       color: AppColor.blackColor,
-              //                       fontSize: 15,
-              //                       fontWeight: FontWeight.w400,
-              //                       fontFamily: 'Urbanist'),
-              //                 ),
-              //               ],
-              //             ),
-              //             const SizedBox(
-              //               height: 5,
-              //             ),
-              //             Row(
-              //               children: [
-              //                 Text(
-              //                   'Due Date: ',
-              //                   style: TextStyle(
-              //                       color: AppColor.primaryColor,
-              //                       fontSize: 15,
-              //                       fontWeight: FontWeight.w600,
-              //                       fontFamily: 'Urbanist'),
-              //                 ),
-              //                 Text(
-              //                   '01-31-2024',
-              //                   style: TextStyle(
-              //                       color: AppColor.blackColor,
-              //                       fontSize: 15,
-              //                       fontWeight: FontWeight.w400,
-              //                       fontFamily: 'Urbanist'),
-              //                 ),
-              //               ],
-              //             ),
-              //             const SizedBox(
-              //               height: 5,
-              //             ),
-              //             Text(
-              //               'Outstanding Invoices: ',
-              //               style: TextStyle(
-              //                   color: AppColor.primaryColor,
-              //                   fontSize: 15,
-              //                   fontWeight: FontWeight.w600,
-              //                   fontFamily: 'Urbanist'),
-              //             ),
-              //             Text(
-              //               '- Invoice #12345: is ₹2,000',
-              //               style: TextStyle(
-              //                   color: AppColor.blackColor,
-              //                   fontSize: 15,
-              //                   fontWeight: FontWeight.w400,
-              //                   fontFamily: 'Urbanist'),
-              //             ),
-              //             Text(
-              //               '- Due: 01-10-2024',
-              //               style: TextStyle(
-              //                   color: AppColor.blackColor,
-              //                   fontSize: 15,
-              //                   fontWeight: FontWeight.w400,
-              //                   fontFamily: 'Urbanist'),
-              //             ),
-              //             Text(
-              //               '- Invoice #123456: ₹3,000',
-              //               style: TextStyle(
-              //                   color: AppColor.blackColor,
-              //                   fontSize: 15,
-              //                   fontWeight: FontWeight.w400,
-              //                   fontFamily: 'Urbanist'),
-              //             ),
-              //             Text(
-              //               '- Due: 01-20-2024',
-              //               style: TextStyle(
-              //                   color: AppColor.blackColor,
-              //                   fontSize: 15,
-              //                   fontWeight: FontWeight.w400,
-              //                   fontFamily: 'Urbanist'),
-              //             ),
-              //             Text(
-              //               '- Contact info: 123-456-7890',
-              //               style: TextStyle(
-              //                   color: AppColor.blackColor,
-              //                   fontSize: 15,
-              //                   fontWeight: FontWeight.w400,
-              //                   fontFamily: 'Urbanist'),
-              //             ),
-              //             Text(
-              //               '- debtor1@gmail.com',
-              //               style: TextStyle(
-              //                   color: AppColor.blackColor,
-              //                   fontSize: 15,
-              //                   fontWeight: FontWeight.w400,
-              //                   fontFamily: 'Urbanist'),
-              //             ),
-              //             const SizedBox(
-              //               height: 5,
-              //             ),
-              //           ],
-              //         ),
-              //       ),
-              //     ))
             ],
           ),
         ),
