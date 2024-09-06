@@ -8,6 +8,8 @@ import '../../../../components/dropdown_field.dart';
 import '../../../../utils/images.dart';
 import '../../../routes/app_pages.dart';
 
+
+
 class AccountPayablesView extends StatefulWidget {
   const AccountPayablesView({super.key});
 
@@ -16,8 +18,8 @@ class AccountPayablesView extends StatefulWidget {
 }
 
 class _AccountPayablesViewState extends State<AccountPayablesView> {
-  AccountPayablesController accountPayablesController =
-      Get.put(AccountPayablesController());
+
+  AccountPayablesController accountPayablesController = Get.put(AccountPayablesController());
 
   @override
   Widget build(BuildContext context) {
@@ -234,8 +236,7 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                     hintName: 'Select Category',
                     width: MediaQuery.of(context).size.width * 0.35,
                     height: 40,
-                    selectPriceInstallment:
-                        accountPayablesController.showCategoryList,
+                    selectPriceInstallment: accountPayablesController.showCategoryList,
                     controller: accountPayablesController.categoryController,
                     showBorder: '1',
                     onChanged: (value) {
@@ -276,7 +277,7 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
               ),
               Obx(() {
                 if (accountPayablesController.filteredCreditors.isEmpty) {
-                  return SizedBox();
+                  return const SizedBox();
                 } else {
                   return Container(
                     padding: const EdgeInsets.symmetric(

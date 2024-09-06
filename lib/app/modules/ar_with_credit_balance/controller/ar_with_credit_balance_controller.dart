@@ -31,63 +31,8 @@ class ArWithCreditBalanceController extends GetxController {
   var filteredCreditors = [].obs;
   RxInt totalCreditBalance =0.obs;
   RxList<String> categoryImages = <String>[].obs; // To store images based on category
+  RxList<dynamic> debtors=[].obs;
 
-  // Sample image data (replace these with your actual image paths or URLs)
-  final List<String> aCategoryImages = [
-    ProjectImages.a_category,
-    ProjectImages.a_category,
-    ProjectImages.a_category,
-  ];
-
-  final List<String> bCategoryImages = [
-    ProjectImages.b_category,
-    ProjectImages.b_category,
-  ];
-
-  final List<String> cCategoryImages = [
-    ProjectImages.c_category,
-    ProjectImages.c_category,
-    ProjectImages.c_category,
-  ];
-
-  void updateCategoryImages() {
-    print('updateCate...${showCategory.value}');
-    switch (showCategory.value) {
-      case 'Cateogory A':
-        categoryImages.value = [
-          ProjectImages.a_category,
-          ProjectImages.a_category,
-          ProjectImages.a_category,
-
-          // Add more images for Category A
-        ];
-        break;
-      case 'Cateogory B':
-        categoryImages.value = [
-          ProjectImages.b_category,
-          ProjectImages.b_category,
-          // Add more images for Category B
-        ];
-        break;
-      case 'Cateogory C':
-        categoryImages.value = [
-          ProjectImages.c_category,
-          ProjectImages.c_category,
-          ProjectImages.c_category,
-          // Add more images for Category C
-        ];
-        break;
-      default:
-        categoryImages.value = [];
-        break;
-    }
-  }
-
-  void onCategoryChanged(String newCategory) {
-    print('onCategoryChanged: $newCategory');
-    showCategory.value = newCategory;
-    updateCategoryImages();
-  }
 
   RxList<Items> ItemList = [
     Items(
@@ -122,18 +67,11 @@ class ArWithCreditBalanceController extends GetxController {
         CINFO: '123-4'),
   ].obs;
 
-  RxList<dynamic> debtors=[].obs;
+
 
   void onInit() {
     super.onInit();
-    // updateCategoryImages();
     accountReceivableApi();
-    update();
-  }
-
-  void debitor() {
-    debitorShow.value = !debitorShow.value;
-    print('debitorShow ${debitorShow.value}');
     update();
   }
 
@@ -178,8 +116,6 @@ class ArWithCreditBalanceController extends GetxController {
     }
   }
 
-
-
   Future<void> calendarOpen(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -189,9 +125,11 @@ class ArWithCreditBalanceController extends GetxController {
     );
     if (picked != null) {
       selectedDate.value = picked;
-      String formattedDate = DateFormat('dd-MM-yyyy').format(selectedDate.value);
-      dateController.text = formattedDate;
-      print('selectedDate.value ${dateController.text}');
+      String formattedDate = DateFormat('yyy-MM-dd').format(selectedDate.value);
+      print('formattedDate: $formattedDate');
+      dateController.text= formattedDate;
+      print('selectedDate.value: ${dateController.text}');
+      filterbyCustomeDateApi();
     }
   }
 
@@ -204,10 +142,6 @@ class ArWithCreditBalanceController extends GetxController {
     String? token = storage.read('accessToken');
     String? userId = storage.read('USER_ID');
 
-    // Map<String, dynamic> requestBody = {
-    //   'id': userId,
-    // };
-    // String encodedBody = json.encode(requestBody);
     print('url:${Api.filter_debtor}${userId}');
 
     try {
@@ -216,7 +150,6 @@ class ArWithCreditBalanceController extends GetxController {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $token',
         },
-        // body: encodedBody,
       );
 
 
@@ -262,10 +195,6 @@ class ArWithCreditBalanceController extends GetxController {
     String? token = storage.read('accessToken');
     String? userId = storage.read('USER_ID');
 
-    // Map<String, dynamic> requestBody = {
-    //   'id': userId,
-    // };
-    // String encodedBody = json.encode(requestBody);
     print('url:${Api.filter_by_day_debtor_creditor}${userId}/${days}/');
 
     try {
@@ -274,7 +203,6 @@ class ArWithCreditBalanceController extends GetxController {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $token',
         },
-        // body: encodedBody,
       );
 
 
@@ -320,6 +248,54 @@ class ArWithCreditBalanceController extends GetxController {
       return e;
     }
   }
+
+  Future<dynamic> filterbyCustomeDateApi() async {
+
+    print('-------filterbyCustomeDateApi--------');
+
+    final storage = GetStorage();
+
+    String? token = storage.read('accessToken');
+    String? userId = storage.read('USER_ID');
+
+    print('${Api.filter_by_custome_date}${userId}/${dateController.text}');
+
+    try {
+      var response = await http.get(Uri.parse('${Api.filter_by_custome_date}${userId}/${dateController.text}'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+
+      print('response statusCode: ${response.statusCode}');
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var responseData = json.decode(response.body);
+
+        // final List<dynamic> creditors = responseData['Creditors'] ?? [];
+        final List<dynamic> debtors = responseData['Debtors'] ?? [];
+        // filterByCategory();
+        update();
+
+        print('debtors: ${debtors}');
+        print('Response Data: ${responseData}');
+
+
+
+        return responseData;
+      } else {
+        print('Failed with status: ${response.statusCode}');
+        return response.statusCode;
+      }
+    } catch (e) {
+      print('Error: ${e}');
+      return e;
+    }
+  }
+
+
 }
 
 class Items {

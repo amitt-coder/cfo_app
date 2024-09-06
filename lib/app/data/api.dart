@@ -1,6 +1,8 @@
 class Api{
 
-        static const String BASE_URL = 'http://cfo2.webzcon.in';
+        // static const String BASE_URL = 'http://cfo2.webzcon.in'; //old base url
+
+        static const String BASE_URL = 'http://cfoweb.webzcon.in';
         static const String api = '/api';
         static const String login = '$BASE_URL$api/login/';
         static const String register = '$BASE_URL$api/register/';

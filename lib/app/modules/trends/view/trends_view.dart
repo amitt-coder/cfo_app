@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../components/common_app_bar.dart';
 import '../../../../components/common_textformfield.dart';
-import '../../../../components/dropdown_field.dart';
 import '../../../../utils/colors.dart';
 import '../../../../utils/images.dart';
 import '../../../routes/app_pages.dart';
@@ -49,43 +48,20 @@ class TrendsView extends StatelessWidget {
                       fontFamily: 'Urbanist',
                     ),
                   ),
-                  DropDownField(
-                    onChanged: (String? newValue) {
-                      trendsController.showday.value = newValue!;
-                      // Split the string by spaces and get the second element
-                      List<String> splitParts = trendsController.showday.value.split(' ');
-
-                      // Check if the splitParts has at least two elements to avoid index out of range error
-                      if (splitParts.length >= 2) {
-                        String daysValue = splitParts[1]; // This will be "30" for 'Above 30 days'
-                        print('Days: $daysValue'); // Output: Days: 30
-                        // arWithCreditBalanceController.filterbyDay(daysValue);
-                      } else {
-                        print('Invalid day format');
-                      }
+                  CommonTextField(
+                    ontap: () {
+                      trendsController.calendarOpen(context);
                     },
-                    selectValue: trendsController.showday.value,
-                    hintName: 'show',
+                    preShow: 'Not',
                     width: MediaQuery.of(context).size.width * 0.40,
-                    height: 45,
-                    selectPriceInstallment: trendsController.dayList,
-                    controller: trendsController.daysController,
-                    showBorder: '0',
+                    lableText: 'Select Date',
+                    controllers: trendsController.dateController,
+                    keyboardTypes: TextInputType.name,
+                    prefixIcon: ProjectImages.mail,
                   ),
-                  // CommonTextField(
-                  //   ontap: () {
-                  //     trendsController.calendarOpen(context);
-                  //   },
-                  //   preShow: 'Not',
-                  //   width: MediaQuery.of(context).size.width * 0.40,
-                  //   lableText: 'Select Date',
-                  //   controllers: trendsController.dateController,
-                  //   keyboardTypes: TextInputType.name,
-                  //   prefixIcon: ProjectImages.mail,
-                  // ),
                 ],
               ),
-              SizedBox(height: 15,),
+              const SizedBox(height: 15,),
               ListView.builder(
                   itemCount: 4,
                   shrinkWrap: true,
@@ -161,18 +137,18 @@ class TrendsView extends StatelessWidget {
                               fontWeight: FontWeight.w500,
                               fontSize: 16,
                               fontFamily: 'Urbanist',
-                            ),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                );
-              }),
-            ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                }),
+              ],
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
+    }
 }

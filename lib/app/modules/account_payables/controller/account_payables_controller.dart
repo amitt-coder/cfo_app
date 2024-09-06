@@ -23,6 +23,7 @@ class AccountPayablesController extends GetxController {
   RxList<String> showCategoryList = ['Category A', 'Category B', 'Category C'].obs;
     RxInt totalDebitBalance =0.obs;
   var filteredCreditors = [].obs;
+  RxList<dynamic> creditors=[].obs;
 
   List<Items> ItemList = [
     Items(
@@ -57,7 +58,7 @@ class AccountPayablesController extends GetxController {
         CINFO: '123-4'),
   ];
 
-   RxList<dynamic> creditors=[].obs;
+
 
   void onInit() {
     super.onInit();
@@ -71,6 +72,7 @@ class AccountPayablesController extends GetxController {
     update();
   }
 
+
   Future<void> calendarOpen(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -80,13 +82,15 @@ class AccountPayablesController extends GetxController {
     );
     if (picked != null) {
       selectedDate.value = picked;
-      String formattedDate =
-          DateFormat('dd-MM-yyyy').format(selectedDate.value);
-      dateController.text = formattedDate;
-      print('selectedDate.value ${dateController.text}');
+      String formattedDate = DateFormat('yyy-MM-dd').format(selectedDate.value);
+
+      print('formattedDate: $formattedDate');
+
+      dateController.text= formattedDate;
+      print('selectedDate.value: ${dateController.text.toString()}');
+      filterbyCustomeDateApi();
     }
   }
-
 
 
   String getImageForCategory(String category) {
@@ -128,7 +132,6 @@ class AccountPayablesController extends GetxController {
     }
   }
 
-
   Future<dynamic> accountPayableApi() async {
 
     print('-------accountPayableApi--------');
@@ -138,10 +141,7 @@ class AccountPayablesController extends GetxController {
     String? token = storage.read('accessToken');
     String? userId = storage.read('USER_ID');
 
-    // Map<String, dynamic> requestBody = {
-    //   'id': userId,
-    // };
-    // String encodedBody = json.encode(requestBody);
+
     print('url:${Api.filter_creditors}${userId}');
 
     try {
@@ -150,11 +150,10 @@ class AccountPayablesController extends GetxController {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $token',
         },
-        // body: encodedBody,
       );
 
 
-      print('response Status ${response.statusCode}');
+      print('response statusCode: ${response.statusCode}');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         var responseData = json.decode(response.body);
@@ -215,7 +214,7 @@ class AccountPayablesController extends GetxController {
         // body: encodedBody,
       );
 
-      print('response Status ${response.statusCode}');
+      print('response statusCode: ${response.statusCode}');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         var responseData = json.decode(response.body);
@@ -250,7 +249,50 @@ class AccountPayablesController extends GetxController {
     }
   }
 
+  Future<dynamic> filterbyCustomeDateApi() async {
 
+    print('-------filterbyCustomeDateApi--------');
+
+    final storage = GetStorage();
+
+    String? token = storage.read('accessToken');
+    String? userId = storage.read('USER_ID');
+
+    print('${Api.filter_by_custome_date}${userId}/${dateController.text}');
+
+    try {
+      var response = await http.get(Uri.parse('${Api.filter_by_custome_date}${userId}/${dateController.text}'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        // body: encodedBody,
+      );
+
+
+      print('response statusCode: ${response.statusCode}');
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var responseData = json.decode(response.body);
+
+        final List<dynamic> creditors = responseData['Creditors'] ?? [];
+        // final List<dynamic> debtors = responseData['Debtors'] ?? [];
+        // filterByCategory();
+        update();
+        print('Response Data: ${responseData}');
+
+        print('creditors: $creditors');
+
+        return responseData;
+      } else {
+        print('Failed with status: ${response.statusCode}');
+        return response.statusCode;
+      }
+    } catch (e) {
+      print('Error: ${e}');
+      return e;
+    }
+  }
 
 
 

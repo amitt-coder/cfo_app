@@ -148,8 +148,7 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                 height: 10,
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(5)),
@@ -286,7 +285,7 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
               ),
               Obx(() {
                 if (arWithCreditBalanceController.filteredCreditors.isEmpty) {
-                  return SizedBox();
+                  return const SizedBox();
                 } else {
                   return Container(
                     padding: const EdgeInsets.symmetric(
