@@ -251,8 +251,7 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                         String categoryValue = splitParts[1];
                         print('categoryValue: $categoryValue');
                         accountPayablesController.filteredCreditors.clear();
-                        accountPayablesController.showCategory.value =
-                            categoryValue;
+                        accountPayablesController.showCategory.value = categoryValue;
                         accountPayablesController.filterByCategory();
                       } else {
                         print('Invalid category');

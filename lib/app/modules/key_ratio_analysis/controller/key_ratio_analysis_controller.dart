@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-
 import '../../../data/api.dart';
 
 class KeyRatioAnalsisController extends GetxController{
@@ -29,16 +28,14 @@ class KeyRatioAnalsisController extends GetxController{
   //Inventory - Days
   //AR Turnover - Daily Base
   //AP Turnover - Daily Payment Out
+
   TextEditingController daysController = TextEditingController();
-
-  RxString showday = 'Above 30 days'.obs;
-
-  RxList<String> dayList =
-      ['Above 30 days', 'Above 60 days', 'Above 90 days', 'Above 120 days'].obs;
-
   Rxn<DateTimeRange> selectedDateRange = Rxn<DateTimeRange>();
   TextEditingController dateRangeController = TextEditingController();
 
+  RxString showday = 'Above 30 days'.obs;
+
+  RxList<String> dayList = ['Above 30 days', 'Above 60 days', 'Above 90 days', 'Above 120 days'].obs;
 
 
   Color getColorForInterpretation(String interpretation) {
@@ -75,9 +72,8 @@ class KeyRatioAnalsisController extends GetxController{
   }
 
 
-
   void _startMovingDivider() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
         dividerPosition.value += 1;
         if (dividerPosition.value > 30) {
           dividerPosition.value = 10; // Reset to initial position
@@ -101,20 +97,29 @@ class KeyRatioAnalsisController extends GetxController{
     final startDate = DateFormat('yyyy-MM-dd').format(range!.start);
     final endDate = DateFormat('yyyy-MM-dd').format(range.end);
 
-    print('StartDate: ${startDate}');
-    print('endDate: ${endDate}');
+    print('StartDate: $startDate');
+    print('endDate: $endDate');
 
-    dateRangeController.text = startDate + " to " + endDate;
+    dateRangeController.text = "$startDate to $endDate";
 
     print('dateRangeController: ${dateRangeController.text.toString()}');
+    keyRatioApi(startDate,endDate);
+
   }
 
 
-
-  Future<dynamic> keyRatioApi() async {
+  Future<dynamic> keyRatioApi(String startDate,String endDate)  async {
 
     print('-------keyRatioApi--------');
 
+    print('startDate: $startDate');
+    print('endDate: $endDate');
+
+    //parameter
+    // name
+    // value
+    // minimum_benchmark
+    // maximum_benchmark
     final storage = GetStorage();
 
     String? token = storage.read('accessToken');
@@ -124,10 +129,10 @@ class KeyRatioAnalsisController extends GetxController{
     //   'id': userId,
     // };
     // String encodedBody = json.encode(requestBody);
-    print('url:${Api.last_week}${userId}');
+    print('url:${Api.ratio}$userId/$startDate/$endDate/');
 
     try {
-      var response = await http.get(Uri.parse(''),
+      var response = await http.get(Uri.parse('${Api.ratio}$userId/$startDate/$endDate/'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $token',
@@ -140,7 +145,10 @@ class KeyRatioAnalsisController extends GetxController{
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         var responseData = json.decode(response.body);
+
           print('ResponseData: ${responseData}');
+
+
         return responseData;
       } else {
         print('Failed with status: ${response.statusCode}');

@@ -199,8 +199,7 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                   maxSpeed: 100,
                                   speed: speed,
                                   speedTextStyle: const TextStyle(
-                                      color: Colors
-                                          .transparent), // Speed text inside gauge
+                                      color: Colors.transparent), // Speed text inside gauge
                                   minMaxTextStyle: const TextStyle(
                                       color: Colors.transparent),
                                   animate: false,
@@ -232,8 +231,7 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                           child: SvgPicture.asset(
                                             height: 58,
                                             width: 58,
-                                            ProjectImages
-                                                .circle, // Replace with your gauge circle image path
+                                            ProjectImages.circle, // Replace with your gauge circle image path
                                           ),
                                         ),
                                       ),
@@ -347,9 +345,7 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                       ),
                     ),
                     ListView.builder(
-                        itemCount: int.parse(keyRatioAnalsisController
-                            .keyRatios.length
-                            .toString()),
+                        itemCount: int.parse(keyRatioAnalsisController.keyRatios.length.toString()),
                         shrinkWrap: true,
                         padding: EdgeInsets.zero,
                         physics: const NeverScrollableScrollPhysics(),
@@ -439,7 +435,6 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                     const SizedBox(
                       height: 15,
                     ),
-
                     ///Show/Not Show
                     Text(
                       'Ratio Details',

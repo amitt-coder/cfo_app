@@ -12,8 +12,8 @@ class TrendsController extends GetxController{
   TextEditingController dateController = TextEditingController();
   TextEditingController daysController = TextEditingController();
 
-  final selectedDate = DateTime.now().obs;
 
+   Rxn<DateTimeRange> selectedDateRange = Rxn<DateTimeRange>();
 
   RxList<String> creditorsList = <String>[].obs;
   RxList<String> debtorsList = <String>[].obs;
@@ -33,89 +33,74 @@ class TrendsController extends GetxController{
   RxList<dynamic> allCreditor=[].obs;
   RxList<dynamic> allDebtor=[].obs;
 
-  Future<void> calendarOpen(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
+
+  Future<void> pickDateRange(BuildContext context) async {
+
+    print('-----pickDateRange-----');
+
+    final DateTimeRange? picked = await showDateRangePicker(
       context: context,
-      initialDate: selectedDate.value,
       firstDate: DateTime(2000),
       lastDate: DateTime(2050),
+      currentDate: DateTime.now(),
+      saveText: 'Done',
     );
+
     if (picked != null) {
-      selectedDate.value = picked;
-      String formattedDate = DateFormat('yyy-MM-dd').format(selectedDate.value);
-      print('formattedDate: $formattedDate');
-      dateController.text= formattedDate;
-      print('selectedDate.value: ${dateController.text}');
-      filterbyCustomeDateApi();//api calling
+      selectedDateRange.value = picked;
     }
+    final range = selectedDateRange.value;
+    final startDate = DateFormat('yyyy-MM-dd').format(range!.start);
+    final endDate = DateFormat('yyyy-MM-dd').format(range.end);
+
+    print('StartDate: $startDate');
+    print('endDate: $endDate');
+
+    dateController.text = "$startDate to $endDate";
+
+    print('dateRangeController: ${dateController.text.toString()}');
+    trendsApi(startDate,endDate);
   }
 
 
-  Future<dynamic> filterbyCustomeDateApi() async {
+  Future<dynamic> trendsApi(String startDate,String endDate)  async {
 
-    print('-------filter_by_custom_date--------');
+    print('-------trendsApi--------');
+
+    print('startDate: $startDate');
+    print('endDate: $endDate');
 
     final storage = GetStorage();
 
     String? token = storage.read('accessToken');
     String? userId = storage.read('USER_ID');
 
-    print('${Api.filter_by_custome_date}${userId}/${dateController.text}');
+    // Map<String, dynamic> requestBody = {
+    //   'id': userId,
+    // };
+    // String encodedBody = json.encode(requestBody);
+    print('url:${Api.trends}$userId/$startDate/$endDate/');
 
     try {
-      var response = await http.get(Uri.parse('${Api.filter_by_custome_date}${userId}/${dateController.text}'),
+      var response = await http.get(Uri.parse('${Api.trends}$userId/$startDate/$endDate/'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $token',
         },
+        // body: encodedBody,
       );
 
-      print('response statusCode: ${response.statusCode}');
+
+      print('response Status ${response.statusCode}');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         var responseData = json.decode(response.body);
 
-        final List<dynamic> creditors = responseData['Creditors'] ?? [];
-        final List<dynamic> debtors = responseData['Debtors'] ?? [];
-        allCreditor.value = responseData['Creditors'] ?? [];
-        allDebtor.value = responseData['Debtors'] ?? [];
-
-        creditorsList.clear();
-        creditorsAmountList.clear();
-        creditorsdueDateList.clear();
-        creditorslastPaymentDate.clear();
-        creditorInvoiceIds.clear();
-        // Populate creditors
-        for (var creditor in creditors) {
-          creditorsList.add(creditor['name']);
-          creditorsAmountList.add(creditor['total_balance']);
-          creditorsdueDateList.add(creditor['due_date']);
-          creditorslastPaymentDate.add(creditor['last_payment_date']);
-          creditorInvoiceIds.add(creditor['id'].toString());
-        }
-        debtorsList.clear();
-        debtorsAmountList.clear();
-        debtordueDateList.clear();
-        debtorlastPaymentDate.clear();
-        debtorInvoiceIds.clear();
-        // Populate debtors
-        for (var debtor in debtors) {
-          debtorsList.add(debtor['name']);
-          debtorsAmountList.add(debtor['total_balance']);
-          debtordueDateList.add(debtor['due_date']);
-          debtorlastPaymentDate.add(debtor['last_payment_date']);
-          debtorInvoiceIds.add(debtor['id'].toString());
-        }
-
-        update();
-        // print('Response Data: ${responseData}');
-
-        print('creditorsList: $creditorsList');
-        print('debtorsList: ${debtorsList}');
+        print('ResponseData: $responseData');
 
         return responseData;
       } else {
-        print('Failed with statusCode: ${response.statusCode}');
+        print('Failed with status: ${response.statusCode}');
         return response.statusCode;
       }
     } catch (e) {
@@ -123,6 +108,81 @@ class TrendsController extends GetxController{
       return e;
     }
   }
+
+
+
+  // Future<dynamic> filterbyCustomeDateApi() async {
+  //
+  //   print('-------filter_by_custom_date--------');
+  //
+  //   final storage = GetStorage();
+  //
+  //   String? token = storage.read('accessToken');
+  //   String? userId = storage.read('USER_ID');
+  //
+  //   print('${Api.filter_by_custome_date}${userId}/${dateController.text}');
+  //
+  //   try {
+  //     var response = await http.get(Uri.parse('${Api.filter_by_custome_date}${userId}/${dateController.text}'),
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Authorization': 'Bearer $token',
+  //       },
+  //     );
+  //
+  //     print('response statusCode: ${response.statusCode}');
+  //
+  //     if (response.statusCode == 200 || response.statusCode == 201) {
+  //       var responseData = json.decode(response.body);
+  //
+  //       final List<dynamic> creditors = responseData['Creditors'] ?? [];
+  //       final List<dynamic> debtors = responseData['Debtors'] ?? [];
+  //       allCreditor.value = responseData['Creditors'] ?? [];
+  //       allDebtor.value = responseData['Debtors'] ?? [];
+  //
+  //       creditorsList.clear();
+  //       creditorsAmountList.clear();
+  //       creditorsdueDateList.clear();
+  //       creditorslastPaymentDate.clear();
+  //       creditorInvoiceIds.clear();
+  //       // Populate creditors
+  //       for (var creditor in creditors) {
+  //         creditorsList.add(creditor['name']);
+  //         creditorsAmountList.add(creditor['total_balance']);
+  //         creditorsdueDateList.add(creditor['due_date']);
+  //         creditorslastPaymentDate.add(creditor['last_payment_date']);
+  //         creditorInvoiceIds.add(creditor['id'].toString());
+  //       }
+  //       debtorsList.clear();
+  //       debtorsAmountList.clear();
+  //       debtordueDateList.clear();
+  //       debtorlastPaymentDate.clear();
+  //       debtorInvoiceIds.clear();
+  //       // Populate debtors
+  //       for (var debtor in debtors) {
+  //         debtorsList.add(debtor['name']);
+  //         debtorsAmountList.add(debtor['total_balance']);
+  //         debtordueDateList.add(debtor['due_date']);
+  //         debtorlastPaymentDate.add(debtor['last_payment_date']);
+  //         debtorInvoiceIds.add(debtor['id'].toString());
+  //       }
+  //
+  //       update();
+  //       // print('Response Data: ${responseData}');
+  //
+  //       print('creditorsList: $creditorsList');
+  //       print('debtorsList: ${debtorsList}');
+  //
+  //       return responseData;
+  //     } else {
+  //       print('Failed with statusCode: ${response.statusCode}');
+  //       return response.statusCode;
+  //     }
+  //   } catch (e) {
+  //     print('Error: ${e}');
+  //     return e;
+  //   }
+  // }
 
 
 

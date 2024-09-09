@@ -37,7 +37,7 @@ class RevenueVarianceController extends GetxController{
 
   void onInit() {
     super.onInit();
-    revenueVarianceApi();
+    revenueVarianceApi2();
     update();
   }
 
@@ -63,12 +63,13 @@ class RevenueVarianceController extends GetxController{
     dateRangeController.text = startDate + " to " + endDate;
 
     print('dateRangeController: ${dateRangeController.text.toString()}');
+    revenueVarianceApi(startDate,endDate);
   }
 
 
-  Future<dynamic> revenueVarianceApi() async {
+  Future<dynamic> revenueVarianceApi2() async {
 
-    print('-------revenueVarianceApi--------');
+    print('-------revenueVarianceApi2--------');
 
     final storage = GetStorage();
 
@@ -79,10 +80,10 @@ class RevenueVarianceController extends GetxController{
     //   'id': userId,
     // };
     // String encodedBody = json.encode(requestBody);
-    print('url:${Api.last_week}${userId}');
+    print('url:${Api.revenue}${userId}');
 
     try {
-      var response = await http.get(Uri.parse('${Api.last_week}${userId}'),
+      var response = await http.get(Uri.parse('${Api.revenue}${userId}'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $token',
@@ -94,9 +95,9 @@ class RevenueVarianceController extends GetxController{
       print('response Status ${response.statusCode}');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
+
+
         var responseData = json.decode(response.body);
-
-
 
         creditors_amount.value=responseData['creditors_amount'].toString();
         debtors_amount.value=responseData['debtors_amount'].toString();
@@ -122,7 +123,7 @@ class RevenueVarianceController extends GetxController{
           ],
           "created_at": "2024-08-22T13:13:29.224684Z",
           "created_from": 1
-        }, 
+        },
         {
           "id": 4,
           "name": "Aman",
@@ -401,7 +402,51 @@ class RevenueVarianceController extends GetxController{
   }
 
 
+  Future<dynamic> revenueVarianceApi(String startDate,String endDate)  async {
 
+    print('-------revenueVarianceApi--------');
+    print('startDate: $startDate');
+    print('endDate: $endDate');
+    //parameters: budget,actual, variance,data
+    final storage = GetStorage();
+
+    String? token = storage.read('accessToken');
+    String? userId = storage.read('USER_ID');
+
+    // Map<String, dynamic> requestBody = {
+    //   'id': userId,
+    // };
+    // String encodedBody = json.encode(requestBody);
+
+    print('url:${Api.revenue}$userId/$startDate/$endDate/');
+
+    try {
+      var response = await http.get(Uri.parse('${Api.revenue}$userId/$startDate/$endDate/'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        // body: encodedBody,
+      );
+
+
+      print('response Status ${response.statusCode}');
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var responseData = json.decode(response.body);
+        print('ResponseData: ${responseData}');
+
+        return responseData;
+
+      } else {
+        print('Failed with status: ${response.statusCode}');
+        return response.statusCode;
+      }
+    } catch (e) {
+      print('Error: ${e}');
+      return e;
+    }
+  }
 
 
 }

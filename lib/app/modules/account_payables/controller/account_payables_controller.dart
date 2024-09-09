@@ -92,7 +92,6 @@ class AccountPayablesController extends GetxController {
     }
   }
 
-
   String getImageForCategory(String category) {
     print('getImageForCategory: ${category}');
     switch (category.toLowerCase()) {
@@ -108,7 +107,7 @@ class AccountPayablesController extends GetxController {
   }
 
   void filterByCategory() {
-    print('filterByCategory');
+    print('filterByCategory: $showCategory');
     List<String> splitParts = showCategory.value.split(' ');
 
     // Check if the splitParts has at least two elements to avoid index out of range error
@@ -176,7 +175,6 @@ class AccountPayablesController extends GetxController {
         print('totalDebitBalance: ${totalDebitBalance.value}');
         creditors.value = responseData['creditor']; // Assuming the API response structure
         filterByCategory();
-
 
         return responseData;
       } else {
@@ -275,11 +273,29 @@ class AccountPayablesController extends GetxController {
       if (response.statusCode == 200 || response.statusCode == 201) {
         var responseData = json.decode(response.body);
 
-        final List<dynamic> creditors = responseData['Creditors'] ?? [];
+        // final List<dynamic> creditors = responseData['Creditors'] ?? [];
         // final List<dynamic> debtors = responseData['Debtors'] ?? [];
         // filterByCategory();
+        ///
+        creditors.value = responseData['Creditors'] ?? [];
+        // final List<dynamic> debtors = responseData['debtor'] ?? [];
+
+        print('creditors: ${creditors}');
+        // print('debtors: ${debtors}');
+        double totalAmount = 0.0;
+
+        // Iterate through the list and sum up all the total_balance amounts
+        for (var creditor in creditors) {
+          // Convert total_balance to a double, handling possible formatting issues
+          double balance = double.tryParse(creditor['total_balance'].replaceAll(',', '')) ?? 0.0;
+          totalAmount += balance;
+        }
+        // print('Total Amount: ${totalAmount}');
+        totalDebitBalance.value = totalAmount.toInt();
+        print('totalDebitBalance: ${totalDebitBalance.value}');
+        creditors.value = responseData['Creditors']; // Assuming the API response structure
+        filterByCategory();
         update();
-        print('Response Data: ${responseData}');
 
         print('creditors: $creditors');
 

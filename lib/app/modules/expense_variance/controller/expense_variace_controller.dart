@@ -31,12 +31,12 @@ class ExpenseVarianceController extends GetxController{
 
   var dividerPosition = 0.0.obs;
   var crBalance = 0.0.obs;
+
   Rxn<DateTimeRange> selectedDateRange = Rxn<DateTimeRange>();
 
   void onInit() {
     super.onInit();
-    expenseVarianceApi();
-    update();
+    expenseVarianceApi('2024-09-09','2024-09-10');
   }
 
   Future<void> pickDateRange(BuildContext context) async {
@@ -55,20 +55,60 @@ class ExpenseVarianceController extends GetxController{
     final startDate = DateFormat('yyyy-MM-dd').format(range!.start);
     final endDate = DateFormat('yyyy-MM-dd').format(range.end);
 
-    print('StartDate: ${startDate}');
-    print('endDate: ${endDate}');
+    print('StartDate: $startDate');
+    print('endDate: $endDate');
 
     dateRangeController.text = startDate + " to " + endDate;
 
     print('dateRangeController: ${dateRangeController.text.toString()}');
+    expenseVarianceApi(startDate,endDate);
   }
 
 
+  List<FlSpot> convertCreditorData(List<Map<String, dynamic>> creditors) {
+    return List<FlSpot>.generate(
+      creditors.length,
+          (index) {
+        final totalBalance = double.parse(creditors[index]['total_balance']);
+        // print('cr total $totalBalance');
+        cashIn.add(totalBalance);
+        print('cashIn ${cashIn}');
+        updateCrBalance(totalBalance); // Update balance
+        return FlSpot(index.toDouble(), totalBalance);
+      },
+    );
+  }
 
-  Future<dynamic> expenseVarianceApi() async {
+  List<FlSpot> convertDebtorData(List<Map<String, dynamic>> debtors) {
+    return List<FlSpot>.generate(
+      debtors.length,
+          (index) {
+        final totalBalance = double.parse(debtors[index]['total_balance']);
+        cashOut.add(totalBalance);
+        print('cashOut ${cashOut}');
+        return FlSpot(index.toDouble(), totalBalance);
+      },
+    );
+  }
 
-    print('-------expenseVarianceApi--------');
 
+  void updateDividerPosition(double newPosition) {
+    dividerPosition.value = newPosition;
+  }
+
+  // Method to update balance
+  void updateCrBalance(double newBalance) {
+    crBalance.value = double.parse(newBalance.toString());
+  }
+
+
+  Future<dynamic> expenseVarianceApi(String startDate,String endDate) async {
+
+    print('--------expenseVarianceApi--------');
+
+    print('startDate: $startDate');
+    print('endDate: $endDate');
+    //parameters: budget,actual, variance,data
     final storage = GetStorage();
 
     String? token = storage.read('accessToken');
@@ -78,10 +118,11 @@ class ExpenseVarianceController extends GetxController{
     //   'id': userId,
     // };
     // String encodedBody = json.encode(requestBody);
-    print('url:${Api.last_week}${userId}');
+
+    print('url:${Api.expense}$userId/$startDate/$endDate/');
 
     try {
-      var response = await http.get(Uri.parse('${Api.last_week}${userId}'),
+      var response = await http.get(Uri.parse('${Api.expense}$userId/$startDate/$endDate/'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $token',
@@ -526,7 +567,8 @@ class ExpenseVarianceController extends GetxController{
         print('Lowest Amount: $lowestAmount');
 
         final maxCashInValue = cashIn.reduce((a, b) => a > b ? a : b);
-         cashInPercentages.value = cashIn.map((value) => (value / maxCashInValue) * 100).toList();
+        cashInPercentages.value = cashIn.map((value) => (value / maxCashInValue) * 100).toList();
+        update();
         // print('ResponseData: ${responseData}');
         return responseData;
       } else {
@@ -534,45 +576,12 @@ class ExpenseVarianceController extends GetxController{
         return response.statusCode;
       }
     } catch (e) {
-      print('Error: ${e}');
+      print('Error: $e');
       return e;
     }
   }
 
-  List<FlSpot> convertCreditorData(List<Map<String, dynamic>> creditors) {
-    return List<FlSpot>.generate(
-      creditors.length,
-          (index) {
-        final totalBalance = double.parse(creditors[index]['total_balance']);
-        // print('cr total $totalBalance');
-        cashIn.add(totalBalance);
-        print('cashIn ${cashIn}');
-        updateCrBalance(totalBalance); // Update balance
-        return FlSpot(index.toDouble(), totalBalance);
-      },
-    );
-  }
-
-  List<FlSpot> convertDebtorData(List<Map<String, dynamic>> debtors) {
-    return List<FlSpot>.generate(
-      debtors.length,
-          (index) {
-        final totalBalance = double.parse(debtors[index]['total_balance']);
-        cashOut.add(totalBalance);
-        print('cashOut ${cashOut}');
-        return FlSpot(index.toDouble(), totalBalance);
-      },
-    );
-  }
 
 
-  void updateDividerPosition(double newPosition) {
-    dividerPosition.value = newPosition;
-  }
-
-  // Method to update balance
-  void updateCrBalance(double newBalance) {
-    crBalance.value = double.parse(newBalance.toString());
-  }
 
 }

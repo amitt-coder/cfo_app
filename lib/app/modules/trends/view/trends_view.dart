@@ -8,7 +8,7 @@ import '../../../routes/app_pages.dart';
 import '../controller/trends_controller.dart';
 
 class TrendsView extends StatelessWidget {
-  // const TrendsView({super.key});
+   TrendsView({super.key});
   TrendsController trendsController = Get.put(TrendsController());
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class TrendsView extends StatelessWidget {
                   ),
                   CommonTextField(
                     ontap: () {
-                      trendsController.calendarOpen(context);
+                      trendsController.pickDateRange(context);
                     },
                     preShow: 'Not',
                     width: MediaQuery.of(context).size.width * 0.40,
