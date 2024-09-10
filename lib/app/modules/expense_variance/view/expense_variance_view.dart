@@ -85,7 +85,7 @@ class ExpenseVariancesView extends StatelessWidget {
                   ),
                   Obx(() =>
                   Text(
-                    expenseVarianceController.creditors_amount.value,
+                    expenseVarianceController.budgetExpenses.value,
                     // '₹500,000',
                     style: TextStyle(
                       color: AppColor.primaryColor,
@@ -110,7 +110,7 @@ class ExpenseVariancesView extends StatelessWidget {
                   ),
                   Obx(() =>
                   Text(
-                    expenseVarianceController.debtors_amount.value,
+                    expenseVarianceController.actualExpenses.value,
                     // '₹550,000',
                     style: TextStyle(
                       color: AppColor.primaryColor,
@@ -135,7 +135,7 @@ class ExpenseVariancesView extends StatelessWidget {
                   ),
                   Obx(() =>
                   Text(
-                    expenseVarianceController.total_amount.value,
+                    expenseVarianceController.varianceExpenses.value,
                     // '₹50,000',
                     style: TextStyle(
                       color: AppColor.primaryColor,
@@ -147,105 +147,109 @@ class ExpenseVariancesView extends StatelessWidget {
                 ],
               ),
              const SizedBox(height: 30),
-              Obx(() =>
-                  Container(
-                    height: 132,
-                    child: BarChart(
-                      BarChartData(
-                        alignment: BarChartAlignment.spaceAround,
-                        barGroups: expenseVarianceController.cashInPercentages
-                            .asMap()
-                            .entries
-                            .map(
-                              (e) => BarChartGroupData(
-                            groupVertically: true,
-                            x: e.key,
-                            barRods: [
-                              BarChartRodData(
-                                borderRadius: BorderRadius.circular(3),
-                                toY: e.value,
-                                color: const Color(0xFF48BD69),
-                                width: 11,
-                              ),
-                            ],
-                          ),
-                        ).toList(),
-                        titlesData: FlTitlesData(
-                          rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                          topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                          leftTitles: AxisTitles(
-                            sideTitles: SideTitles(
-                              showTitles: true,
-                              reservedSize: 30,
-                              interval: 10, // Adjusted interval for percentage
-                              getTitlesWidget: (value, meta) {
-                                return Text(
-                                  "${value.toInt()}%",
-                                  style: TextStyle(
-                                      color: AppColor.fontColor,
-                                      fontSize: 7,
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: 'Urbanist'),
-                                );
-                              },
+              Obx(() {
+                // Check if the cashInPercentages list is empty to handle potential empty states
+                if (expenseVarianceController.cashInPercentages.isEmpty) {
+                  return const Center(child: Text('No data available')); // Graceful handling for no data
+                }
+                return Container(
+                  height: 132,
+                  child: BarChart(
+                    BarChartData(
+                      alignment: BarChartAlignment.spaceAround,
+                      barGroups: expenseVarianceController.cashInPercentages
+                          .asMap()
+                          .entries
+                          .map(
+                            (e) => BarChartGroupData(
+                          groupVertically: true,
+                          x: e.key,
+                          barRods: [
+                            BarChartRodData(
+                              borderRadius: BorderRadius.circular(3),
+                              toY: e.value,
+                              color: const Color(0xFF48BD69),
+                              width: 11,
                             ),
-                            drawBelowEverything: true,
-                          ),
-                          bottomTitles: AxisTitles(
-                            sideTitles: SideTitles(
-                              showTitles: true,
-                              getTitlesWidget: (value, meta) {
-                                final months = [
-                                  'Salaries',
-                                  'Marketing',
-                                  'Utilities',
-                                  'Office Supplies',
-                                  'Travel',
-                                  'Other',
-                                ];
-                                return Column(
-                                  children: [
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      months[value.toInt() % 12],
-                                      style: const TextStyle(
-                                          color: Color(0xFF808D9E),
-                                          fontSize: 8,
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: 'Urbanist'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
-                          ),
+                          ],
                         ),
-                        baselineY: 0.5,
-                        maxY: 100, // Max Y value is now 100 for percentages
-                        gridData: FlGridData(
-                          show: true,
-                          verticalInterval: 10, // Adjusted interval for percentage
-                          horizontalInterval: 10, // Adjusted interval for percentage
-                          getDrawingHorizontalLine: (value) {
-                            return const FlLine(
-                                color: Color(0xFFB1B1B1),
-                                strokeWidth: 0.5
-                            );
-                          },
-                          drawVerticalLine: false,
+                      ).toList(),
+                      titlesData: FlTitlesData(
+                        rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                        topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                        leftTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            reservedSize: 30,
+                            interval: 10, // Adjusted interval for percentage
+                            getTitlesWidget: (value, meta) {
+                              return Text(
+                                "${value.toInt()}%",
+                                style: TextStyle(
+                                    color: AppColor.fontColor,
+                                    fontSize: 7,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: 'Urbanist'),
+                              );
+                            },
+                          ),
+                          drawBelowEverything: true,
                         ),
-                        borderData: FlBorderData(
-                            show: true,
-                            border: Border.all(
-                              color: Colors.transparent,
-                            )
+                        bottomTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            getTitlesWidget: (value, meta) {
+                              final months = [
+                                'Salaries',
+                                'Marketing',
+                                'Utilities',
+                                'Office Supplies',
+                                'Travel',
+                                'Other',
+                              ];
+                              return Column(
+                                children: [
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    months[value.toInt() % 12],
+                                    style: const TextStyle(
+                                        color: Color(0xFF808D9E),
+                                        fontSize: 8,
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: 'Urbanist'),
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
                         ),
                       ),
+                      baselineY: 0.5,
+                      maxY: 100, // Max Y value is now 100 for percentages
+                      gridData: FlGridData(
+                        show: true,
+                        verticalInterval: 10, // Adjusted interval for percentage
+                        horizontalInterval: 10, // Adjusted interval for percentage
+                        getDrawingHorizontalLine: (value) {
+                          return const FlLine(
+                              color: Color(0xFFB1B1B1),
+                              strokeWidth: 0.5
+                          );
+                        },
+                        drawVerticalLine: false,
+                      ),
+                      borderData: FlBorderData(
+                          show: true,
+                          border: Border.all(
+                            color: Colors.transparent,
+                          )
+                      ),
                     ),
-                  )
-              )
+                  ),
+                );
+              })
               ///old design
               // Obx(() =>
             //   Container(

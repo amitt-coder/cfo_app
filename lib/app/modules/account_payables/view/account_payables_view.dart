@@ -207,6 +207,7 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                   ),
                   CommonTextField(
                     ontap: () {
+                      accountPayablesController.showCategory.value = 'Category A';
                       accountPayablesController.calendarOpen(context);
                     },
                     preShow: 'Not',
@@ -231,43 +232,55 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                   const SizedBox(
                     width: 5,
                   ),
-                  DropDownField(
-                    selectValue: accountPayablesController.showCategory.value,
-                    hintName: 'Select Category',
-                    width: MediaQuery.of(context).size.width * 0.35,
-                    height: 40,
-                    selectPriceInstallment: accountPayablesController.showCategoryList,
-                    controller: accountPayablesController.categoryController,
-                    showBorder: '1',
-                    onChanged: (value) {
-                      accountPayablesController.showCategory.value = value!;
-                      // Split the string by spaces and get the second element
-                      List<String> splitParts = accountPayablesController
-                          .showCategory.value
-                          .split(' ');
-
-                      // Check if the splitParts has at least two elements to avoid index out of range error
-                      if (splitParts.length >= 2) {
-                        String categoryValue = splitParts[1];
-                        print('categoryValue: $categoryValue');
-                        accountPayablesController.filteredCreditors.clear();
-                        accountPayablesController.showCategory.value = categoryValue;
-                        accountPayablesController.filterByCategory();
-                      } else {
-                        print('Invalid category');
-                      }
-                    },
-                  ),
-
                   // DropDownField(
                   //   selectValue: accountPayablesController.showCategory.value,
-                  //   hintName: 'show',
+                  //   hintName: 'Select Category',
                   //   width: MediaQuery.of(context).size.width * 0.35,
                   //   height: 40,
                   //   selectPriceInstallment: accountPayablesController.showCategoryList,
                   //   controller: accountPayablesController.categoryController,
                   //   showBorder: '1',
+                  //   onChanged: (value) {
+                  //     accountPayablesController.showCategory.value = value!;
+                  //     // Split the string by spaces and get the second element
+                  //     List<String> splitParts = accountPayablesController
+                  //         .showCategory.value
+                  //         .split(' ');
+                  //
+                  //     // Check if the splitParts has at least two elements to avoid index out of range error
+                  //     if (splitParts.length >= 2) {
+                  //       String categoryValue = splitParts[1];
+                  //       print('categoryValue: $categoryValue');
+                  //       accountPayablesController.filteredCreditors.clear();
+                  //       accountPayablesController.showCategory.value = categoryValue;
+                  //       accountPayablesController.filterByCategory();
+                  //     } else {
+                  //       print('Invalid category');
+                  //     }
+                  //   },
                   // ),
+                  ///
+                  DropDownField(
+                    selectValue: accountPayablesController.showCategory.value, // Match the exact value from the list
+                    hintName: 'Select Category',
+                    width: MediaQuery.of(context).size.width * 0.35,
+                    height: 40,
+                    selectPriceInstallment: accountPayablesController.showCategoryList, // Ensure these values are ['A', 'B', 'C', etc.]
+                    controller: accountPayablesController.categoryController,
+                    showBorder: '1',
+                    onChanged: (value) {
+                      // Ensure 'value' is non-null and exists in the list
+                      if (value != null && accountPayablesController.showCategoryList.contains(value)) {
+                        accountPayablesController.showCategory.value = value; // Ensure this is only 'A', 'B', or 'C'
+                        accountPayablesController.filterByCategory();
+                      } else {
+                        print('Category not found');
+                      }
+                    },
+                  )
+
+
+
                 ],
               ),
 
@@ -399,8 +412,7 @@ class _AccountPayablesViewState extends State<AccountPayablesView> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Image.asset(
-                                          accountPayablesController
-                                              .getImageForCategory(category),
+                                          accountPayablesController.getImageForCategory(category),
                                           height: 25,
                                           width: 25,
                                         ),

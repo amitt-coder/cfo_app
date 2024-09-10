@@ -33,6 +33,15 @@ class TrendsController extends GetxController{
   RxList<dynamic> allCreditor=[].obs;
   RxList<dynamic> allDebtor=[].obs;
 
+  var nameList = <String>[].obs; // Observable list to hold names
+  var isLoading = true.obs;
+
+  void onInit() {
+    super.onInit();
+    trendsApi('2024-05-05','2024-05-20');
+    update();
+  }
+
 
   Future<void> pickDateRange(BuildContext context) async {
 
@@ -92,14 +101,35 @@ class TrendsController extends GetxController{
 
 
       print('response Status ${response.statusCode}');
-
       if (response.statusCode == 200 || response.statusCode == 201) {
         var responseData = json.decode(response.body);
+
+        // Ensure the response data is cast to the correct type before mapping
+        List<dynamic> data = responseData['data'];
+
+        // Extract names from the API response
+        var names = data.map<String>((data) => data['name'] as String).toList(); // Explicitly cast to String
+
+        nameList.assignAll(names); // Assign names to nameList
+        print('nameList: $nameList');
 
         print('ResponseData: $responseData');
 
         return responseData;
-      } else {
+      }
+
+      // if (response.statusCode == 200 || response.statusCode == 201) {
+      //   var responseData = json.decode(response.body);
+      //   // var responseData = json.decode(response.body);
+      //
+      //   // Extract names from API response
+      //   var names = responseData['data'].map<String>((data) => data['name']).toList();
+      //   nameList.assignAll(names); // Assign names to nameList
+      //   print('ResponseData: $responseData');
+      //
+      //   return responseData;
+      // }
+      else {
         print('Failed with status: ${response.statusCode}');
         return response.statusCode;
       }

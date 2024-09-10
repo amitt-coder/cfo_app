@@ -39,7 +39,6 @@ class RevenueVariancesView extends StatelessWidget {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        // padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         color: AppColor.backgroundColors,
         child: SingleChildScrollView(
           child: Column(
@@ -98,7 +97,7 @@ class RevenueVariancesView extends StatelessWidget {
                   ),
                   Obx(() =>
                   Text(
-                    revenueVarianceController.creditors_amount.value,
+                    revenueVarianceController.budgetExpenses.value,
                     // '₹600,000',
                     style: TextStyle(
                       color: AppColor.primaryColor,
@@ -123,7 +122,7 @@ class RevenueVariancesView extends StatelessWidget {
                   ),
                   Obx(() =>
                   Text(
-                    revenueVarianceController.debtors_amount.value,
+                    revenueVarianceController.actualExpenses.value,
                     // '₹650,000',
                     style: TextStyle(
                       color: AppColor.primaryColor,
@@ -148,7 +147,7 @@ class RevenueVariancesView extends StatelessWidget {
                   ),
                   Obx(() =>
                   Text(
-                    revenueVarianceController.total_amount.value,
+                    revenueVarianceController.varianceExpenses.value,
                     style: TextStyle(
                       color: AppColor.primaryColor,
                       fontWeight: FontWeight.w500,
@@ -160,11 +159,9 @@ class RevenueVariancesView extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               Obx(() {
-                // Check if the cashInPercentages list is empty to handle potential empty states
                 if (revenueVarianceController.cashInPercentages.isEmpty) {
                   return const Center(child: Text('No data available')); // Graceful handling for no data
                 }
-                // print('cashInPercentages: ${revenueVarianceController.cashInPercentages}');
                 return Container(
                   height: 132,
                   child: BarChart(

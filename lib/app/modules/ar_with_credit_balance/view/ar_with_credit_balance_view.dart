@@ -223,6 +223,7 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                   ),
                   CommonTextField(
                     ontap: () {
+                      arWithCreditBalanceController.showCategory.value = 'Category A';
                       arWithCreditBalanceController.calendarOpen(context);
                     },
                     preShow: 'Not',
@@ -247,37 +248,56 @@ class _ArWithCreditBalanceViewState extends State<ArWithCreditBalanceView> {
                   const SizedBox(
                     width: 5,
                   ),
+                  // DropDownField(
+                  //   onChanged: (value) {
+                  //     arWithCreditBalanceController.showCategory.value = value!;
+                  //     // Split the string by spaces and get the second element
+                  //     List<String> splitParts = arWithCreditBalanceController
+                  //         .showCategory.value
+                  //         .split(' ');
+                  //
+                  //     // Check if the splitParts has at least two elements to avoid index out of range error
+                  //     if (splitParts.length >= 2) {
+                  //       String categoryValue = splitParts[1];
+                  //       print('categoryValue: $categoryValue');
+                  //       arWithCreditBalanceController.filteredCreditors.clear();
+                  //       arWithCreditBalanceController.showCategory.value =
+                  //           categoryValue;
+                  //       arWithCreditBalanceController.filterByCategory();
+                  //     } else {
+                  //       print('Invalid category');
+                  //     }
+                  //   },
+                  //   selectValue:
+                  //       arWithCreditBalanceController.showCategory.value,
+                  //   hintName: 'show',
+                  //   width: MediaQuery.of(context).size.width * 0.35,
+                  //   height: 40,
+                  //   selectPriceInstallment:
+                  //       arWithCreditBalanceController.showCategoryList,
+                  //   controller:
+                  //       arWithCreditBalanceController.categoryController,
+                  //   showBorder: '1',
+                  // ),
+                  ///
                   DropDownField(
-                    onChanged: (value) {
-                      arWithCreditBalanceController.showCategory.value = value!;
-                      // Split the string by spaces and get the second element
-                      List<String> splitParts = arWithCreditBalanceController
-                          .showCategory.value
-                          .split(' ');
-
-                      // Check if the splitParts has at least two elements to avoid index out of range error
-                      if (splitParts.length >= 2) {
-                        String categoryValue = splitParts[1];
-                        print('categoryValue: $categoryValue');
-                        arWithCreditBalanceController.filteredCreditors.clear();
-                        arWithCreditBalanceController.showCategory.value =
-                            categoryValue;
-                        arWithCreditBalanceController.filterByCategory();
-                      } else {
-                        print('Invalid category');
-                      }
-                    },
-                    selectValue:
-                        arWithCreditBalanceController.showCategory.value,
-                    hintName: 'show',
+                    selectValue: arWithCreditBalanceController.showCategory.value, // Match the exact value from the list
+                    hintName: 'Select Category',
                     width: MediaQuery.of(context).size.width * 0.35,
                     height: 40,
-                    selectPriceInstallment:
-                        arWithCreditBalanceController.showCategoryList,
-                    controller:
-                        arWithCreditBalanceController.categoryController,
+                    selectPriceInstallment: arWithCreditBalanceController.showCategoryList, // Ensure these values are ['A', 'B', 'C', etc.]
+                    controller: arWithCreditBalanceController.categoryController,
                     showBorder: '1',
-                  ),
+                    onChanged: (value) {
+                      // Ensure 'value' is non-null and exists in the list
+                      if (value != null && arWithCreditBalanceController.showCategoryList.contains(value)) {
+                        arWithCreditBalanceController.showCategory.value = value; // Ensure this is only 'A', 'B', or 'C'
+                        arWithCreditBalanceController.filterByCategory();
+                      } else {
+                        print('Category not found');
+                      }
+                    },
+                  )
                 ],
               ),
               const SizedBox(

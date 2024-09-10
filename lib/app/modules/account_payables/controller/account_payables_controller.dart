@@ -25,6 +25,7 @@ class AccountPayablesController extends GetxController {
   var filteredCreditors = [].obs;
   RxList<dynamic> creditors=[].obs;
 
+
   List<Items> ItemList = [
     Items(
         Name: "Mohit",
@@ -63,17 +64,19 @@ class AccountPayablesController extends GetxController {
   void onInit() {
     super.onInit();
     accountPayableApi();
-  }
-
-
-  void debitor() {
-    creditorShow.value = !creditorShow.value;
-    print('creditorShow ${creditorShow.value}');
     update();
   }
 
 
+  // void debitor() {
+  //   creditorShow.value = !creditorShow.value;
+  //   print('creditorShow ${creditorShow.value}');
+  //   update();
+  // }
+
+
   Future<void> calendarOpen(BuildContext context) async {
+    showCategory.value = 'Category A';
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: selectedDate.value,
@@ -83,18 +86,18 @@ class AccountPayablesController extends GetxController {
     if (picked != null) {
       selectedDate.value = picked;
       String formattedDate = DateFormat('yyy-MM-dd').format(selectedDate.value);
-
       print('formattedDate: $formattedDate');
-
       dateController.text= formattedDate;
       print('selectedDate.value: ${dateController.text.toString()}');
+      showCategory.value = 'Category A';
       filterbyCustomeDateApi();
     }
   }
 
+
   String getImageForCategory(String category) {
     print('getImageForCategory: ${category}');
-    switch (category.toLowerCase()) {
+    switch (category) {
       case 'A':
         return ProjectImages.a_category;
       case 'B':
@@ -104,7 +107,9 @@ class AccountPayablesController extends GetxController {
       default:
         return ProjectImages.a_category;
     }
+
   }
+
 
   void filterByCategory() {
     print('filterByCategory: $showCategory');
@@ -129,6 +134,7 @@ class AccountPayablesController extends GetxController {
     if (filteredCreditors.isEmpty) {
       print("Data Not Found");
     }
+    showCategory.value = 'Category A';
   }
 
   Future<dynamic> accountPayableApi() async {
@@ -247,6 +253,7 @@ class AccountPayablesController extends GetxController {
     }
   }
 
+
   Future<dynamic> filterbyCustomeDateApi() async {
 
     print('-------filterbyCustomeDateApi--------');
@@ -294,8 +301,9 @@ class AccountPayablesController extends GetxController {
         totalDebitBalance.value = totalAmount.toInt();
         print('totalDebitBalance: ${totalDebitBalance.value}');
         creditors.value = responseData['Creditors']; // Assuming the API response structure
+        showCategory.value = 'Category A';
         filterByCategory();
-        update();
+        // update();
 
         print('creditors: $creditors');
 

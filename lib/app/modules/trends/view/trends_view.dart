@@ -62,89 +62,94 @@ class TrendsView extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 15,),
-              ListView.builder(
-                  itemCount: 4,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  padding: EdgeInsets.zero,
-                  itemBuilder: (context,index){
-                return Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                'Name: ',
-                                style: TextStyle(
-                                  color: AppColor.primaryColor,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16,
-                                  fontFamily: 'Urbanist',
-                                ),
-                              ),
-                              Text(
-                                'Mohit',
-                                style: TextStyle(
-                                  color: AppColor.blackColor,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16,
-                                  fontFamily: 'Urbanist',
-                                ),
-                              ),
-                            ],
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Get.toNamed(Routes.CASHFLOWSTATEMENT);
-                            },
-                            child: Text(
-                              'View',
-                              style: TextStyle(
-                                color: AppColor.primaryColor,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16,
-                                fontFamily: 'Urbanist',
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Trends: ',
-                            style: TextStyle(
-                              color: AppColor.primaryColor,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                              fontFamily: 'Urbanist',
-                            ),
-                          ),
-                          Text(
-                            'One month ago',
-                            style: TextStyle(
-                              color: AppColor.blackColor,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                              fontFamily: 'Urbanist',
-                              ),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  );
-                }),
+              Obx(() {
+                 if (trendsController.nameList.isEmpty) {
+                  return const Center(child: Text('No data available')); // Graceful handling for no data
+                }
+                 return ListView.builder(
+                     itemCount:  trendsController.nameList.length,
+                     shrinkWrap: true,
+                     physics: const NeverScrollableScrollPhysics(),
+                     padding: EdgeInsets.zero,
+                     itemBuilder: (context,index){
+                       return Container(
+                         margin: const EdgeInsets.only(top: 10),
+                         padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+                         decoration: BoxDecoration(
+                             color: Colors.white,
+                             borderRadius: BorderRadius.circular(10)),
+                         child: Column(
+                           crossAxisAlignment: CrossAxisAlignment.start,
+                           children: [
+                             Row(
+                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                               children: [
+                                 Row(
+                                   children: [
+                                     Text(
+                                       'Name: ',
+                                       style: TextStyle(
+                                         color: AppColor.primaryColor,
+                                         fontWeight: FontWeight.w500,
+                                         fontSize: 16,
+                                         fontFamily: 'Urbanist',
+                                       ),
+                                     ),
+                                     Text(
+                                       trendsController.nameList[index],
+                                       style: TextStyle(
+                                         color: AppColor.blackColor,
+                                         fontWeight: FontWeight.w500,
+                                         fontSize: 16,
+                                         fontFamily: 'Urbanist',
+                                       ),
+                                     ),
+                                   ],
+                                 ),
+                                 TextButton(
+                                   onPressed: () {
+                                     Get.toNamed(Routes.CASHFLOWSTATEMENT);
+                                   },
+                                   child: Text(
+                                     'View',
+                                     style: TextStyle(
+                                       color: AppColor.primaryColor,
+                                       fontWeight: FontWeight.w500,
+                                       fontSize: 16,
+                                       fontFamily: 'Urbanist',
+                                     ),
+                                   ),
+                                 )
+                               ],
+                             ),
+                             Row(
+                               crossAxisAlignment: CrossAxisAlignment.start,
+                               children: [
+                                 Text(
+                                   'Trends: ',
+                                   style: TextStyle(
+                                     color: AppColor.primaryColor,
+                                     fontWeight: FontWeight.w500,
+                                     fontSize: 16,
+                                     fontFamily: 'Urbanist',
+                                   ),
+                                 ),
+                                 Text(
+                                   'One month ago',
+                                   style: TextStyle(
+                                     color: AppColor.blackColor,
+                                     fontWeight: FontWeight.w500,
+                                     fontSize: 16,
+                                     fontFamily: 'Urbanist',
+                                   ),
+                                 )
+                               ],
+                             ),
+                           ],
+                         ),
+                       );
+                     });
+              }),
               ],
             ),
           ),

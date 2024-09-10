@@ -17,12 +17,12 @@ class ArWithCreditBalanceController extends GetxController {
 
   TextEditingController daysController = TextEditingController();
   TextEditingController categoryController = TextEditingController();
-
+  RxInt totalDebitBalance =0.obs;
   final selectedDate = DateTime.now().obs;
   TextEditingController dateController = TextEditingController();
-  RxString showCategory = 'Cateogory A'.obs;
+  RxString showCategory = 'Category A'.obs;
   RxList<String> showCategoryList =
-      ['Cateogory A', 'Cateogory B', 'Cateogory C'].obs;
+      ['Category A', 'Category B', 'Category C'].obs;
 
   RxString showday = 'Above 30 days'.obs;
   RxList<String> dayList =
@@ -76,9 +76,69 @@ class ArWithCreditBalanceController extends GetxController {
   }
 
 
+  // String getImageForCategory(String category) {
+  //   print('getImageForCategory: ${category}');
+  //   switch (category) {
+  //     case 'A':
+  //       return ProjectImages.a_category;
+  //     case 'B':
+  //       return ProjectImages.b_category;
+  //     case 'C':
+  //       return ProjectImages.c_category;
+  //     default:
+  //       return ProjectImages.a_category;
+  //   }
+  // }
+  //
+  // void filterByCategory() {
+  //
+  //   print('filterByCategory');
+  //
+  //   List<String> splitParts = showCategory.value.split(' ');
+  //
+  //   // Check if the splitParts has at least two elements to avoid index out of range error
+  //   if (splitParts.length >= 2) {
+  //     String categoryValue = splitParts[1];
+  //     print('categoryValue: $categoryValue');
+  //     showCategory.value=categoryValue;
+  //   } else {
+  //     print('Invalid Category');
+  //   }
+  //
+  //   if (showCategory.value.isEmpty) {
+  //     filteredCreditors.value = debtors;
+  //   } else {
+  //     filteredCreditors.value = debtors.where((creditor) =>
+  //     creditor['category']['category'] == showCategory.value).toList();
+  //   }
+  //   if (filteredCreditors.isEmpty) {
+  //     print("Data Not Found");
+  //   }
+  //   showCategory.value = 'Category A';
+  // }
+
+  // Future<void> calendarOpen(BuildContext context) async {
+  //   final DateTime? picked = await showDatePicker(
+  //     context: context,
+  //     initialDate: selectedDate.value,
+  //     firstDate: DateTime(2000),
+  //     lastDate: DateTime(2050),
+  //   );
+  //   if (picked != null) {
+  //     selectedDate.value = picked;
+  //     String formattedDate = DateFormat('yyy-MM-dd').format(selectedDate.value);
+  //     print('formattedDate: $formattedDate');
+  //     dateController.text= formattedDate;
+  //     print('selectedDate.value: ${dateController.text}');
+  //     showCategory.value = 'Category A';
+  //     filterbyCustomeDateApi();
+  //   }
+  // }
+
+
   String getImageForCategory(String category) {
     print('getImageForCategory: ${category}');
-    switch (category.toLowerCase()) {
+    switch (category) {
       case 'A':
         return ProjectImages.a_category;
       case 'B':
@@ -88,12 +148,12 @@ class ArWithCreditBalanceController extends GetxController {
       default:
         return ProjectImages.a_category;
     }
+
   }
 
+
   void filterByCategory() {
-
-    print('filterByCategory');
-
+    print('filterByCategory: $showCategory');
     List<String> splitParts = showCategory.value.split(' ');
 
     // Check if the splitParts has at least two elements to avoid index out of range error
@@ -111,12 +171,15 @@ class ArWithCreditBalanceController extends GetxController {
       filteredCreditors.value = debtors.where((creditor) =>
       creditor['category']['category'] == showCategory.value).toList();
     }
+
     if (filteredCreditors.isEmpty) {
       print("Data Not Found");
     }
+    showCategory.value = 'Category A';
   }
 
   Future<void> calendarOpen(BuildContext context) async {
+
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: selectedDate.value,
@@ -128,7 +191,8 @@ class ArWithCreditBalanceController extends GetxController {
       String formattedDate = DateFormat('yyy-MM-dd').format(selectedDate.value);
       print('formattedDate: $formattedDate');
       dateController.text= formattedDate;
-      print('selectedDate.value: ${dateController.text}');
+      print('selectedDate.value: ${dateController.text.toString()}');
+      showCategory.value = 'Category A';
       filterbyCustomeDateApi();
     }
   }
@@ -220,9 +284,7 @@ class ArWithCreditBalanceController extends GetxController {
 
         // print('creditors: ${creditors}');
         print('debtors: ${debtors}');
-
         showCategory.value = 'Category A';
-
         filterByCategory();
 
         double totalAmount = 0.0;
@@ -249,6 +311,62 @@ class ArWithCreditBalanceController extends GetxController {
     }
   }
 
+  // Future<dynamic> filterbyCustomeDateApi() async {
+  //
+  //   print('-------filterbyCustomeDateApi--------');
+  //
+  //   final storage = GetStorage();
+  //
+  //   String? token = storage.read('accessToken');
+  //   String? userId = storage.read('USER_ID');
+  //
+  //   print('${Api.filter_by_custome_date}${userId}/${dateController.text}');
+  //
+  //   try {
+  //     var response = await http.get(Uri.parse('${Api.filter_by_custome_date}${userId}/${dateController.text}'),
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Authorization': 'Bearer $token',
+  //       },
+  //     );
+  //
+  //
+  //     print('response statusCode: ${response.statusCode}');
+  //
+  //     if (response.statusCode == 200 || response.statusCode == 201) {
+  //       var responseData = json.decode(response.body);
+  //       double totalAmount = 0.0;
+  //       // final List<dynamic> creditors = responseData['Creditors'] ?? [];
+  //       debtors.value = responseData['Debtors'] ?? [];
+  //
+  //       for (var creditor in debtors) {
+  //         // Convert total_balance to a double, handling possible formatting issues
+  //         double balance = double.tryParse(creditor['total_balance'].replaceAll(',', '')) ?? 0.0;
+  //         totalAmount += balance;
+  //       }
+  //
+  //       totalCreditBalance.value = totalAmount.toInt();
+  //       print('totalCreditBalance: ${totalCreditBalance.value}');
+  //       debtors.value = responseData['creditor']; // Assuming the API response structure
+  //       showCategory.value = 'Category A';
+  //       filterByCategory();
+  //       // update();
+  //
+  //       print('debtors: ${debtors}');
+  //       print('Response Data: ${responseData}');
+  //
+  //
+  //
+  //       return responseData;
+  //     } else {
+  //       print('Failed with status: ${response.statusCode}');
+  //       return response.statusCode;
+  //     }
+  //   } catch (e) {
+  //     print('Error: ${e}');
+  //     return e;
+  //   }
+  // }
   Future<dynamic> filterbyCustomeDateApi() async {
 
     print('-------filterbyCustomeDateApi--------');
@@ -266,6 +384,7 @@ class ArWithCreditBalanceController extends GetxController {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $token',
         },
+        // body: encodedBody,
       );
 
 
@@ -275,14 +394,31 @@ class ArWithCreditBalanceController extends GetxController {
         var responseData = json.decode(response.body);
 
         // final List<dynamic> creditors = responseData['Creditors'] ?? [];
-        final List<dynamic> debtors = responseData['Debtors'] ?? [];
+        // final List<dynamic> debtors = responseData['Debtors'] ?? [];
         // filterByCategory();
-        update();
+        ///
+        debtors.value = responseData['Debtors'] ?? [];
+        // final List<dynamic> debtors = responseData['debtor'] ?? [];
 
-        print('debtors: ${debtors}');
-        print('Response Data: ${responseData}');
+        print('Debtors: ${debtors}');
+        // print('debtors: ${debtors}');
+        double totalAmount = 0.0;
 
+        // Iterate through the list and sum up all the total_balance amounts
+        for (var creditor in debtors) {
+          // Convert total_balance to a double, handling possible formatting issues
+          double balance = double.tryParse(creditor['total_balance'].replaceAll(',', '')) ?? 0.0;
+          totalAmount += balance;
+        }
+        // print('Total Amount: ${totalAmount}');
+        totalDebitBalance.value = totalAmount.toInt();
+        print('totalDebitBalance: ${totalDebitBalance.value}');
+        debtors.value = responseData['Debtors']; // Assuming the API response structure
+        showCategory.value = 'Category A';
+        filterByCategory();
+        // update();
 
+        print('debtors: $debtors');
 
         return responseData;
       } else {
@@ -294,7 +430,6 @@ class ArWithCreditBalanceController extends GetxController {
       return e;
     }
   }
-
 
 }
 

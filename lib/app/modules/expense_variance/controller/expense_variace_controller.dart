@@ -17,9 +17,9 @@ class ExpenseVarianceController extends GetxController{
   RxList<String> dayList =
       ['Above 30 days', 'Above 60 days', 'Above 90 days', 'Above 120 days'].obs;
 
-  RxString creditors_amount=''.obs;
-  RxString debtors_amount=''.obs;
-  RxString total_amount=''.obs;
+  RxString budgetExpenses=''.obs;
+  RxString actualExpenses=''.obs;
+  RxString varianceExpenses=''.obs;
   RxList cashIn=[].obs;
   final List<double> cashOut=[];
 
@@ -36,7 +36,7 @@ class ExpenseVarianceController extends GetxController{
 
   void onInit() {
     super.onInit();
-    expenseVarianceApi('2024-09-09','2024-09-10');
+    expenseVarianceApi('2024-06-05','2024-06-10');
   }
 
   Future<void> pickDateRange(BuildContext context) async {
@@ -61,6 +61,9 @@ class ExpenseVarianceController extends GetxController{
     dateRangeController.text = startDate + " to " + endDate;
 
     print('dateRangeController: ${dateRangeController.text.toString()}');
+    cashInPercentages.clear();
+    cashIn.clear();
+    cashOut.clear();
     expenseVarianceApi(startDate,endDate);
   }
 
@@ -114,10 +117,6 @@ class ExpenseVarianceController extends GetxController{
     String? token = storage.read('accessToken');
     String? userId = storage.read('USER_ID');
 
-    // Map<String, dynamic> requestBody = {
-    //   'id': userId,
-    // };
-    // String encodedBody = json.encode(requestBody);
 
     print('url:${Api.expense}$userId/$startDate/$endDate/');
 
@@ -136,10 +135,11 @@ class ExpenseVarianceController extends GetxController{
       if (response.statusCode == 200 || response.statusCode == 201) {
 
         var responseData = json.decode(response.body);
+          print('ResponseData: ${responseData}');
 
-        creditors_amount.value=responseData['creditors_amount'].toString();
-        debtors_amount.value=responseData['debtors_amount'].toString();
-        total_amount.value=responseData['total_amount'].toString();
+        budgetExpenses.value=responseData['budget'].toString();
+        actualExpenses.value=responseData['actual'].toString();
+        varianceExpenses.value=responseData['variance'].toString();
 
         String jsonString = '''
     {
@@ -569,7 +569,7 @@ class ExpenseVarianceController extends GetxController{
         final maxCashInValue = cashIn.reduce((a, b) => a > b ? a : b);
         cashInPercentages.value = cashIn.map((value) => (value / maxCashInValue) * 100).toList();
         update();
-        // print('ResponseData: ${responseData}');
+
         return responseData;
       } else {
         print('Failed with status: ${response.statusCode}');
