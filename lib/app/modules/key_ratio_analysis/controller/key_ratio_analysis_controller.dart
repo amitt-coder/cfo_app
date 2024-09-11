@@ -45,6 +45,9 @@ class KeyRatioAnalsisController extends GetxController{
       case 'Strong':
       case '1.5':
       case '1.2':
+      case '1.8':
+      case '0.9':
+      case '0.8':
         return Colors.green;
       case 'Efficient':
       case 'Optimal':
@@ -62,6 +65,7 @@ class KeyRatioAnalsisController extends GetxController{
   @override
   void onInit() {
     _startMovingDivider();
+    keyRatioApi("2024-05-05","2024-05-20");
     super.onInit();
   }
 
@@ -102,7 +106,7 @@ class KeyRatioAnalsisController extends GetxController{
 
     dateRangeController.text = "$startDate to $endDate";
 
-    print('dateRangeController: ${dateRangeController.text.toString()}');
+    // print('dateRangeController: ${dateRangeController.text.toString()}');
     keyRatioApi(startDate,endDate);
 
   }

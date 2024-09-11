@@ -295,220 +295,134 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                     const SizedBox(
                       height: 15,
                     ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 10),
-                      decoration: BoxDecoration(
-                          color: const Color(0xFFE3F2FD),
-                          borderRadius: BorderRadius.circular(5)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            width: 70,
-                            child: Text(
-                              'Name',
+                    Obx((){
+                      if(keyRatioAnalsisController.ratios.isEmpty){
+                        return Center(child: Text(''));
+                      }
+                      return Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 10),
+                        decoration: BoxDecoration(
+                            color: const Color(0xFFE3F2FD),
+                            borderRadius: BorderRadius.circular(5)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              width: 70,
+                              child: Text(
+                                'Name',
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Urbanist',
+                                    color: AppColor.blackColor),
+                              ),
+                            ),
+                            Text(
+                              '      Value',
                               style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                   fontFamily: 'Urbanist',
                                   color: AppColor.blackColor),
                             ),
-                          ),
-                          Text(
-                            '      Value',
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: 'Urbanist',
-                                color: AppColor.blackColor),
-                          ),
-                          Text(
-                            'Benchmark',
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: 'Urbanist',
-                                color: AppColor.blackColor),
-                          ),
-                          // Container(
-                          //   width: 60,
-                          //   child: Text(
-                          //     'Interpretation',
-                          //     style: TextStyle(
-                          //         fontSize: 14,
-                          //         fontWeight: FontWeight.w600,
-                          //         fontFamily: 'Urbanist',
-                          //         color: AppColor.blackColor),
-                          //         overflow: TextOverflow.ellipsis,
-                          //   ),
-                          // ),
-                        ],
-                      ),
-                    ),
+                            Text(
+                              'Benchmark',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: 'Urbanist',
+                                  color: AppColor.blackColor),
+                            ),
+                            // Container(
+                            //   width: 60,
+                            //   child: Text(
+                            //     'Interpretation',
+                            //     style: TextStyle(
+                            //         fontSize: 14,
+                            //         fontWeight: FontWeight.w600,
+                            //         fontFamily: 'Urbanist',
+                            //         color: AppColor.blackColor),
+                            //         overflow: TextOverflow.ellipsis,
+                            //   ),
+                            // ),
+                          ],
+                        ),
+                      );
+                    }),
 
-                    ListView.builder(
-                        itemCount: int.parse(keyRatioAnalsisController
-                            .keyRatios.length
-                            .toString()),
-                        shrinkWrap: true,
-                        padding: EdgeInsets.zero,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            decoration: const BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.only(
-                                    bottomRight: Radius.circular(5),
-                                    bottomLeft: Radius.circular(5))),
-                            child: Column(
-                              children: [
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      width: 70,
-                                      child: Text(
-                                        // 'Current',
-                                        keyRatioAnalsisController
-                                            .keyRatios[index].name
-                                            .toString(),
+                    Obx((){
+                      if(keyRatioAnalsisController.ratios.isEmpty){
+                        return Center(child: Text('No data available'));
+                      }
+                      return ListView.builder(
+                          itemCount: keyRatioAnalsisController.ratios.length,
+                          shrinkWrap: true,
+                          padding: EdgeInsets.zero,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            final item = keyRatioAnalsisController.ratios[index];
+                            return Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                      bottomRight: Radius.circular(5),
+                                      bottomLeft: Radius.circular(5))),
+                              child: Column(
+                                children: [
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        width: 70,
+                                        child: Text(
+                                          item['name'],
+                                          style: TextStyle(
+                                              color: AppColor.blackColor,
+                                              fontFamily: 'Urbanist',
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 15),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                      Text(
+                                        // '1.5',
+                                        item['value'].toStringAsFixed(1),
+                                        style: TextStyle(
+                                          // color: AppColor.blackColor,
+                                            color: keyRatioAnalsisController
+                                                .getColorForInterpretation(
+                                                item['value'].toStringAsFixed(1)),
+                                            fontFamily: 'Urbanist',
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 15),
+                                      ),
+                                      Text(
+                                        // '1.0-2.0,
+                                        '${item['minimum']}-${item['maximum']}',
                                         style: TextStyle(
                                             color: AppColor.blackColor,
                                             fontFamily: 'Urbanist',
                                             fontWeight: FontWeight.w500,
                                             fontSize: 15),
-                                        overflow: TextOverflow.ellipsis,
                                       ),
-                                    ),
-                                    Text(
-                                      // '1.5',
-                                      keyRatioAnalsisController
-                                          .keyRatios[index].value
-                                          .toString(),
-                                      style: TextStyle(
-                                          // color: AppColor.blackColor,
-                                          color: keyRatioAnalsisController
-                                              .getColorForInterpretation(
-                                                  keyRatioAnalsisController
-                                                      .keyRatios[index].value),
-                                          fontFamily: 'Urbanist',
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 15),
-                                    ),
-                                    Text(
-                                      // '1.0-2.0',
-                                      keyRatioAnalsisController
-                                          .keyRatios[index].benchmark
-                                          .toString(),
-                                      style: TextStyle(
-                                          color: AppColor.blackColor,
-                                          fontFamily: 'Urbanist',
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 15),
-                                    ),
-                                    // Text(
-                                    //   // 'Healthy',
-                                    //   keyRatioAnalsisController
-                                    //       .keyRatios[index].interpretation
-                                    //       .toString(),
-                                    //   style: TextStyle(
-                                    //       color: keyRatioAnalsisController
-                                    //           .getColorForInterpretation(
-                                    //               keyRatioAnalsisController
-                                    //                   .keyRatios[index]
-                                    //                   .interpretation),
-                                    //       fontFamily: 'Urbanist',
-                                    //       fontWeight: FontWeight.w500,
-                                    //       fontSize: 15),
-                                    // ),
-                                  ],
-                                ),
-                                Divider(
-                                  color: AppColor.txtSecondaryColor,
-                                  thickness: 1,
-                                ),
-                              ],
-                            ),
-                          );
-                        }),
-
-                    // Obx((){
-                    //   if(keyRatioAnalsisController.ratios.isEmpty){
-                    //     return Center(child: Text('No data available'));
-                    //   }
-                    //   return ListView.builder(
-                    //       itemCount: keyRatioAnalsisController.ratios.length,
-                    //       shrinkWrap: true,
-                    //       padding: EdgeInsets.zero,
-                    //       physics: const NeverScrollableScrollPhysics(),
-                    //       itemBuilder: (context, index) {
-                    //         final item = keyRatioAnalsisController.ratios[index];
-                    //         return Container(
-                    //           padding: const EdgeInsets.symmetric(horizontal: 10),
-                    //           decoration: const BoxDecoration(
-                    //               color: Colors.white,
-                    //               borderRadius: BorderRadius.only(
-                    //                   bottomRight: Radius.circular(5),
-                    //                   bottomLeft: Radius.circular(5))),
-                    //           child: Column(
-                    //             children: [
-                    //               const SizedBox(
-                    //                 height: 5,
-                    //               ),
-                    //               Row(
-                    //                 mainAxisAlignment:
-                    //                 MainAxisAlignment.spaceBetween,
-                    //                 children: [
-                    //                   Container(
-                    //                     width: 70,
-                    //                     child: Text(
-                    //                       item['name'],
-                    //                       style: TextStyle(
-                    //                           color: AppColor.blackColor,
-                    //                           fontFamily: 'Urbanist',
-                    //                           fontWeight: FontWeight.w500,
-                    //                           fontSize: 15),
-                    //                       overflow: TextOverflow.ellipsis,
-                    //                     ),
-                    //                   ),
-                    //                   Text(
-                    //                     // '1.5',
-                    //                     item['value'].toStringAsFixed(1),
-                    //                     style: TextStyle(
-                    //                       // color: AppColor.blackColor,
-                    //                         color: keyRatioAnalsisController
-                    //                             .getColorForInterpretation(
-                    //                             item['value'].toStringAsFixed(1)),
-                    //                         fontFamily: 'Urbanist',
-                    //                         fontWeight: FontWeight.w500,
-                    //                         fontSize: 15),
-                    //                   ),
-                    //                   Text(
-                    //                     // '1.0-2.0,
-                    //                     '${item['minimum']}-${item['maximum']}',
-                    //                     style: TextStyle(
-                    //                         color: AppColor.blackColor,
-                    //                         fontFamily: 'Urbanist',
-                    //                         fontWeight: FontWeight.w500,
-                    //                         fontSize: 15),
-                    //                   ),
-                    //                 ],
-                    //               ),
-                    //               Divider(
-                    //                 color: AppColor.txtSecondaryColor,
-                    //                 thickness: 1,
-                    //               ),
-                    //             ],
-                    //           ),
-                    //         );
-                    //       });
-                    // }),
+                                    ],
+                                  ),
+                                  Divider(
+                                    color: AppColor.txtSecondaryColor,
+                                    thickness: 1,
+                                  ),
+                                ],
+                              ),
+                            );
+                          });
+                    }),
 
                     const SizedBox(
                       height: 15,
