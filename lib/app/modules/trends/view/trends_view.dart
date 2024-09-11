@@ -9,7 +9,9 @@ import '../controller/trends_controller.dart';
 
 class TrendsView extends StatelessWidget {
    TrendsView({super.key});
-  TrendsController trendsController = Get.put(TrendsController());
+
+  final trendsController = Get.put(TrendsController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +38,7 @@ class TrendsView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -157,3 +160,4 @@ class TrendsView extends StatelessWidget {
       );
     }
 }
+

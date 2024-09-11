@@ -37,7 +37,7 @@ class RevenueVarianceController extends GetxController{
 
   void onInit() {
     super.onInit();
-    revenueVarianceApi('2024-06-05','2024-06-10');
+    revenueVarianceApi('2024-05-05','2024-05-10');
     update();
   }
 

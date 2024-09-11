@@ -199,7 +199,8 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                   maxSpeed: 100,
                                   speed: speed,
                                   speedTextStyle: const TextStyle(
-                                      color: Colors.transparent), // Speed text inside gauge
+                                      color: Colors
+                                          .transparent), // Speed text inside gauge
                                   minMaxTextStyle: const TextStyle(
                                       color: Colors.transparent),
                                   animate: false,
@@ -231,7 +232,8 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                           child: SvgPicture.asset(
                                             height: 58,
                                             width: 58,
-                                            ProjectImages.circle, // Replace with your gauge circle image path
+                                            ProjectImages
+                                                .circle, // Replace with your gauge circle image path
                                           ),
                                         ),
                                       ),
@@ -344,8 +346,11 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                         ],
                       ),
                     ),
+
                     ListView.builder(
-                        itemCount: int.parse(keyRatioAnalsisController.keyRatios.length.toString()),
+                        itemCount: int.parse(keyRatioAnalsisController
+                            .keyRatios.length
+                            .toString()),
                         shrinkWrap: true,
                         padding: EdgeInsets.zero,
                         physics: const NeverScrollableScrollPhysics(),
@@ -432,9 +437,83 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                             ),
                           );
                         }),
+
+                    // Obx((){
+                    //   if(keyRatioAnalsisController.ratios.isEmpty){
+                    //     return Center(child: Text('No data available'));
+                    //   }
+                    //   return ListView.builder(
+                    //       itemCount: keyRatioAnalsisController.ratios.length,
+                    //       shrinkWrap: true,
+                    //       padding: EdgeInsets.zero,
+                    //       physics: const NeverScrollableScrollPhysics(),
+                    //       itemBuilder: (context, index) {
+                    //         final item = keyRatioAnalsisController.ratios[index];
+                    //         return Container(
+                    //           padding: const EdgeInsets.symmetric(horizontal: 10),
+                    //           decoration: const BoxDecoration(
+                    //               color: Colors.white,
+                    //               borderRadius: BorderRadius.only(
+                    //                   bottomRight: Radius.circular(5),
+                    //                   bottomLeft: Radius.circular(5))),
+                    //           child: Column(
+                    //             children: [
+                    //               const SizedBox(
+                    //                 height: 5,
+                    //               ),
+                    //               Row(
+                    //                 mainAxisAlignment:
+                    //                 MainAxisAlignment.spaceBetween,
+                    //                 children: [
+                    //                   Container(
+                    //                     width: 70,
+                    //                     child: Text(
+                    //                       item['name'],
+                    //                       style: TextStyle(
+                    //                           color: AppColor.blackColor,
+                    //                           fontFamily: 'Urbanist',
+                    //                           fontWeight: FontWeight.w500,
+                    //                           fontSize: 15),
+                    //                       overflow: TextOverflow.ellipsis,
+                    //                     ),
+                    //                   ),
+                    //                   Text(
+                    //                     // '1.5',
+                    //                     item['value'].toStringAsFixed(1),
+                    //                     style: TextStyle(
+                    //                       // color: AppColor.blackColor,
+                    //                         color: keyRatioAnalsisController
+                    //                             .getColorForInterpretation(
+                    //                             item['value'].toStringAsFixed(1)),
+                    //                         fontFamily: 'Urbanist',
+                    //                         fontWeight: FontWeight.w500,
+                    //                         fontSize: 15),
+                    //                   ),
+                    //                   Text(
+                    //                     // '1.0-2.0,
+                    //                     '${item['minimum']}-${item['maximum']}',
+                    //                     style: TextStyle(
+                    //                         color: AppColor.blackColor,
+                    //                         fontFamily: 'Urbanist',
+                    //                         fontWeight: FontWeight.w500,
+                    //                         fontSize: 15),
+                    //                   ),
+                    //                 ],
+                    //               ),
+                    //               Divider(
+                    //                 color: AppColor.txtSecondaryColor,
+                    //                 thickness: 1,
+                    //               ),
+                    //             ],
+                    //           ),
+                    //         );
+                    //       });
+                    // }),
+
                     const SizedBox(
                       height: 15,
                     ),
+
                     ///Show/Not Show
                     Text(
                       'Ratio Details',

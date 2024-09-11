@@ -11,8 +11,7 @@ import '../../../data/api.dart';
 class KeyRatioAnalsisController extends GetxController{
 
   // RxDouble _dividerPosition = 10.obs as RxDouble;
-  Timer? _timer;
-  var dividerPosition = 0.0.obs;
+
 
   final List<KeyRatio> keyRatios = [
     KeyRatio(name: 'Current Ratio', value:"1.5", benchmark:'1.0-2.0', interpretation: 'Healthy'),//7Healthy
@@ -33,10 +32,11 @@ class KeyRatioAnalsisController extends GetxController{
   Rxn<DateTimeRange> selectedDateRange = Rxn<DateTimeRange>();
   TextEditingController dateRangeController = TextEditingController();
 
+  Timer? _timer;
+  var dividerPosition = 0.0.obs;
   RxString showday = 'Above 30 days'.obs;
-
   RxList<String> dayList = ['Above 30 days', 'Above 60 days', 'Above 90 days', 'Above 120 days'].obs;
-
+  var ratios = <dynamic>[].obs;
 
   Color getColorForInterpretation(String interpretation) {
     // print('interpretation: ${interpretation}');
@@ -115,11 +115,6 @@ class KeyRatioAnalsisController extends GetxController{
     print('startDate: $startDate');
     print('endDate: $endDate');
 
-    //parameter
-    // name
-    // value
-    // minimum_benchmark
-    // maximum_benchmark
     final storage = GetStorage();
 
     String? token = storage.read('accessToken');
@@ -141,17 +136,32 @@ class KeyRatioAnalsisController extends GetxController{
       );
 
 
-      print('response Status ${response.statusCode}');
+      print('response statusCode: ${response.statusCode}');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
+
         var responseData = json.decode(response.body);
 
-          print('ResponseData: ${responseData}');
+        ratios.value = responseData['data'];
 
+        print('ratios: ${ratios}');
+
+        // String stringValue = "1.2425730440491334";
+        // double value = double.parse(stringValue);
+        // String formattedValue = value.toStringAsFixed(1);
+        // print("value: $formattedValue");
+        // final name = ratios[0]['name'];
+        // final value = ratios[0]['value'];
+        // final minimum = ratios[0]['minimum'];
+        // final maximum = ratios[0]['maximum'];
+        // print('Ratio name: $name');
+        // print('Ratio value: $value');
+        // print('Ratio minimum: $minimum');
+        // print('Ratio maximum: $maximum');
 
         return responseData;
       } else {
-        print('Failed with status: ${response.statusCode}');
+        print('Failed with statusCode: ${response.statusCode}');
         return response.statusCode;
       }
     } catch (e) {
