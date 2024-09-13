@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cfo_app/utils/colors.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -164,7 +166,6 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(5)),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
                             children: [
@@ -176,108 +177,302 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                     fontWeight: FontWeight.w600,
                                     fontFamily: 'Urbanist'),
                               ),
-                              const Text(
-                                'Good',
-                                style: TextStyle(
-                                    color: Colors.green,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: 'Urbanist'),
-                              ),
+                              // Obx(() {
+                              //   // Initialize default values
+                              //   String overallTextLabel = 'Not Good'; // Default value
+                              //   Color overallTextColor = Colors.red; // Default color
+                              //
+                              //   if (keyRatioAnalsisController.ratios.isNotEmpty) {
+                              //     bool isGood = false; // Flag to track if any speed is good
+                              //
+                              //     // Iterate through each item to check its speed
+                              //     for (var item in keyRatioAnalsisController.ratios) {
+                              //       double value = item["value"];
+                              //       double minimum = item["minimum"];
+                              //       double maximum = item["maximum"];
+                              //
+                              //       // Calculate speed as a percentage
+                              //       double speed = ((value - minimum) / (maximum - minimum)) * 100;
+                              //
+                              //       print('Calculated speed: ${speed.toInt()}');
+                              //
+                              //       // Check if the speed is greater than or equal to 50
+                              //       if (speed >= 50) {
+                              //         isGood = true; // At least one item is good
+                              //         break; // Exit loop as we found a good speed
+                              //       }
+                              //     }
+                              //
+                              //     // Set the text and color based on whether any speed was good
+                              //     if (isGood) {
+                              //       overallTextLabel = 'Good';
+                              //       overallTextColor = Colors.green;
+                              //     } else {
+                              //       overallTextLabel = 'Not Good';
+                              //       overallTextColor = Colors.red;
+                              //     }
+                              //   }
+                              //
+                              //   return Text(
+                              //     overallTextLabel,
+                              //     style: TextStyle(
+                              //       color: overallTextColor,
+                              //       fontSize: 15,
+                              //       fontWeight: FontWeight.w600,
+                              //       fontFamily: 'Urbanist',
+                              //     ),
+                              //   );
+                              // })
+
+
+                              // const Text(
+                              //   'Good',
+                              //   style: TextStyle(
+                              //       color: Colors.green,
+                              //       fontSize: 15,
+                              //       fontWeight: FontWeight.w600,
+                              //       fontFamily: 'Urbanist'),
+                              // ),
                             ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SizedBox(
-                              height: 80,
-                              width: 80,
-                              child: Align(
-                                alignment: Alignment.topRight,
-                                child: KdGaugeView(
-                                  inactiveGaugeColor: Colors.red,
-                                  minSpeed: 0,
-                                  maxSpeed: 100,
-                                  speed: speed,
-                                  speedTextStyle: const TextStyle(
-                                      color: Colors
-                                          .transparent), // Speed text inside gauge
-                                  minMaxTextStyle: const TextStyle(
-                                      color: Colors.transparent),
-                                  animate: false,
-                                  gaugeWidth: 5,
-                                  duration: const Duration(seconds: 3),
-                                  unitOfMeasurement: "",
-                                  alertColorArray: [
-                                    AppColor.primaryColor,
-                                    Colors.yellow
-                                  ],
-                                  alertSpeedArray: const [30, 35],
-                                  subDivisionCircleColors: Colors.transparent,
-                                  activeGaugeColor: AppColor.primaryColor,
-                                  divisionCircleColors: Colors.transparent,
-                                  child: Stack(
-                                    children: [
-                                      // Background container for gauge view
-                                      Container(
-                                        height: 100,
-                                        width: 150,
-                                      ),
-                                      // Positioned gauge circle
-                                      Positioned(
-                                        top: 5,
-                                        right: 5,
-                                        child: Transform.scale(
-                                          scaleX: 1,
-                                          scaleY: 1,
-                                          child: SvgPicture.asset(
-                                            height: 58,
-                                            width: 58,
-                                            ProjectImages
-                                                .circle, // Replace with your gauge circle image path
+                          Obx(() => Container(
+                                height: 80,
+                                width:130,
+                                padding: EdgeInsets.zero,
+                                child: ListView.builder(
+                                  itemCount:
+                                      keyRatioAnalsisController.ratios.length,
+                                  padding: EdgeInsets.zero,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    var item =
+                                        keyRatioAnalsisController.ratios[index];
+                                    double value = item["value"];
+                                    double minimum = item["minimum"];
+                                    double maximum = item["maximum"];
+
+                                    // Calculate speed as a percentage
+                                    double speed = ((value - minimum) /
+                                            (maximum - minimum)) *
+                                        100;
+                                    double angle;
+                                    double maxSpeed = 100;
+                                    // Custom angle logic based on speed
+                                    if (speed.toInt() <= 100 &&
+                                        speed.toInt() >= 90) {
+                                      angle =
+                                          (speed.toInt() / maxSpeed) * 1.5 * pi;
+                                    } else if (speed.toInt() == 50) {
+                                      angle = ((speed.toInt() - 1) / maxSpeed) *
+                                          1.5 *
+                                          pi;
+                                    } else if (speed.toInt() == 10) {
+                                      angle =
+                                          (speed.toInt() / maxSpeed) * 1.5 * pi;
+                                    } else if (speed.toInt() == 0) {
+                                      angle =
+                                          ((speed.toInt() - 10) / maxSpeed) * 1.5 * pi;
+                                    } else {
+                                      angle = ((speed.toInt() - 2) / maxSpeed) *
+                                          1.5 *
+                                          pi;
+                                    }
+                                    // Determine text and color based on speed
+                                    String textLabel = speed > 50 ? 'Good' : 'Bad';
+                                    Color textColor = speed > 50 ? Colors.green : Colors.red;
+                                    return Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          textLabel,
+                                          style: TextStyle(
+                                            color: textColor,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w600,
+                                            fontFamily: 'Urbanist',
                                           ),
                                         ),
-                                      ),
-                                      // Positioned pointer
-                                      Positioned(
-                                        top: 25,
-                                        right: 25,
-                                        child: Transform(
-                                          alignment: Alignment.center,
-                                          transform: Matrix4.rotationZ(
-                                              angle), // Rotate pointer
-                                          child: SvgPicture.asset(
-                                            ProjectImages
-                                                .point, // Replace with your pointer image path
-                                            width: 10,
-                                            height: 20,
-                                          ),
-                                        ),
-                                      ),
-                                      // Speed text inside the gauge
-                                      Positioned(
-                                        top:
-                                            55, // Adjust top to position text correctly
-                                        left:
-                                            25, // Adjust left to position text correctly
-                                        child: Center(
-                                          child: Text(
-                                            "${speed.toStringAsFixed(0)}%",
-                                            style: TextStyle(
-                                              color: AppColor.fontColor,
-                                              fontSize: 17,
-                                              letterSpacing: 0.1,
-                                              fontWeight: FontWeight.w400,
-                                              fontFamily: 'Urbanist',
+                                        // SizedBox(width: 10,),
+                                        Container(
+                                          height: 80,width: 80,
+                                          child: Align(
+                                            alignment: Alignment.topRight,
+                                            child: KdGaugeView(
+                                              inactiveGaugeColor: Colors.red,
+                                              minSpeed: 0,
+                                              maxSpeed: 100,
+                                              speed: speed,
+                                              speedTextStyle: const TextStyle(
+                                                  color: Colors.transparent),
+                                              minMaxTextStyle: const TextStyle(
+                                                  color: Colors.transparent),
+                                              animate: false,
+                                              gaugeWidth: 5,
+                                              duration: const Duration(seconds: 3),
+                                              unitOfMeasurement: "",
+                                              alertColorArray: [
+                                                AppColor.primaryColor,
+                                                Colors.yellow,
+                                              ],
+                                              alertSpeedArray: const [30, 35],
+                                              subDivisionCircleColors:
+                                                  Colors.transparent,
+                                              activeGaugeColor:
+                                                  AppColor.primaryColor,
+                                              divisionCircleColors:
+                                                  Colors.transparent,
+                                              child: Stack(
+                                                children: [
+                                                  Container(
+                                                    height: 100,
+                                                    width: 150,
+                                                  ),
+                                                  Positioned(
+                                                    top: 5,
+                                                    right: 5,
+                                                    child: Transform.scale(
+                                                      scaleX: 1,
+                                                      scaleY: 1,
+                                                      child: SvgPicture.asset(
+                                                        height: 58,
+                                                        width: 58,
+                                                        ProjectImages
+                                                            .circle, // Your gauge circle image
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Positioned(
+                                                    top: 25,
+                                                    right: 25,
+                                                    child: Transform(
+                                                      alignment: Alignment.center,
+                                                      transform: Matrix4.rotationZ(angle),
+                                                      child: SvgPicture.asset(
+                                                        ProjectImages.point, // Your pointer image
+                                                        width: 10,
+                                                        height: 20,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Positioned(
+                                                    top: 55,
+                                                    left: 25,
+                                                    child: Center(
+                                                      child: Text(
+                                                        "${speed.toStringAsFixed(0)}%",
+                                                        style: TextStyle(
+                                                          color: AppColor.fontColor,
+                                                          fontSize: 17,
+                                                          letterSpacing: 0.1,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          fontFamily: 'Urbanist',
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
+                                      ],
+                                    );
+                                  },
                                 ),
-                              ),
-                            ),
-                          ),
+                              )),
+
+                          // Padding(
+                          //   padding: const EdgeInsets.all(8.0),
+                          //   child: SizedBox(
+                          //     height: 80,
+                          //     width: 80,
+                          //     child: Align(
+                          //       alignment: Alignment.topRight,
+                          //       child: KdGaugeView(
+                          //         inactiveGaugeColor: Colors.red,
+                          //         minSpeed: 0,
+                          //         maxSpeed: 100,
+                          //         speed: speed,
+                          //         speedTextStyle: const TextStyle(
+                          //             color: Colors
+                          //                 .transparent), // Speed text inside gauge
+                          //         minMaxTextStyle: const TextStyle(
+                          //             color: Colors.transparent),
+                          //         animate: false,
+                          //         gaugeWidth: 5,
+                          //         duration: const Duration(seconds: 3),
+                          //         unitOfMeasurement: "",
+                          //         alertColorArray: [
+                          //           AppColor.primaryColor,
+                          //           Colors.yellow
+                          //         ],
+                          //         alertSpeedArray: const [30, 35],
+                          //         subDivisionCircleColors: Colors.transparent,
+                          //         activeGaugeColor: AppColor.primaryColor,
+                          //         divisionCircleColors: Colors.transparent,
+                          //         child: Stack(
+                          //           children: [
+                          //             // Background container for gauge view
+                          //             Container(
+                          //               height: 100,
+                          //               width: 150,
+                          //             ),
+                          //             // Positioned gauge circle
+                          //             Positioned(
+                          //               top: 5,
+                          //               right: 5,
+                          //               child: Transform.scale(
+                          //                 scaleX: 1,
+                          //                 scaleY: 1,
+                          //                 child: SvgPicture.asset(
+                          //                   height: 58,
+                          //                   width: 58,
+                          //                   ProjectImages.circle, // Replace with your gauge circle image path
+                          //                 ),
+                          //               ),
+                          //             ),
+                          //             // Positioned pointer
+                          //             Positioned(
+                          //               top: 25,
+                          //               right: 25,
+                          //               child: Transform(
+                          //                 alignment: Alignment.center,
+                          //                 transform: Matrix4.rotationZ(
+                          //                     angle), // Rotate pointer
+                          //                 child: SvgPicture.asset(
+                          //                   ProjectImages
+                          //                       .point, // Replace with your pointer image path
+                          //                   width: 10,
+                          //                   height: 20,
+                          //                 ),
+                          //               ),
+                          //             ),
+                          //             // Speed text inside the gauge
+                          //             Positioned(
+                          //               top:
+                          //                   55, // Adjust top to position text correctly
+                          //               left:
+                          //                   25, // Adjust left to position text correctly
+                          //               child: Center(
+                          //                 child: Text(
+                          //                   "${speed.toStringAsFixed(0)}%",
+                          //                   style: TextStyle(
+                          //                     color: AppColor.fontColor,
+                          //                     fontSize: 17,
+                          //                     letterSpacing: 0.1,
+                          //                     fontWeight: FontWeight.w400,
+                          //                     fontFamily: 'Urbanist',
+                          //                   ),
+                          //                 ),
+                          //               ),
+                          //             ),
+                          //           ],
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
@@ -295,8 +490,8 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                     const SizedBox(
                       height: 15,
                     ),
-                    Obx((){
-                      if(keyRatioAnalsisController.ratios.isEmpty){
+                    Obx(() {
+                      if (keyRatioAnalsisController.ratios.isEmpty) {
                         return Center(child: Text(''));
                       }
                       return Container(
@@ -352,8 +547,8 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                       );
                     }),
 
-                    Obx((){
-                      if(keyRatioAnalsisController.ratios.isEmpty){
+                    Obx(() {
+                      if (keyRatioAnalsisController.ratios.isEmpty) {
                         return Center(child: Text('No data available'));
                       }
                       return ListView.builder(
@@ -362,9 +557,11 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                           padding: EdgeInsets.zero,
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
-                            final item = keyRatioAnalsisController.ratios[index];
+                            final item =
+                                keyRatioAnalsisController.ratios[index];
                             return Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
                               decoration: const BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.only(
@@ -377,7 +574,7 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                   ),
                                   Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
                                         width: 70,
@@ -392,17 +589,37 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                         ),
                                       ),
                                       Text(
-                                        // '1.5',
-                                        item['value'].toStringAsFixed(1),
+                                        // If the item['value'] is a double, no need for toStringAsFixed
+                                        item['value'] is double
+                                            ? item['value'].toStringAsFixed(1)
+                                            : double.parse(item['value'])
+                                                .toStringAsFixed(1),
                                         style: TextStyle(
-                                          // color: AppColor.blackColor,
-                                            color: keyRatioAnalsisController
-                                                .getColorForInterpretation(
-                                                item['value'].toStringAsFixed(1)),
-                                            fontFamily: 'Urbanist',
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 15),
+                                          color: item['value'] is double
+                                              ? keyRatioAnalsisController
+                                                  .getColorForInterpretation(
+                                                      item['value'])
+                                              : keyRatioAnalsisController
+                                                  .getColorForInterpretation(
+                                                      double.parse(
+                                                          item['value'])),
+                                          fontFamily: 'Urbanist',
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 15,
+                                        ),
                                       ),
+                                      // Text(
+                                      //   // '1.5',
+                                      //   item['value'].toStringAsFixed(1),
+                                      //   style: TextStyle(
+                                      //       // color: AppColor.blackColor,
+                                      //       color: keyRatioAnalsisController
+                                      //           .getColorForInterpretation(
+                                      //               double.parse(item['value'])),
+                                      //       fontFamily: 'Urbanist',
+                                      //       fontWeight: FontWeight.w500,
+                                      //       fontSize: 15),
+                                      // ),
                                       Text(
                                         // '1.0-2.0,
                                         '${item['minimum']}-${item['maximum']}',

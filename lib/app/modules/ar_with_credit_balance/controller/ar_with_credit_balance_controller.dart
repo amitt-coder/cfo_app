@@ -311,62 +311,6 @@ class ArWithCreditBalanceController extends GetxController {
     }
   }
 
-  // Future<dynamic> filterbyCustomeDateApi() async {
-  //
-  //   print('-------filterbyCustomeDateApi--------');
-  //
-  //   final storage = GetStorage();
-  //
-  //   String? token = storage.read('accessToken');
-  //   String? userId = storage.read('USER_ID');
-  //
-  //   print('${Api.filter_by_custome_date}${userId}/${dateController.text}');
-  //
-  //   try {
-  //     var response = await http.get(Uri.parse('${Api.filter_by_custome_date}${userId}/${dateController.text}'),
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Authorization': 'Bearer $token',
-  //       },
-  //     );
-  //
-  //
-  //     print('response statusCode: ${response.statusCode}');
-  //
-  //     if (response.statusCode == 200 || response.statusCode == 201) {
-  //       var responseData = json.decode(response.body);
-  //       double totalAmount = 0.0;
-  //       // final List<dynamic> creditors = responseData['Creditors'] ?? [];
-  //       debtors.value = responseData['Debtors'] ?? [];
-  //
-  //       for (var creditor in debtors) {
-  //         // Convert total_balance to a double, handling possible formatting issues
-  //         double balance = double.tryParse(creditor['total_balance'].replaceAll(',', '')) ?? 0.0;
-  //         totalAmount += balance;
-  //       }
-  //
-  //       totalCreditBalance.value = totalAmount.toInt();
-  //       print('totalCreditBalance: ${totalCreditBalance.value}');
-  //       debtors.value = responseData['creditor']; // Assuming the API response structure
-  //       showCategory.value = 'Category A';
-  //       filterByCategory();
-  //       // update();
-  //
-  //       print('debtors: ${debtors}');
-  //       print('Response Data: ${responseData}');
-  //
-  //
-  //
-  //       return responseData;
-  //     } else {
-  //       print('Failed with status: ${response.statusCode}');
-  //       return response.statusCode;
-  //     }
-  //   } catch (e) {
-  //     print('Error: ${e}');
-  //     return e;
-  //   }
-  // }
   Future<dynamic> filterbyCustomeDateApi() async {
 
     print('-------filterbyCustomeDateApi--------');
@@ -430,6 +374,129 @@ class ArWithCreditBalanceController extends GetxController {
       return e;
     }
   }
+
+
+  Future<dynamic> filter_debtors_discount() async {
+
+    print('-------filter_debtors_discount--------');
+
+    final storage = GetStorage();
+
+    String? token = storage.read('accessToken');
+    String? userId = storage.read('USER_ID');
+
+    print('${Api.filter_debtors_discount}${userId}/${dateController.text}');
+
+    try {
+      var response = await http.get(Uri.parse('${Api.filter_debtors_discount}${userId}/${dateController.text}'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        // body: encodedBody,
+      );
+
+
+      print('response statusCode: ${response.statusCode}');
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var responseData = json.decode(response.body);
+
+        // final List<dynamic> creditors = responseData['Creditors'] ?? [];
+        // final List<dynamic> debtors = responseData['Debtors'] ?? [];
+        // filterByCategory();
+        ///
+        debtors.value = responseData['Debtors'] ?? [];
+        // final List<dynamic> debtors = responseData['debtor'] ?? [];
+
+        print('Debtors: ${debtors}');
+        // print('debtors: ${debtors}');
+        double totalAmount = 0.0;
+
+        // Iterate through the list and sum up all the total_balance amounts
+        for (var creditor in debtors) {
+          // Convert total_balance to a double, handling possible formatting issues
+          double balance = double.tryParse(creditor['total_balance'].replaceAll(',', '')) ?? 0.0;
+          totalAmount += balance;
+        }
+        // print('Total Amount: ${totalAmount}');
+        totalDebitBalance.value = totalAmount.toInt();
+        print('totalDebitBalance: ${totalDebitBalance.value}');
+        debtors.value = responseData['Debtors']; // Assuming the API response structure
+        showCategory.value = 'Category A';
+        filterByCategory();
+        // update();
+
+        print('debtors: $debtors');
+
+        return responseData;
+      } else {
+        print('Failed with status: ${response.statusCode}');
+        return response.statusCode;
+      }
+    } catch (e) {
+      print('Error: ${e}');
+      return e;
+    }
+  }
+
+  // Future<dynamic> filterbyCustomeDateApi() async {
+  //
+  //   print('-------filterbyCustomeDateApi--------');
+  //
+  //   final storage = GetStorage();
+  //
+  //   String? token = storage.read('accessToken');
+  //   String? userId = storage.read('USER_ID');
+  //
+  //   print('${Api.filter_by_custome_date}${userId}/${dateController.text}');
+  //
+  //   try {
+  //     var response = await http.get(Uri.parse('${Api.filter_by_custome_date}${userId}/${dateController.text}'),
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Authorization': 'Bearer $token',
+  //       },
+  //     );
+  //
+  //
+  //     print('response statusCode: ${response.statusCode}');
+  //
+  //     if (response.statusCode == 200 || response.statusCode == 201) {
+  //       var responseData = json.decode(response.body);
+  //       double totalAmount = 0.0;
+  //       // final List<dynamic> creditors = responseData['Creditors'] ?? [];
+  //       debtors.value = responseData['Debtors'] ?? [];
+  //
+  //       for (var creditor in debtors) {
+  //         // Convert total_balance to a double, handling possible formatting issues
+  //         double balance = double.tryParse(creditor['total_balance'].replaceAll(',', '')) ?? 0.0;
+  //         totalAmount += balance;
+  //       }
+  //
+  //       totalCreditBalance.value = totalAmount.toInt();
+  //       print('totalCreditBalance: ${totalCreditBalance.value}');
+  //       debtors.value = responseData['creditor']; // Assuming the API response structure
+  //       showCategory.value = 'Category A';
+  //       filterByCategory();
+  //       // update();
+  //
+  //       print('debtors: ${debtors}');
+  //       print('Response Data: ${responseData}');
+  //
+  //
+  //
+  //       return responseData;
+  //     } else {
+  //       print('Failed with status: ${response.statusCode}');
+  //       return response.statusCode;
+  //     }
+  //   } catch (e) {
+  //     print('Error: ${e}');
+  //     return e;
+  //   }
+  // }
+
 
 }
 

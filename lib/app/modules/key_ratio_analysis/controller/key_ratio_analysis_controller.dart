@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 import 'dart:ui';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
@@ -38,29 +39,52 @@ class KeyRatioAnalsisController extends GetxController{
   RxList<String> dayList = ['Above 30 days', 'Above 60 days', 'Above 90 days', 'Above 120 days'].obs;
   var ratios = <dynamic>[].obs;
 
-  Color getColorForInterpretation(String interpretation) {
-    // print('interpretation: ${interpretation}');
-    switch (interpretation) {
-      case 'Healthy':
-      case 'Strong':
-      case '1.5':
-      case '1.2':
-      case '1.8':
-      case '0.9':
-      case '0.8':
-        return Colors.green;
-      case 'Efficient':
-      case 'Optimal':
-      case '12.0':
-      case '10.0':
-      case '6.0':
-      case '2.5':
-      case '4.0':
-        return Colors.red;
-      default:
-        return Colors.yellow;
+
+
+
+  // Timer to update speed
+
+
+//   Color getColorForInterpretation(String interpretation) {
+//     // print('interpretation: ${interpretation}');
+//     switch (interpretation) {
+//       case 'Healthy':
+//       case 'Strong':
+//       case '1.5':
+//       case '1.2':
+//       case '1.8':
+//       case '0.9':
+//       case '0.8':
+//         return Colors.green;
+//       case 'Efficient':
+//       case 'Optimal':
+//       case '12.0':
+//       case '10.0':
+//       case '6.0':
+//       case '2.5':
+//       case '4.0':
+//         return Colors.red;
+//       default:
+//         return Colors.yellow;
+//     }
+// }
+
+  Color getColorForInterpretation(double value) {
+    if (value >= 1.0 && value <= 2.0) {
+      // Values between 1.0 and 2.0 are considered 'Healthy'
+      return Colors.green;
+    } else if (value > 2.0) {
+      // Values above 2.0 are considered 'Efficient' or 'Optimal'
+      return Colors.green;
+    } else if (value < 1.0) {
+      // Values below 1.0 but greater than 0.1 are considered less than 'Healthy'
+      return Colors.green;
+    } else {
+      // Values below 0.1 are also considered 'Unhealthy'
+      return Colors.red;
     }
-}
+  }
+
 
   @override
   void onInit() {
@@ -74,6 +98,7 @@ class KeyRatioAnalsisController extends GetxController{
     _timer?.cancel();
     super.dispose();
   }
+
 
 
   void _startMovingDivider() {

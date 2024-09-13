@@ -26,6 +26,8 @@ class Api{
         static const String revenue = '$BASE_URL$api/revenue/';
         static const String expense = '$BASE_URL$api/expense/';
         static const String trends = '$BASE_URL$api/trends/';
+        static const String filter_debtors_discount = '$BASE_URL$api/filter_debtors_discount/';
+        static const String filter_creditors_discount = '$BASE_URL$api/filter_creditors_discount/';
 
 
 

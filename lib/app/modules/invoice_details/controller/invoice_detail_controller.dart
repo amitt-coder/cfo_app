@@ -48,7 +48,17 @@ class InvoiceDetailController extends GetxController {
     // print('crBalance ${crBalance.value}');
     // print('payment ${paymentDate.value}');
     print('whichDetail ${whichDetail.value}');
+    invoiceGetApiCalling();
   }
+
+  void invoiceGetApiCalling(){
+    if(whichDetail.value == 'Debtor Details'){
+      filter_debtors_discount();
+    }else{
+      filter_creditors_discount();
+    }
+  }
+
 
   Future<void> calendarOpen(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -481,7 +491,7 @@ class InvoiceDetailController extends GetxController {
 
         for (var creditor in creditors) {
           var outstandingInvoices = creditor['outstanding_invoices'];
-          print('Creditor: ${creditor['name']} - Outstanding Invoices: ${outstandingInvoices}');
+          // print('Creditor: ${creditor['name']} - Outstanding Invoices: ${outstandingInvoices}');
         }
 
         //
@@ -600,6 +610,92 @@ class InvoiceDetailController extends GetxController {
     }
   }
 
+  Future<dynamic> filter_debtors_discount() async {
 
+    print('-------filter_debtors_discount--------');
+
+    final storage = GetStorage();
+
+    String? token = storage.read('accessToken');
+    String? userId = storage.read('USER_ID');
+
+    print('${Api.filter_debtors_discount}${invoiceId.value}/');
+
+    try {
+      var response = await http.get(Uri.parse('${Api.filter_debtors_discount}${invoiceId.value}/'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        // body: encodedBody,
+      );
+
+
+      print('response statusCode: ${response.statusCode}');
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var responseData = json.decode(response.body);
+        print('responseData: $responseData');
+        offerController.text = responseData['Debtors_discount']['offer'];
+        dateController.text = responseData['Debtors_discount']['due_date'];
+        descriptionController.text = responseData['Debtors_discount']['comment'];
+        print('offer: ${offerController.text.toString()}');
+        print('due_date: ${dateController.text.toString()}');
+        print('comment: ${descriptionController.text.toString()}');
+
+        return responseData;
+      } else {
+        print('Failed with status: ${response.statusCode}');
+        return response.statusCode;
+      }
+    } catch (e) {
+      print('Error: ${e}');
+      return e;
+    }
+  }
+
+  Future<dynamic> filter_creditors_discount() async {
+
+    print('-------filter_debtors_discount--------');
+
+    final storage = GetStorage();
+
+    String? token = storage.read('accessToken');
+    String? userId = storage.read('USER_ID');
+
+    print('${Api.filter_creditors_discount}${invoiceId.value}/');
+
+    try {
+      var response = await http.get(Uri.parse('${Api.filter_creditors_discount}${invoiceId.value}/'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        // body: encodedBody,
+      );
+
+
+      print('response statusCode: ${response.statusCode}');
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var responseData = json.decode(response.body);
+        print('responseData: $responseData');
+        offerController.text = responseData['Creditors_discount']['offer'];
+        dateController.text = responseData['Creditors_discount']['due_date'];
+        descriptionController.text = responseData['Creditors_discount']['comment'];
+        print('offer: ${offerController.text.toString()}');
+        print('due_date: ${dateController.text.toString()}');
+        print('comment: ${descriptionController.text.toString()}');
+
+        return responseData;
+      } else {
+        print('Failed with status: ${response.statusCode}');
+        return response.statusCode;
+      }
+    } catch (e) {
+      print('Error: ${e}');
+      return e;
+    }
+  }
 
 }
