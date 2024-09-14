@@ -177,54 +177,6 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                     fontWeight: FontWeight.w600,
                                     fontFamily: 'Urbanist'),
                               ),
-                              // Obx(() {
-                              //   // Initialize default values
-                              //   String overallTextLabel = 'Not Good'; // Default value
-                              //   Color overallTextColor = Colors.red; // Default color
-                              //
-                              //   if (keyRatioAnalsisController.ratios.isNotEmpty) {
-                              //     bool isGood = false; // Flag to track if any speed is good
-                              //
-                              //     // Iterate through each item to check its speed
-                              //     for (var item in keyRatioAnalsisController.ratios) {
-                              //       double value = item["value"];
-                              //       double minimum = item["minimum"];
-                              //       double maximum = item["maximum"];
-                              //
-                              //       // Calculate speed as a percentage
-                              //       double speed = ((value - minimum) / (maximum - minimum)) * 100;
-                              //
-                              //       print('Calculated speed: ${speed.toInt()}');
-                              //
-                              //       // Check if the speed is greater than or equal to 50
-                              //       if (speed >= 50) {
-                              //         isGood = true; // At least one item is good
-                              //         break; // Exit loop as we found a good speed
-                              //       }
-                              //     }
-                              //
-                              //     // Set the text and color based on whether any speed was good
-                              //     if (isGood) {
-                              //       overallTextLabel = 'Good';
-                              //       overallTextColor = Colors.green;
-                              //     } else {
-                              //       overallTextLabel = 'Not Good';
-                              //       overallTextColor = Colors.red;
-                              //     }
-                              //   }
-                              //
-                              //   return Text(
-                              //     overallTextLabel,
-                              //     style: TextStyle(
-                              //       color: overallTextColor,
-                              //       fontSize: 15,
-                              //       fontWeight: FontWeight.w600,
-                              //       fontFamily: 'Urbanist',
-                              //     ),
-                              //   );
-                              // })
-
-
                               // const Text(
                               //   'Good',
                               //   style: TextStyle(
@@ -240,13 +192,11 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                 width:130,
                                 padding: EdgeInsets.zero,
                                 child: ListView.builder(
-                                  itemCount:
-                                      keyRatioAnalsisController.ratios.length,
+                                  itemCount: keyRatioAnalsisController.ratios.length,
                                   padding: EdgeInsets.zero,
-                                  physics: NeverScrollableScrollPhysics(),
+                                  physics:const NeverScrollableScrollPhysics(),
                                   itemBuilder: (context, index) {
-                                    var item =
-                                        keyRatioAnalsisController.ratios[index];
+                                    var item = keyRatioAnalsisController.ratios[index];
                                     double value = item["value"];
                                     double minimum = item["minimum"];
                                     double maximum = item["maximum"];
@@ -315,12 +265,9 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                                 Colors.yellow,
                                               ],
                                               alertSpeedArray: const [30, 35],
-                                              subDivisionCircleColors:
-                                                  Colors.transparent,
-                                              activeGaugeColor:
-                                                  AppColor.primaryColor,
-                                              divisionCircleColors:
-                                                  Colors.transparent,
+                                              subDivisionCircleColors: Colors.transparent,
+                                              activeGaugeColor: AppColor.primaryColor,
+                                              divisionCircleColors: Colors.transparent,
                                               child: Stack(
                                                 children: [
                                                   Container(

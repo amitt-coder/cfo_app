@@ -41,10 +41,6 @@ class KeyRatioAnalsisController extends GetxController{
 
 
 
-
-  // Timer to update speed
-
-
 //   Color getColorForInterpretation(String interpretation) {
 //     // print('interpretation: ${interpretation}');
 //     switch (interpretation) {
