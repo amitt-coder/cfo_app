@@ -1,5 +1,8 @@
 import 'dart:math';
-
+import 'package:record/record.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 import 'package:cfo_app/utils/colors.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -19,9 +22,10 @@ class KeyRatioAnalsisView extends StatefulWidget {
 }
 
 class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
+
   KeyRatioAnalsisController keyRatioAnalsisController =
       Get.put(KeyRatioAnalsisController());
-
+//
   Widget _buildBottomTitle(double value, TitleMeta meta) {
     const style = TextStyle(
       color: Colors.black,
@@ -493,7 +497,6 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                         ),
                       );
                     }),
-
                     Obx(() {
                       if (keyRatioAnalsisController.ratios.isEmpty) {
                         return Center(child: Text('No data available'));
@@ -504,8 +507,7 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                           padding: EdgeInsets.zero,
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
-                            final item =
-                                keyRatioAnalsisController.ratios[index];
+                            final item = keyRatioAnalsisController.ratios[index];
                             return Container(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 10),
@@ -539,17 +541,13 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                         // If the item['value'] is a double, no need for toStringAsFixed
                                         item['value'] is double
                                             ? item['value'].toStringAsFixed(1)
-                                            : double.parse(item['value'])
-                                                .toStringAsFixed(1),
+                                            : double.parse(item['value']).toStringAsFixed(1),
                                         style: TextStyle(
                                           color: item['value'] is double
                                               ? keyRatioAnalsisController
-                                                  .getColorForInterpretation(
-                                                      item['value'])
+                                                  .getColorForInterpretation(item['value'])
                                               : keyRatioAnalsisController
-                                                  .getColorForInterpretation(
-                                                      double.parse(
-                                                          item['value'])),
+                                                  .getColorForInterpretation(double.parse(item['value'])),
                                           fontFamily: 'Urbanist',
                                           fontWeight: FontWeight.w500,
                                           fontSize: 15,
@@ -601,6 +599,14 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                           fontWeight: FontWeight.w500,
                           fontSize: 16),
                     ),
+                    // ElevatedButton(
+                    //   onPressed: startRecording,
+                    //   child: Text('Start Recording'),
+                    // ),
+                    // ElevatedButton(
+                    //   onPressed: stopRecording,
+                    //   child: Text('Stop Recording'),
+                    // ),
                     const SizedBox(
                       height: 5,
                     ),
@@ -716,8 +722,7 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                   extraLinesOnTop: true,
                                   verticalLines: [
                                     VerticalLine(
-                                      x: keyRatioAnalsisController
-                                          .dividerPosition.value,
+                                      x: keyRatioAnalsisController.dividerPosition.value,
                                       color: Colors.green,
                                       strokeWidth: 2,
                                       dashArray: [4, 2],
@@ -725,9 +730,10 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                         show: true,
                                         alignment: Alignment.topRight,
                                         style: const TextStyle(
-                                            color: Colors.green,
-                                            fontSize: 12,
-                                            fontFamily: 'Urbanist'),
+                                          color: Colors.green,
+                                          fontSize: 12,
+                                          fontFamily: 'Urbanist',
+                                        ),
                                         labelResolver: (line) {
                                           return '${keyRatioAnalsisController.dividerPosition.value.toStringAsFixed(1)}';
                                         },
@@ -741,8 +747,7 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                   bottomTitles: AxisTitles(
                                     sideTitles: SideTitles(
                                       showTitles: true,
-                                      interval:
-                                          5, // This ensures that the interval between titles is correct
+                                      interval: 5,
                                       getTitlesWidget: _buildBottomTitle,
                                     ),
                                   ),
@@ -758,13 +763,9 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                 ),
                                 lineBarsData: [
                                   LineChartBarData(
-                                    spots: [
-                                      const FlSpot(10, 3),
-                                      const FlSpot(15, 5),
-                                      const FlSpot(20, 3.5),
-                                      const FlSpot(25, 4),
-                                      const FlSpot(30, 3),
-                                    ],
+                                    spots: keyRatioAnalsisController.spotsData.isNotEmpty
+                                        ? keyRatioAnalsisController.spotsData
+                                        : [FlSpot(0, 0)], // Ensure there's always data to display
                                     isCurved: true,
                                     color: Colors.green,
                                     barWidth: 2,
@@ -775,32 +776,275 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                       color: Colors.green.withOpacity(0.3),
                                     ),
                                   ),
-                                  LineChartBarData(
-                                    spots: [
-                                      const FlSpot(10, 2.5),
-                                      const FlSpot(15, 4),
-                                      const FlSpot(20, 3),
-                                      const FlSpot(25, 3.5),
-                                      const FlSpot(30, 2.5),
-                                    ],
-                                    isCurved: true,
-                                    color: Colors.red,
-                                    barWidth: 2,
-                                    isStrokeCapRound: true,
-                                    dotData: const FlDotData(show: false),
-                                    belowBarData: BarAreaData(
-                                      show: true,
-                                      color: Colors.green.withOpacity(0.3),
-                                    ),
-                                  ),
                                 ],
-                                minX: 10,
-                                maxX: 30,
-                                minY: 0,
-                                maxY: 6,
+                                minX: keyRatioAnalsisController.spotsData.isNotEmpty
+                                    ? keyRatioAnalsisController.spotsData.first.x
+                                    : 0,
+                                maxX: keyRatioAnalsisController.spotsData.isNotEmpty
+                                    ? keyRatioAnalsisController.spotsData.last.x
+                                    : 1,
+                                minY: keyRatioAnalsisController.spotsData.isNotEmpty
+                                    ? keyRatioAnalsisController.spotsData.map((e) => e.y).reduce((a, b) => a < b ? a : b)
+                                    : 0,
+                                maxY: keyRatioAnalsisController.spotsData.isNotEmpty
+                                    ? keyRatioAnalsisController.spotsData.map((e) => e.y).reduce((a, b) => a > b ? a : b) + 1
+                                    : 6,
                               ),
                             ),
                           )
+                          // Container(
+                          //   height: 200,
+                          //   child: LineChart(
+                          //     LineChartData(
+                          //       extraLinesData: ExtraLinesData(
+                          //         extraLinesOnTop: true,
+                          //         verticalLines: [
+                          //           VerticalLine(
+                          //             x: keyRatioAnalsisController.dividerPosition.value,
+                          //             color: Colors.green,
+                          //             strokeWidth: 2,
+                          //             dashArray: [4, 2],
+                          //             label: VerticalLineLabel(
+                          //               show: true,
+                          //               alignment: Alignment.topRight,
+                          //               style: const TextStyle(
+                          //                 color: Colors.green,
+                          //                 fontSize: 12,
+                          //                 fontFamily: 'Urbanist',
+                          //               ),
+                          //               labelResolver: (line) {
+                          //                 return '${keyRatioAnalsisController.dividerPosition.value.toStringAsFixed(1)}';
+                          //               },
+                          //             ),
+                          //           ),
+                          //         ],
+                          //       ),
+                          //       borderData: FlBorderData(show: false),
+                          //       gridData: const FlGridData(show: false),
+                          //       titlesData: FlTitlesData(
+                          //         bottomTitles: AxisTitles(
+                          //           sideTitles: SideTitles(
+                          //             showTitles: true,
+                          //             interval: 5,
+                          //             getTitlesWidget: _buildBottomTitle,
+                          //           ),
+                          //         ),
+                          //         leftTitles: const AxisTitles(
+                          //           sideTitles: SideTitles(showTitles: false),
+                          //         ),
+                          //         rightTitles: const AxisTitles(
+                          //           sideTitles: SideTitles(showTitles: false),
+                          //         ),
+                          //         topTitles: const AxisTitles(
+                          //           sideTitles: SideTitles(showTitles: false),
+                          //         ),
+                          //       ),
+                          //       lineBarsData: [
+                          //         LineChartBarData(
+                          //           spots: keyRatioAnalsisController.spotsData.isNotEmpty
+                          //               ? keyRatioAnalsisController.spotsData
+                          //               : [FlSpot(0, 0)], // Ensure there's always data to display
+                          //           isCurved: true,
+                          //           color: Colors.green,
+                          //           barWidth: 2,
+                          //           isStrokeCapRound: true,
+                          //           dotData: const FlDotData(show: false),
+                          //           belowBarData: BarAreaData(
+                          //             show: true,
+                          //             color: Colors.green.withOpacity(0.3),
+                          //           ),
+                          //         ),
+                          //       ],
+                          //       minX: keyRatioAnalsisController.spotsData.isNotEmpty
+                          //           ? keyRatioAnalsisController.spotsData.first.x
+                          //           : 0,
+                          //       maxX: keyRatioAnalsisController.spotsData.isNotEmpty
+                          //           ? keyRatioAnalsisController.spotsData.last.x
+                          //           : 1,
+                          //       minY: keyRatioAnalsisController.spotsData.isNotEmpty
+                          //           ? keyRatioAnalsisController.spotsData.map((e) => e.y).reduce((a, b) => a < b ? a : b)
+                          //           : 0,
+                          //       maxY: keyRatioAnalsisController.spotsData.isNotEmpty
+                          //           ? keyRatioAnalsisController.spotsData.map((e) => e.y).reduce((a, b) => a > b ? a : b) + 1
+                          //           : 6,
+                          //
+                          //     ),
+                          //   )
+                          // )
+                          ///dynamic bt vertical line not show
+                          // Container(
+                          //   height: 200,
+                          //   child: LineChart(
+                          //     LineChartData(
+                          //         extraLinesData: ExtraLinesData(
+                          //         extraLinesOnTop: true,
+                          //         verticalLines: [
+                          //           VerticalLine(
+                          //             x: keyRatioAnalsisController.dividerPosition.value,
+                          //             color: Colors.green,
+                          //             strokeWidth: 2,
+                          //             dashArray: [4, 2],
+                          //             label: VerticalLineLabel(
+                          //               show: true,
+                          //               alignment: Alignment.topRight,
+                          //               style: const TextStyle(
+                          //                   color: Colors.green,
+                          //                   fontSize: 12,
+                          //                   fontFamily: 'Urbanist'
+                          //               ),
+                          //               labelResolver: (line) {
+                          //                 return '${keyRatioAnalsisController.dividerPosition.value.toStringAsFixed(1)}';
+                          //               },
+                          //             ),
+                          //           ),
+                          //         ],
+                          //       ),
+                          //       borderData: FlBorderData(show: false),
+                          //       gridData: const FlGridData(show: false),
+                          //       titlesData: FlTitlesData(
+                          //         bottomTitles: AxisTitles(
+                          //           sideTitles: SideTitles(
+                          //             showTitles: true,
+                          //             interval: 5,
+                          //             getTitlesWidget: _buildBottomTitle,
+                          //           ),
+                          //         ),
+                          //         leftTitles: const AxisTitles(
+                          //           sideTitles: SideTitles(showTitles: false),
+                          //         ),
+                          //         rightTitles: const AxisTitles(
+                          //           sideTitles: SideTitles(showTitles: false),
+                          //         ),
+                          //         topTitles: const AxisTitles(
+                          //           sideTitles: SideTitles(showTitles: false),
+                          //         ),
+                          //       ),
+                          //       lineBarsData: [
+                          //         LineChartBarData(
+                          //           spots: keyRatioAnalsisController.spotsData.isNotEmpty
+                          //               ? keyRatioAnalsisController.spotsData
+                          //               : [FlSpot(0, 0)], // Ensure there's always data to display
+                          //           isCurved: true,
+                          //           color: Colors.green,  // Set the line color here
+                          //           barWidth: 2,
+                          //           isStrokeCapRound: true,
+                          //           dotData: const FlDotData(show: false),
+                          //           belowBarData: BarAreaData(
+                          //             show: true,
+                          //             color: Colors.green.withOpacity(0.3), // Make sure this color is visible
+                          //           ),
+                          //         ),
+                          //       ],
+                          //       // Dynamically calculate minX, maxX based on your data
+                          //       minX: keyRatioAnalsisController.spotsData.isNotEmpty
+                          //           ? keyRatioAnalsisController.spotsData.first.x
+                          //           : 0,
+                          //       maxX: keyRatioAnalsisController.spotsData.isNotEmpty
+                          //           ? keyRatioAnalsisController.spotsData.last.x
+                          //           : 1,
+                          //       minY: keyRatioAnalsisController.spotsData.isNotEmpty
+                          //           ? keyRatioAnalsisController.spotsData.map((e) => e.y).reduce((a, b) => a < b ? a : b)
+                          //           : 0,
+                          //       maxY: keyRatioAnalsisController.spotsData.isNotEmpty
+                          //           ? keyRatioAnalsisController.spotsData.map((e) => e.y).reduce((a, b) => a > b ? a : b) + 1
+                          //           : 6,
+                          //     ),
+                          //   ),
+                          // )
+                          ///only design
+                          // Container(
+                          //   height: 200,
+                          //   child: LineChart(
+                          //     LineChartData(
+                          //       extraLinesData: ExtraLinesData(
+                          //         extraLinesOnTop: true,
+                          //         verticalLines: [
+                          //           VerticalLine(
+                          //             x: keyRatioAnalsisController
+                          //                 .dividerPosition.value,
+                          //             color: Colors.green,
+                          //             strokeWidth: 2,
+                          //             dashArray: [4, 2],
+                          //             label: VerticalLineLabel(
+                          //               show: true,
+                          //               alignment: Alignment.topRight,
+                          //               style: const TextStyle(
+                          //                   color: Colors.green,
+                          //                   fontSize: 12,
+                          //                   fontFamily: 'Urbanist'),
+                          //               labelResolver: (line) {
+                          //                 return '${keyRatioAnalsisController.dividerPosition.value.toStringAsFixed(1)}';
+                          //               },
+                          //             ),
+                          //           ),
+                          //         ],
+                          //       ),
+                          //       borderData: FlBorderData(show: false),
+                          //       gridData: const FlGridData(show: false),
+                          //       titlesData: FlTitlesData(
+                          //         bottomTitles: AxisTitles(
+                          //           sideTitles: SideTitles(
+                          //             showTitles: true,
+                          //             interval:
+                          //                 5, // This ensures that the interval between titles is correct
+                          //             getTitlesWidget: _buildBottomTitle,
+                          //           ),
+                          //         ),
+                          //         leftTitles: const AxisTitles(
+                          //           sideTitles: SideTitles(showTitles: false),
+                          //         ),
+                          //         rightTitles: const AxisTitles(
+                          //           sideTitles: SideTitles(showTitles: false),
+                          //         ),
+                          //         topTitles: const AxisTitles(
+                          //           sideTitles: SideTitles(showTitles: false),
+                          //         ),
+                          //       ),
+                          //       lineBarsData: [
+                          //         LineChartBarData(
+                          //           spots: [
+                          //             const FlSpot(10, 3),
+                          //             const FlSpot(15, 5),
+                          //             const FlSpot(20, 3.5),
+                          //             const FlSpot(25, 4),
+                          //             const FlSpot(30, 3),
+                          //           ],
+                          //           isCurved: true,
+                          //           color: Colors.green,
+                          //           barWidth: 2,
+                          //           isStrokeCapRound: true,
+                          //           dotData: const FlDotData(show: false),
+                          //           belowBarData: BarAreaData(
+                          //             show: true,
+                          //             color: Colors.green.withOpacity(0.3),
+                          //           ),
+                          //         ),
+                          //         LineChartBarData(
+                          //           spots: [
+                          //             const FlSpot(10, 2.5),
+                          //             const FlSpot(15, 4),
+                          //             const FlSpot(20, 3),
+                          //             const FlSpot(25, 3.5),
+                          //             const FlSpot(30, 2.5),
+                          //           ],
+                          //           isCurved: true,
+                          //           color: Colors.red,
+                          //           barWidth: 2,
+                          //           isStrokeCapRound: true,
+                          //           dotData: const FlDotData(show: false),
+                          //           belowBarData: BarAreaData(
+                          //             show: true,
+                          //             color: Colors.green.withOpacity(0.3),
+                          //           ),
+                          //         ),
+                          //       ],
+                          //       minX: 10,
+                          //       maxX: 30,
+                          //       minY: 0,
+                          //       maxY: 6,
+                          //     ),
+                          //   ),
+                          // )
                         ],
                       ),
                     )
@@ -809,4 +1053,56 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
               )),
         ));
   }
+
+  // final Record _record = Record();
+  //
+  // Future<void> requestPermissions() async {
+  //   var status = await Permission.microphone.request();
+  //   if (status != PermissionStatus.granted) {
+  //     print('Microphone permission denied');
+  //   }
+  // }
+  //
+  //
+  // Future<void> requestStoragePermission() async {
+  //   if (!await Permission.storage.isGranted) {
+  //     await Permission.storage.request();
+  //   }
+  // }
+  //
+  //
+  // Future<void> startRecording() async {
+  //   // Request storage permission
+  //   await requestStoragePermission();
+  //
+  //   // Get the external storage directory
+  //   Directory? externalDir = await getExternalStorageDirectory();
+  //
+  //   // Set the path to a public folder, e.g., "Downloads"
+  //   String filePath = '/storage/emulated/0/Download/audio.m4a';
+  //
+  //   if (await _record.hasPermission()) {
+  //     await _record.start(
+  //       path: filePath,
+  //       encoder: AudioEncoder.aacLc,
+  //       bitRate: 128000,
+  //       samplingRate: 44100,
+  //     );
+  //     print('Recording started and saved to: $filePath');
+  //   }
+  // }
+  //
+  // Future<void> stopRecording() async {
+  //   if (await _record.isRecording()) {
+  //     String? path = await _record.stop();
+  //     print('Recording stopped, saved at: $path');
+  //   }
+  // }
+  //
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   requestPermissions();
+  // }
+
 }

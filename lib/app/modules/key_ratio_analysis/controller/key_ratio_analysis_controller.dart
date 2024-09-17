@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ class KeyRatioAnalsisController extends GetxController{
   RxList<String> dayList = ['Above 30 days', 'Above 60 days', 'Above 90 days', 'Above 120 days'].obs;
   var ratios = <dynamic>[].obs;
 
-
+  var spotsData = <FlSpot>[].obs;
 
 //   Color getColorForInterpretation(String interpretation) {
 //     // print('interpretation: ${interpretation}');
@@ -96,15 +97,30 @@ class KeyRatioAnalsisController extends GetxController{
   }
 
 
-
   void _startMovingDivider() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      // Ensure spotsData is not empty before accessing its elements
+      if (spotsData.isNotEmpty) {
         dividerPosition.value += 1;
-        if (dividerPosition.value > 30) {
-          dividerPosition.value = 10; // Reset to initial position
+        if (dividerPosition.value > spotsData.last.x) {
+          dividerPosition.value = spotsData.first.x; // Reset to initial position based on data
         }
+      } else {
+        // Handle the case where spotsData is empty if necessary
+        dividerPosition.value = 0; // Or some default value
+      }
     });
   }
+
+
+  // void _startMovingDivider() {
+  //   _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+  //       dividerPosition.value += 1;
+  //       if (dividerPosition.value > 30) {
+  //         dividerPosition.value = 10; // Reset to initial position
+  //       }
+  //   });
+  // }
 
   Future<void> pickDateRange(BuildContext context) async {
     final DateTimeRange? picked = await showDateRangePicker(
@@ -131,6 +147,27 @@ class KeyRatioAnalsisController extends GetxController{
     keyRatioApi(startDate,endDate);
 
   }
+
+  void updateGraphData(List<dynamic> ratioData) {
+    print('-----updateGraphData-------');
+    // Clear the previous data
+    spotsData.clear();
+
+    // Parse the ratio data and convert it to FlSpot for the graph
+    for (int i = 0; i < ratioData.length; i++) {
+      var item = ratioData[i];
+
+      // Use the index `i` for the x-axis (time/index) and a distinct value for the y-axis (e.g., `item['value']`)
+      double x = i.toDouble(); // x can be the index or time point
+      double y = item['value'] != null ? double.parse(item['value'].toStringAsFixed(1)) : 0.0; // Replace 'value' with your actual key
+
+      // Add the valid FlSpot point
+      spotsData.add(FlSpot(x, y));
+    }
+
+    print('spotsData : $spotsData');
+  }
+
 
 
   Future<dynamic> keyRatioApi(String startDate,String endDate)  async {
@@ -168,8 +205,11 @@ class KeyRatioAnalsisController extends GetxController{
         var responseData = json.decode(response.body);
 
         ratios.value = responseData['data'];
-
+        var ratioData = responseData['data']; // Assuming 'data' holds the ratio information
         print('ratios: ${ratios}');
+        // Update the graph with the API data
+        updateGraphData(ratioData);
+
 
         // String stringValue = "1.2425730440491334";
         // double value = double.parse(stringValue);
