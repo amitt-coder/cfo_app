@@ -1,8 +1,4 @@
 import 'dart:math';
-import 'package:record/record.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:io';
 import 'package:cfo_app/utils/colors.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -22,14 +18,13 @@ class KeyRatioAnalsisView extends StatefulWidget {
 }
 
 class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
-
   KeyRatioAnalsisController keyRatioAnalsisController =
       Get.put(KeyRatioAnalsisController());
-//
+
   Widget _buildBottomTitle(double value, TitleMeta meta) {
     const style = TextStyle(
       color: Colors.black,
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.w500,
       fontFamily: 'Urbanist',
       fontSize: 10,
     );
@@ -193,12 +188,12 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                           ),
                           Obx(() => Container(
                                 height: 80,
-                                width:130,
+                                width: 130,
                                 padding: EdgeInsets.zero,
                                 child: ListView.builder(
                                   itemCount: keyRatioAnalsisController.ratios.length,
                                   padding: EdgeInsets.zero,
-                                  physics:const NeverScrollableScrollPhysics(),
+                                  physics: const NeverScrollableScrollPhysics(),
                                   itemBuilder: (context, index) {
                                     var item = keyRatioAnalsisController.ratios[index];
                                     double value = item["value"];
@@ -225,7 +220,9 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                           (speed.toInt() / maxSpeed) * 1.5 * pi;
                                     } else if (speed.toInt() == 0) {
                                       angle =
-                                          ((speed.toInt() - 10) / maxSpeed) * 1.5 * pi;
+                                          ((speed.toInt() - 10) / maxSpeed) *
+                                              1.5 *
+                                              pi;
                                     } else {
                                       angle = ((speed.toInt() - 2) / maxSpeed) *
                                           1.5 *
@@ -235,7 +232,8 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                     String textLabel = speed > 50 ? 'Good' : 'Bad';
                                     Color textColor = speed > 50 ? Colors.green : Colors.red;
                                     return Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
                                           textLabel,
@@ -248,7 +246,8 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                         ),
                                         // SizedBox(width: 10,),
                                         Container(
-                                          height: 80,width: 80,
+                                          height: 80,
+                                          width: 80,
                                           child: Align(
                                             alignment: Alignment.topRight,
                                             child: KdGaugeView(
@@ -262,16 +261,20 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                                   color: Colors.transparent),
                                               animate: false,
                                               gaugeWidth: 5,
-                                              duration: const Duration(seconds: 3),
+                                              duration:
+                                                  const Duration(seconds: 3),
                                               unitOfMeasurement: "",
                                               alertColorArray: [
                                                 AppColor.primaryColor,
                                                 Colors.yellow,
                                               ],
                                               alertSpeedArray: const [30, 35],
-                                              subDivisionCircleColors: Colors.transparent,
-                                              activeGaugeColor: AppColor.primaryColor,
-                                              divisionCircleColors: Colors.transparent,
+                                              subDivisionCircleColors:
+                                                  Colors.transparent,
+                                              activeGaugeColor:
+                                                  AppColor.primaryColor,
+                                              divisionCircleColors:
+                                                  Colors.transparent,
                                               child: Stack(
                                                 children: [
                                                   Container(
@@ -287,8 +290,7 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                                       child: SvgPicture.asset(
                                                         height: 58,
                                                         width: 58,
-                                                        ProjectImages
-                                                            .circle, // Your gauge circle image
+                                                        ProjectImages.circle, // Your gauge circle image
                                                       ),
                                                     ),
                                                   ),
@@ -296,8 +298,11 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                                     top: 25,
                                                     right: 25,
                                                     child: Transform(
-                                                      alignment: Alignment.center,
-                                                      transform: Matrix4.rotationZ(angle),
+                                                      alignment:
+                                                          Alignment.center,
+                                                      transform:
+                                                          Matrix4.rotationZ(
+                                                              angle),
                                                       child: SvgPicture.asset(
                                                         ProjectImages.point, // Your pointer image
                                                         width: 10,
@@ -312,12 +317,14 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                                       child: Text(
                                                         "${speed.toStringAsFixed(0)}%",
                                                         style: TextStyle(
-                                                          color: AppColor.fontColor,
+                                                          color: AppColor
+                                                              .fontColor,
                                                           fontSize: 17,
                                                           letterSpacing: 0.1,
                                                           fontWeight:
                                                               FontWeight.w400,
-                                                          fontFamily: 'Urbanist',
+                                                          fontFamily:
+                                                              'Urbanist',
                                                         ),
                                                       ),
                                                     ),
@@ -443,7 +450,7 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                     ),
                     Obx(() {
                       if (keyRatioAnalsisController.ratios.isEmpty) {
-                        return Center(child: Text(''));
+                        return Center(child: const Text(''));
                       }
                       return Container(
                         padding: const EdgeInsets.symmetric(
@@ -499,7 +506,7 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                     }),
                     Obx(() {
                       if (keyRatioAnalsisController.ratios.isEmpty) {
-                        return Center(child: Text('No data available'));
+                        return const Center(child: Text('No data available'));
                       }
                       return ListView.builder(
                           itemCount: keyRatioAnalsisController.ratios.length,
@@ -507,7 +514,8 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                           padding: EdgeInsets.zero,
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
-                            final item = keyRatioAnalsisController.ratios[index];
+                            final item =
+                                keyRatioAnalsisController.ratios[index];
                             return Container(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 10),
@@ -541,13 +549,17 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                         // If the item['value'] is a double, no need for toStringAsFixed
                                         item['value'] is double
                                             ? item['value'].toStringAsFixed(1)
-                                            : double.parse(item['value']).toStringAsFixed(1),
+                                            : double.parse(item['value'])
+                                                .toStringAsFixed(1),
                                         style: TextStyle(
                                           color: item['value'] is double
                                               ? keyRatioAnalsisController
-                                                  .getColorForInterpretation(item['value'])
+                                                  .getColorForInterpretation(
+                                                      item['value'])
                                               : keyRatioAnalsisController
-                                                  .getColorForInterpretation(double.parse(item['value'])),
+                                                  .getColorForInterpretation(
+                                                      double.parse(
+                                                          item['value'])),
                                           fontFamily: 'Urbanist',
                                           fontWeight: FontWeight.w500,
                                           fontSize: 15,
@@ -585,11 +597,9 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                             );
                           });
                     }),
-
                     const SizedBox(
                       height: 15,
                     ),
-
                     ///Show/Not Show
                     Text(
                       'Ratio Details',
@@ -712,86 +722,304 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                             ],
                           ),
                           const SizedBox(
-                            height: 15,
+                            height: 20,
                           ),
                           Container(
-                            height: 200,
-                            child: LineChart(
-                              LineChartData(
-                                extraLinesData: ExtraLinesData(
-                                  extraLinesOnTop: true,
-                                  verticalLines: [
-                                    VerticalLine(
-                                      x: keyRatioAnalsisController.dividerPosition.value,
-                                      color: Colors.green,
-                                      strokeWidth: 2,
-                                      dashArray: [4, 2],
-                                      label: VerticalLineLabel(
-                                        show: true,
-                                        alignment: Alignment.topRight,
-                                        style: const TextStyle(
-                                          color: Colors.green,
-                                          fontSize: 12,
-                                          fontFamily: 'Urbanist',
-                                        ),
-                                        labelResolver: (line) {
-                                          return '${keyRatioAnalsisController.dividerPosition.value.toStringAsFixed(1)}';
-                                        },
+                            height: 132,
+                            child: BarChart(
+                              BarChartData(
+                                alignment: BarChartAlignment.spaceAround,
+                                barGroups: keyRatioAnalsisController.ratios
+                                    .asMap()
+                                    .entries
+                                    .map(
+                                      (e) => BarChartGroupData(
+                                    groupVertically: true,
+                                    x: e.key, // Index of the group
+                                    barRods: [
+                                      BarChartRodData(
+                                        borderRadius: BorderRadius.circular(3),
+                                        toY: (e.value['value'] is double)
+                                            ? double.parse(e.value['value'].toStringAsFixed(1)) // Truncate to 1 decimal place
+                                            : 0.0, // If value is not a double, fallback to 0.0
+                                        color: const Color(0xFF48BD69),
+                                        width: 11,
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                borderData: FlBorderData(show: false),
-                                gridData: const FlGridData(show: false),
+                                    ],
+                                  ),
+                                ).toList(),
                                 titlesData: FlTitlesData(
-                                  bottomTitles: AxisTitles(
-                                    sideTitles: SideTitles(
-                                      showTitles: true,
-                                      interval: 5,
-                                      getTitlesWidget: _buildBottomTitle,
-                                    ),
-                                  ),
-                                  leftTitles: const AxisTitles(
-                                    sideTitles: SideTitles(showTitles: false),
-                                  ),
                                   rightTitles: const AxisTitles(
                                     sideTitles: SideTitles(showTitles: false),
                                   ),
                                   topTitles: const AxisTitles(
                                     sideTitles: SideTitles(showTitles: false),
                                   ),
-                                ),
-                                lineBarsData: [
-                                  LineChartBarData(
-                                    spots: keyRatioAnalsisController.spotsData.isNotEmpty
-                                        ? keyRatioAnalsisController.spotsData
-                                        : [FlSpot(0, 0)], // Ensure there's always data to display
-                                    isCurved: true,
-                                    color: Colors.green,
-                                    barWidth: 2,
-                                    isStrokeCapRound: true,
-                                    dotData: const FlDotData(show: false),
-                                    belowBarData: BarAreaData(
-                                      show: true,
-                                      color: Colors.green.withOpacity(0.3),
+                                  leftTitles: AxisTitles(
+                                    drawBelowEverything: true,
+                                    sideTitles: SideTitles(
+                                      showTitles: true,
+                                      reservedSize: 30,
+                                      interval: 20,
+                                      getTitlesWidget: (value, meta) {
+                                        return Text(
+                                          "${value}", // Display Y-axis values as percentages
+                                          style: TextStyle(
+                                            color: AppColor.fontColor,
+                                            fontSize: 7,
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: 'Urbanist',
+                                          ),
+                                        );
+                                      },
                                     ),
                                   ),
-                                ],
-                                minX: keyRatioAnalsisController.spotsData.isNotEmpty
-                                    ? keyRatioAnalsisController.spotsData.first.x
-                                    : 0,
-                                maxX: keyRatioAnalsisController.spotsData.isNotEmpty
-                                    ? keyRatioAnalsisController.spotsData.last.x
-                                    : 1,
-                                minY: keyRatioAnalsisController.spotsData.isNotEmpty
-                                    ? keyRatioAnalsisController.spotsData.map((e) => e.y).reduce((a, b) => a < b ? a : b)
-                                    : 0,
-                                maxY: keyRatioAnalsisController.spotsData.isNotEmpty
-                                    ? keyRatioAnalsisController.spotsData.map((e) => e.y).reduce((a, b) => a > b ? a : b) + 1
-                                    : 6,
+                                  bottomTitles: AxisTitles(
+                                    sideTitles: SideTitles(
+                                      showTitles: true,
+                                      getTitlesWidget: (value, meta) {
+                                        // Accessing names from the ratios list for bottom titles
+                                          final categories = keyRatioAnalsisController.ratios
+                                            .map((e) => e['name'] ?? 'Unknown')
+                                            .toList();
+                                        return Column(
+                                          children: [
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              categories[value.toInt() % categories.length], // Showing the names on X-axis
+                                              style: TextStyle(
+                                                color: AppColor.blackColor,
+                                                fontSize: 4,
+                                                fontWeight: FontWeight.w400,
+                                                fontFamily: 'Urbanist',
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                baselineY: 0, // Set baseline to 0
+                                maxY: 100, // Set max Y to 100 for percentage scale
+                                gridData: FlGridData(
+                                  show: true,
+                                  drawVerticalLine: false,
+                                  verticalInterval: 20, // Interval for percentage scale
+                                  horizontalInterval: 20, // Interval for percentage scale
+                                  getDrawingHorizontalLine: (value) {
+                                    return const FlLine(
+                                      color: Color(0xFFB1B1B1),
+                                      strokeWidth: 0.5,
+                                    );
+                                  },
+                                ),
+                                borderData: FlBorderData(
+                                  show: true,
+                                  border: Border.all(
+                                    color: Colors.transparent,
+                                  ),
+                                ),
                               ),
-                            ),
+                            )
                           )
+                          ///Linear Chart Design
+                          // Container(
+                          //   height: 132,
+                          //   child: BarChart(
+                          //     BarChartData(
+                          //       alignment: BarChartAlignment.spaceAround,
+                          //       barGroups: keyRatioAnalsisController.ratios
+                          //           .asMap()
+                          //           .entries
+                          //           .map(
+                          //             (e) => BarChartGroupData(
+                          //               groupVertically: true,
+                          //               x: e.key, // Index of the group
+                          //               barRods: [
+                          //                 BarChartRodData(
+                          //                   borderRadius:
+                          //                       BorderRadius.circular(3),
+                          //                   toY: double.tryParse(e
+                          //                               .value['ratio']
+                          //                               ?.toString() ??
+                          //                           '0') ??
+                          //                       0.0, // Accessing the 'ratio' field safely
+                          //                   color: const Color(0xFF48BD69),
+                          //                   width: 11,
+                          //                 ),
+                          //               ],
+                          //             ),
+                          //           )
+                          //           .toList(),
+                          //       titlesData: FlTitlesData(
+                          //         rightTitles: const AxisTitles(
+                          //             sideTitles:
+                          //                 SideTitles(showTitles: false)),
+                          //         topTitles: const AxisTitles(
+                          //           sideTitles: SideTitles(
+                          //             showTitles: false,
+                          //           ),
+                          //         ),
+                          //         leftTitles: AxisTitles(
+                          //           sideTitles: SideTitles(
+                          //             showTitles: true,
+                          //             reservedSize: 30,
+                          //             interval:
+                          //                 20, // Adjust for percentage values (e.g., every 20%)
+                          //             getTitlesWidget: (value, meta) {
+                          //               return Text(
+                          //                 "${value.toInt()}%", // Display as percentage
+                          //                 style: TextStyle(
+                          //                   color: AppColor.fontColor,
+                          //                   fontSize: 7,
+                          //                   fontWeight: FontWeight.w500,
+                          //                   fontFamily: 'Urbanist',
+                          //                 ),
+                          //               );
+                          //             },
+                          //           ),
+                          //           drawBelowEverything: true,
+                          //         ),
+                          //         bottomTitles: AxisTitles(
+                          //           sideTitles: SideTitles(
+                          //             showTitles: true,
+                          //             getTitlesWidget: (value, meta) {
+                          //               // Accessing names from the ratios list
+                          //               final categories =
+                          //                   keyRatioAnalsisController.ratios
+                          //                       .map((e) =>
+                          //                           e['name'] ?? 'Unknown')
+                          //                       .toList();
+                          //               return Column(
+                          //                 children: [
+                          //                   const SizedBox(
+                          //                     height: 10,
+                          //                   ),
+                          //                   Text(
+                          //                     categories[value.toInt() %
+                          //                         categories
+                          //                             .length], // Handling bottom titles (names)
+                          //                     style: TextStyle(
+                          //                       color: AppColor.blackColor,
+                          //                       fontSize: 5,
+                          //                       fontWeight: FontWeight.w500,
+                          //                       fontFamily: 'Urbanist',
+                          //                     ),
+                          //                   ),
+                          //                 ],
+                          //               );
+                          //             },
+                          //           ),
+                          //         ),
+                          //       ),
+                          //       baselineY: 0, // Set baseline to 0
+                          //       maxY:
+                          //           100, // Set max Y to 100 for percentage scale
+                          //       gridData: FlGridData(
+                          //         show: true,
+                          //         verticalInterval:
+                          //             20, // Adjusted interval for percentage scale
+                          //         horizontalInterval:
+                          //             20, // Adjusted interval for percentage scale
+                          //         getDrawingHorizontalLine: (value) {
+                          //           return const FlLine(
+                          //             color: Color(0xFFB1B1B1),
+                          //             strokeWidth: 0.5,
+                          //           );
+                          //         },
+                          //         drawVerticalLine: false,
+                          //       ),
+                          //       borderData: FlBorderData(
+                          //         show: true,
+                          //         border: Border.all(
+                          //           color: Colors.transparent,
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // )
+                              ///
+                          // Container(
+                          //   height: 200,
+                          //   child: LineChart(
+                          //     LineChartData(
+                          //       extraLinesData: ExtraLinesData(
+                          //         extraLinesOnTop: true,
+                          //         verticalLines: [
+                          //           VerticalLine(
+                          //             x: keyRatioAnalsisController.dividerPosition.value,
+                          //             color: Colors.green,
+                          //             strokeWidth: 2,
+                          //             dashArray: [4, 2],
+                          //             label: VerticalLineLabel(
+                          //               show: true,
+                          //               alignment: Alignment.topRight,
+                          //               style: const TextStyle(
+                          //                 color: Colors.green,
+                          //                 fontSize: 12,
+                          //                 fontFamily: 'Urbanist',
+                          //               ),
+                          //               labelResolver: (line) {
+                          //                 return keyRatioAnalsisController.dividerPosition.value.toStringAsFixed(1);
+                          //               },
+                          //             ),
+                          //           ),
+                          //         ],
+                          //       ),
+                          //       borderData: FlBorderData(show: false),
+                          //       gridData: const FlGridData(show: false),
+                          //       titlesData: FlTitlesData(
+                          //         bottomTitles: AxisTitles(
+                          //           sideTitles: SideTitles(
+                          //             showTitles: false,
+                          //             interval: 5,
+                          //             getTitlesWidget: _buildBottomTitle,
+                          //           ),
+                          //         ),
+                          //         leftTitles: const AxisTitles(
+                          //           sideTitles: SideTitles(showTitles: false),
+                          //         ),
+                          //         rightTitles: const AxisTitles(
+                          //           sideTitles: SideTitles(showTitles: false),
+                          //         ),
+                          //         topTitles: const AxisTitles(
+                          //           sideTitles: SideTitles(showTitles: false),
+                          //         ),
+                          //       ),
+                          //       lineBarsData: [
+                          //         LineChartBarData(
+                          //           spots: keyRatioAnalsisController.spotsData.isNotEmpty
+                          //               ? keyRatioAnalsisController.spotsData
+                          //               : [const FlSpot(0, 0)], // Ensure there's always data to display
+                          //           isCurved: true,
+                          //           color: Colors.green,
+                          //           barWidth: 2,
+                          //           isStrokeCapRound: true,
+                          //           dotData: const FlDotData(show: false),
+                          //           belowBarData: BarAreaData(
+                          //             show: true,
+                          //             color: Colors.green.withOpacity(0.3),
+                          //           ),
+                          //         ),
+                          //       ],
+                          //       minX: keyRatioAnalsisController.spotsData.isNotEmpty
+                          //           ? keyRatioAnalsisController.spotsData.first.x
+                          //           : 0,
+                          //       maxX: keyRatioAnalsisController.spotsData.isNotEmpty
+                          //           ? keyRatioAnalsisController.spotsData.last.x
+                          //           : 1,
+                          //       minY: keyRatioAnalsisController.spotsData.isNotEmpty
+                          //           ? keyRatioAnalsisController.spotsData.map((e) => e.y).reduce((a, b) => a < b ? a : b)
+                          //           : 0,
+                          //       maxY: keyRatioAnalsisController.spotsData.isNotEmpty
+                          //           ? keyRatioAnalsisController.spotsData.map((e) => e.y).reduce((a, b) => a > b ? a : b) + 1
+                          //           : 6,
+                          //     ),
+                          //   ),
+                          // )
                           // Container(
                           //   height: 200,
                           //   child: LineChart(
@@ -1047,7 +1275,7 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                           // )
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               )),

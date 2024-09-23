@@ -61,7 +61,7 @@ dependencies:
   device_info_plus: ^9.0.0
   dio: ^5.5.0+1
   get_storage: ^2.1.1
-  record: ^4.4.4
+#  record: ^4.4.4
 
 
 

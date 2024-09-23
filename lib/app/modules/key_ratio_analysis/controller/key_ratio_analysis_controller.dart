@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:math';
 import 'dart:ui';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:get_storage/get_storage.dart';
@@ -10,19 +9,45 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../../../data/api.dart';
 
-class KeyRatioAnalsisController extends GetxController{
-
+class KeyRatioAnalsisController extends GetxController {
   // RxDouble _dividerPosition = 10.obs as RxDouble;
 
-
   final List<KeyRatio> keyRatios = [
-    KeyRatio(name: 'Current Ratio', value:"1.5", benchmark:'1.0-2.0', interpretation: 'Healthy'),//7Healthy
-    KeyRatio(name: 'Quick Ratio', value:"1.2", benchmark:'0.8-1.5', interpretation: 'Optimal'),//8Adequate
-    KeyRatio(name: 'Debt Cover', value:"2.5", benchmark:'0.8-1.5', interpretation: 'Strong'),//6Strong
-    KeyRatio(name: 'Daily Base', value:"6.0", benchmark:'0.8-1.5', interpretation: 'Efficient'),//9Efficient
-    KeyRatio(name: 'Daily Payment Out', value:"10.0", benchmark:'0.8-1.5', interpretation: 'Efficient'),//6Optimal
-    KeyRatio(name: 'Inventory', value:"12.0", benchmark:'0.8-1.5', interpretation: 'Optimal'),//6Optimal
-    KeyRatio(name: 'Working Capital Ratio', value:"4.0", benchmark:'0.8-1.5', interpretation: 'Efficient'),//6Optimal
+    KeyRatio(
+        name: 'Current Ratio',
+        value: "1.5",
+        benchmark: '1.0-2.0',
+        interpretation: 'Healthy'), //7Healthy
+    KeyRatio(
+        name: 'Quick Ratio',
+        value: "1.2",
+        benchmark: '0.8-1.5',
+        interpretation: 'Optimal'), //8Adequate
+    KeyRatio(
+        name: 'Debt Cover',
+        value: "2.5",
+        benchmark: '0.8-1.5',
+        interpretation: 'Strong'), //6Strong
+    KeyRatio(
+        name: 'Daily Base',
+        value: "6.0",
+        benchmark: '0.8-1.5',
+        interpretation: 'Efficient'), //9Efficient
+    KeyRatio(
+        name: 'Daily Payment Out',
+        value: "10.0",
+        benchmark: '0.8-1.5',
+        interpretation: 'Efficient'), //6Optimal
+    KeyRatio(
+        name: 'Inventory',
+        value: "12.0",
+        benchmark: '0.8-1.5',
+        interpretation: 'Optimal'), //6Optimal
+    KeyRatio(
+        name: 'Working Capital Ratio',
+        value: "4.0",
+        benchmark: '0.8-1.5',
+        interpretation: 'Efficient'), //6Optimal
   ];
 
   //Working - Working Capital Ratio
@@ -37,12 +62,13 @@ class KeyRatioAnalsisController extends GetxController{
   Timer? _timer;
   var dividerPosition = 0.0.obs;
   RxString showday = 'Above 30 days'.obs;
-  RxList<String> dayList = ['Above 30 days', 'Above 60 days', 'Above 90 days', 'Above 120 days'].obs;
+  RxList<String> dayList =
+      ['Above 30 days', 'Above 60 days', 'Above 90 days', 'Above 120 days'].obs;
   var ratios = <dynamic>[].obs;
 
   var spotsData = <FlSpot>[].obs;
 
-//   Color getColorForInterpretation(String interpretation) {
+  //   Color getColorForInterpretation(String interpretation) {
 //     // print('interpretation: ${interpretation}');
 //     switch (interpretation) {
 //       case 'Healthy':
@@ -82,11 +108,10 @@ class KeyRatioAnalsisController extends GetxController{
     }
   }
 
-
   @override
   void onInit() {
     _startMovingDivider();
-    keyRatioApi("2024-05-05","2024-05-20");
+    keyRatioApi("2024-05-05", "2024-05-20");
     super.onInit();
   }
 
@@ -96,14 +121,14 @@ class KeyRatioAnalsisController extends GetxController{
     super.dispose();
   }
 
-
   void _startMovingDivider() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       // Ensure spotsData is not empty before accessing its elements
       if (spotsData.isNotEmpty) {
         dividerPosition.value += 1;
         if (dividerPosition.value > spotsData.last.x) {
-          dividerPosition.value = spotsData.first.x; // Reset to initial position based on data
+          dividerPosition.value =
+              spotsData.first.x; // Reset to initial position based on data
         }
       } else {
         // Handle the case where spotsData is empty if necessary
@@ -111,7 +136,6 @@ class KeyRatioAnalsisController extends GetxController{
       }
     });
   }
-
 
   // void _startMovingDivider() {
   //   _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -144,8 +168,7 @@ class KeyRatioAnalsisController extends GetxController{
     dateRangeController.text = "$startDate to $endDate";
 
     // print('dateRangeController: ${dateRangeController.text.toString()}');
-    keyRatioApi(startDate,endDate);
-
+    keyRatioApi(startDate, endDate);
   }
 
   void updateGraphData(List<dynamic> ratioData) {
@@ -159,19 +182,19 @@ class KeyRatioAnalsisController extends GetxController{
 
       // Use the index `i` for the x-axis (time/index) and a distinct value for the y-axis (e.g., `item['value']`)
       double x = i.toDouble(); // x can be the index or time point
-      double y = item['value'] != null ? double.parse(item['value'].toStringAsFixed(1)) : 0.0; // Replace 'value' with your actual key
+      double y = item['value'] != null
+          ? double.parse(item['value'].toStringAsFixed(1))
+          : 0.0; // Replace 'value' with your actual key
 
       // Add the valid FlSpot point
       spotsData.add(FlSpot(x, y));
+      print('spotsData: $spotsData');
     }
 
     print('spotsData : $spotsData');
   }
 
-
-
-  Future<dynamic> keyRatioApi(String startDate,String endDate)  async {
-
+  Future<dynamic> keyRatioApi(String startDate, String endDate) async {
     print('-------keyRatioApi--------');
 
     print('startDate: $startDate');
@@ -189,7 +212,8 @@ class KeyRatioAnalsisController extends GetxController{
     print('url:${Api.ratio}$userId/$startDate/$endDate/');
 
     try {
-      var response = await http.get(Uri.parse('${Api.ratio}$userId/$startDate/$endDate/'),
+      var response = await http.get(
+        Uri.parse('${Api.ratio}$userId/$startDate/$endDate/'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer $token',
@@ -197,19 +221,17 @@ class KeyRatioAnalsisController extends GetxController{
         // body: encodedBody,
       );
 
-
       print('response statusCode: ${response.statusCode}');
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-
         var responseData = json.decode(response.body);
 
         ratios.value = responseData['data'];
-        var ratioData = responseData['data']; // Assuming 'data' holds the ratio information
+        var ratioData =
+            responseData['data']; // Assuming 'data' holds the ratio information
         print('ratios: ${ratios}');
         // Update the graph with the API data
         updateGraphData(ratioData);
-
 
         // String stringValue = "1.2425730440491334";
         // double value = double.parse(stringValue);
@@ -234,9 +256,6 @@ class KeyRatioAnalsisController extends GetxController{
       return e;
     }
   }
-
-
-
 }
 
 class KeyRatio {
