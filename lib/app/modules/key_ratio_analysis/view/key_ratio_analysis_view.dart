@@ -514,8 +514,7 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                           padding: EdgeInsets.zero,
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
-                            final item =
-                                keyRatioAnalsisController.ratios[index];
+                            final item = keyRatioAnalsisController.ratios[index];
                             return Container(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 10),
@@ -549,8 +548,7 @@ class _KeyRatioAnalsisViewState extends State<KeyRatioAnalsisView> {
                                         // If the item['value'] is a double, no need for toStringAsFixed
                                         item['value'] is double
                                             ? item['value'].toStringAsFixed(1)
-                                            : double.parse(item['value'])
-                                                .toStringAsFixed(1),
+                                            : double.parse(item['value']).toStringAsFixed(1),
                                         style: TextStyle(
                                           color: item['value'] is double
                                               ? keyRatioAnalsisController
